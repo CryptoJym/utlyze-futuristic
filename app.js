@@ -1,4 +1,11 @@
 // Utlyze Website JavaScript - Premium Edition (Fixed)
+
+// Initialize Supabase client
+// REPLACE WITH YOUR ACTUAL SUPABASE URL AND ANON KEY
+const supabaseUrl = 'YOUR_SUPABASE_URL';
+const supabaseKey = 'YOUR_ANON_KEY';
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize premium animations and effects
     initializePremiumEffects();
@@ -212,10 +219,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function submitFormWithAnimation() {
+    async function submitFormWithAnimation() {
         const submitButton = form.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
         const formContainer = form.parentElement;
+        
+        // Get form data
+        const formData = {
+            url: document.getElementById('url').value,
+            description: document.getElementById('description').value,
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value
+        };
         
         // Show premium loading state
         submitButton.innerHTML = '<span style="opacity: 0.7;">Submitting...</span>';
@@ -225,8 +240,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add subtle pulse effect to form
         formContainer.style.animation = 'pulse-submit 1.5s ease-in-out';
         
-        // Simulate API call with premium transition
-        setTimeout(() => {
+        try {
+            // Submit to Supabase
+            const { data, error } = await supabase
+                .from('submissions')
+                .insert([formData]);
+            
+            if (error) throw error;
+            
+            // Success - proceed with animations
             // Hide form with smooth animation
             form.style.transform = 'translateY(-20px)';
             form.style.opacity = '0';
@@ -256,14 +278,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 100);
             }, 600);
             
-            // Reset button state (for potential reuse)
-            setTimeout(() => {
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-                submitButton.style.transform = 'scale(1)';
-            }, 1000);
+            // Reset form
+            form.reset();
             
-        }, 1800);
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            // Show error message
+            alert('Error submitting form. Please try again.');
+            
+            // Reset button state
+            submitButton.innerHTML = originalText;
+            submitButton.disabled = false;
+            submitButton.style.transform = 'scale(1)';
+            formContainer.style.animation = '';
+        }
     }
 
     // Premium celebration particles effect
