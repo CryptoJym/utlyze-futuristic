@@ -1,9 +1,8 @@
 // Utlyze Website JavaScript - Premium Edition (Fixed)
 
 // Initialize Supabase client
-// REPLACE WITH YOUR ACTUAL SUPABASE URL AND ANON KEY
-const supabaseUrl = 'YOUR_SUPABASE_URL';
-const supabaseKey = 'YOUR_ANON_KEY';
+const supabaseUrl = 'https://mvjzmhlwnbwkrtachiec.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12anptaGx3bmJ3a3J0YWNoaWVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwOTI1MDQsImV4cCI6MjA2OTY2ODUwNH0.KWWX-XFgBqCA4MUpUOIU_Dt0gLX7O6mWgMVJhJAuCXw';
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 document.addEventListener('DOMContentLoaded', function() {
