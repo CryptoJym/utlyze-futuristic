@@ -3,7 +3,16 @@
 // Initialize Supabase client
 const supabaseUrl = 'https://mvjzmhlwnbwkrtachiec.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12anptaGx3bmJ3a3J0YWNoaWVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwOTI1MDQsImV4cCI6MjA2OTY2ODUwNH0.KWWX-XFgBqCA4MUpUOIU_Dt0gLX7O6mWgMVJhJAuCXw';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+// Initialise Supabase only if the library is available. Without this check,
+// an undefined 'window.supabase' throws and stops all other code from running.
+let supabase;
+if (window.supabase && typeof window.supabase.createClient === 'function') {
+    supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+} else {
+    console.warn('Supabase library not loaded; skipping Supabase initialisation');
+    supabase = null;
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize premium animations and effects
@@ -240,12 +249,16 @@ document.addEventListener('DOMContentLoaded', function() {
         formContainer.style.animation = 'pulse-submit 1.5s ease-in-out';
         
         try {
-            // Submit to Supabase
-            const { data, error } = await supabase
-                .from('submissions')
-                .insert([formData]);
-            
-            if (error) throw error;
+            // Submit to Supabase if available
+            if (supabase) {
+                const { data, error } = await supabase
+                    .from('submissions')
+                    .insert([formData]);
+                
+                if (error) throw error;
+            } else {
+                console.warn('Supabase not available, skipping form submission to database');
+            }
             
             // Success - proceed with animations
             // Hide form with smooth animation
