@@ -10,6 +10,9 @@ on:
       - 'scripts/sync-companies.mjs'
       - '.github/workflows/sync-companies.yml'
 
+permissions:
+  contents: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
