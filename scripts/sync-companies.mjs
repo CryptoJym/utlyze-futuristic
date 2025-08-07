@@ -62,8 +62,52 @@ async function fetchNotionCompanies(){
 
 async function maybeGammaGenerate(company){
   if(!GAMMA_ENABLED) return company;
-  // Placeholder hook; implement after API shape finalization
+  try {
+    const payload = {
+      type: 'document',
+      title: `${company.name} One-Pager`,
+      prompt: `Create a concise, VC-ready one-pager for ${company.name}.\nTagline: ${company.tagline||''}\nIndustry: ${company.industry||''}\nStage: ${company.stage||''}\nOverview: ${company.description||''}\nHighlights: ${(company.achievements||[]).join(', ')}`,
+      theme: process.env.GAMMA_THEME || 'utlyze-default',
+      format: 'letter'
+    };
+
+    const genRes = await fetch('https://api.gamma.app/v0.2/generate', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.GAMMA_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+    if(!genRes.ok) throw new Error(`Gamma generate failed ${genRes.status}`);
+    const gen = await genRes.json();
+    const docId = gen.id || gen.documentId || gen.result?.id;
+
+    if(docId){
+      const pdfRes = await fetch(`https://api.gamma.app/v0.2/exports/${docId}?format=pdf`, {
+        headers: { 'Authorization': `Bearer ${process.env.GAMMA_API_KEY}` }
+      });
+      if(pdfRes.ok){
+        const pdfJson = await pdfRes.json();
+        company.onePagerPdfUrl = pdfJson.url || pdfJson.downloadUrl;
+      }
+
+      const imgRes = await fetch(`https://api.gamma.app/v0.2/exports/${docId}?format=image`, {
+        headers: { 'Authorization': `Bearer ${process.env.GAMMA_API_KEY}` }
+      });
+      if(imgRes.ok){
+        const imgJson = await imgRes.json();
+        company.ogImage = imgJson.url || imgJson.downloadUrl;
+      }
+    }
+  } catch (err) {
+    console.warn('Gamma generation skipped:', err.message);
+  }
   return company;
+}
+
+function esc(str){
+  return String(str||'').replaceAll('"','&quot;');
 }
 
 async function main(){
@@ -73,13 +117,8 @@ async function main(){
   let companies;
   if(NOTION_ENABLED){
     companies = await fetchNotionCompanies();
-    const enriched = [];
-    for(const c of companies){
-      enriched.push(await maybeGammaGenerate(c));
-    }
-    companies = enriched;
   } else {
-    // Fallback: read existing data.json if present
+    // Read existing data.json (no Notion)
     try {
       const raw = await fs.readFile(path.join(baseDir, 'data.json'), 'utf-8');
       companies = JSON.parse(raw);
@@ -88,15 +127,24 @@ async function main(){
     }
   }
 
-  // Write data.json for the gallery
+  // Enrich with Gamma assets when available
+  if (companies && companies.length) {
+    const enriched = [];
+    for (const c of companies) {
+      enriched.push(await maybeGammaGenerate(c));
+    }
+    companies = enriched;
+  }
+
+  // Write data.json back (now with Gamma fields)
   await fs.writeFile(path.join(baseDir, 'data.json'), JSON.stringify(companies, null, 2));
 
-  // Generate simple detail pages for any slugs missing
+  // Generate/refresh detail pages
   for(const c of companies){
     const slug = (c.slug || c.name.toLowerCase().replace(/[^a-z0-9]+/g,'-'));
     const dir = path.join(baseDir, slug);
     await ensureDir(dir);
-    const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>${c.name} — Utlyze Companies</title><meta name="description" content="${(c.tagline||'').replace(/"/g,'&quot;')}"/><link rel="stylesheet" href="../style.css"/></head><body><header class="header"><div class="container"><div class="header__content"><div class="logo"><h1 class="logo__text">Utlyze Companies</h1><p class="logo__tagline">A gallery of ideas and ventures we’re building</p></div></div></div></header><section class="hero"><div class="container"><div class="hero__content"><h2 class="hero__title">${c.name}</h2><p class="hero__description">${c.tagline||''}</p><div><a class="btn btn--primary" href="${c.demoUrl||'#'}" target="_blank" rel="noopener">Explore the app</a><a class="btn btn--outline" href="${c.websiteUrl||'#'}" target="_blank" rel="noopener">Visit website</a><a class="btn btn--outline" href="/companies/">Back to gallery</a></div></div></div></section><section class="section"><div class="container"><h3>Overview</h3><p>${c.description||''}</p><h3>Highlights</h3><ul>${(c.achievements||[]).map(a=>`<li>${a}</li>`).join('')}</ul></div></section><footer class="footer"><div class="container"><div class="footer__content"><div class="footer__section"><h3>Contact Us</h3><p>Email: <a href="mailto:hello@utlyze.com">hello@utlyze.com</a></p></div><div class="footer__section"><h3>Follow Us</h3><div class="social-links"><a href="https://www.linkedin.com/company/utlyze" target="_blank" rel="noopener">LinkedIn</a></div></div></div><div class="footer__bottom"><p>&copy; 2025 Utlyze. All rights reserved.</p></div></div></footer></body></html>`;
+    const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>${esc(c.name)} — Utlyze Companies</title><meta name="description" content="${esc(c.tagline)}"/>${c.ogImage?`<meta property=\"og:image\" content=\"${esc(c.ogImage)}\"/>`:''}<link rel="stylesheet" href="../style.css"/></head><body><header class="header"><div class="container"><div class="header__content"><div class="logo"><h1 class="logo__text">Utlyze Companies</h1><p class="logo__tagline">A gallery of ideas and ventures we’re building</p></div></div></div></header><section class="hero"><div class="container"><div class="hero__content"><h2 class="hero__title">${esc(c.name)}</h2><p class="hero__description">${esc(c.tagline)}</p><div><a class="btn btn--primary" href="${c.demoUrl||'#'}" target="_blank" rel="noopener">Explore the app</a><a class="btn btn--outline" href="${c.websiteUrl||'#'}" target="_blank" rel="noopener">Visit website</a><a class="btn btn--outline" href="/companies/">Back to gallery</a></div>${c.onePagerPdfUrl?`<div style=\"margin-top:16px\"><a class=\"btn btn--outline\" href=\"${esc(c.onePagerPdfUrl)}\" target=\"_blank\" rel=\"noopener\">Download one‑pager (PDF)</a></div>`:''}</div></div></section><section class="section"><div class="container"><h3>Overview</h3><p>${esc(c.description)}</p><h3>Highlights</h3><ul>${(c.achievements||[]).map(a=>`<li>${esc(a)}</li>`).join('')}</ul></div></section><footer class="footer"><div class="container"><div class="footer__content"><div class="footer__section"><h3>Contact Us</h3><p>Email: <a href="mailto:hello@utlyze.com">hello@utlyze.com</a></p></div><div class="footer__section"><h3>Follow Us</h3><div class="social-links"><a href="https://www.linkedin.com/company/utlyze" target="_blank" rel="noopener">LinkedIn</a></div></div></div><div class="footer__bottom"><p>&copy; 2025 Utlyze. All rights reserved.</p></div></div></footer></body></html>`;
     await fs.writeFile(path.join(dir, 'index.html'), html);
   }
 }
