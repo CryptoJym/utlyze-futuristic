@@ -3,6 +3,7 @@ const companies = [
   {
     "id": 100,
     "name": "Vuplicity",
+    "slug": "vuplicity",
     "logo": "V",
     "color": "#2563EB",
     "tagline": "Unified AI for content velocity and brand clarity",
@@ -252,7 +253,7 @@ function createCompanyCard(company) {
         <a href="${company.demoUrl}" target="_blank" class="btn--demo">
           View Demo
         </a>
-        <span class="view-details">View Details →</span>
+        <a class="view-details" href="/companies/${(company.slug || company.name.toLowerCase().replace(/[^a-z0-9]+/g,'-'))}/">View Details →</a>
       </div>
     </div>
   `;
