@@ -1,5 +1,5 @@
-// Company data
-const companies = [
+// Company data (will be overridden by data.json if present)
+let companies = [
   {
     "id": 100,
     "name": "Vuplicity",
@@ -390,8 +390,40 @@ function hideModal() {
   document.body.style.overflow = 'auto';
 }
 
+async function loadExternalCompaniesIfAvailable() {
+  try {
+    const response = await fetch('./data.json', { cache: 'no-store' });
+    if (response.ok) {
+      const data = await response.json();
+      if (Array.isArray(data) && data.length > 0) {
+        companies = data.map((c, idx) => ({
+          id: c.id ?? idx + 1,
+          name: c.name,
+          slug: c.slug || (c.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+          logo: c.logo || (c.name ? c.name[0] : '?'),
+          color: c.color || '#2563EB',
+          tagline: c.tagline || '',
+          description: c.description || '',
+          industry: c.industry || '',
+          stage: c.stage || '',
+          founded: c.founded || '',
+          teamSize: c.teamSize || '',
+          location: c.location || '',
+          achievements: Array.isArray(c.achievements) ? c.achievements : [],
+          demoUrl: c.demoUrl || c.primaryCta || '#',
+          websiteUrl: c.websiteUrl || '#'
+        }));
+        filteredCompanies = [...companies];
+      }
+    }
+  } catch (_) {
+    // ignore fetch errors; fallback to embedded data
+  }
+}
+
 // Initialize the application
-function initializeApp() {
+async function initializeApp() {
+  await loadExternalCompaniesIfAvailable();
   // Initial render
   renderCompanies();
 

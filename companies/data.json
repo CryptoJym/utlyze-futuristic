@@ -1,0 +1,23 @@
+[
+  {
+    "id": 100,
+    "name": "Vuplicity",
+    "slug": "vuplicity",
+    "tagline": "Unified AI for content velocity and brand clarity",
+    "description": "Vuplicity helps teams generate, refine, and orchestrate content with AI while maintaining brand consistency and measurable output across channels.",
+    "industry": "AI/ML",
+    "stage": "Growth",
+    "founded": 2025,
+    "teamSize": 6,
+    "location": "Remote",
+    "achievements": [
+      "100+ docs automated/mo",
+      "Sub-10s draft generation",
+      "Brand-safe reusable prompts"
+    ],
+    "demoUrl": "https://www.perplexity.ai/apps/09f89ad8-e3c8-4ec3-ad7d-aeb0941617d9",
+    "websiteUrl": "https://vuplicity.com",
+    "color": "#2563EB",
+    "logo": "V"
+  }
+]
