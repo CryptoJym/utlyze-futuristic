@@ -21,7 +21,7 @@ A simple, static gallery at `/companies` showcasing ventures (with detail pages 
 2) Commit and push to `main` → Vercel redeploys.
 
 ## Gamma enrichment (optional)
-- CI tries to generate a one‑pager PDF and cover image for each company via the Gamma Generate API, then injects links/meta into detail pages.
+- CI tries to generate a one‑pager PDF and cover image for each company via the Gamma Generate API, then injects links/meta into detail pages. You can prevent CI from overwriting a hand-authored detail page by setting `SKIP_WRITE_SLUGS` (comma‑separated slugs) in the workflow env.
 - Docs: https://developers.gamma.app/docs/getting-started (beta; limits may change)
 
 ### Setup
@@ -40,7 +40,7 @@ Optional:
   - Commits and pushes changes to `main`
 
 ## CI details
-- Workflow: `.github/workflows/sync-companies.yml`
+- Workflow: `.github/workflows/sync-companies.yml` (with `permissions: contents: write` to allow bot commits)
 - Script: `scripts/sync-companies.mjs` (Node 20; uses built‑in `fetch`)
 - Safety: If Gamma fails or rate limits are hit, the script logs a warning and continues without blocking deploys
 
