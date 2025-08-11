@@ -10,6 +10,15 @@
     "founded": 2025,
     "teamSize": 6,
     "location": "Remote",
+    "teamSummary": "Experienced founders; 6-person team",
+    "techKpi": "Same-day turnaround",
+    "fundingRaised": "",
+    "backers": [],
+    "targetCustomer": "Hiring teams & HR",
+    "differentiators": [
+      "Compliance-first",
+      "Proprietary workflows"
+    ],
     "achievements": [
       "100+ docs automated/mo",
       "Sub-10s draft generation",

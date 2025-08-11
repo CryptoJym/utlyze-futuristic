@@ -231,29 +231,81 @@ const modalClose = document.getElementById('modalClose');
 const modalBackdrop = document.getElementById('modalBackdrop');
 const modalBody = document.getElementById('modalBody');
 
-// Create company card HTML
+// Helpers for formatting
+function formatCurrencyShort(value) {
+  if (value === undefined || value === null || value === '') return '';
+  if (typeof value === 'string') return value; // already formatted
+  const abs = Math.abs(value);
+  if (abs >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(1)}B`;
+  if (abs >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}M`;
+  if (abs >= 1_000) return `$${(value / 1_000).toFixed(1)}k`;
+  return `$${value}`;
+}
+
+function metricItem(label, value) {
+  if (!value && value !== 0) return '';
+  return `
+    <div class="metric-item">
+      <div class="metric-value">${value}</div>
+      <div class="metric-label">${label}</div>
+    </div>
+  `;
+}
+
+// Create company card HTML (VC-focused, mobile-optimized)
 function createCompanyCard(company) {
+  const funding = company.fundingRaised || '';
+  const backers = Array.isArray(company.backers) && company.backers.length > 0 ? ` • ${company.backers[0]}${company.backers.length > 1 ? ' +' : ''}` : '';
+
+  const arrDisplay = company.arr ? formatCurrencyShort(company.arr) : (company.mrr ? `${formatCurrencyShort(company.mrr)} MRR` : '');
+  const growthDisplay = company.growthRate ? company.growthRate : '';
+  const nrrDisplay = company.nrr ? company.nrr : (company.churn ? `${company.churn} churn` : '');
+  const efficiencyDisplay = company.cacPaybackMonths ? `${company.cacPaybackMonths} mo payback` : (company.ltvToCac ? `LTV:CAC ${company.ltvToCac}` : '');
+  const runwayDisplay = company.runwayMonths ? `${company.runwayMonths} mo runway` : (company.burnRate ? `${formatCurrencyShort(company.burnRate)}/mo burn` : '');
+  const techDisplay = company.techKpi || (company.accuracy ? `${company.accuracy} accuracy` : (company.apiLatencyMs ? `${company.apiLatencyMs}ms latency` : ''));
+  const teamDisplay = company.teamSummary || (company.teamSize ? `${company.teamSize} team` : '');
+
+  const metricsHtml = [
+    metricItem('ARR/MRR', arrDisplay),
+    metricItem('Growth', growthDisplay),
+    metricItem('NRR / Churn', nrrDisplay),
+    metricItem('Efficiency', efficiencyDisplay),
+    metricItem('Runway', runwayDisplay),
+    metricItem('AI KPI', techDisplay),
+    metricItem('Team', teamDisplay)
+  ]
+    .filter(Boolean)
+    .slice(0, 4) // keep card concise
+    .join('');
+
+  const differentiator = Array.isArray(company.differentiators) && company.differentiators.length > 0
+    ? `<span class="differentiator-badge">${company.differentiators[0]}</span>`
+    : '';
+
   return `
     <div class="company-card" data-company-id="${company.id}">
       <div class="company-card__header">
-        <div class="company-logo" style="background-color: ${company.color}">
-          ${company.logo}
-        </div>
+        <div class="company-logo" style="background-color: ${company.color}">${company.logo}</div>
         <div class="company-info">
           <h3>${company.name}</h3>
           <p class="company-tagline">${company.tagline}</p>
         </div>
+        ${differentiator}
       </div>
-      <p class="company-description">${company.description}</p>
-      <div class="company-tags">
-        <span class="tag tag--industry">${company.industry}</span>
-        <span class="tag tag--stage">${company.stage}</span>
+
+      <div class="company-meta">
+        <span class="meta-badge">${company.stage || ''}</span>
+        ${funding ? `<span class="meta-badge">Raised ${funding}${backers}</span>` : ''}
+        ${company.industry ? `<span class="meta-badge">${company.industry}</span>` : ''}
       </div>
+
+      <div class="company-metrics">
+        ${metricsHtml}
+      </div>
+
       <div class="company-card__footer">
-        <a href="${company.demoUrl}" target="_blank" class="btn--demo">
-          View Demo
-        </a>
-        <a class="view-details" href="/companies/${(company.slug || company.name.toLowerCase().replace(/[^a-z0-9]+/g,'-'))}/">View Details →</a>
+        <a href="${company.demoUrl}" target="_blank" class="btn--demo">View Demo</a>
+        <a class="view-details" href="/companies/${(company.slug || company.name.toLowerCase().replace(/[^a-z0-9]+/g,'-'))}/">View One-Pager →</a>
       </div>
     </div>
   `;
@@ -409,6 +461,26 @@ async function loadExternalCompaniesIfAvailable() {
           founded: c.founded || '',
           teamSize: c.teamSize || '',
           location: c.location || '',
+          teamSummary: c.teamSummary || '',
+          techKpi: c.techKpi || '',
+          fundingRaised: c.fundingRaised || '',
+          backers: Array.isArray(c.backers) ? c.backers : [],
+          targetCustomer: c.targetCustomer || '',
+          differentiators: Array.isArray(c.differentiators) ? c.differentiators : [],
+          // Optional metrics for VC card
+          arr: c.arr ?? '',
+          mrr: c.mrr ?? '',
+          growthRate: c.growthRate ?? '',
+          nrr: c.nrr ?? '',
+          churn: c.churn ?? '',
+          burnRate: c.burnRate ?? '',
+          runwayMonths: c.runwayMonths ?? '',
+          ltvToCac: c.ltvToCac ?? '',
+          cacPaybackMonths: c.cacPaybackMonths ?? '',
+          grossMargin: c.grossMargin ?? '',
+          apiLatencyMs: c.apiLatencyMs ?? '',
+          accuracy: c.accuracy ?? '',
+          arrPerEmployee: c.arrPerEmployee ?? '',
           achievements: Array.isArray(c.achievements) ? c.achievements : [],
           demoUrl: c.demoUrl || c.primaryCta || '#',
           websiteUrl: c.websiteUrl || '#'
