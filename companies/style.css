@@ -897,6 +897,17 @@ select.form-control {
   margin-bottom: var(--space-16);
 }
 
+.differentiator-badge {
+  margin-left: auto;
+  background: rgba(37, 99, 235, 0.12);
+  color: #2563eb;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
 .company-logo {
   width: 60px;
   height: 60px;
@@ -927,6 +938,48 @@ select.form-control {
   color: var(--color-text-secondary);
   line-height: var(--line-height-normal);
   margin-bottom: var(--space-16);
+}
+
+.company-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
+}
+
+.meta-badge {
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  background: var(--color-secondary);
+  color: var(--color-text);
+  border: 1px solid var(--color-card-border-inner);
+}
+
+.company-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-12);
+  margin-bottom: var(--space-16);
+}
+
+.metric-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-12);
+}
+
+.metric-value {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+}
+
+.metric-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
 }
 
 .company-tags {
