@@ -15,7 +15,10 @@
     "fundingRaised": "",
     "backers": [],
     "targetCustomer": "Hiring teams & HR",
-    "differentiators": ["Compliance-first", "Proprietary workflows"],
+    "differentiators": [
+      "Compliance-first",
+      "Proprietary workflows"
+    ],
     "achievements": [
       "100+ docs automated/mo",
       "Sub-10s draft generation",
