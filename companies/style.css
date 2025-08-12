@@ -964,11 +964,28 @@ select.form-control {
   margin-bottom: var(--space-16);
 }
 
+.company-metrics-title {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
+  font-weight: var(--font-weight-medium);
+}
+
 .metric-item {
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  align-items: center;
+  gap: var(--space-8);
   background: var(--color-surface);
   border: 1px solid var(--color-card-border);
   border-radius: var(--radius-md);
   padding: var(--space-12);
+}
+
+.metric-icon {
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0.9;
 }
 
 .metric-value {
@@ -980,6 +997,82 @@ select.form-control {
 .metric-label {
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
+}
+
+/* One-pager shared section styles */
+.section {
+  padding: var(--space-32) 0;
+}
+
+.section__title,
+.section-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-16);
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-12);
+  margin-top: var(--space-16);
+}
+
+.stat {
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-12);
+  background: var(--color-surface);
+}
+
+.stat .value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+}
+
+.stat .label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid var(--color-card-border-inner);
+  background: var(--color-secondary);
+  font-size: var(--font-size-xs);
+}
+
+.metric-list {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.metric-list .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px dashed var(--color-card-border);
+  padding: 6px 0;
+}
+
+.metric-list .k {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.metric-list .v {
+  font-weight: var(--font-weight-semibold);
 }
 
 .company-tags {
@@ -1302,6 +1395,18 @@ select.form-control {
     grid-template-columns: 1fr;
   }
   
+  .company-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+
   .modal__content {
     margin: var(--space-16);
     max-height: 90vh;

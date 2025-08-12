@@ -246,8 +246,17 @@ function metricItem(label, value) {
   if (!value && value !== 0) return '';
   return `
     <div class="metric-item">
-      <div class="metric-value">${value}</div>
+      <div class="metric-icon" aria-hidden="true">${
+        label === 'ARR/MRR' ? '💰' :
+        label === 'Growth' ? '📈' :
+        label === 'NRR / Churn' ? '🔁' :
+        label === 'Efficiency' ? '⚖️' :
+        label === 'Runway' ? '⏳' :
+        label === 'AI KPI' ? '🎯' :
+        label === 'Team' ? '👥' : '•'
+      }</div>
       <div class="metric-label">${label}</div>
+      <div class="metric-value">${value}</div>
     </div>
   `;
 }
