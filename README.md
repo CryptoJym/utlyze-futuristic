@@ -48,6 +48,15 @@ Optional:
 - Open `index.html` for the homepage or `companies/index.html` for the gallery in a static server (e.g., VS Code Live Server or `npx serve`)
 - Note: The gallery renders cards client‑side from `companies/data.json`
 
+## MCP integration (planned)
+We are adding a new MCP integration for richer automation and review tooling.
+- Owner: @omnara
+- Scope: connect the gallery to MCP for scripted checks (UX lint, data validation), and for fast preview actions.
+- Next steps:
+  - Define MCP endpoints and auth
+  - Wire a minimal client in `/companies/app.js` (feature‑flagged)
+  - Add a README subsection with usage once landed
+
 ## Notes & limits
 - Gamma is beta and rate‑limited (e.g., 50 generations/month per user, subject to change)
 - We only generate assets when the sync workflow runs; assets are reused in subsequent deploys
