@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Predictable AI ROI – Utlyze</title>
+	<link rel="icon" type="image/x-icon" href="/favicon.ico">
+	<link rel="stylesheet" href="../style.css">
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+	<style>
+		/* Minimal ROI-specific tweaks that harmonize with the main theme */
+		.roi-hero { text-align: center; padding: var(--space-48) 0; }
+		.roi-hero h1 { margin-bottom: var(--space-12); }
+		.roi-hero p { color: rgba(10,10,10,0.8); }
+		.roi-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-24); max-width: 980px; margin: 0 auto; }
+		@media (min-width: 900px) { .roi-grid { grid-template-columns: 1.1fr 0.9fr; } }
+		.roi-card { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 16px; padding: var(--space-24); box-shadow: var(--utlyze-shadow-premium); }
+		.roi-card h3 { margin-top: 0; }
+		.roi-form label { display: block; margin: 10px 0 6px; font-weight: 600; }
+		.roi-form input, .roi-form select, .roi-form textarea { width: 100%; padding: 12px 14px; border-radius: 10px; border: 2px solid rgba(0, 91, 255, 0.2); font-size: 16px; background: rgba(255,255,255,0.95); color: var(--utlyze-text-dark); }
+		.roi-results p { margin: 8px 0; }
+		.small-muted { font-size: 12px; color: rgba(10,10,10,0.6); }
+	</style>
+</head>
+<body>
+	<section class="section">
+		<div class="container">
+			<div class="roi-hero">
+				<h1 class="section-headline">Stop unpredictable AI costs</h1>
+				<p class="section-subtext">Own your model, own your budget. See your savings in minutes.</p>
+			</div>
+
+			<div class="roi-grid">
+				<div class="roi-card">
+					<h3>Estimate Your Savings</h3>
+					<form id="calcForm" class="roi-form">
+						<!-- Mode toggle -->
+						<div style="display:flex; gap: 12px; align-items:center;">
+							<label style="display:flex; align-items:center; gap:8px;">
+								<input type="radio" name="calcMode" id="modeSimple" value="simple" checked>
+								<span>Simple</span>
+							</label>
+							<label style="display:flex; align-items:center; gap:8px;">
+								<input type="radio" name="calcMode" id="modeAdvanced" value="advanced">
+								<span>Advanced</span>
+							</label>
+						</div>
+
+						<!-- Simple inputs -->
+						<div id="simpleFields">
+							<label>Your current monthly AI spend ($)
+								<input type="number" id="simpleMonthlySpend" value="3000" min="0">
+							</label>
+							<label>Not sure? Pick a range
+								<select id="spendRange">
+									<option value="">Select a range (optional)</option>
+									<option value="under_1k">Under $1k</option>
+									<option value="1k_5k">$1k–$5k</option>
+									<option value="5k_20k">$5k–$20k</option>
+									<option value="20k_plus">$20k+</option>
+								</select>
+							</label>
+						</div>
+
+						<!-- Advanced inputs -->
+						<div id="advancedFields" style="display:none;">
+							<label>Typical response length (tokens per request)
+								<input type="number" id="tokensPerReq" value="50" min="1">
+							</label>
+							<label>AI calls per day
+								<input type="number" id="requestsPerDay" value="1000" min="1">
+							</label>
+							<label>Price per 1,000 tokens ($)
+								<input type="number" id="apiCost" value="0.002" step="0.0001">
+							</label>
+							<p class="small-muted">A token ≈ ¾ of a word. Not sure on price? $0.002 is a good default.</p>
+						</div>
+
+						<!-- Plan selection and fees -->
+						<label>Choose your Utlyze plan
+							<select id="planTier">
+								<option value="core" data-price="1500">Core — $1,500/mo</option>
+								<option value="pro" data-price="2500" selected>Pro — $2,500/mo</option>
+								<option value="custom" data-price="0">Custom</option>
+							</select>
+						</label>
+						<label>Utlyze hosting fee ($/month)
+							<input type="number" id="hostingFee" value="2500" min="0" required>
+						</label>
+						<label>One‑time setup/training ($)
+							<input type="number" id="trainingFee" value="5000" min="0" required>
+						</label>
+						<label>Spread setup across (months)
+							<select id="amortizationMonths">
+								<option value="12" selected>12</option>
+								<option value="24">24</option>
+								<option value="36">36</option>
+							</select>
+						</label>
+
+						<button type="button" class="btn btn--primary" id="btnCalc">Calculate ROI</button>
+					</form>
+
+					<div id="roiResults" class="roi-results" style="display:none; margin-top: 12px;">
+						<p><strong>Current monthly API spend:</strong> $<span id="currentSpend"></span></p>
+						<p><strong>Utlyze effective monthly cost:</strong> $<span id="utlyzeCost"></span></p>
+						<p><strong>Monthly savings:</strong> $<span id="savings"></span></p>
+						<p><strong>ROI (Savings / Cost):</strong> <span id="roi"></span></p>
+						<p class="small-muted">Estimates only; real results depend on usage and model choice.</p>
+					</div>
+				</div>
+
+				<div class="roi-card">
+					<h3>Get Your Free ROI Report</h3>
+					<form id="leadForm" class="roi-form">
+						<label>Name
+							<input type="text" name="name" required>
+						</label>
+						<label>Work email
+							<input type="email" name="email" required>
+						</label>
+						<label>Company
+							<input type="text" name="company">
+						</label>
+						<label>Your role
+							<select name="role">
+								<option value="">Select</option>
+								<option value="ops_eng_leader">Ops/Engineering leader</option>
+								<option value="founder">Founder</option>
+								<option value="engineer">Engineer</option>
+								<option value="procurement_finance">Procurement/Finance</option>
+								<option value="other">Other</option>
+							</select>
+						</label>
+						<div>
+							<label>Biggest pain today</label>
+							<div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="unpredictable_costs"> Unpredictable costs</label>
+								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="data_privacy"> Data privacy</label>
+								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="latency"> Latency</label>
+								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="quality_drift"> Quality drift</label>
+							</div>
+						</div>
+						<label>Notes (optional)
+							<textarea name="notes" rows="3"></textarea>
+						</label>
+						<!-- Hidden fields for calculator values/results -->
+						<input type="hidden" name="tokens_per_request">
+						<input type="hidden" name="requests_per_day">
+						<input type="hidden" name="api_cost_per_k">
+						<input type="hidden" name="hosting_fee">
+						<input type="hidden" name="training_fee">
+						<input type="hidden" name="amortization_months" value="12">
+						<input type="hidden" name="current_monthly_spend">
+						<input type="hidden" name="utlyze_effective_monthly">
+						<input type="hidden" name="savings">
+						<input type="hidden" name="roi_percentage">
+						<input type="hidden" name="spend_range">
+						<!-- Hidden attribution fields -->
+						<input type="hidden" name="utm_source">
+						<input type="hidden" name="utm_medium">
+						<input type="hidden" name="utm_campaign">
+						<input type="hidden" name="utm_term">
+						<input type="hidden" name="utm_content">
+						<input type="hidden" name="referrer">
+						<input type="hidden" name="page_url">
+						<button type="submit" class="btn btn--primary">Book your free ROI review</button>
+						<p class="small-muted">We’ll email your personalized ROI summary and a link to schedule.</p>
+					</form>
+				</div>
+			</div>
+
+			<div class="section" style="margin-top: 28px;">
+				<div class="container">
+					<div class="glass-card">
+						<h3>Why teams switch to Utlyze</h3>
+						<ul>
+							<li>Predictable pricing with your own private model</li>
+							<li>Data stays private—no vendor lock‑in</li>
+							<li>Performance that matches or beats public APIs</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="./app.js"></script>
+</body>
+</html>

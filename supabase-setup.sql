@@ -29,3 +29,58 @@ CREATE INDEX idx_submissions_created_at ON public.submissions(created_at DESC);
 
 -- Add a comment on the table
 COMMENT ON TABLE public.submissions IS 'Stores lead capture form submissions from the Utlyze website';
+
+-- ROI Calculator Leads
+-- Stores leads captured from the ROI landing page, including calculator inputs,
+-- computed results, and UTM/referrer metadata for attribution.
+CREATE TABLE IF NOT EXISTS public.roi_leads (
+    id BIGSERIAL PRIMARY KEY,
+    -- Contact fields
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    company TEXT,
+    notes TEXT,
+    -- Calculator inputs
+    tokens_per_request NUMERIC,
+    requests_per_day INTEGER,
+    api_cost_per_k NUMERIC,
+    hosting_fee NUMERIC,
+    training_fee NUMERIC,
+    amortization_months INTEGER DEFAULT 12,
+    -- Computed values
+    current_monthly_spend NUMERIC,
+    utlyze_effective_monthly NUMERIC,
+    savings NUMERIC,
+    roi_percentage NUMERIC,
+    -- Attribution metadata
+    utm_source TEXT,
+    utm_medium TEXT,
+    utm_campaign TEXT,
+    utm_term TEXT,
+    utm_content TEXT,
+    referrer TEXT,
+    page_url TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable RLS for ROI leads
+ALTER TABLE public.roi_leads ENABLE ROW LEVEL SECURITY;
+
+-- Allow public inserts (form submissions)
+CREATE POLICY "Allow public inserts (roi_leads)"
+ON public.roi_leads
+FOR INSERT
+WITH CHECK (true);
+
+-- Allow authenticated users to view ROI leads
+CREATE POLICY "Allow authenticated select (roi_leads)"
+ON public.roi_leads
+FOR SELECT
+USING (auth.role() = 'authenticated');
+
+-- Indexes for common queries
+CREATE INDEX IF NOT EXISTS idx_roi_leads_email ON public.roi_leads(email);
+CREATE INDEX IF NOT EXISTS idx_roi_leads_created_at ON public.roi_leads(created_at DESC);
+
+-- Documentation comment
+COMMENT ON TABLE public.roi_leads IS 'Leads from ROI calculator including inputs/results and UTM metadata';

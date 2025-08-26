@@ -1,10 +1,18 @@
-# Utlyze — Companies Gallery
+# Utlyze — Sites
 
-A simple, static gallery at `/companies` showcasing ventures (with detail pages at `/companies/[slug]/`), deployed via Vercel. Content is managed by `companies/data.json`. Optional: Gamma Generate API enriches each company with a one‑pager PDF and OG image during CI.
+This repo includes:
+- A simple, static gallery at `/companies` showcasing ventures (with detail pages at `/companies/[slug]/`), deployed via Vercel. Content is managed by `companies/data.json`.
+- A dedicated ROI landing page at `/roi/` with a calculator and lead capture stored in Supabase (`roi_leads`).
 
 ## Live URLs
 - Gallery: `/companies`
 - Detail: `/companies/[slug]/` (e.g., `/companies/vuplicity/`)
+- ROI Calculator & Funnel: `/roi/`
+
+## ROI Landing Page
+- Path: `roi/index.html` (logic in `roi/app.js`)
+- Captures calculator inputs and results along with UTM/referrer metadata
+- Inserts into Supabase table `public.roi_leads` (see `SUPABASE_SETUP.md`)
 
 ## How content works
 - Source file: `companies/data.json` (array of companies)
