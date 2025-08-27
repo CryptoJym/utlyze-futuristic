@@ -45,7 +45,7 @@
 				<nav class="roi-subnav">
 					<a href="#overview" class="subnav-link">Overview</a>
 					<a href="#calculator" class="subnav-link">Calculator</a>
-					<a href="#howitworks" class="subnav-link">How it Works</a>
+					<a href="#pilot" class="subnav-link">Pilot</a>
 					<a href="#faq" class="subnav-link">FAQ</a>
 				</nav>
 			</div>
@@ -162,7 +162,7 @@
 						<button type="button" class="btn btn--primary" id="btnCalc">Calculate ROI</button>
 					</form>
 
-					<div id="roiResults" class="roi-results" style="display:none; margin-top: 12px;">
+					<div id="roiResults" class="roi-results" style="display:none; margin-top: 12px;" aria-live="polite">
 						<p><strong>Current monthly API spend:</strong> $<span id="currentSpend"></span></p>
 						<p><strong>Projected new monthly cost:</strong> $<span id="newMonthlyCost"></span></p>
 						<p><strong>Utlyze effective monthly cost:</strong> $<span id="utlyzeCost"></span></p>
@@ -212,8 +212,8 @@
 						<span class="meta-badge">Professional Services</span>
 					</div>
 					<ul style="margin-top:10px;">
-						<li><strong>$8.2k/mo</strong> saved on claims summaries; <strong>41%</strong> latency improvement</li>
-						<li><strong>35%</strong> token reduction via prompt + caching on RAG support</li>
+						<li><strong>$8.2k/mo</strong> saved on claims summaries; <strong>41%</strong> faster</li>
+						<li><strong>35%</strong> fewer tokens via prompt + caching on RAG</li>
 					</ul>
 				</div>
 				<div class="roi-card">
@@ -272,6 +272,7 @@
 						<input type="hidden" name="page_url">
 						<button type="submit" class="btn btn--primary">Book your free ROI review</button>
 						<p class="small-muted">We’ll email your personalized ROI summary and a link to schedule.</p>
+						<p class="small-muted">Confidential: we never share your inputs; you control retention.</p>
 					</form>
 				</div>
 			</div>
@@ -294,9 +295,9 @@
 							<iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Utlyze Success Story" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" allowfullscreen></iframe>
 						</div>
 						<ul style="margin-top:12px;">
-							<li>Predictability: fixed monthly pricing</li>
-							<li>Privacy: your data, your model</li>
-							<li>Performance: matches or beats public APIs</li>
+							<li>Predictable: fixed monthly pricing</li>
+							<li>Private: your data, your model</li>
+							<li>Performance: parity with public APIs</li>
 						</ul>
 					</div>
 
