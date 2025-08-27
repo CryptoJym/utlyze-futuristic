@@ -92,6 +92,19 @@ window.addEventListener('DOMContentLoaded', () => {
 		btnCalc.addEventListener('click', calcROI);
 	}
 
+	// Smooth scroll for top CTA
+	const seeSavingsCta = document.getElementById('seeSavingsCta');
+	if (seeSavingsCta) {
+		seeSavingsCta.addEventListener('click', (e) => {
+			const href = seeSavingsCta.getAttribute('href') || '';
+			if (href.startsWith('#')) {
+				e.preventDefault();
+				const target = document.querySelector(href);
+				if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			}
+		});
+	}
+
 	// Seed attribution
 	if (leadForm) {
 		captureAttributionHiddenFields(leadForm);
