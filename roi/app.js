@@ -46,26 +46,51 @@ function calcROI() {
 	const trainingFee = parseNumber(document.getElementById('trainingFee').value);
 	const amortizationMonths = parseInt(document.getElementById('amortizationMonths').value || '12', 10) || 12;
 
-	if (modeSimple) {
+	// Methodology inputs
+	const offloadPercent = parseNumber(document.getElementById('offloadPercent')?.value || 80);
+	const promptReduction = parseNumber(document.getElementById('promptReduction')?.value || 15);
+	const cachingHitRate = parseNumber(document.getElementById('cachingHitRate')?.value || 25);
+	const batchingEfficiency = parseNumber(document.getElementById('batchingEfficiency')?.value || 20);
+	const hostedRate = parseNumber(document.getElementById('hostedRate')?.value || 0.0012);
+
+	const trainingMonthly = amortizationMonths > 0 ? (trainingFee / amortizationMonths) : 0;
+
+	// Compute baseline tokens
+	let baselineMonthlyTokens = 0;
+	if (!modeSimple) {
+		tokensPerReq = parseNumber(document.getElementById('tokensPerReq').value);
+		requestsPerDay = parseNumber(document.getElementById('requestsPerDay').value);
+		apiCost = parseNumber(document.getElementById('apiCost').value);
+		baselineMonthlyTokens = tokensPerReq * requestsPerDay * 30;
+	} else {
 		const range = document.getElementById('spendRange')?.value;
 		const monthlyOverride = parseNumber(document.getElementById('simpleMonthlySpend')?.value);
 		const rangeMidpoints = { under_1k: 500, '1k_5k': 3000, '5k_20k': 12000, '20k_plus': 25000 };
 		currentMonthly = monthlyOverride > 0 ? monthlyOverride : (rangeMidpoints[range] || 0);
-	} else {
-		tokensPerReq = parseNumber(document.getElementById('tokensPerReq').value);
-		requestsPerDay = parseNumber(document.getElementById('requestsPerDay').value);
-		apiCost = parseNumber(document.getElementById('apiCost').value);
-		currentMonthly = (tokensPerReq * requestsPerDay / 1000) * apiCost * 30;
+		const assumedApiCost = parseNumber(document.getElementById('apiCost')?.value || 0.002);
+		baselineMonthlyTokens = assumedApiCost > 0 ? (currentMonthly / assumedApiCost) * 1000 : 0;
 	}
-	const trainingMonthly = amortizationMonths > 0 ? (trainingFee / amortizationMonths) : 0;
-	const utlyzeMonthly = hostingFee + trainingMonthly;
+
+	// Effective token reductions
+	const reductionFactor = (1 - promptReduction / 100) * (1 - cachingHitRate / 100) * (1 - batchingEfficiency / 100);
+	const offloadFraction = offloadPercent / 100;
+
+	const offloadedTokens = baselineMonthlyTokens * offloadFraction * reductionFactor;
+	const hostedTokenCost = (offloadedTokens / 1000) * hostedRate;
+	const remainingApiCost = currentMonthly * (1 - offloadFraction);
+
+	const newMonthlyCost = hostedTokenCost + remainingApiCost;
+	const utlyzeMonthly = hostingFee + trainingMonthly + newMonthlyCost;
 	const savings = currentMonthly - utlyzeMonthly;
 	const roi = utlyzeMonthly > 0 ? (savings / utlyzeMonthly) : 0;
 
-	document.getElementById('currentSpend').innerText = formatMoney(currentMonthly);
+	const paybackDays = (savings > 0 && trainingFee > 0) ? Math.max(1, Math.round((trainingFee / Math.max(savings, 1)) * 30)) : 0;
+
+	document.getElementById('newMonthlyCost') && (document.getElementById('newMonthlyCost').innerText = formatMoney(newMonthlyCost));
 	document.getElementById('utlyzeCost').innerText = formatMoney(utlyzeMonthly);
 	document.getElementById('savings').innerText = formatMoney(savings);
 	document.getElementById('roi').innerText = (roi * 100).toFixed(1) + '%';
+	document.getElementById('paybackDays') && (document.getElementById('paybackDays').innerText = String(paybackDays));
 	document.getElementById('roiResults').style.display = 'block';
 
 	// Update sticky summary
@@ -77,6 +102,22 @@ function calcROI() {
 	if (summaryUtlyze) summaryUtlyze.textContent = formatMoney(utlyzeMonthly);
 	if (summarySavings) summarySavings.textContent = formatMoney(savings);
 	if (summaryRoi) summaryRoi.textContent = (roi * 100).toFixed(1) + '%';
+
+	// Populate detailed report
+	const showReport = document.getElementById('detailedReport');
+	if (showReport) {
+		document.getElementById('baselineTokens').textContent = Math.round(baselineMonthlyTokens).toLocaleString();
+		document.getElementById('offloadedTokens').textContent = Math.round(offloadedTokens).toLocaleString();
+		document.getElementById('hostedRateOut').textContent = hostedRate.toFixed(4);
+		document.getElementById('hostedTokenCost').textContent = formatMoney(hostedTokenCost);
+		document.getElementById('remainingApiCost').textContent = formatMoney(remainingApiCost);
+		document.getElementById('hostingFeeOut').textContent = formatMoney(hostingFee);
+		document.getElementById('trainingMonthlyOut').textContent = formatMoney(trainingMonthly);
+		document.getElementById('newMonthlyCostOut').textContent = formatMoney(newMonthlyCost);
+		document.getElementById('savingsOut').textContent = formatMoney(savings);
+		document.getElementById('paybackDaysOut').textContent = String(paybackDays);
+		showReport.style.display = 'block';
+	}
 
 	// Sync hidden fields on lead form
 	const form = document.getElementById('leadForm');
@@ -176,6 +217,15 @@ window.addEventListener('DOMContentLoaded', () => {
 					}
 				});
 			});
+		// Methodology and presets
+		;['offloadPercent','promptReduction','cachingHitRate','batchingEfficiency','hostedRate','useCasePreset'].forEach(id => {
+			const el = document.getElementById(id);
+			if (el) el.addEventListener('input', () => {
+				const valSpan = document.getElementById(id + 'Val');
+				if (valSpan && el.type === 'range') valSpan.textContent = el.value + '%';
+				if (document.getElementById('roiResults').style.display === 'block') calcROI();
+			});
+		});
 	}
 
 	if (leadForm) {
@@ -210,13 +260,28 @@ window.addEventListener('DOMContentLoaded', () => {
 						savings: Number(payload.savings) || null,
 						roi_percentage: Number(payload.roi_percentage) || null,
 						spend_range: payload.spend_range || null,
+						// Methodology fields
+						use_case_preset: document.getElementById('useCasePreset')?.value || null,
+						offload_percent: parseNumber(document.getElementById('offloadPercent')?.value || 80),
+						prompt_reduction_percent: parseNumber(document.getElementById('promptReduction')?.value || 15),
+						caching_hit_rate_percent: parseNumber(document.getElementById('cachingHitRate')?.value || 25),
+						batching_efficiency_percent: parseNumber(document.getElementById('batchingEfficiency')?.value || 20),
+						hosted_rate_per_k: parseNumber(document.getElementById('hostedRate')?.value || 0.0012),
+						projected_new_monthly_cost: Number(document.getElementById('newMonthlyCost')?.textContent || '0') || null,
+						payback_days: Number(document.getElementById('paybackDays')?.textContent || '0') || null,
 						utm_source: payload.utm_source || null,
 						utm_medium: payload.utm_medium || null,
 						utm_campaign: payload.utm_campaign || null,
 						utm_term: payload.utm_term || null,
 						utm_content: payload.utm_content || null,
 						referrer: payload.referrer || null,
-						page_url: payload.page_url || null
+						page_url: payload.page_url || null,
+						baseline_monthly_tokens: Number(payload.baseline_monthly_tokens) || null,
+						offloaded_tokens: Number(payload.offloaded_tokens) || null,
+						hosted_token_cost: Number(payload.hosted_token_cost) || null,
+						remaining_api_cost: Number(payload.remaining_api_cost) || null,
+						new_monthly_cost: Number(payload.new_monthly_cost) || null,
+						detailed_report: payload.detailed_report || null
 					});
 					if (error) throw error;
 				}

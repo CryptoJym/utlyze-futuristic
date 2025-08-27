@@ -105,6 +105,38 @@
 							<p class="small-muted">A token ≈ ¾ of a word. Not sure on price? $0.002 is a good default.</p>
 						</div>
 
+						<!-- Use case preset -->
+						<label>Use case preset
+							<select id="useCasePreset">
+								<option value="">Select a preset (optional)</option>
+								<option value="insurance_claims">Insurance Claims Triage</option>
+								<option value="rag_support">RAG Support Chat</option>
+								<option value="doc_extraction">Document Extraction</option>
+								<option value="call_summaries">Sales Call Summaries</option>
+							</select>
+						</label>
+
+						<!-- Methodology sliders -->
+						<div class="glass-card" style="margin-top: 10px;">
+							<h3>Methodology</h3>
+							<label>API offload to Utlyze: <span id="offloadPercentVal">80%</span>
+								<input type="range" id="offloadPercent" min="0" max="100" value="80">
+							</label>
+							<label>Prompt token reduction: <span id="promptReductionVal">15%</span>
+								<input type="range" id="promptReduction" min="0" max="50" value="15">
+							</label>
+							<label>Caching hit rate: <span id="cachingHitRateVal">25%</span>
+								<input type="range" id="cachingHitRate" min="0" max="80" value="25">
+							</label>
+							<label>Batching efficiency (cost reduction): <span id="batchingEfficiencyVal">20%</span>
+								<input type="range" id="batchingEfficiency" min="0" max="50" value="20">
+							</label>
+							<label>Hosted rate per 1,000 tokens ($)
+								<input type="number" id="hostedRate" value="0.0012" step="0.0001" min="0">
+							</label>
+							<p class="small-muted">We model savings from offloading, prompt optimization, caching, and batching. Hosted rate reflects your private model/token pricing.</p>
+						</div>
+
 						<!-- Plan selection and fees -->
 						<label>Choose your Utlyze plan
 							<select id="planTier">
@@ -132,11 +164,34 @@
 
 					<div id="roiResults" class="roi-results" style="display:none; margin-top: 12px;">
 						<p><strong>Current monthly API spend:</strong> $<span id="currentSpend"></span></p>
+						<p><strong>Projected new monthly cost:</strong> $<span id="newMonthlyCost"></span></p>
 						<p><strong>Utlyze effective monthly cost:</strong> $<span id="utlyzeCost"></span></p>
 						<p><strong>Monthly savings:</strong> $<span id="savings"></span></p>
 						<p><strong>ROI (Savings / Cost):</strong> <span id="roi"></span></p>
+						<p><strong>Payback:</strong> <span id="paybackDays"></span> days</p>
 						<p class="small-muted">Estimates only; real results depend on usage and model choice.</p>
 						<p class="small-muted">Your data stays private and secure—only used for your ROI estimate.</p>
+					</div>
+
+					<!-- Detailed report -->
+					<div class="glass-card" id="detailedReport" style="display:none; margin-top:12px;">
+						<h3>Detailed ROI Report</h3>
+						<ul>
+							<li>Baseline monthly tokens: <strong><span id="baselineTokens"></span></strong></li>
+							<li>Offloaded tokens: <strong><span id="offloadedTokens"></span></strong></li>
+							<li>Hosted token rate: <strong>$<span id="hostedRateOut"></span> / 1K</strong></li>
+							<li>Hosted token cost: <strong>$<span id="hostedTokenCost"></span></strong></li>
+							<li>Remaining public API cost: <strong>$<span id="remainingApiCost"></span></strong></li>
+							<li>Hosting subscription: <strong>$<span id="hostingFeeOut"></span></strong></li>
+							<li>Amortized training (monthly): <strong>$<span id="trainingMonthlyOut"></span></strong></li>
+							<li>Projected new monthly cost: <strong>$<span id="newMonthlyCostOut"></span></strong></li>
+							<li>Monthly savings: <strong>$<span id="savingsOut"></span></strong></li>
+							<li>Payback: <strong><span id="paybackDaysOut"></span> days</strong></li>
+						</ul>
+						<div style="display:flex; gap:8px; flex-wrap:wrap;">
+							<button type="button" class="btn btn--outline" id="printReportBtn">Print / Save as PDF</button>
+							<button type="button" class="btn btn--primary" id="emailReportBtn">Email me this report</button>
+						</div>
 					</div>
 				</div>
 
