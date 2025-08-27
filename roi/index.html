@@ -20,11 +20,35 @@
 		.roi-form input, .roi-form select, .roi-form textarea { width: 100%; padding: 12px 14px; border-radius: 10px; border: 2px solid rgba(0, 91, 255, 0.2); font-size: 16px; background: rgba(255,255,255,0.95); color: var(--utlyze-text-dark); }
 		.roi-results p { margin: 8px 0; }
 		.small-muted { font-size: 12px; color: rgba(10,10,10,0.6); }
+		/* Subnav */
+		.roi-subnav { position: sticky; top: 0; z-index: 5; backdrop-filter: var(--utlyze-backdrop-blur); background: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; padding: 8px 12px; display: inline-flex; gap: 8px; }
+		.roi-subnav a { text-decoration: none; padding: 8px 12px; border-radius: 999px; border: 1px solid transparent; color: var(--utlyze-text-dark); }
+		.roi-subnav a:hover { border-color: rgba(0, 91, 255, 0.25); }
+		/* Chips */
+		.chip-group { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0 4px; }
+		.chip { appearance: none; border: 1px solid rgba(0, 91, 255, 0.25); background: rgba(255,255,255,0.95); color: var(--utlyze-text-dark); padding: 6px 10px; border-radius: 999px; cursor: pointer; font-size: 14px; }
+		.chip.active, .chip:focus { outline: none; border-color: var(--utlyze-blue); box-shadow: 0 0 0 3px rgba(0, 91, 255, 0.15); }
+		/* Sticky summary (desktop) */
+		.roi-sticky-summary { position: sticky; top: 16px; display: none; }
+		@media (min-width: 900px) { .roi-sticky-summary { display: block; } }
+		.roi-summary-row { display: flex; align-items: center; justify-content: space-between; margin: 6px 0; }
+		.roi-summary-row strong { font-weight: 700; }
+		/* Mobile sticky CTA */
+		#mobileCtaBar { position: fixed; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.9); backdrop-filter: var(--utlyze-backdrop-blur); border-top: 1px solid rgba(0,0,0,0.08); padding: 10px 16px; display: flex; justify-content: center; gap: 12px; z-index: 10; }
+		@media (min-width: 900px) { #mobileCtaBar { display: none; } }
 	</style>
 </head>
 <body>
 	<section class="section">
 		<div class="container">
+			<div style="display:flex; justify-content:center; margin-bottom: 12px;">
+				<nav class="roi-subnav">
+					<a href="#overview" class="subnav-link">Overview</a>
+					<a href="#calculator" class="subnav-link">Calculator</a>
+					<a href="#howitworks" class="subnav-link">How it Works</a>
+					<a href="#faq" class="subnav-link">FAQ</a>
+				</nav>
+			</div>
 			<div class="roi-hero">
 				<h1 class="section-headline">Stop unpredictable AI costs</h1>
 				<p class="section-subtext">Own your model, own your budget. See your savings in minutes.</p>
@@ -49,7 +73,7 @@
 				</div>
 			</div>
 
-			<div class="roi-grid">
+			<div class="roi-grid" id="overview">
 				<div class="roi-card" id="calculator">
 					<h3>Estimate Your Savings</h3>
 					<form id="calcForm" class="roi-form">
@@ -130,6 +154,14 @@
 					</div>
 				</div>
 
+				<div class="roi-card roi-sticky-summary">
+					<h3>Your Summary</h3>
+					<div class="roi-summary-row"><span>Current spend</span><strong>$<span id="summaryCurrent">0.00</span></strong></div>
+					<div class="roi-summary-row"><span>Utlyze monthly</span><strong>$<span id="summaryUtlyze">0.00</span></strong></div>
+					<div class="roi-summary-row"><span>Monthly savings</span><strong>$<span id="summarySavings">0.00</span></strong></div>
+					<div class="roi-summary-row"><span>ROI</span><strong><span id="summaryRoi">0.0%</span></strong></div>
+					<a class="btn btn--primary" href="#leadForm">Book a Call</a>
+				</div>
 				<div class="roi-card">
 					<h3>Get Your Free ROI Report</h3>
 					<form id="leadForm" class="roi-form">
@@ -215,7 +247,7 @@
 					</div>
 
 					<!-- How It Works -->
-					<div class="glass-card" style="margin-top:16px;">
+					<div class="glass-card" id="howitworks" style="margin-top:16px;">
 						<h3>How It Works</h3>
 						<div style="display:grid; grid-template-columns: 1fr; gap:12px;">
 							<div><strong>1.</strong> Upload your data and define your task</div>
@@ -225,7 +257,7 @@
 					</div>
 
 					<!-- FAQ -->
-					<div class="glass-card" style="margin-top:16px;">
+					<div class="glass-card" id="faq" style="margin-top:16px;">
 						<h3>FAQ</h3>
 						<details>
 							<summary>How is the model secured?</summary>
@@ -254,6 +286,12 @@
 			</div>
 		</div>
 	</section>
+
+	<!-- Mobile sticky CTA -->
+	<div id="mobileCtaBar">
+		<a class="btn btn--primary" href="#calculator">See Your Savings</a>
+		<a class="btn btn--outline" href="#schedule">Book Now</a>
+	</div>
 
 	<script src="./app.js"></script>
 </body>

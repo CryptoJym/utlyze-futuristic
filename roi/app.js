@@ -68,6 +68,16 @@ function calcROI() {
 	document.getElementById('roi').innerText = (roi * 100).toFixed(1) + '%';
 	document.getElementById('roiResults').style.display = 'block';
 
+	// Update sticky summary
+	const summaryCurrent = document.getElementById('summaryCurrent');
+	const summaryUtlyze = document.getElementById('summaryUtlyze');
+	const summarySavings = document.getElementById('summarySavings');
+	const summaryRoi = document.getElementById('summaryRoi');
+	if (summaryCurrent) summaryCurrent.textContent = formatMoney(currentMonthly);
+	if (summaryUtlyze) summaryUtlyze.textContent = formatMoney(utlyzeMonthly);
+	if (summarySavings) summarySavings.textContent = formatMoney(savings);
+	if (summaryRoi) summaryRoi.textContent = (roi * 100).toFixed(1) + '%';
+
 	// Sync hidden fields on lead form
 	const form = document.getElementById('leadForm');
 	form.tokens_per_request.value = tokensPerReq;
@@ -104,6 +114,19 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	}
+
+	// Smooth scroll for subnav
+	const subnavLinks = document.querySelectorAll('.roi-subnav a');
+	subnavLinks.forEach(link => {
+		link.addEventListener('click', (e) => {
+			const href = link.getAttribute('href') || '';
+			if (href.startsWith('#')) {
+				e.preventDefault();
+				const target = document.querySelector(href);
+				if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			}
+		});
+	});
 
 	// Seed attribution
 	if (leadForm) {
