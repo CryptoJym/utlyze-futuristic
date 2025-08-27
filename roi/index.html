@@ -42,12 +42,8 @@
 	<section class="section">
 		<div class="container">
 			<div class="roi-hero">
-				<h1 class="section-headline">Cut LLM API spend 30–70% in 30 days</h1>
-				<p class="section-subtext">For Insurance & FinServ teams—private models that match your quality targets with predictable pricing.</p>
-				<div class="hero-buttons" style="margin-top: 12px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-					<a class="btn btn--primary" href="#calculator" id="seeSavingsCta">Run Savings Estimate</a>
-					<a class="btn btn--outline" href="#pilot" id="pilotCta">See 14-Day Pilot Plan</a>
-				</div>
+				<h1 class="section-headline">Own your AI costs</h1>
+				<p class="section-subtext">Predictable private models. Same quality. Lower spend.</p>
 			</div>
 
 			<div class="roi-grid" id="overview">
@@ -59,13 +55,14 @@
 						<div style="display:flex; gap: 12px; align-items:center;">
 							<label style="display:flex; align-items:center; gap:8px;">
 								<input type="radio" name="calcMode" id="modeSimple" value="simple" checked>
-								<span>Simple</span>
+								<span>CEO</span>
 							</label>
 							<label style="display:flex; align-items:center; gap:8px;">
 								<input type="radio" name="calcMode" id="modeAdvanced" value="advanced">
-								<span>Advanced</span>
+								<span>CTO</span>
 							</label>
 						</div>
+						<p class="small-muted">CEO: enter current monthly spend. CTO: enter tokens, calls, and price.</p>
 
 						<!-- Simple inputs -->
 						<div id="simpleFields">
@@ -107,27 +104,6 @@
 								<option value="call_summaries">Sales Call Summaries</option>
 							</select>
 						</label>
-
-						<!-- Methodology sliders -->
-						<div class="glass-card" style="margin-top: 10px;">
-							<h3>Methodology</h3>
-							<label>API offload to Utlyze: <span id="offloadPercentVal">80%</span>
-								<input type="range" id="offloadPercent" min="0" max="100" value="80">
-							</label>
-							<label>Prompt token reduction: <span id="promptReductionVal">15%</span>
-								<input type="range" id="promptReduction" min="0" max="50" value="15">
-							</label>
-							<label>Caching hit rate: <span id="cachingHitRateVal">25%</span>
-								<input type="range" id="cachingHitRate" min="0" max="80" value="25">
-							</label>
-							<label>Batching efficiency (cost reduction): <span id="batchingEfficiencyVal">20%</span>
-								<input type="range" id="batchingEfficiency" min="0" max="50" value="20">
-							</label>
-							<label>Hosted rate per 1,000 tokens ($)
-								<input type="number" id="hostedRate" value="0.0012" step="0.0001" min="0">
-							</label>
-							<p class="small-muted">We model savings from offloading, prompt optimization, caching, and batching. Hosted rate reflects your private model/token pricing.</p>
-						</div>
 
 						<!-- Plan selection and fees -->
 						<label>Choose your Utlyze plan
@@ -271,25 +247,10 @@
 
 			<div class="section" style="margin-top: 28px;">
 				<div class="container">
-					<div class="glass-card" style="display:grid; gap:16px;">
-						<h3>Proof & Plan</h3>
-						<div style="display:grid; grid-template-columns: 1fr; gap:12px;">
-							<div class="glass-card" style="padding:12px;">
-								<strong>Case</strong>
-								<p style="margin:6px 0 0;">$8.2k/mo saved on claims summaries; 41% faster. Parity vs public APIs.</p>
-							</div>
-							<div class="glass-card" id="pilot" style="padding:12px;">
-								<strong>14‑Day Pilot</strong>
-								<p style="margin:6px 0 0;">Scope → Baseline → Fine‑tune → A/B → Readout. Security included.</p>
-							</div>
-							<div class="glass-card" id="faq" style="padding:12px;">
-								<strong>FAQ</strong>
-								<p style="margin:6px 0 0;">Security, performance, spikes, trial—covered. Ask for details.</p>
-							</div>
-						</div>
-						<div style="text-align:center;">
-							<a class="btn btn--primary" href="mailto:hello@utlyze.com">Start 14‑Day Pilot</a>
-						</div>
+					<div class="glass-card" style="text-align:center;">
+						<h3>Want a second set of eyes?</h3>
+						<p class="small-muted">We’ll review your estimate and suggest quick wins.</p>
+						<a class="btn btn--primary" href="mailto:hello@utlyze.com">Talk to an engineer</a>
 					</div>
 				</div>
 			</div>

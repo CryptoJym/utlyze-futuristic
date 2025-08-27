@@ -46,47 +46,23 @@ function calcROI() {
 	const trainingFee = parseNumber(document.getElementById('trainingFee').value);
 	const amortizationMonths = parseInt(document.getElementById('amortizationMonths').value || '12', 10) || 12;
 
-	// Methodology inputs
-	const offloadPercent = parseNumber(document.getElementById('offloadPercent')?.value || 80);
-	const promptReduction = parseNumber(document.getElementById('promptReduction')?.value || 15);
-	const cachingHitRate = parseNumber(document.getElementById('cachingHitRate')?.value || 25);
-	const batchingEfficiency = parseNumber(document.getElementById('batchingEfficiency')?.value || 20);
-	const hostedRate = parseNumber(document.getElementById('hostedRate')?.value || 0.0012);
+	// Methodology inputs (removed for essentialism)
+	// const offloadPercent = parseNumber(document.getElementById('offloadPercent')?.value || 80);
+	// const promptReduction = parseNumber(document.getElementById('promptReduction')?.value || 15);
+	// const cachingHitRate = parseNumber(document.getElementById('cachingHitRate')?.value || 25);
+	// const batchingEfficiency = parseNumber(document.getElementById('batchingEfficiency')?.value || 20);
+	// const hostedRate = parseNumber(document.getElementById('hostedRate')?.value || 0.0012);
 
 	const trainingMonthly = amortizationMonths > 0 ? (trainingFee / amortizationMonths) : 0;
 
-	// Compute baseline tokens
-	let baselineMonthlyTokens = 0;
-	if (!modeSimple) {
-		tokensPerReq = parseNumber(document.getElementById('tokensPerReq').value);
-		requestsPerDay = parseNumber(document.getElementById('requestsPerDay').value);
-		apiCost = parseNumber(document.getElementById('apiCost').value);
-		baselineMonthlyTokens = tokensPerReq * requestsPerDay * 30;
-	} else {
-		const range = document.getElementById('spendRange')?.value;
-		const monthlyOverride = parseNumber(document.getElementById('simpleMonthlySpend')?.value);
-		const rangeMidpoints = { under_1k: 500, '1k_5k': 3000, '5k_20k': 12000, '20k_plus': 25000 };
-		currentMonthly = monthlyOverride > 0 ? monthlyOverride : (rangeMidpoints[range] || 0);
-		const assumedApiCost = parseNumber(document.getElementById('apiCost')?.value || 0.002);
-		baselineMonthlyTokens = assumedApiCost > 0 ? (currentMonthly / assumedApiCost) * 1000 : 0;
-	}
-
-	// Effective token reductions
-	const reductionFactor = (1 - promptReduction / 100) * (1 - cachingHitRate / 100) * (1 - batchingEfficiency / 100);
-	const offloadFraction = offloadPercent / 100;
-
-	const offloadedTokens = baselineMonthlyTokens * offloadFraction * reductionFactor;
-	const hostedTokenCost = (offloadedTokens / 1000) * hostedRate;
-	const remainingApiCost = currentMonthly * (1 - offloadFraction);
-
-	const newMonthlyCost = hostedTokenCost + remainingApiCost;
-	const utlyzeMonthly = hostingFee + trainingMonthly + newMonthlyCost;
+	// Basic cost compare
+	const utlyzeMonthly = hostingFee + trainingMonthly;
 	const savings = currentMonthly - utlyzeMonthly;
 	const roi = utlyzeMonthly > 0 ? (savings / utlyzeMonthly) : 0;
 
 	const paybackDays = (savings > 0 && trainingFee > 0) ? Math.max(1, Math.round((trainingFee / Math.max(savings, 1)) * 30)) : 0;
 
-	document.getElementById('newMonthlyCost') && (document.getElementById('newMonthlyCost').innerText = formatMoney(newMonthlyCost));
+	document.getElementById('newMonthlyCost') && (document.getElementById('newMonthlyCost').innerText = '');
 	document.getElementById('utlyzeCost').innerText = formatMoney(utlyzeMonthly);
 	document.getElementById('savings').innerText = formatMoney(savings);
 	document.getElementById('roi').innerText = (roi * 100).toFixed(1) + '%';
@@ -208,7 +184,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 
 		// Recalculate when key inputs change
-		['simpleMonthlySpend','spendRange','tokensPerReq','requestsPerDay','apiCost','hostingFee','trainingFee','amortizationMonths','planTier','offloadPercent','promptReduction','cachingHitRate','batchingEfficiency','hostedRate']
+		['simpleMonthlySpend','spendRange','tokensPerReq','requestsPerDay','apiCost','hostingFee','trainingFee','amortizationMonths','planTier']
 			.forEach(id => {
 				const el = document.getElementById(id);
 				if (el) el.addEventListener('change', () => {
@@ -217,6 +193,16 @@ window.addEventListener('DOMContentLoaded', () => {
 					}
 				});
 			});
+
+		// Methodology and presets
+		;['offloadPercent','promptReduction','cachingHitRate','batchingEfficiency','hostedRate','useCasePreset'].forEach(id => {
+			const el = document.getElementById(id);
+			if (el) el.addEventListener('input', () => {
+				const valSpan = document.getElementById(id + 'Val');
+				if (valSpan && el && el.type === 'range') valSpan.textContent = el.value + '%';
+				if (document.getElementById('roiResults').style.display === 'block') calcROI();
+			});
+		});
 
 		// Use case presets
 		const useCasePreset = document.getElementById('useCasePreset');
