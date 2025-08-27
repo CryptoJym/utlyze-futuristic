@@ -208,7 +208,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 
 		// Recalculate when key inputs change
-		['simpleMonthlySpend','spendRange','tokensPerReq','requestsPerDay','apiCost','hostingFee','trainingFee','amortizationMonths','planTier']
+		['simpleMonthlySpend','spendRange','tokensPerReq','requestsPerDay','apiCost','hostingFee','trainingFee','amortizationMonths','planTier','offloadPercent','promptReduction','cachingHitRate','batchingEfficiency','hostedRate']
 			.forEach(id => {
 				const el = document.getElementById(id);
 				if (el) el.addEventListener('change', () => {
@@ -217,15 +217,98 @@ window.addEventListener('DOMContentLoaded', () => {
 					}
 				});
 			});
-		// Methodology and presets
-		;['offloadPercent','promptReduction','cachingHitRate','batchingEfficiency','hostedRate','useCasePreset'].forEach(id => {
-			const el = document.getElementById(id);
-			if (el) el.addEventListener('input', () => {
-				const valSpan = document.getElementById(id + 'Val');
-				if (valSpan && el.type === 'range') valSpan.textContent = el.value + '%';
-				if (document.getElementById('roiResults').style.display === 'block') calcROI();
+
+		// Use case presets
+		const useCasePreset = document.getElementById('useCasePreset');
+		const applyPreset = (preset) => {
+			const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = String(val); };
+			switch (preset) {
+				case 'insurance_claims':
+					setVal('tokensPerReq', 350);
+					setVal('requestsPerDay', 1200);
+					setVal('apiCost', 0.0030);
+					setVal('offloadPercent', 80);
+					setVal('promptReduction', 15);
+					setVal('cachingHitRate', 30);
+					setVal('batchingEfficiency', 20);
+					setVal('hostedRate', 0.0012);
+					break;
+				case 'rag_support':
+					setVal('tokensPerReq', 600);
+					setVal('requestsPerDay', 800);
+					setVal('apiCost', 0.0020);
+					setVal('offloadPercent', 70);
+					setVal('promptReduction', 20);
+					setVal('cachingHitRate', 40);
+					setVal('batchingEfficiency', 15);
+					setVal('hostedRate', 0.0011);
+					break;
+				case 'doc_extraction':
+					setVal('tokensPerReq', 900);
+					setVal('requestsPerDay', 450);
+					setVal('apiCost', 0.0025);
+					setVal('offloadPercent', 85);
+					setVal('promptReduction', 10);
+					setVal('cachingHitRate', 20);
+					setVal('batchingEfficiency', 25);
+					setVal('hostedRate', 0.0013);
+					break;
+				case 'call_summaries':
+					setVal('tokensPerReq', 1200);
+					setVal('requestsPerDay', 200);
+					setVal('apiCost', 0.0035);
+					setVal('offloadPercent', 75);
+					setVal('promptReduction', 18);
+					setVal('cachingHitRate', 15);
+					setVal('batchingEfficiency', 30);
+					setVal('hostedRate', 0.0014);
+					break;
+				default:
+					return;
+			}
+			// Show advanced mode and recalc
+			if (modeAdvancedEl) modeAdvancedEl.checked = true;
+			syncModeUI();
+			const updateVal = (id) => { const s = document.getElementById(id + 'Val'); const el = document.getElementById(id); if (s && el && el.type === 'range') s.textContent = el.value + '%'; };
+			['offloadPercent','promptReduction','cachingHitRate','batchingEfficiency'].forEach(updateVal);
+			if (document.getElementById('roiResults').style.display === 'block') calcROI();
+		};
+		if (useCasePreset) {
+			useCasePreset.addEventListener('change', () => applyPreset(useCasePreset.value));
+		}
+
+		// Report actions
+		const printBtn = document.getElementById('printReportBtn');
+		if (printBtn) {
+			printBtn.addEventListener('click', () => window.print());
+		}
+		const emailBtn = document.getElementById('emailReportBtn');
+		if (emailBtn) {
+			emailBtn.addEventListener('click', () => {
+				const lines = [];
+				const get = (id) => document.getElementById(id)?.textContent || '';
+				lines.push('Your Utlyze ROI estimate');
+				lines.push('');
+				lines.push(`Current spend: $${get('currentSpend')}`);
+				lines.push(`New monthly cost: $${get('newMonthlyCost')}`);
+				lines.push(`Utlyze total monthly: $${get('utlyzeCost')}`);
+				lines.push(`Savings: $${get('savings')}`);
+				lines.push(`ROI: ${get('roi')}`);
+				lines.push(`Payback: ${get('paybackDays')} days`);
+				lines.push('');
+				lines.push(`Hosted rate (/1K): $${get('hostedRateOut')}`);
+				lines.push(`Hosted token cost: $${get('hostedTokenCost')}`);
+				lines.push(`Remaining API cost: $${get('remainingApiCost')}`);
+				lines.push(`Hosting: $${get('hostingFeeOut')}`);
+				lines.push(`Training (monthly): $${get('trainingMonthlyOut')}`);
+				const emailInput = document.querySelector('#leadForm input[name="email"]');
+				const to = emailInput && emailInput.value ? emailInput.value : '';
+				const subject = 'Your Utlyze ROI estimate';
+				const body = lines.join('\n');
+				const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+				window.location.href = mailto;
 			});
-		});
+		}
 	}
 
 	if (leadForm) {
