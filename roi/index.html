@@ -42,8 +42,8 @@
 	<section class="section">
 		<div class="container">
 			<div class="roi-hero">
-				<h1 class="section-headline">Own your AI costs</h1>
-				<p class="section-subtext">Predictable private models. Same quality. Lower spend.</p>
+				<h1 class="section-headline">Cut AI spend 30–70% without sacrificing quality</h1>
+				<p class="section-subtext">Private models. Predictable pricing. Results you can measure.</p>
 			</div>
 
 			<div class="roi-grid" id="overview">
@@ -54,11 +54,11 @@
 						<!-- Mode toggle -->
 						<div style="display:flex; gap: 12px; align-items:center;">
 							<label style="display:flex; align-items:center; gap:8px;">
-								<input type="radio" name="calcMode" id="modeSimple" value="simple" checked>
+								<input type="radio" name="calcMode" id="modeSimple" value="simple">
 								<span>Regular</span>
 							</label>
 							<label style="display:flex; align-items:center; gap:8px;">
-								<input type="radio" name="calcMode" id="modeAdvanced" value="advanced">
+								<input type="radio" name="calcMode" id="modeAdvanced" value="advanced" checked>
 								<span>Advanced</span>
 							</label>
 						</div>
@@ -95,26 +95,7 @@
 						</div>
 
 						<!-- Plan selection and fees -->
-						<label>Choose your Utlyze plan
-							<select id="planTier">
-								<option value="core" data-price="1500">Core — $1,500/mo</option>
-								<option value="pro" data-price="2500" selected>Pro — $2,500/mo</option>
-								<option value="custom" data-price="0">Custom</option>
-							</select>
-						</label>
-						<label>Utlyze hosting fee ($/month)
-							<input type="number" id="hostingFee" value="2500" min="0" required>
-						</label>
-						<label>One‑time setup/training ($)
-							<input type="number" id="trainingFee" value="5000" min="0" required>
-						</label>
-						<label>Spread setup across (months)
-							<select id="amortizationMonths">
-								<option value="12" selected>12</option>
-								<option value="24">24</option>
-								<option value="36">36</option>
-							</select>
-						</label>
+						<!-- removed for essentialism -->
 
 						<hr>
 						<h3>Tell us where to send your estimate</h3>
@@ -173,7 +154,7 @@
 
 					<div id="roiResults" class="roi-results" style="display:none; margin-top: 12px;" aria-live="polite">
 						<p><strong>Current monthly API spend:</strong> $<span id="currentSpend"></span></p>
-						<p><strong>Utlyze effective monthly cost:</strong> $<span id="utlyzeCost"></span></p>
+						<p><strong>Projected monthly with Utlyze:</strong> $<span id="utlyzeCost"></span></p>
 						<p><strong>Monthly savings:</strong> $<span id="savings"></span></p>
 						<p><strong>ROI (Savings / Cost):</strong> <span id="roi"></span></p>
 						<p><strong>Payback:</strong> <span id="paybackDays"></span> days</p>
@@ -184,26 +165,7 @@
 						<p class="small-muted">Estimates only; real results depend on usage and model choice.</p>
 					</div>
 
-					<!-- Detailed report -->
-					<div class="glass-card" id="detailedReport" style="display:none; margin-top:12px;">
-						<h3>Detailed ROI Report</h3>
-						<ul>
-							<li>Baseline monthly tokens: <strong><span id="baselineTokens"></span></strong></li>
-							<li>Offloaded tokens: <strong><span id="offloadedTokens"></span></strong></li>
-							<li>Hosted token rate: <strong>$<span id="hostedRateOut"></span> / 1K</strong></li>
-							<li>Hosted token cost: <strong>$<span id="hostedTokenCost"></span></strong></li>
-							<li>Remaining public API cost: <strong>$<span id="remainingApiCost"></span></strong></li>
-							<li>Hosting subscription: <strong>$<span id="hostingFeeOut"></span></strong></li>
-							<li>Amortized training (monthly): <strong>$<span id="trainingMonthlyOut"></span></strong></li>
-							<li>Projected new monthly cost: <strong>$<span id="newMonthlyCostOut"></span></strong></li>
-							<li>Monthly savings: <strong>$<span id="savingsOut"></span></strong></li>
-							<li>Payback: <strong><span id="paybackDaysOut"></span> days</strong></li>
-						</ul>
-						<div style="display:flex; gap:8px; flex-wrap:wrap;">
-							<button type="button" class="btn btn--outline" id="printReportBtn">Print / Save as PDF</button>
-							<button type="button" class="btn btn--primary" id="emailReportBtn">Email me this report</button>
-						</div>
-					</div>
+					<!-- Detailed report removed for essentialism -->
 				</div>
 
 				<!-- Right: Sticky summary + Credibility -->
