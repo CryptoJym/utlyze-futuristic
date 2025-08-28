@@ -55,14 +55,14 @@
 						<div style="display:flex; gap: 12px; align-items:center;">
 							<label style="display:flex; align-items:center; gap:8px;">
 								<input type="radio" name="calcMode" id="modeSimple" value="simple" checked>
-								<span>CEO</span>
+								<span>Regular</span>
 							</label>
 							<label style="display:flex; align-items:center; gap:8px;">
 								<input type="radio" name="calcMode" id="modeAdvanced" value="advanced">
-								<span>CTO</span>
+								<span>Advanced</span>
 							</label>
 						</div>
-						<p class="small-muted">CEO: enter current monthly spend. CTO: enter tokens, calls, and price.</p>
+						<p class="small-muted">Regular: enter current monthly spend. Advanced: enter tokens, calls, and price.</p>
 
 						<!-- Simple inputs -->
 						<div id="simpleFields">
@@ -94,17 +94,6 @@
 							<p class="small-muted">A token ≈ ¾ of a word. Not sure on price? $0.002 is a good default.</p>
 						</div>
 
-						<!-- Use case preset -->
-						<label>Use case preset
-							<select id="useCasePreset">
-								<option value="">Select a preset (optional)</option>
-								<option value="insurance_claims">Insurance Claims Triage</option>
-								<option value="rag_support">RAG Support Chat</option>
-								<option value="doc_extraction">Document Extraction</option>
-								<option value="call_summaries">Sales Call Summaries</option>
-							</select>
-						</label>
-
 						<!-- Plan selection and fees -->
 						<label>Choose your Utlyze plan
 							<select id="planTier">
@@ -127,18 +116,72 @@
 							</select>
 						</label>
 
-						<button type="button" class="btn btn--primary" id="btnCalc">Calculate ROI</button>
+						<hr>
+						<h3>Tell us where to send your estimate</h3>
+						<label>Name
+							<input type="text" name="name" required>
+						</label>
+						<label>Work email
+							<input type="email" name="email" required>
+						</label>
+						<label>Company
+							<input type="text" name="company">
+						</label>
+						<label>Your role
+							<select name="role">
+								<option value="">Select</option>
+								<option value="ops_eng_leader">Ops/Engineering leader</option>
+								<option value="founder">Founder</option>
+								<option value="engineer">Engineer</option>
+								<option value="procurement_finance">Procurement/Finance</option>
+								<option value="other">Other</option>
+							</select>
+						</label>
+						<div>
+							<label>Biggest pain today</label>
+							<div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="unpredictable_costs"> Unpredictable costs</label>
+								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="data_privacy"> Data privacy</label>
+								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="latency"> Latency</label>
+								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="quality_drift"> Quality drift</label>
+							</div>
+						</div>
+
+						<button type="submit" class="btn btn--primary" id="btnCalc">Get my estimate</button>
+						<p class="small-muted">We’ll show your results instantly and email a copy. Confidential by default.</p>
+
+						<!-- Hidden fields for calculator values/results and attribution -->
+						<input type="hidden" name="tokens_per_request">
+						<input type="hidden" name="requests_per_day">
+						<input type="hidden" name="api_cost_per_k">
+						<input type="hidden" name="hosting_fee">
+						<input type="hidden" name="training_fee">
+						<input type="hidden" name="amortization_months" value="12">
+						<input type="hidden" name="current_monthly_spend">
+						<input type="hidden" name="utlyze_effective_monthly">
+						<input type="hidden" name="savings">
+						<input type="hidden" name="roi_percentage">
+						<input type="hidden" name="spend_range">
+						<input type="hidden" name="utm_source">
+						<input type="hidden" name="utm_medium">
+						<input type="hidden" name="utm_campaign">
+						<input type="hidden" name="utm_term">
+						<input type="hidden" name="utm_content">
+						<input type="hidden" name="referrer">
+						<input type="hidden" name="page_url">
 					</form>
 
 					<div id="roiResults" class="roi-results" style="display:none; margin-top: 12px;" aria-live="polite">
 						<p><strong>Current monthly API spend:</strong> $<span id="currentSpend"></span></p>
-						<p><strong>Projected new monthly cost:</strong> $<span id="newMonthlyCost"></span></p>
 						<p><strong>Utlyze effective monthly cost:</strong> $<span id="utlyzeCost"></span></p>
 						<p><strong>Monthly savings:</strong> $<span id="savings"></span></p>
 						<p><strong>ROI (Savings / Cost):</strong> <span id="roi"></span></p>
 						<p><strong>Payback:</strong> <span id="paybackDays"></span> days</p>
+						<div style="display:flex; gap:8px; flex-wrap:wrap;">
+							<button type="button" class="btn btn--outline" id="printReportBtn">Download PDF</button>
+							<button type="button" class="btn btn--primary" id="emailReportBtn">Email me this</button>
+						</div>
 						<p class="small-muted">Estimates only; real results depend on usage and model choice.</p>
-						<p class="small-muted">Your data stays private and secure—only used for your ROI estimate.</p>
 					</div>
 
 					<!-- Detailed report -->
@@ -183,65 +226,6 @@
 						<li><strong>$8.2k/mo</strong> saved on claims summaries; <strong>41%</strong> faster</li>
 						<li><strong>35%</strong> fewer tokens via prompt + caching on RAG</li>
 					</ul>
-				</div>
-				<div class="roi-card">
-					<h3>Get Your Free ROI Report</h3>
-					<form id="leadForm" class="roi-form">
-						<label>Name
-							<input type="text" name="name" required>
-						</label>
-						<label>Work email
-							<input type="email" name="email" required>
-						</label>
-						<label>Company
-							<input type="text" name="company">
-						</label>
-						<label>Your role
-							<select name="role">
-								<option value="">Select</option>
-								<option value="ops_eng_leader">Ops/Engineering leader</option>
-								<option value="founder">Founder</option>
-								<option value="engineer">Engineer</option>
-								<option value="procurement_finance">Procurement/Finance</option>
-								<option value="other">Other</option>
-							</select>
-						</label>
-						<div>
-							<label>Biggest pain today</label>
-							<div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="unpredictable_costs"> Unpredictable costs</label>
-								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="data_privacy"> Data privacy</label>
-								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="latency"> Latency</label>
-								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="quality_drift"> Quality drift</label>
-							</div>
-						</div>
-						<label>Notes (optional)
-							<textarea name="notes" rows="3"></textarea>
-						</label>
-						<!-- Hidden fields for calculator values/results -->
-						<input type="hidden" name="tokens_per_request">
-						<input type="hidden" name="requests_per_day">
-						<input type="hidden" name="api_cost_per_k">
-						<input type="hidden" name="hosting_fee">
-						<input type="hidden" name="training_fee">
-						<input type="hidden" name="amortization_months" value="12">
-						<input type="hidden" name="current_monthly_spend">
-						<input type="hidden" name="utlyze_effective_monthly">
-						<input type="hidden" name="savings">
-						<input type="hidden" name="roi_percentage">
-						<input type="hidden" name="spend_range">
-						<!-- Hidden attribution fields -->
-						<input type="hidden" name="utm_source">
-						<input type="hidden" name="utm_medium">
-						<input type="hidden" name="utm_campaign">
-						<input type="hidden" name="utm_term">
-						<input type="hidden" name="utm_content">
-						<input type="hidden" name="referrer">
-						<input type="hidden" name="page_url">
-						<button type="submit" class="btn btn--primary">Book your free ROI review</button>
-						<p class="small-muted">We’ll email your personalized ROI summary and a link to schedule.</p>
-						<p class="small-muted">Confidential: we never share your inputs; you control retention.</p>
-					</form>
 				</div>
 			</div>
 
