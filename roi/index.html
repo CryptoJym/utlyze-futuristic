@@ -13,13 +13,22 @@
 		.roi-hero h1 { margin-bottom: var(--space-12); }
 		.roi-hero p { color: rgba(10,10,10,0.8); }
 		.roi-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-24); max-width: 980px; margin: 0 auto; }
-		@media (min-width: 900px) { .roi-grid { grid-template-columns: 1.1fr 0.9fr; } }
+		@media (min-width: 900px) { .roi-grid { grid-template-columns: 1fr; } }
 		.roi-card { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 16px; padding: var(--space-24); box-shadow: var(--utlyze-shadow-premium); }
 		.roi-card h3 { margin-top: 0; }
-		.roi-form label { display: block; margin: 10px 0 6px; font-weight: 600; }
-		.roi-form input, .roi-form select, .roi-form textarea { width: 100%; padding: 12px 14px; border-radius: 10px; border: 2px solid rgba(0, 91, 255, 0.2); font-size: 16px; background: rgba(255,255,255,0.95); color: var(--utlyze-text-dark); }
+		.roi-form label { display: block; margin: 8px 0 6px; font-weight: 600; }
+		.roi-form input, .roi-form select, .roi-form textarea { width: 100%; padding: 10px 12px; border-radius: 10px; border: 2px solid rgba(0, 91, 255, 0.2); font-size: 15px; background: rgba(255,255,255,0.95); color: var(--utlyze-text-dark); }
+		.roi-results { border-top: 1px solid rgba(0,0,0,0.06); padding-top: 12px; }
 		.roi-results p { margin: 8px 0; }
 		.small-muted { font-size: 12px; color: rgba(10,10,10,0.6); }
+		/* Checkbox alignment */
+		.checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+		.checkbox-grid label { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+		.roi-form input[type="checkbox"] { width: auto; display: inline-block; }
+		/* Bars visualization */
+		.roi-bars { margin-top: 8px; display: grid; gap: 8px; }
+		.roi-bar { height: 8px; border-radius: 6px; background: rgba(0,0,0,0.06); overflow: hidden; }
+		.roi-bar > span { display: block; height: 100%; background: linear-gradient(90deg, #005BFF, #FF7A00); width: 0%; transition: width 0.4s ease; }
 		/* Subnav */
 		.roi-subnav { position: sticky; top: 0; z-index: 5; backdrop-filter: var(--utlyze-backdrop-blur); background: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; padding: 8px 12px; display: inline-flex; gap: 8px; }
 		.roi-subnav a { text-decoration: none; padding: 8px 12px; border-radius: 999px; border: 1px solid transparent; color: var(--utlyze-text-dark); }
@@ -125,11 +134,11 @@
 						</label>
 						<div>
 							<label>Biggest pain today</label>
-							<div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="unpredictable_costs"> Unpredictable costs</label>
-								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="data_privacy"> Data privacy</label>
-								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="latency"> Latency</label>
-								<label style="font-weight:400;"><input type="checkbox" name="pain_points[]" value="quality_drift"> Quality drift</label>
+							<div class="checkbox-grid">
+								<label><input type="checkbox" name="pain_points[]" value="unpredictable_costs"> Unpredictable costs</label>
+								<label><input type="checkbox" name="pain_points[]" value="data_privacy"> Data privacy</label>
+								<label><input type="checkbox" name="pain_points[]" value="latency"> Latency</label>
+								<label><input type="checkbox" name="pain_points[]" value="quality_drift"> Quality drift</label>
 							</div>
 						</div>
 
@@ -162,8 +171,12 @@
 						<p><strong>Projected monthly with Utlyze:</strong> $<span id="utlyzeCost"></span></p>
 						<p><strong>Monthly savings:</strong> $<span id="savings"></span></p>
 						<p><strong>ROI (Savings / Cost):</strong> <span id="roi"></span></p>
-						<p><strong>Payback:</strong> <span id="paybackDays"></span> days</p>
-						<div style="display:flex; gap:8px; flex-wrap:wrap;">
+						<div class="roi-bars">
+							<div class="roi-bar"><span id="barCurrent"></span></div>
+							<div class="roi-bar"><span id="barUtlyze"></span></div>
+							<div class="roi-bar"><span id="barSavings"></span></div>
+						</div>
+						<div style="display:flex; gap:8px; flex-wrap:wrap; margin-top: 8px;">
 							<button type="button" class="btn btn--outline" id="printReportBtn">Download PDF</button>
 							<button type="button" class="btn btn--primary" id="emailReportBtn">Email me this</button>
 						</div>

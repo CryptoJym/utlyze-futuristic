@@ -69,6 +69,17 @@ function calcROI() {
 	document.getElementById('paybackDays') && (document.getElementById('paybackDays').innerText = String(paybackDays));
 	document.getElementById('roiResults').style.display = 'block';
 
+	// Animate bars (proportional widths)
+	const current = Math.max(1, Number(document.getElementById('currentSpend').textContent || '0'));
+	const utlyze = Math.max(0, Number(document.getElementById('utlyzeCost').textContent || '0'));
+	const savingsVal = Math.max(0, Number(document.getElementById('savings').textContent || '0'));
+	const maxVal = Math.max(current, utlyze, savingsVal);
+	const pct = (v) => `${Math.min(100, Math.round((v / (maxVal || 1)) * 100))}%`;
+	const setW = (id, v) => { const el = document.getElementById(id); if (el) el.style.width = pct(v); };
+	setW('barCurrent', current);
+	setW('barUtlyze', utlyze);
+	setW('barSavings', savingsVal);
+
 	// Update sticky summary
 	const summaryCurrent = document.getElementById('summaryCurrent');
 	const summaryUtlyze = document.getElementById('summaryUtlyze');
