@@ -66,6 +66,8 @@
 					<h3>Estimate Your Savings</h3>
 					<form id="calcForm" class="roi-form">
 						<!-- Mode toggle -->
+					<fieldset role="radiogroup" aria-label="Calculator mode" style="border:0; padding:0; margin:0;">
+						<legend class="small-muted" style="margin-bottom:6px;">Mode</legend>
 						<div style="display:flex; gap: 12px; align-items:center;">
 							<label style="display:flex; align-items:center; gap:8px;">
 								<input type="radio" name="calcMode" id="modeSimple" value="simple" checked>
@@ -76,7 +78,8 @@
 								<span>Advanced</span>
 							</label>
 						</div>
-						<p class="small-muted">Regular: enter current monthly spend. Advanced: enter tokens, calls, and price.</p>
+					</fieldset>
+					<p class="small-muted">Regular: enter current monthly spend. Advanced: enter tokens, calls, and price.</p>
 
 						<!-- Simple inputs -->
 						<div id="simpleFields">
@@ -116,9 +119,11 @@
 						<label>Name
 							<input type="text" name="name" required>
 						</label>
+						<div class="small-muted" id="nameError" aria-live="polite" style="color:#B91C1C; display:none;"></div>
 						<label>Work email
 							<input type="email" name="email" required>
 						</label>
+						<div class="small-muted" id="emailError" aria-live="polite" style="color:#B91C1C; display:none;"></div>
 						<label>Company
 							<input type="text" name="company">
 						</label>
@@ -167,6 +172,7 @@
 					</form>
 
 					<div id="roiResults" class="roi-results" style="display:none; margin-top: 12px;" aria-live="polite">
+						<h3 id="resultsHeading" style="margin:0 0 8px 0;">Your estimate</h3>
 						<p><strong>Current monthly API spend:</strong> $<span id="currentSpend"></span></p>
 						<p><strong>Projected monthly with Utlyze:</strong> $<span id="utlyzeCost"></span></p>
 						<p><strong>Monthly savings:</strong> $<span id="savings"></span></p>

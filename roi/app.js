@@ -154,8 +154,10 @@ window.addEventListener('DOMContentLoaded', () => {
 	const setBusy = (busy) => {
         if (!calcForm) return;
         const btn = document.getElementById('btnCalc');
-        if (btn) { btn.disabled = busy; btn.style.opacity = busy ? '0.7' : '1'; }
+        if (btn) { btn.disabled = busy; btn.style.opacity = busy ? '0.7' : '1'; btn.style.cursor = busy ? 'not-allowed' : 'pointer'; }
     };
+
+    const showError = (id, msg) => { const el = document.getElementById(id); if (el) { el.textContent = msg; el.style.display = msg ? 'block' : 'none'; } };
 
 	if (btnCalc) {
 		btnCalc.addEventListener('click', calcROI);
@@ -344,15 +346,14 @@ window.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const name = nameEl?.value.trim();
             const email = emailEl?.value.trim();
-            if (!name || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                alert('Please enter your name and a valid work email.');
-                (name ? emailEl : nameEl)?.focus();
-                return;
-            }
+            showError('nameError',''); showError('emailError','');
+            if (!name) { showError('nameError','Name is required.'); nameEl?.focus(); return; }
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('emailError','Enter a valid work email.'); emailEl?.focus(); return; }
             setBusy(true);
             try {
                 calcROI();
-                // Insert to Supabase happens in existing submit handler later
+                const heading = document.getElementById('resultsHeading');
+                if (heading) heading.focus?.();
             } finally {
                 setBusy(false);
             }
