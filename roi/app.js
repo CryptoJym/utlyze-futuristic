@@ -55,18 +55,32 @@ function calcROI() {
 
 	const trainingMonthly = amortizationMonths > 0 ? (trainingFee / amortizationMonths) : 0;
 
-	// Basic cost compare
-	const utlyzeMonthly = hostingFee + trainingMonthly;
+	// Compute costs (essentialist)
+	if (modeSimple) {
+		const sm = parseNumber(document.getElementById('simpleMonthlySpend')?.value);
+		const range = document.getElementById('spendRange')?.value || '';
+		const rangeMidpoints = { under_1k: 500, '1k_5k': 3000, '5k_20k': 12000, '20k_plus': 25000 };
+		currentMonthly = sm > 0 ? sm : (rangeMidpoints[range] || 0);
+	} else {
+		tokensPerReq = parseNumber(document.getElementById('tokensPerReq')?.value);
+		requestsPerDay = parseNumber(document.getElementById('requestsPerDay')?.value);
+		apiCost = parseNumber(document.getElementById('apiCost')?.value);
+		currentMonthly = (tokensPerReq * requestsPerDay / 1000) * apiCost * 30;
+	}
+
+	// Midpoint savings assumption (50%)
+	const savingsPercent = 0.5;
+	const utlyzeMonthly = currentMonthly * (1 - savingsPercent);
 	const savings = currentMonthly - utlyzeMonthly;
 	const roi = utlyzeMonthly > 0 ? (savings / utlyzeMonthly) : 0;
 
-	const paybackDays = (savings > 0 && trainingFee > 0) ? Math.max(1, Math.round((trainingFee / Math.max(savings, 1)) * 30)) : 0;
+	const paybackDays = savings > 0 ? Math.max(1, Math.round((currentMonthly / Math.max(savings, 1)) * 30)) : 0;
 
-	document.getElementById('newMonthlyCost') && (document.getElementById('newMonthlyCost').innerText = '');
 	document.getElementById('utlyzeCost').innerText = formatMoney(utlyzeMonthly);
 	document.getElementById('savings').innerText = formatMoney(savings);
 	document.getElementById('roi').innerText = (roi * 100).toFixed(1) + '%';
 	document.getElementById('paybackDays') && (document.getElementById('paybackDays').innerText = String(paybackDays));
+	document.getElementById('currentSpend').innerText = formatMoney(currentMonthly);
 	document.getElementById('roiResults').style.display = 'block';
 
 	// Animate bars (proportional widths)
@@ -123,8 +137,25 @@ function calcROI() {
 
 window.addEventListener('DOMContentLoaded', () => {
 	const btnCalc = document.getElementById('btnCalc');
-	const leadForm = document.getElementById('leadForm');
+	const leadForm = document.getElementById('calcForm');
 	const calcForm = document.getElementById('calcForm');
+
+	// Hydrate from URL params
+	const params = new URLSearchParams(window.location.search);
+	const setIf = (id, key=params.get(id)) => { const el=document.getElementById(id); if(el && params.get(id)) el.value=params.get(id); };
+	setIf('simpleMonthlySpend');
+	setIf('tokensPerReq'); setIf('requestsPerDay'); setIf('apiCost');
+	const nameEl = calcForm?.querySelector('input[name="name"]'); if (nameEl && params.get('name')) nameEl.value = params.get('name');
+	const emailEl = calcForm?.querySelector('input[name="email"]'); if (emailEl && params.get('email')) emailEl.value = params.get('email');
+	const companyEl = calcForm?.querySelector('input[name="company"]'); if (companyEl && params.get('company')) companyEl.value = params.get('company');
+	const roleSel = calcForm?.querySelector('select[name="role"]'); if (roleSel && params.get('role')) roleSel.value = params.get('role');
+
+	// CTA affordance
+	const setBusy = (busy) => {
+        if (!calcForm) return;
+        const btn = document.getElementById('btnCalc');
+        if (btn) { btn.disabled = busy; btn.style.opacity = busy ? '0.7' : '1'; }
+    };
 
 	if (btnCalc) {
 		btnCalc.addEventListener('click', calcROI);
@@ -306,6 +337,26 @@ window.addEventListener('DOMContentLoaded', () => {
 				window.location.href = mailto;
 			});
 		}
+	}
+
+	if (calcForm) {
+		calcForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = nameEl?.value.trim();
+            const email = emailEl?.value.trim();
+            if (!name || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Please enter your name and a valid work email.');
+                (name ? emailEl : nameEl)?.focus();
+                return;
+            }
+            setBusy(true);
+            try {
+                calcROI();
+                // Insert to Supabase happens in existing submit handler later
+            } finally {
+                setBusy(false);
+            }
+        });
 	}
 
 	if (leadForm) {
