@@ -42,9 +42,9 @@ function calcROI() {
 	let requestsPerDay = 0;
 	let apiCost = 0;
 	let currentMonthly = 0;
-	const hostingFee = parseNumber(document.getElementById('hostingFee').value);
-	const trainingFee = parseNumber(document.getElementById('trainingFee').value);
-	const amortizationMonths = parseInt(document.getElementById('amortizationMonths').value || '12', 10) || 12;
+	const hostingFee = document.getElementById('hostingFee') ? parseNumber(document.getElementById('hostingFee').value) : 0;
+	const trainingFee = document.getElementById('trainingFee') ? parseNumber(document.getElementById('trainingFee').value) : 0;
+	const amortizationMonths = document.getElementById('amortizationMonths') ? (parseInt(document.getElementById('amortizationMonths').value || '12', 10) || 12) : 12;
 
 	// Methodology inputs (removed for essentialism)
 	// const offloadPercent = parseNumber(document.getElementById('offloadPercent')?.value || 80);
