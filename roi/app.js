@@ -336,18 +336,10 @@ window.addEventListener('DOMContentLoaded', () => {
 				lines.push('Your Utlyze ROI estimate');
 				lines.push('');
 				lines.push(`Current spend: $${get('currentSpend')}`);
-				lines.push(`New monthly cost: $${get('newMonthlyCost')}`);
-				lines.push(`Utlyze total monthly: $${get('utlyzeCost')}`);
+				lines.push(`Projected with Utlyze: $${get('utlyzeCost')}`);
 				lines.push(`Savings: $${get('savings')}`);
 				lines.push(`ROI: ${get('roi')}`);
-				lines.push(`Payback: ${get('paybackDays')} days`);
-				lines.push('');
-				lines.push(`Hosted rate (/1K): $${get('hostedRateOut')}`);
-				lines.push(`Hosted token cost: $${get('hostedTokenCost')}`);
-				lines.push(`Remaining API cost: $${get('remainingApiCost')}`);
-				lines.push(`Hosting: $${get('hostingFeeOut')}`);
-				lines.push(`Training (monthly): $${get('trainingMonthlyOut')}`);
-				const emailInput = document.querySelector('#leadForm input[name="email"]');
+				const emailInput = document.querySelector('#calcForm input[name="email"]');
 				const to = emailInput && emailInput.value ? emailInput.value : '';
 				const subject = 'Your Utlyze ROI estimate';
 				const body = lines.join('\n');
@@ -390,47 +382,43 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			try {
 				if (supabase) {
-					const { error } = await supabase.from('roi_leads').insert({
-						name: payload.name,
-						email: payload.email,
-						company: payload.company || null,
-						notes: payload.notes || null,
-						role: payload.role || null,
-						pain_points: painPoints && painPoints.length ? painPoints : null,
-						tokens_per_request: Number(payload.tokens_per_request) || null,
-						requests_per_day: Number(payload.requests_per_day) || null,
-						api_cost_per_k: Number(payload.api_cost_per_k) || null,
-						hosting_fee: Number(payload.hosting_fee) || null,
-						training_fee: Number(payload.training_fee) || null,
-						amortization_months: Number(payload.amortization_months) || 12,
-						current_monthly_spend: Number(payload.current_monthly_spend) || null,
-						utlyze_effective_monthly: Number(payload.utlyze_effective_monthly) || null,
-						savings: Number(payload.savings) || null,
-						roi_percentage: Number(payload.roi_percentage) || null,
-						spend_range: payload.spend_range || null,
-						// Methodology fields
-						use_case_preset: document.getElementById('useCasePreset')?.value || null,
-						offload_percent: parseNumber(document.getElementById('offloadPercent')?.value || 80),
-						prompt_reduction_percent: parseNumber(document.getElementById('promptReduction')?.value || 15),
-						caching_hit_rate_percent: parseNumber(document.getElementById('cachingHitRate')?.value || 25),
-						batching_efficiency_percent: parseNumber(document.getElementById('batchingEfficiency')?.value || 20),
-						hosted_rate_per_k: parseNumber(document.getElementById('hostedRate')?.value || 0.0012),
-						projected_new_monthly_cost: Number(document.getElementById('newMonthlyCost')?.textContent || '0') || null,
-						payback_days: Number(document.getElementById('paybackDays')?.textContent || '0') || null,
-						utm_source: payload.utm_source || null,
-						utm_medium: payload.utm_medium || null,
-						utm_campaign: payload.utm_campaign || null,
-						utm_term: payload.utm_term || null,
-						utm_content: payload.utm_content || null,
-						referrer: payload.referrer || null,
-						page_url: payload.page_url || null,
-						baseline_monthly_tokens: Number(payload.baseline_monthly_tokens) || null,
-						offloaded_tokens: Number(payload.offloaded_tokens) || null,
-						hosted_token_cost: Number(payload.hosted_token_cost) || null,
-						remaining_api_cost: Number(payload.remaining_api_cost) || null,
-						new_monthly_cost: Number(payload.new_monthly_cost) || null,
-						detailed_report: payload.detailed_report || null
-					});
+					const { error } = await supabase.from('roi_leads').insert([
+						{
+							name: payload.name,
+							email: payload.email,
+							company: payload.company || null,
+							notes: payload.notes || null,
+							role: payload.role || null,
+							pain_points: painPoints && painPoints.length ? painPoints : null,
+							tokens_per_request: Number(payload.tokens_per_request) || null,
+							requests_per_day: Number(payload.requests_per_day) || null,
+							api_cost_per_k: Number(payload.api_cost_per_k) || null,
+							hosting_fee: Number(payload.hosting_fee) || 0,
+							training_fee: Number(payload.training_fee) || 0,
+							amortization_months: Number(payload.amortization_months) || 12,
+							current_monthly_spend: Number(payload.current_monthly_spend) || null,
+							utlyze_effective_monthly: Number(payload.utlyze_effective_monthly) || null,
+							savings: Number(payload.savings) || null,
+							roi_percentage: Number(payload.roi_percentage) || null,
+							spend_range: payload.spend_range || null,
+							// Extended (optional) methodology fields if present in schema
+							use_case_preset: null,
+							offload_percent: null,
+							prompt_reduction_percent: null,
+							caching_hit_rate_percent: null,
+							batching_efficiency_percent: null,
+							hosted_rate_per_k: null,
+							projected_new_monthly_cost: Number(document.getElementById('utlyzeCost')?.textContent || '0') || null,
+							payback_days: Number(document.getElementById('paybackDays')?.textContent || '0') || null,
+							utm_source: payload.utm_source || null,
+							utm_medium: payload.utm_medium || null,
+							utm_campaign: payload.utm_campaign || null,
+							utm_term: payload.utm_term || null,
+							utm_content: payload.utm_content || null,
+							referrer: payload.referrer || null,
+							page_url: payload.page_url || null
+						}
+					]);
 					if (error) throw error;
 				}
 
