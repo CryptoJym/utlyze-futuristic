@@ -6,7 +6,9 @@
 	<title>Predictable AI ROI – Utlyze</title>
 	<link rel="icon" type="image/x-icon" href="/favicon.ico">
 	<link rel="stylesheet" href="../style.css">
+	<link rel="stylesheet" href="../assets/exported/utlyze-roi-modern-ui.css">
 	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+	<script src="../assets/exported/utlyze-roi-interactions.js" defer></script>
 	<style>
 		/* Minimal ROI-specific tweaks that harmonize with the main theme */
 		.roi-hero { text-align: center; padding: var(--space-48) 0; }
@@ -55,7 +57,7 @@
 <body>
 	<section class="section">
 		<div class="container">
-			<div class="roi-hero">
+			<div class="roi-hero hero">
 				<h1 class="section-headline">Cut AI spend 30–70% without sacrificing quality</h1>
 				<p class="section-subtext">Private models. Predictable pricing. Results you can measure.</p>
 				<div class="hero-buttons" style="margin-top: 12px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
@@ -123,7 +125,7 @@
 
 			<div class="roi-grid" id="overview">
 				<!-- Left: Calculator first -->
-				<div class="roi-card" id="calculator">
+				<div class="roi-card roi-calculator" id="calculator">
 					<h3>Estimate Your Savings</h3>
 					<form id="calcForm" class="roi-form">
 						<!-- Mode toggle -->
@@ -143,12 +145,12 @@
 					<p class="small-muted">Regular: enter current monthly spend. Advanced: enter tokens, calls, and price.</p>
 
 						<!-- Simple inputs -->
-						<div id="simpleFields">
-							<label>Your current monthly AI spend ($)
-								<input type="number" id="simpleMonthlySpend" value="3000" min="0">
+						<div id="simpleFields" class="regular-mode-fields">
+							<label class="form-label">Your current monthly AI spend ($)
+								<input type="number" class="form-input" id="simpleMonthlySpend" value="3000" min="0">
 							</label>
-							<label>Not sure? Pick a range
-								<select id="spendRange">
+							<label class="form-label">Not sure? Pick a range
+								<select id="spendRange" class="form-input">
 									<option value="">Select a range (optional)</option>
 									<option value="under_1k">Under $1k</option>
 									<option value="1k_5k">$1k–$5k</option>
@@ -159,15 +161,15 @@
 						</div>
 
 						<!-- Advanced inputs -->
-						<div id="advancedFields" style="display:none;">
-							<label>Typical response length (tokens per request)
-								<input type="number" id="tokensPerReq" value="50" min="1">
+						<div id="advancedFields" class="advanced-mode-fields" style="display:none;">
+							<label class="form-label">Typical response length (tokens per request)
+								<input type="number" class="form-input" id="tokensPerReq" value="50" min="1">
 							</label>
-							<label>AI calls per day
-								<input type="number" id="requestsPerDay" value="1000" min="1">
+							<label class="form-label">AI calls per day
+								<input type="number" class="form-input" id="requestsPerDay" value="1000" min="1">
 							</label>
-							<label>Price per 1,000 tokens ($)
-								<input type="number" id="apiCost" value="0.002" step="0.0001">
+							<label class="form-label">Price per 1,000 tokens ($)
+								<input type="number" class="form-input" id="apiCost" value="0.002" step="0.0001">
 							</label>
 							<p class="small-muted">A token ≈ ¾ of a word. Not sure on price? $0.002 is a good default.</p>
 						</div>
@@ -177,19 +179,20 @@
 
 						<hr>
 						<h3>Tell us where to send your estimate</h3>
-						<label>Name
-							<input type="text" name="name" required>
+						<label class="form-label">Name
+							<input type="text" class="form-input" name="name" required>
 						</label>
 						<div class="small-muted" id="nameError" aria-live="polite" style="color:#B91C1C; display:none;"></div>
-						<label>Work email
-							<input type="email" name="email" required>
+						<label class="form-label">Work email
+							<input type="email" class="form-input" name="email" required>
 						</label>
 						<div class="small-muted" id="emailError" aria-live="polite" style="color:#B91C1C; display:none;"></div>
-						<label>Company
-							<input type="text" name="company">
+						<label class="form-label">Company
+							<input type="text" class="form-input" name="company">
 						</label>
-						<label>Your role
+						<label class="form-label">Your role
 							<select name="role">
+							<select name="role" class="form-input">
 								<option value="">Select</option>
 								<option value="ops_eng_leader">Ops/Engineering leader</option>
 								<option value="founder">Founder</option>
@@ -199,7 +202,7 @@
 							</select>
 						</label>
 						<div>
-							<label>Biggest pain today</label>
+							<label class="form-label">Biggest pain today</label>
 							<div class="checkbox-grid">
 								<label><input type="checkbox" name="pain_points[]" value="unpredictable_costs"> Unpredictable costs</label>
 								<label><input type="checkbox" name="pain_points[]" value="data_privacy"> Data privacy</label>
@@ -210,6 +213,7 @@
 
 						<button type="submit" class="btn btn--primary" id="btnCalc">Get my estimate</button>
 						<p class="small-muted">We’ll show your results instantly and email a copy. Confidential by default.</p>
+						<div class="results-container" style="display:none"></div>
 
 						<!-- Hidden fields for calculator values/results and attribution -->
 						<input type="hidden" name="tokens_per_request">
