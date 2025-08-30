@@ -40,6 +40,8 @@ CREATE TABLE IF NOT EXISTS public.roi_leads (
     email TEXT NOT NULL,
     company TEXT,
     notes TEXT,
+    role TEXT,
+    pain_points TEXT[],
     -- Calculator inputs
     tokens_per_request NUMERIC,
     requests_per_day INTEGER,
@@ -52,6 +54,17 @@ CREATE TABLE IF NOT EXISTS public.roi_leads (
     utlyze_effective_monthly NUMERIC,
     savings NUMERIC,
     roi_percentage NUMERIC,
+    spend_range TEXT,
+    -- Advanced/methodology inputs (optional)
+    use_case_preset TEXT,
+    offload_percent NUMERIC,
+    prompt_reduction_percent NUMERIC,
+    caching_hit_rate_percent NUMERIC,
+    batching_efficiency_percent NUMERIC,
+    hosted_rate_per_k NUMERIC,
+    -- Additional computed/summary fields (optional)
+    projected_new_monthly_cost NUMERIC,
+    payback_days INTEGER,
     -- Attribution metadata
     utm_source TEXT,
     utm_medium TEXT,
@@ -60,7 +73,14 @@ CREATE TABLE IF NOT EXISTS public.roi_leads (
     utm_content TEXT,
     referrer TEXT,
     page_url TEXT,
-    created_at TIMESTAMPTZ DEFAULT NOW()
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    -- Detailed metrics (optional)
+    baseline_monthly_tokens NUMERIC,
+    offloaded_tokens NUMERIC,
+    hosted_token_cost NUMERIC,
+    remaining_api_cost NUMERIC,
+    new_monthly_cost NUMERIC,
+    detailed_report TEXT
 );
 
 -- Enable RLS for ROI leads
@@ -84,3 +104,22 @@ CREATE INDEX IF NOT EXISTS idx_roi_leads_created_at ON public.roi_leads(created_
 
 -- Documentation comment
 COMMENT ON TABLE public.roi_leads IS 'Leads from ROI calculator including inputs/results and UTM metadata';
+
+-- Ensure new columns exist when applying to an existing database
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS role TEXT;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS pain_points TEXT[];
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS spend_range TEXT;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS use_case_preset TEXT;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS offload_percent NUMERIC;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS prompt_reduction_percent NUMERIC;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS caching_hit_rate_percent NUMERIC;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS batching_efficiency_percent NUMERIC;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS hosted_rate_per_k NUMERIC;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS projected_new_monthly_cost NUMERIC;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS payback_days INTEGER;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS baseline_monthly_tokens NUMERIC;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS offloaded_tokens NUMERIC;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS hosted_token_cost NUMERIC;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS remaining_api_cost NUMERIC;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS new_monthly_cost NUMERIC;
+ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS detailed_report TEXT;

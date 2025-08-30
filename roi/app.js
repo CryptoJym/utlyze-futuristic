@@ -121,7 +121,7 @@ function calcROI() {
 	}
 
 	// Sync hidden fields on lead form
-	const form = document.getElementById('leadForm');
+	const form = document.getElementById('calcForm');
 	form.tokens_per_request.value = tokensPerReq;
 	form.requests_per_day.value = requestsPerDay;
 	form.api_cost_per_k.value = apiCost;
@@ -133,6 +133,9 @@ function calcROI() {
 	form.savings.value = formatMoney(savings);
 	form.roi_percentage.value = (roi * 100).toFixed(1);
 	form.spend_range.value = document.getElementById('spendRange')?.value || '';
+	// Move focus to results
+	const heading = document.getElementById('resultsHeading');
+	if (heading && typeof heading.focus === 'function') heading.focus();
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -149,6 +152,19 @@ window.addEventListener('DOMContentLoaded', () => {
 	const emailEl = calcForm?.querySelector('input[name="email"]'); if (emailEl && params.get('email')) emailEl.value = params.get('email');
 	const companyEl = calcForm?.querySelector('input[name="company"]'); if (companyEl && params.get('company')) companyEl.value = params.get('company');
 	const roleSel = calcForm?.querySelector('select[name="role"]'); if (roleSel && params.get('role')) roleSel.value = params.get('role');
+	// Hydrate pain points
+	const painParams = params.getAll('pain_points[]');
+	if (painParams && painParams.length) {
+		painParams.forEach(v => {
+			const box = calcForm?.querySelector(`input[type="checkbox"][name="pain_points[]"][value="${CSS.escape(v)}"]`);
+			if (box) box.checked = true;
+		});
+	}
+	// Hydrate calc mode
+	const mode = params.get('calcMode');
+	const modeSimpleEl = document.getElementById('modeSimple');
+	const modeAdvancedEl = document.getElementById('modeAdvanced');
+	if (mode === 'advanced' && modeAdvancedEl && modeSimpleEl) { modeAdvancedEl.checked = true; modeSimpleEl.checked = false; }
 
 	// CTA affordance
 	const setBusy = (busy) => {
