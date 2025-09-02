@@ -19,6 +19,14 @@
 		.roi-form label { display: block; margin: 8px 0 6px; font-weight: 600; }
 		.roi-form input, .roi-form select, .roi-form textarea { width: 100%; padding: 10px 12px; border-radius: 10px; border: 2px solid rgba(0, 91, 255, 0.2); font-size: 15px; background: rgba(255,255,255,0.95); color: var(--utlyze-text-dark); }
 		.roi-results { border-top: 1px solid rgba(0,0,0,0.06); padding-top: 12px; }
+		/* Value grid */
+		.value-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+		@media (min-width: 900px) { .value-grid { grid-template-columns: 1fr 1fr; } }
+		.value-card { border: 1px solid rgba(0,0,0,0.06); border-radius: 14px; padding: 16px; background: rgba(255,255,255,0.85); display:flex; gap:10px; align-items:flex-start; }
+		.value-card .emoji { font-size: 20px; line-height: 1; }
+		/* FAQ grid */
+		.faq-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+		@media (min-width: 900px) { .faq-grid { grid-template-columns: 1fr 1fr; } }
 		.roi-results p { margin: 8px 0; }
 		.small-muted { font-size: 12px; color: rgba(10,10,10,0.6); }
 		/* Checkbox alignment */
@@ -74,52 +82,43 @@
 
 			<!-- Success Story -->
 			<div class="glass-card" style="margin: 16px 0;">
-				<h3>Success Story</h3>
+				<h3 style="text-align:center;">Success Story</h3>
 				<div style="position:relative; padding-top:56.25%; border-radius:12px; overflow:hidden;">
 					<iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Utlyze Success Story" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" allowfullscreen></iframe>
 				</div>
-				<ul style="margin-top:12px;">
-					<li>Predictable pricing</li>
-					<li>Private by design</li>
-					<li>Performance parity</li>
-				</ul>
+				<div style="margin-top:12px;">
+					<div class="value-grid">
+						<div class="value-card"><div class="emoji">💰</div><div><strong>Predictable pricing</strong><div class="small-muted">Fixed monthly costs you can budget for.</div></div></div>
+						<div class="value-card"><div class="emoji">🔒</div><div><strong>Private by design</strong><div class="small-muted">Your data stays in your environment.</div></div></div>
+						<div class="value-card"><div class="emoji">⚡</div><div><strong>Performance parity</strong><div class="small-muted">Match or exceed GPT‑4 on your tasks.</div></div></div>
+						<div class="value-card"><div class="emoji">📈</div><div><strong>Measured ROI</strong><div class="small-muted">Track savings and payback with clarity.</div></div></div>
+					</div>
+				</div>
 			</div>
 
 			<!-- How It Works -->
 			<div class="glass-card" style="margin: 16px 0;">
-				<h3>How it works</h3>
-				<div style="display:grid; grid-template-columns: 1fr; gap:8px;">
-					<div><strong>1.</strong> Share your task and data shape</div>
-					<div><strong>2.</strong> We fine‑tune and host your model</div>
-					<div><strong>3.</strong> You get a predictable private API</div>
+				<h3 style="text-align:center;">How it works</h3>
+				<div class="value-grid">
+					<div class="value-card"><div class="emoji">📝</div><div><strong>1. Share your task</strong><div class="small-muted">Define your use case and data shape.</div></div></div>
+					<div class="value-card"><div class="emoji">🛠️</div><div><strong>2. We fine‑tune & host</strong><div class="small-muted">Private deployments with predictable costs.</div></div></div>
+					<div class="value-card"><div class="emoji">🔗</div><div><strong>3. Integrate quickly</strong><div class="small-muted">Simple APIs and SDKs for fast rollout.</div></div></div>
+					<div class="value-card"><div class="emoji">📊</div><div><strong>4. Measure impact</strong><div class="small-muted">Dashboards for savings and performance.</div></div></div>
 				</div>
 			</div>
 
-			<!-- FAQ (compact) -->
+			<!-- FAQ (improved) -->
 			<div class="glass-card" style="margin: 16px 0;">
-				<h3>FAQ</h3>
-				<details>
-					<summary>How is the model secured?</summary>
-					<p>VPC isolation, encryption, RBAC, audit logs.</p>
-				</details>
-				<details>
-					<summary>Will performance match GPT‑4?</summary>
-					<p>We test parity on your eval set; fall back when needed.</p>
-				</details>
-				<details>
-					<summary>What if my usage spikes?</summary>
-					<p>Autoscaling and batching strategies mitigate bursts.</p>
-				</details>
-				<details>
-					<summary>What if I’m not satisfied?</summary>
-					<p>Iterate with us; stop if targets aren’t met.</p>
-				</details>
+				<h3 style="text-align:center;">FAQ</h3>
+				<div class="faq-grid">
+					<div class="value-card"><div class="emoji">🔐</div><div><strong>How is the model secured?</strong><div class="small-muted">VPC isolation, encryption in transit/at rest, RBAC, and audit logs. Private by default.</div></div></div>
+					<div class="value-card"><div class="emoji">🏁</div><div><strong>Will performance match GPT‑4?</strong><div class="small-muted">We validate on your eval set and ensure parity or fall back strategies where needed.</div></div></div>
+					<div class="value-card"><div class="emoji">📈</div><div><strong>What if my usage spikes?</strong><div class="small-muted">Autoscaling, batching, and caching patterns handle bursts without surprise costs.</div></div></div>
+					<div class="value-card"><div class="emoji">💬</div><div><strong>What if I’m not satisfied?</strong><div class="small-muted">Iterate with us; we measure impact continuously. Stop if targets aren’t met.</div></div></div>
+				</div>
 			</div>
 
-			<!-- Bottom CTA -->
-			<div class="glass-card" style="text-align:center; margin: 12px 0;">
-				<a class="btn btn--primary" href="#calculator">Run your estimate</a>
-			</div>
+			<!-- Removed redundant bottom CTA to keep focus on main calculator -->
 
 			<div class="roi-grid" id="overview">
 				<!-- Left: Calculator first -->
