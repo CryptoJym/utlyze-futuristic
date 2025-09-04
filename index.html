@@ -14,6 +14,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+    <!-- Site Header Mount Point -->
+    <div id="site-header-mount"></div>
+    
     <!-- Floating background elements -->
     <div class="floating-orbs">
         <div class="orb orb-1"></div>
@@ -28,17 +31,67 @@
         <div class="hero-particles"></div>
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-headline">Predict the Future. Build It.</h1>
-                <p class="hero-subheadline">We're an AI-first venture studio that transforms visionary ideas into market-leading companies.</p>
+                <h1 class="hero-headline">Private AI Agents for Every Business</h1>
+                <p class="hero-subheadline">Deploy secure AI digital coworkers on-premises. No cloud dependencies, predictable costs, enterprise-grade performance.</p>
                 <div class="hero-buttons">
-                    <button class="btn btn--primary btn--lg" data-scroll-to="form">Submit Your Idea</button>
-                    <button class="btn btn--outline btn--lg" data-scroll-to="process">See How It Works</button>
-                    <a class="btn btn--outline btn--lg" href="/companies/" aria-label="View Companies Gallery">View Companies</a>
+                    <button class="btn btn--primary btn--lg" data-scroll-to="form">Get a Demo</button>
                     <a class="btn btn--outline btn--lg" href="/roi/" aria-label="Estimate Savings with ROI Calculator">Estimate Savings</a>
                 </div>
             </div>
         </div>
         <div class="hero-glow"></div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="section">
+        <div class="container">
+            <div class="section-content">
+                <h2 class="section-headline">Why Private AI Agents</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card glass-card">
+                        <div class="benefit-icon glass-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40">
+                                <path d="M20 8C13.4 8 8 13.4 8 20s5.4 12 12 12 12-5.4 12-12S26.6 8 20 8zm6 14h-8V12h2v8h6v2z" fill="#005BFF"/>
+                                <circle cx="20" cy="20" r="15" fill="none" stroke="#FF7A00" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3>Private by Design</h3>
+                        <p>Your data never leaves your premises. Complete control over sensitive information and intellectual property.</p>
+                    </div>
+                    <div class="benefit-card glass-card">
+                        <div class="benefit-icon glass-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40">
+                                <rect x="8" y="12" width="24" height="16" rx="2" fill="none" stroke="#FF7A00" stroke-width="2"/>
+                                <path d="M12 20h16M12 24h8" stroke="#005BFF" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3>Predictable Pricing</h3>
+                        <p>Fixed monthly costs with no usage surprises. Scale your AI workforce without unpredictable cloud bills.</p>
+                    </div>
+                    <div class="benefit-card glass-card">
+                        <div class="benefit-icon glass-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40">
+                                <path d="M20 8l8 4v12l-8 4-8-4V12z" fill="none" stroke="#FF7A00" stroke-width="2"/>
+                                <circle cx="20" cy="20" r="4" fill="#005BFF"/>
+                            </svg>
+                        </div>
+                        <h3>Performance Parity</h3>
+                        <p>State-of-the-art open models match or exceed cloud AI performance for most business tasks.</p>
+                    </div>
+                    <div class="benefit-card glass-card">
+                        <div class="benefit-icon glass-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40">
+                                <path d="M12 28l4-16h8l-4 16" stroke="#FF7A00" stroke-width="2" fill="none"/>
+                                <circle cx="16" cy="12" r="3" fill="#005BFF"/>
+                                <circle cx="20" cy="28" r="3" fill="#005BFF"/>
+                            </svg>
+                        </div>
+                        <h3>Measured ROI</h3>
+                        <p>Clear metrics and savings calculation. Know exactly how your AI investment pays back.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Who We Are Section -->
@@ -87,45 +140,135 @@
         </div>
     </section>
 
-    <!-- How We Work Section -->
-    <section id="process" class="section">
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section">
         <div class="container">
             <div class="section-content">
-                <h2 class="section-headline">How We Work</h2>
+                <h2 class="section-headline">How It Works</h2>
                 <div class="process-steps">
-                    <div class="process-step glass-step">
-                        <div class="process-icon glass-icon">
-                            <svg width="40" height="40" viewBox="0 0 40 40">
-                                <rect x="5" y="5" width="30" height="30" rx="5" fill="none" stroke="#FF7A00" stroke-width="2"/>
-                                <path d="M12 20l6 6 10-12" stroke="#005BFF" stroke-width="2" fill="none"/>
-                            </svg>
-                        </div>
-                        <h3>Submit Your Idea</h3>
-                        <p>We evaluate your concept against shifting markets</p>
-                        <div class="step-connector"></div>
-                    </div>
-                    <div class="process-step glass-step">
+                    <div class="process-step glass-step" data-animate="fade-up">
+                        <div class="process-number">1</div>
                         <div class="process-icon glass-icon">
                             <svg width="40" height="40" viewBox="0 0 40 40">
                                 <circle cx="20" cy="20" r="15" fill="none" stroke="#FF7A00" stroke-width="2"/>
-                                <path d="M20 8v12l8 4" stroke="#005BFF" stroke-width="2" fill="none"/>
+                                <path d="M15 20l5 5 10-10" stroke="#005BFF" stroke-width="2" fill="none"/>
                             </svg>
                         </div>
-                        <h3>AI-Powered Analysis</h3>
-                        <p>Our systems predict viability and opportunity</p>
+                        <h3>Select Your Tier</h3>
+                        <p>Choose from Team Assistant, Workflow Operator, or Autonomy Suite based on your needs</p>
                         <div class="step-connector"></div>
                     </div>
-                    <div class="process-step glass-step">
+                    <div class="process-step glass-step" data-animate="fade-up" data-delay="100">
+                        <div class="process-number">2</div>
                         <div class="process-icon glass-icon">
                             <svg width="40" height="40" viewBox="0 0 40 40">
-                                <path d="M8 32l12-12 12 12" stroke="#FF7A00" stroke-width="2" fill="none"/>
-                                <circle cx="20" cy="12" r="4" fill="#005BFF"/>
-                                <circle cx="8" cy="32" r="4" fill="#005BFF"/>
-                                <circle cx="32" cy="32" r="4" fill="#005BFF"/>
+                                <rect x="8" y="8" width="24" height="24" rx="4" fill="none" stroke="#FF7A00" stroke-width="2"/>
+                                <circle cx="20" cy="20" r="6" fill="#005BFF"/>
                             </svg>
                         </div>
-                        <h3>Build Together</h3>
-                        <p>Transform concepts into market-leading companies</p>
+                        <h3>Local Deployment</h3>
+                        <p>We install and configure your AI agents on your hardware, ensuring complete data privacy</p>
+                        <div class="step-connector"></div>
+                    </div>
+                    <div class="process-step glass-step" data-animate="fade-up" data-delay="200">
+                        <div class="process-number">3</div>
+                        <div class="process-icon glass-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40">
+                                <path d="M12 24h16M12 16h16M12 20h8" stroke="#FF7A00" stroke-width="2"/>
+                                <circle cx="28" cy="20" r="4" fill="#005BFF"/>
+                            </svg>
+                        </div>
+                        <h3>Integrate & Train</h3>
+                        <p>Connect to your tools and workflows. Train agents on your specific processes and knowledge</p>
+                        <div class="step-connector"></div>
+                    </div>
+                    <div class="process-step glass-step" data-animate="fade-up" data-delay="300">
+                        <div class="process-number">4</div>
+                        <div class="process-icon glass-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40">
+                                <path d="M20 8l12 6v12l-12 6-12-6V14z" fill="none" stroke="#FF7A00" stroke-width="2"/>
+                                <path d="M20 20v12M20 20l12-6M20 20l-12-6" stroke="#005BFF" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3>Scale & Optimize</h3>
+                        <p>Monitor performance, measure ROI, and expand your AI workforce as needed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tier Overview Section -->
+    <section id="tiers" class="section section--alt">
+        <div class="container">
+            <div class="section-content">
+                <h2 class="section-headline">Choose Your AI Agent Tier</h2>
+                <p class="section-subtext">Flexible options to match your business needs and scale</p>
+                
+                <div class="tiers-grid">
+                    <div class="tier-card glass-card" data-tier="TierA">
+                        <h3 class="tier-name">Team Assistant</h3>
+                        <p class="tier-description">Perfect for small teams getting started with AI</p>
+                        <div class="tier-price">
+                            <span class="tier-setup">Setup: $3,000-5,000</span>
+                            <span class="tier-monthly">$1,100/month</span>
+                        </div>
+                        <ul class="tier-features">
+                            <li>Up to 10 users</li>
+                            <li>3 integrations</li>
+                            <li>~32k context window</li>
+                            <li>Llama 3.1 8B, Qwen 2.5 7B</li>
+                        </ul>
+                        <a href="/pricing/" class="btn btn--outline">View Details</a>
+                    </div>
+                    
+                    <div class="tier-card glass-card tier-card--featured" data-tier="TierB">
+                        <div class="tier-badge">Most Popular</div>
+                        <h3 class="tier-name">Workflow Operator</h3>
+                        <p class="tier-description">Ideal for growing teams automating workflows</p>
+                        <div class="tier-price">
+                            <span class="tier-setup">Setup: $8,000-15,000</span>
+                            <span class="tier-monthly">$2,600/month</span>
+                        </div>
+                        <ul class="tier-features">
+                            <li>Up to 100 users</li>
+                            <li>8 integrations</li>
+                            <li>~64k context window</li>
+                            <li>Qwen 2.5 14B, Mixtral 8x7B</li>
+                        </ul>
+                        <a href="/pricing/" class="btn btn--primary">View Details</a>
+                    </div>
+                    
+                    <div class="tier-card glass-card" data-tier="TierC">
+                        <h3 class="tier-name">Autonomy Suite</h3>
+                        <p class="tier-description">Enterprise-scale autonomous AI operations</p>
+                        <div class="tier-price">
+                            <span class="tier-setup">Setup: $20,000+</span>
+                            <span class="tier-monthly">$6,000+/month</span>
+                        </div>
+                        <ul class="tier-features">
+                            <li>Unlimited users</li>
+                            <li>20+ integrations</li>
+                            <li>128k+ context window</li>
+                            <li>Gemma 2 27B, Llama 3.1 70B</li>
+                        </ul>
+                        <a href="/pricing/" class="btn btn--outline">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Compact Comparison Row -->
+                <div class="tier-comparison glass-card">
+                    <h4>Quick Comparison</h4>
+                    <div class="comparison-row">
+                        <div class="comparison-item">
+                            <strong>Security:</strong> All tiers include RBAC. Higher tiers add SSO/SCIM and audit logs.
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Hardware:</strong> Mac Studio M3 Max (Tier A) to M3 Ultra 512GB (Tier C).
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Concurrency:</strong> Scale from low to high parallel processing capability.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -138,6 +281,95 @@
         <div class="container">
             <div class="mission-content glass-mission">
                 <h2 class="mission-headline">Our mission is to help everyone use AI to prosper. We identify opportunities, validate ideas, and build companies that rival multi-million dollar firms.</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Preview Section -->
+    <section id="use-cases-preview" class="section">
+        <div class="container">
+            <div class="section-content">
+                <h2 class="section-headline">AI Agents in Action</h2>
+                <p class="section-subtext">See how businesses transform with private AI agents</p>
+                
+                <div class="use-cases-grid">
+                    <div class="use-case-card glass-card">
+                        <div class="use-case-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48">
+                                <rect x="8" y="12" width="32" height="24" rx="2" fill="none" stroke="#FF7A00" stroke-width="2"/>
+                                <path d="M16 20h16M16 24h12M16 28h8" stroke="#005BFF" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3>Customer Support Automation</h3>
+                        <p>Handle 80% of support tickets automatically while maintaining personal touch</p>
+                        <a href="/use-cases/" class="use-case-link">Learn More →</a>
+                    </div>
+                    
+                    <div class="use-case-card glass-card">
+                        <div class="use-case-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48">
+                                <circle cx="24" cy="24" r="16" fill="none" stroke="#FF7A00" stroke-width="2"/>
+                                <path d="M24 16v8l6 4" stroke="#005BFF" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3>Sales Process Optimization</h3>
+                        <p>Qualify leads, schedule meetings, and prepare proposals at scale</p>
+                        <a href="/use-cases/" class="use-case-link">Learn More →</a>
+                    </div>
+                    
+                    <div class="use-case-card glass-card">
+                        <div class="use-case-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48">
+                                <path d="M12 36V12h24v24z" fill="none" stroke="#FF7A00" stroke-width="2"/>
+                                <circle cx="24" cy="24" r="6" fill="#005BFF"/>
+                            </svg>
+                        </div>
+                        <h3>Data Analysis & Reporting</h3>
+                        <p>Transform raw data into actionable insights with AI-powered analytics</p>
+                        <a href="/use-cases/" class="use-case-link">Learn More →</a>
+                    </div>
+                </div>
+                
+                <!-- Case Study Highlight -->
+                <div class="case-study-highlight glass-card">
+                    <div class="case-study-content">
+                        <div class="case-study-badge">Case Study</div>
+                        <h3>Vuplicity: AI-Powered Background Checks</h3>
+                        <p>Our pilot company revolutionized the screening industry with private AI agents, reducing processing time from days to minutes while maintaining 99.9% accuracy.</p>
+                        <div class="case-study-stats">
+                            <div class="stat">
+                                <span class="stat-value">95%</span>
+                                <span class="stat-label">Time Reduction</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">60%</span>
+                                <span class="stat-label">Cost Savings</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">99.9%</span>
+                                <span class="stat-label">Accuracy</span>
+                            </div>
+                        </div>
+                        <a href="#success" class="btn btn--outline">Read Full Story</a>
+                    </div>
+                </div>
+                
+                <!-- Venture Studio Teaser -->
+                <div class="studio-teaser glass-card">
+                    <div class="studio-teaser-content">
+                        <h3>Beyond AI Agents: Our Venture Studio</h3>
+                        <p>We don't just build AI solutions—we build companies. With 47 portfolio companies and $125M+ in funding, we transform visionary ideas into market leaders.</p>
+                        <a href="/studio/" class="btn btn--primary">Explore Venture Studio</a>
+                    </div>
+                    <div class="studio-visual">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#FF7A00" stroke-width="2" opacity="0.5"/>
+                            <circle cx="60" cy="60" r="35" fill="none" stroke="#005BFF" stroke-width="2" opacity="0.7"/>
+                            <circle cx="60" cy="60" r="20" fill="none" stroke="#FF7A00" stroke-width="2"/>
+                            <circle cx="60" cy="60" r="8" fill="#005BFF"/>
+                        </svg>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -187,17 +419,8 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer glass-footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2025 Utlyze. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="mailto:hello@utlyze.com">Contact</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Site Footer Mount Point -->
+    <div id="site-footer-mount"></div>
 
     <script src="app.js"></script>
 </body>
