@@ -220,6 +220,8 @@ let filteredCompanies = [...companies];
 let currentSearch = '';
 let currentIndustryFilter = '';
 let currentStageFilter = '';
+let displayedCount = 6; // Show 6 companies initially
+const COMPANIES_PER_LOAD = 6; // Load 6 more companies each time
 
 // DOM elements
 const companyGrid = document.getElementById('companyGrid');
@@ -368,19 +370,33 @@ function createModalContent(company) {
 }
 
 // Render companies
-function renderCompanies(companiesToRender = filteredCompanies) {
-  if (companiesToRender.length === 0) {
+function renderCompanies(companiesToRender = filteredCompanies, append = false) {
+  if (!append && companiesToRender.length === 0) {
     companyGrid.innerHTML = `
       <div class="empty-state" style="grid-column: 1 / -1;">
         <h3>No companies found</h3>
         <p>Try adjusting your search or filter criteria.</p>
       </div>
     `;
+    // Remove load more button if it exists
+    const existingLoadMore = document.querySelector('.load-more-container');
+    if (existingLoadMore) existingLoadMore.remove();
     return;
   }
 
-  const html = companiesToRender.map(createCompanyCard).join('');
-  companyGrid.innerHTML = html;
+  // Get companies to display based on displayedCount
+  const companiesToDisplay = append 
+    ? companiesToRender.slice(displayedCount - COMPANIES_PER_LOAD, displayedCount)
+    : companiesToRender.slice(0, displayedCount);
+
+  const html = companiesToDisplay.map(createCompanyCard).join('');
+  
+  if (append) {
+    // Add new companies to existing grid
+    companyGrid.insertAdjacentHTML('beforeend', html);
+  } else {
+    companyGrid.innerHTML = html;
+  }
 
   // Add click handlers to company cards and demo buttons
   document.querySelectorAll('.company-card').forEach(card => {
@@ -407,6 +423,40 @@ function renderCompanies(companiesToRender = filteredCompanies) {
       });
     }
   });
+  
+  // Handle Load More button
+  updateLoadMoreButton(companiesToRender);
+}
+
+// Function to manage the Load More button
+function updateLoadMoreButton(companiesToRender) {
+  const existingLoadMore = document.querySelector('.load-more-container');
+  
+  // Remove existing button if it exists
+  if (existingLoadMore) {
+    existingLoadMore.remove();
+  }
+  
+  // Add Load More button if there are more companies to show
+  if (displayedCount < companiesToRender.length) {
+    const loadMoreHtml = `
+      <div class="load-more-container" style="grid-column: 1 / -1; text-align: center; padding: 2rem 0;">
+        <button class="btn btn--primary load-more-btn" id="loadMoreBtn">
+          Load More Companies (${companiesToRender.length - displayedCount} remaining)
+        </button>
+      </div>
+    `;
+    companyGrid.insertAdjacentHTML('afterend', loadMoreHtml);
+    
+    // Add click handler
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener('click', () => {
+        displayedCount += COMPANIES_PER_LOAD;
+        renderCompanies(companiesToRender, true);
+      });
+    }
+  }
 }
 
 // Filter companies
