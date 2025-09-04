@@ -378,39 +378,69 @@
     <section id="form" class="section">
         <div class="container">
             <div class="form-section-content">
-                <h2 class="section-headline">Is Your Idea the Next Big Thing?</h2>
-                <p class="section-subtext">Let us help you evaluate your idea against the shifting market. Find out if you have something real or if you're up in the night.</p>
+                <h2 class="section-headline">Ready to Transform Your Business with AI?</h2>
+                <p class="section-subtext">Get a personalized demo and ROI analysis. See how private AI agents can save you millions while keeping your data secure.</p>
                 
                 <div class="form-container glass-form">
                     <form id="ideaForm" class="idea-form">
-                        <div class="form-group">
-                            <input type="url" id="url" name="url" class="form-control glass-input" placeholder="Your website, prototype, or idea URL" required>
-                            <div class="form-error" id="url-error"></div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <textarea id="description" name="description" class="form-control glass-input" rows="4" placeholder="Briefly describe your idea (optional)"></textarea>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" class="form-control glass-input" placeholder="Full name *" required>
+                                <div class="form-error" id="name-error"></div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="company" name="company" class="form-control glass-input" placeholder="Company *" required>
+                                <div class="form-error" id="company-error"></div>
+                            </div>
                         </div>
                         
                         <div class="form-row">
                             <div class="form-group">
-                                <input type="text" id="name" name="name" class="form-control glass-input" placeholder="Your name" required>
-                                <div class="form-error" id="name-error"></div>
+                                <input type="email" id="email" name="email" class="form-control glass-input" placeholder="Work email *" required>
+                                <div class="form-error" id="email-error"></div>
                             </div>
                             <div class="form-group">
-                                <input type="email" id="email" name="email" class="form-control glass-input" placeholder="Your email" required>
-                                <div class="form-error" id="email-error"></div>
+                                <input type="tel" id="phone" name="phone" class="form-control glass-input" placeholder="Phone number">
                             </div>
                         </div>
                         
-                        <button type="submit" class="btn btn--primary btn--lg btn--full-width glass-button">Get My AI Assessment</button>
-                        <p class="form-microcopy">No pitch deck required. Free analysis within 48 hours.</p>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <select id="company_size" name="company_size" class="form-control glass-input">
+                                    <option value="">Company size</option>
+                                    <option value="1-50">1-50 employees</option>
+                                    <option value="51-200">51-200 employees</option>
+                                    <option value="201-500">201-500 employees</option>
+                                    <option value="501-1000">501-1,000 employees</option>
+                                    <option value="1001-5000">1,001-5,000 employees</option>
+                                    <option value="5001+">5,001+ employees</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select id="interest" name="interest" class="form-control glass-input" required>
+                                    <option value="">Primary interest *</option>
+                                    <option value="cost-reduction">AI cost reduction</option>
+                                    <option value="private-deployment">Private AI deployment</option>
+                                    <option value="custom-agents">Custom AI agents</option>
+                                    <option value="workflow-automation">Workflow automation</option>
+                                    <option value="venture-studio">Venture Studio partnership</option>
+                                </select>
+                                <div class="form-error" id="interest-error"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea id="message" name="message" class="form-control glass-input" rows="3" placeholder="Tell us about your AI needs or challenges (optional)"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn--primary btn--lg btn--full-width glass-button">Get Your Personalized Demo</button>
+                        <p class="form-microcopy">Free consultation • ROI analysis included • No commitment required</p>
                     </form>
 
                     <div id="success-message" class="success-message hidden glass-success">
                         <div class="success-content">
-                            <h3>Thank you for your submission!</h3>
-                            <p>We've received your idea and will provide your AI assessment within 48 hours. Check your email for updates.</p>
+                            <h3>Thank you for reaching out!</h3>
+                            <p>We'll contact you within 24 hours to schedule your personalized demo and discuss how our AI agents can transform your business.</p>
                         </div>
                     </div>
                 </div>

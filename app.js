@@ -189,17 +189,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateForm() {
         let isValid = true;
         
-        // URL validation
-        const urlField = document.getElementById('url');
-        const urlValue = urlField ? urlField.value.trim() : '';
-        if (!urlValue) {
-            showError('url', 'URL is required');
-            isValid = false;
-        } else if (!isValidURL(urlValue)) {
-            showError('url', 'Please enter a valid URL');
-            isValid = false;
-        }
-        
         // Name validation
         const nameField = document.getElementById('name');
         const nameValue = nameField ? nameField.value.trim() : '';
@@ -208,6 +197,14 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         } else if (nameValue.length < 2) {
             showError('name', 'Name must be at least 2 characters');
+            isValid = false;
+        }
+        
+        // Company validation
+        const companyField = document.getElementById('company');
+        const companyValue = companyField ? companyField.value.trim() : '';
+        if (!companyValue) {
+            showError('company', 'Company name is required');
             isValid = false;
         }
         
@@ -222,23 +219,20 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
         
-        // Description is optional - no validation needed
+        // Interest validation
+        const interestField = document.getElementById('interest');
+        const interestValue = interestField ? interestField.value.trim() : '';
+        if (!interestValue) {
+            showError('interest', 'Please select your primary interest');
+            isValid = false;
+        }
+        
+        // Phone and message are optional - no validation needed
+        // Company size is optional - no validation needed
         
         return isValid;
     }
 
-    function isValidURL(string) {
-        try {
-            // Add protocol if missing
-            if (!string.startsWith('http://') && !string.startsWith('https://')) {
-                string = 'https://' + string;
-            }
-            new URL(string);
-            return true;
-        } catch (_) {
-            return false;
-        }
-    }
 
     function isValidEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -469,12 +463,28 @@ document.addEventListener('DOMContentLoaded', function() {
         const originalText = submitButton.textContent;
         const formContainer = form.parentElement;
         
-        // Get form data
+        // Get form data - map to contact_submissions table structure
         const formData = {
-            url: document.getElementById('url').value,
-            description: document.getElementById('description').value,
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value
+            // Split name into first and last name
+            first_name: document.getElementById('name').value.trim().split(' ')[0] || '',
+            last_name: document.getElementById('name').value.trim().split(' ').slice(1).join(' ') || '',
+            email: document.getElementById('email').value.trim(),
+            phone: document.getElementById('phone').value.trim() || null,
+            company: document.getElementById('company').value.trim(),
+            job_title: null, // Not collected on main form
+            company_size: document.getElementById('company_size').value || null,
+            industry: null, // Not collected on main form
+            current_ai_usage: null, // Not collected on main form
+            interested_solutions: [document.getElementById('interest').value], // Convert single value to array
+            timeline: null, // Not collected on main form
+            budget_range: null, // Not collected on main form
+            pain_points: null, // Not collected on main form
+            message: document.getElementById('message').value.trim() || null,
+            // Track source
+            utm_source: 'homepage',
+            utm_medium: 'web',
+            utm_campaign: 'main_form',
+            referrer: document.referrer || null
         };
         
         // Show premium loading state
@@ -489,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Submit to Supabase if available
             if (supabase) {
                 const { data, error } = await supabase
-                    .from('submissions')
+                    .from('contact_submissions')
                     .insert([formData]);
                 
                 if (error) throw error;
