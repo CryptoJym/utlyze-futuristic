@@ -1,0 +1,98 @@
+[
+  {
+    "id": "uc-001",
+    "title": "Customer Support Automation",
+    "summary": "AI agent handles tier-1 support inquiries, classifies tickets, and drafts responses for complex issues, reducing response time by 80%.",
+    "industry": "SaaS",
+    "recommendedTier": "TierA",
+    "link": "/resources/case-studies/saas-support-automation"
+  },
+  {
+    "id": "uc-002",
+    "title": "Legal Document Review",
+    "summary": "Private AI reviews contracts, NDAs, and agreements for key terms, risks, and compliance issues while maintaining complete confidentiality.",
+    "industry": "Legal",
+    "recommendedTier": "TierB",
+    "link": "/resources/case-studies/legal-doc-review"
+  },
+  {
+    "id": "uc-003",
+    "title": "Healthcare Prior Authorization",
+    "summary": "Automates insurance prior auth requests, reducing processing from days to minutes while ensuring HIPAA compliance.",
+    "industry": "Healthcare",
+    "recommendedTier": "TierC",
+    "link": "/resources/case-studies/healthcare-prior-auth"
+  },
+  {
+    "id": "uc-004",
+    "title": "Financial Risk Assessment",
+    "summary": "Analyzes loan applications, credit reports, and financial statements to provide instant risk scores and recommendations.",
+    "industry": "Finance",
+    "recommendedTier": "TierB",
+    "link": "/resources/case-studies/financial-risk-assessment"
+  },
+  {
+    "id": "uc-005",
+    "title": "Sales Lead Qualification",
+    "summary": "AI agent researches prospects, scores leads, and drafts personalized outreach messages based on company data and buying signals.",
+    "industry": "Sales",
+    "recommendedTier": "TierA",
+    "link": "/resources/case-studies/sales-lead-qualification"
+  },
+  {
+    "id": "uc-006",
+    "title": "HR Candidate Screening",
+    "summary": "Reviews resumes, conducts initial screenings, and ranks candidates based on job requirements and cultural fit indicators.",
+    "industry": "Human Resources",
+    "recommendedTier": "TierB",
+    "link": "/resources/case-studies/hr-candidate-screening"
+  },
+  {
+    "id": "uc-007",
+    "title": "Manufacturing Quality Control",
+    "summary": "Analyzes production data, identifies quality trends, and predicts maintenance needs before equipment failures occur.",
+    "industry": "Manufacturing",
+    "recommendedTier": "TierC",
+    "link": "/resources/case-studies/manufacturing-qc"
+  },
+  {
+    "id": "uc-008",
+    "title": "Retail Inventory Optimization",
+    "summary": "Predicts demand patterns, optimizes stock levels, and automates reorder points across multiple locations.",
+    "industry": "Retail",
+    "recommendedTier": "TierB",
+    "link": "/resources/case-studies/retail-inventory"
+  },
+  {
+    "id": "uc-009",
+    "title": "Content Creation Pipeline",
+    "summary": "Generates blog posts, social media content, and marketing copy while maintaining brand voice and SEO optimization.",
+    "industry": "Marketing",
+    "recommendedTier": "TierA",
+    "link": "/resources/case-studies/content-creation"
+  },
+  {
+    "id": "uc-010",
+    "title": "Insurance Claims Processing",
+    "summary": "Reviews claim documents, validates coverage, and processes routine claims automatically while flagging complex cases.",
+    "industry": "Insurance",
+    "recommendedTier": "TierC",
+    "link": "/resources/case-studies/insurance-claims"
+  },
+  {
+    "id": "uc-011",
+    "title": "Real Estate Property Analysis",
+    "summary": "Evaluates properties, generates comparative market analyses, and creates investment recommendations based on local data.",
+    "industry": "Real Estate",
+    "recommendedTier": "TierA",
+    "link": "/resources/case-studies/real-estate-analysis"
+  },
+  {
+    "id": "uc-012",
+    "title": "Educational Content Personalization",
+    "summary": "Adapts learning materials to student needs, generates practice problems, and provides instant feedback on assignments.",
+    "industry": "Education",
+    "recommendedTier": "TierB",
+    "link": "/resources/case-studies/education-personalization"
+  }
+]

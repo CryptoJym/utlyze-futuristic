@@ -1,0 +1,59 @@
+{
+  "project": "Utlyze Website Redesign — Private AI Agents",
+  "version": "1.0.0",
+  "context": {
+    "repo": "/Users/jamesbrady/utlyze-futuristic-2",
+    "stack": "Static HTML/CSS/JS + Supabase forms",
+    "live_paths": ["/", "/roi/", "/companies/"],
+    "new_paths": ["/agents/", "/pricing/", "/use-cases/", "/studio/", "/about/", "/resources/", "/contact/"]
+  },
+  "tracks": [
+    {"name": "Navigation & Shell","tasks": [
+      {"id": "nav-shared","title": "Implement shared header/footer navigation across all pages","paths": ["index.html","roi/index.html","companies/index.html","style.css","app.js"],"outcome": "Consistent top nav + footer across all pages with new IA links","acceptance": ["Header shows Home, AI Agents, Pricing & ROI, Use Cases, Venture Studio, Portfolio, About, Resources, Contact","Footer includes contact and mission tagline","Keyboard accessible; focus styles visible"],"tools": ["mcp_filesystem_edit_file","mcp_filesystem_write_file"]},
+      {"id": "nav-canonicals","title": "Add canonicals/links between /pricing and /roi","paths": ["pricing/index.html","roi/index.html"],"outcome": "Canonical tags and cross-links set","acceptance": ["<link rel=\"canonical\"> present","Cross-links between pages visible"],"tools": ["mcp_filesystem_write_file","mcp_filesystem_edit_file"]}
+    ],"depends_on": []},
+    {"name": "Home","tasks": [
+      {"id": "home-hero","title": "Replace hero with private AI agents headline + subheadline + dual CTAs","paths": ["index.html","style.css","app.js"],"outcome": "New hero messaging and CTAs wired (‘Get a Demo’, ‘Estimate Savings’)","acceptance": ["Headline ≤10 words focused on private agents","CTAs scroll to form and link to /roi/","No layout regressions on mobile"],"tools": ["mcp_filesystem_edit_file"]},
+      {"id": "home-benefits","title": "Benefits grid + four-step How It Works","paths": ["index.html","style.css"],"outcome": "Four cards + four steps with subtle animations","acceptance": ["Readable on mobile","Reduced motion respected"],"tools": ["mcp_filesystem_edit_file"]},
+      {"id": "home-tiers","title": "Tier overview cards + compact comparison snippet","paths": ["assets/data/tiers.json","index.html","style.css"],"outcome": "3 tier cards plus mini comparison row","acceptance": ["Cards render from data","Snippet shows limits and security"],"tools": ["mcp_filesystem_write_file","mcp_filesystem_edit_file"]},
+      {"id": "home-previews","title": "Use‑case previews + case study highlight + studio teaser","paths": ["index.html","style.css"],"outcome": "2–3 preview cards and one case study highlight","acceptance": ["Cards link to /use-cases/","Highlight links to case study"],"tools": ["mcp_filesystem_edit_file"]}
+    ],"depends_on": ["nav-shared","tiers-data"]},
+    {"name": "AI Agents Page","tasks": [
+      {"id": "agents-structure","title": "Create /agents/ page with overview, architecture, model stack","paths": ["agents/index.html","style.css"],"outcome": "Describes digital coworker, local deployment, diagram blocks","acceptance": ["Architecture diagram section included","Model stack table present"],"tools": ["mcp_filesystem_write_file"]},
+      {"id": "agents-tier-matrix","title": "Detailed tier matrix (usage limits, models, hardware, capabilities, add-ons)","paths": ["assets/data/tiers.json","agents/index.html"],"outcome": "Tier table sourced from data","acceptance": ["Table columns match PRD","Add-ons listed"],"tools": ["mcp_filesystem_write_file","mcp_filesystem_edit_file"]}
+    ],"depends_on": ["tiers-data","nav-shared"]},
+    {"name": "Pricing & ROI","tasks": [
+      {"id": "pricing-page","title": "Create /pricing/ with tier matrix, add-ons, FAQs","paths": ["pricing/index.html","style.css"],"outcome": "Full comparison with setup/monthly fees, limits, hardware, models","acceptance": ["Footnotes clarify terms","FAQs present"],"tools": ["mcp_filesystem_write_file"]},
+      {"id": "roi-upgrade","title": "Enhance ROI calculator (assumptions, charts, payback, email/PDF)","paths": ["roi/index.html","roi/app.js","style.css"],"outcome": "Regular/Advanced modes with assumptions toggle and visual bars","acceptance": ["Results update instantly on input change","Email/PDF actions work"],"tools": ["mcp_filesystem_edit_file"]}
+    ],"depends_on": ["tiers-data","nav-canonicals"]},
+    {"name": "Use Cases","tasks": [
+      {"id": "use-cases-grid","title": "Create /use-cases/ with filters and standardized cards","paths": ["use-cases/index.html","assets/data/use-cases.json","style.css"],"outcome": "Filterable grid mapping examples to tiers","acceptance": ["Cards show title/desc/tier","Links to detail resources"],"tools": ["mcp_filesystem_write_file","mcp_filesystem_edit_file"]}
+    ],"depends_on": ["tiers-data","nav-shared"]},
+    {"name": "Venture Studio","tasks": [
+      {"id": "studio-page","title": "Create /studio/ with metrics, process, idea submission form","paths": ["studio/index.html","style.css","app.js"],"outcome": "Secondary offering page + studio submission form","acceptance": ["47 companies, $125M metrics shown","Form validates and submits"],"tools": ["mcp_filesystem_write_file","mcp_filesystem_edit_file","mcp_supabase_apply_migration"]}
+    ],"depends_on": ["db-contact","nav-shared"]},
+    {"name": "Portfolio","tasks": [
+      {"id": "portfolio-upgrade","title": "Improve filters and add pagination/infinite scroll","paths": ["companies/index.html","companies/app.js","companies/data.json","style.css"],"outcome": "Better filtering UX and load-more","acceptance": ["Works with existing data.json","No layout regressions"],"tools": ["mcp_filesystem_edit_file"]},
+      {"id": "company-template","title": "Normalize company detail template and add cross-links","paths": ["companies/[slug]/index.html"],"outcome": "Reusable structure with CTAs and cross-links","acceptance": ["Links to /agents/ and /studio/ present"],"tools": ["mcp_filesystem_write_file"]}
+    ],"depends_on": ["nav-shared"]},
+    {"name": "About & Resources","tasks": [
+      {"id": "about-page","title": "Create /about/ with mission, founders, team, story, careers","paths": ["about/index.html","style.css"],"outcome": "Authentic copy and team section","acceptance": ["Mission updated for private AI","Team bios render cleanly"],"tools": ["mcp_filesystem_write_file"]},
+      {"id": "resources-index","title": "Create /resources/ scaffolding for blog/docs/press","paths": ["resources/index.html","style.css"],"outcome": "Index with tags/categories","acceptance": ["Sections visible","No JS errors"],"tools": ["mcp_filesystem_write_file"]}
+    ],"depends_on": ["nav-shared"]},
+    {"name": "Contact & Forms","tasks": [
+      {"id": "db-contact","title": "Add contact_submissions table with RLS and policies","paths": ["supabase-setup.sql","SUPABASE_SETUP.md"],"outcome": "New table + RLS for contact form","acceptance": ["INSERT allowed anon, SELECT only authenticated","Docs updated"],"tools": ["mcp_supabase_apply_migration","mcp_filesystem_edit_file"]},
+      {"id": "contact-page","title": "Create /contact/ with validated form + spam protection","paths": ["contact/index.html","style.css","app.js"],"outcome": "Form with honeypot and optional CAPTCHA, submits to Supabase","acceptance": ["Client-side validation","Honeypot blocks bots","Success/Fail feedback"],"tools": ["mcp_filesystem_write_file","mcp_filesystem_edit_file"]}
+    ],"depends_on": ["db-contact","nav-shared"]},
+    {"name": "Analytics, SEO, A11y, Perf","tasks": [
+      {"id": "analytics-seo","title": "Add events, meta, JSON-LD, sitemap, robots","paths": ["index.html","pricing/index.html","agents/index.html","resources/index.html","sitemap.xml","robots.txt"],"outcome": "Tracking and SEO assets in place","acceptance": ["Core CTAs tracked","Valid JSON-LD","Sitemap and robots generated"],"tools": ["mcp_filesystem_write_file","mcp_filesystem_edit_file"]},
+      {"id": "a11y-perf","title": "Accessibility and performance pass","paths": ["style.css","index.html","agents/index.html","pricing/index.html"],"outcome": "Contrast, keyboard nav, reduced motion, image optimizations, lazy-load","acceptance": ["Keyboard-only flows work","Images optimized","CLS stable"],"tools": ["mcp_playwright_start_codegen_session","mcp_playwright_end_codegen_session"]}
+    ],"depends_on": ["home-hero","pricing-page","agents-structure"]},
+    {"name": "QA & Launch","tasks": [
+      {"id": "qa-cross-device","title": "Cross-device/browser QA with e2e happy-paths","paths": ["e2e/"],"outcome": "Happy-path flows recorded, verified","acceptance": ["Forms submit successfully","No console errors"],"tools": ["mcp_playwright_start_codegen_session","mcp_playwright_end_codegen_session"]},
+      {"id": "launch-readiness","title": "Launch checklist, redirects, monitoring, rollback","paths": ["README.md"],"outcome": "Checklist ticked, redirects set, monitors in place","acceptance": ["All tasks closed","Owner sign-off recorded"],"tools": ["mcp_github_create_issue"]}
+    ],"depends_on": ["analytics-seo","a11y-perf"]}
+  ],
+  "shared_data": [
+    {"id": "tiers-data","title": "Create pricing tiers JSON","paths": ["assets/data/tiers.json"],"schema": {"TierA": {"name": "Team Assistant","users": 10,"integrations": 3,"workflows": 3,"context": "~32k","concurrency": "low","security": ["RBAC"],"models": ["Llama 3.1 8B","Qwen 2.5 7B"],"hardware": "Mac Studio M3 Max 24c","setup_usd": "3000-5000","monthly_usd": "1100"},"TierB": {"name": "Workflow Operator","users": 100,"integrations": 8,"workflows": 10,"context": "~64k","concurrency": "mid","security": ["RBAC","Approvals"],"models": ["Qwen 2.5 14B","Mixtral 8x7B"],"hardware": "Mac Studio M3 Ultra 60c","setup_usd": "8000-15000","monthly_usd": "2600"},"TierC": {"name": "Autonomy Suite","users": "unlimited","integrations": 20,"workflows": "unlimited","context": "128k+","concurrency": "high","security": ["RBAC","SSO/SCIM","Audit"],"models": ["Gemma 2 27B","Llama 3.1 70B"],"hardware": "M3 Ultra 60c 512GB","setup_usd": "20000+","monthly_usd": "6000+"}},"tools": ["mcp_filesystem_write_file"]}
+  ]
+}

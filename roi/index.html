@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Predictable AI ROI – Utlyze</title>
 	<link rel="icon" type="image/x-icon" href="/favicon.ico">
+	<link rel="canonical" href="/roi/">
 	<link rel="stylesheet" href="../style.css">
 	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 	<style>
@@ -61,6 +62,9 @@
 	</style>
 </head>
 <body>
+	<!-- Site Header Mount Point -->
+	<div id="site-header-mount"></div>
+	
 	<section class="section">
 		<div class="container">
 			<div class="roi-hero hero">
@@ -68,6 +72,7 @@
 				<p class="section-subtext">Private models. Predictable pricing. Results you can measure.</p>
 				<div class="hero-buttons" style="margin-top: 12px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
 					<a class="btn btn--primary" href="#calculator" id="seeSavingsCta">See Your Savings</a>
+					<a class="btn btn--outline" href="/pricing/">View Pricing Tiers</a>
 				</div>
 			</div>
 
@@ -216,7 +221,26 @@
 						</div>
 
 						<button type="submit" class="btn btn--primary btn--full-width" id="btnCalc">Get my estimate</button>
-						<p class="small-muted">We’ll show your results instantly and email a copy. Confidential by default.</p>
+						<p class="small-muted">We'll show your results instantly and email a copy. Confidential by default.</p>
+						
+						<!-- Assumptions Explainer -->
+						<div id="assumptionsExplainer" style="margin-top: 16px; display: none;">
+							<details class="glass-card" style="padding: 16px;">
+								<summary style="cursor: pointer; font-weight: 600; color: var(--utlyze-primary);">How we calculate your savings</summary>
+								<div style="margin-top: 12px; color: rgba(10,10,10,0.7);">
+									<p style="margin-bottom: 8px;"><strong>Our estimates assume:</strong></p>
+									<ul style="list-style: disc; margin-left: 24px; font-size: 0.875rem;">
+										<li>30-70% cost reduction through on-premise deployment</li>
+										<li>Elimination of per-token API charges</li>
+										<li>Performance optimization through model fine-tuning</li>
+										<li>Reduced context window requirements</li>
+										<li>Batch processing and caching efficiencies</li>
+									</ul>
+									<p style="margin-top: 12px; font-size: 0.875rem;">Actual savings depend on your specific use case, data patterns, and deployment configuration.</p>
+								</div>
+							</details>
+						</div>
+						
 						<div class="results-container" style="display:none"></div>
 
 						<!-- Hidden fields for calculator values/results and attribution -->
@@ -273,6 +297,9 @@
 		<a class="btn btn--primary" href="#calculator">See Your Savings</a>
 		<a class="btn btn--outline" href="#schedule">Book Now</a>
 	</div>
+
+	<!-- Site Footer Mount Point -->
+	<div id="site-footer-mount"></div>
 
 	<script src="./app.js"></script>
 </body>

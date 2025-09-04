@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing & Packages - Utlyze AI Agents</title>
+    <meta name="description" content="Compare Utlyze AI agent tiers: Team Assistant, Workflow Operator, and Autonomy Suite. Transparent pricing for on-premise enterprise AI deployment.">
+    <link rel="canonical" href="/roi/">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="icon" href="../favicon.ico">
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- Site Header Mount Point -->
+    <div id="site-header-mount"></div>
+    
+    <!-- Floating background elements -->
+    <div class="floating-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+  
+  <main class="pricing-main">
+    <section class="pricing-hero">
+      <div class="container">
+        <h1 class="pricing-title">Transparent AI Agent Pricing</h1>
+        <p class="pricing-subtitle">Three tiers designed for different organizational needs. All deployed on-premise for maximum security and control.</p>
+      </div>
+    </section>
+
+    <section class="pricing-matrix">
+      <div class="container">
+        <div class="tier-grid">
+          <!-- Tier A: Team Assistant -->
+          <div class="tier-card tier-a">
+            <div class="tier-header">
+              <h2 class="tier-name">Team Assistant</h2>
+              <div class="tier-price">
+                <div class="setup-cost">Setup: $3,000-5,000</div>
+                <div class="monthly-cost">$1,100<span class="period">/month</span></div>
+              </div>
+            </div>
+            <div class="tier-features">
+              <ul class="feature-list">
+                <li><span class="feature-icon">✓</span> <strong>10 users</strong></li>
+                <li><span class="feature-icon">✓</span> 3 integrations</li>
+                <li><span class="feature-icon">✓</span> 3 workflows</li>
+                <li><span class="feature-icon">✓</span> ~32k context window</li>
+                <li><span class="feature-icon">✓</span> Low concurrency</li>
+                <li><span class="feature-icon">✓</span> RBAC security</li>
+              </ul>
+              <div class="tier-models">
+                <h4>Available Models:</h4>
+                <p>Llama 3.1 8B, Qwen 2.5 7B</p>
+              </div>
+              <div class="tier-hardware">
+                <h4>Hardware:</h4>
+                <p>Mac Studio M3 Max 24c</p>
+              </div>
+            </div>
+            <a href="/roi/" class="tier-cta">Calculate ROI</a>
+          </div>
+
+          <!-- Tier B: Workflow Operator -->
+          <div class="tier-card tier-b featured">
+            <div class="tier-badge">Most Popular</div>
+            <div class="tier-header">
+              <h2 class="tier-name">Workflow Operator</h2>
+              <div class="tier-price">
+                <div class="setup-cost">Setup: $8,000-15,000</div>
+                <div class="monthly-cost">$2,600<span class="period">/month</span></div>
+              </div>
+            </div>
+            <div class="tier-features">
+              <ul class="feature-list">
+                <li><span class="feature-icon">✓</span> <strong>100 users</strong></li>
+                <li><span class="feature-icon">✓</span> 8 integrations</li>
+                <li><span class="feature-icon">✓</span> 10 workflows</li>
+                <li><span class="feature-icon">✓</span> ~64k context window</li>
+                <li><span class="feature-icon">✓</span> Mid concurrency</li>
+                <li><span class="feature-icon">✓</span> RBAC + Approvals</li>
+              </ul>
+              <div class="tier-models">
+                <h4>Available Models:</h4>
+                <p>Qwen 2.5 14B, Mixtral 8x7B</p>
+              </div>
+              <div class="tier-hardware">
+                <h4>Hardware:</h4>
+                <p>Mac Studio M3 Ultra 60c</p>
+              </div>
+            </div>
+            <a href="/roi/" class="tier-cta">Calculate ROI</a>
+          </div>
+
+          <!-- Tier C: Autonomy Suite -->
+          <div class="tier-card tier-c">
+            <div class="tier-header">
+              <h2 class="tier-name">Autonomy Suite</h2>
+              <div class="tier-price">
+                <div class="setup-cost">Setup: $20,000+</div>
+                <div class="monthly-cost">$6,000+<span class="period">/month</span></div>
+              </div>
+            </div>
+            <div class="tier-features">
+              <ul class="feature-list">
+                <li><span class="feature-icon">✓</span> <strong>Unlimited users</strong></li>
+                <li><span class="feature-icon">✓</span> 20 integrations</li>
+                <li><span class="feature-icon">✓</span> Unlimited workflows</li>
+                <li><span class="feature-icon">✓</span> 128k+ context window</li>
+                <li><span class="feature-icon">✓</span> High concurrency</li>
+                <li><span class="feature-icon">✓</span> RBAC + SSO/SCIM + Audit</li>
+              </ul>
+              <div class="tier-models">
+                <h4>Available Models:</h4>
+                <p>Gemma 2 27B, Llama 3.1 70B</p>
+              </div>
+              <div class="tier-hardware">
+                <h4>Hardware:</h4>
+                <p>M3 Ultra 60c 512GB</p>
+              </div>
+            </div>
+            <a href="/roi/" class="tier-cta">Calculate ROI</a>
+          </div>
+        </div>
+
+        <div class="pricing-notes">
+          <p><sup>*</sup> All prices in USD. Setup costs include hardware, installation, and initial configuration.</p>
+          <p><sup>†</sup> Monthly costs include support, updates, and maintenance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Add-ons Section -->
+    <section class="pricing-addons">
+      <div class="container">
+        <h2 class="section-title">Optional Add-ons</h2>
+        <div class="addons-grid">
+          <div class="addon-card">
+            <h3>Additional Integrations</h3>
+            <p>Connect more tools and services</p>
+            <span class="addon-price">$500/integration</span>
+          </div>
+          <div class="addon-card">
+            <h3>Custom Workflows</h3>
+            <p>Tailored automation for your processes</p>
+            <span class="addon-price">$1,000/workflow</span>
+          </div>
+          <div class="addon-card">
+            <h3>Priority Support</h3>
+            <p>24/7 dedicated support team</p>
+            <span class="addon-price">$500/month</span>
+          </div>
+          <div class="addon-card">
+            <h3>Custom Model Training</h3>
+            <p>Fine-tune models on your data</p>
+            <span class="addon-price">Quote on request</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQs Section -->
+    <section class="pricing-faqs">
+      <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3 class="faq-question">What's included in the setup cost?</h3>
+            <p class="faq-answer">Setup costs cover hardware procurement, on-premise installation, initial configuration, and hands-on training for your team. We handle everything from unboxing to your first automated workflow.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h3 class="faq-question">Can I upgrade between tiers?</h3>
+            <p class="faq-answer">Absolutely! You can upgrade from Team Assistant to Workflow Operator or Autonomy Suite at any time. We'll help migrate your workflows and provide additional training as needed.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h3 class="faq-question">What if I need more users or integrations?</h3>
+            <p class="faq-answer">Each tier has recommended limits, but we can customize packages. Additional users are $50/month each. Extra integrations and workflows can be added as needed (see add-ons above).</p>
+          </div>
+          
+          <div class="faq-item">
+            <h3 class="faq-question">Do you offer trials or proof of concepts?</h3>
+            <p class="faq-answer">Yes! We offer 30-day proof of concept deployments for qualified enterprises. This lets you test AI agents with your actual workflows before committing. <a href="/contact/">Contact us</a> to learn more.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h3 class="faq-question">How do AI agents compare to traditional automation?</h3>
+            <p class="faq-answer">Unlike RPA or traditional automation, <a href="/agents/">AI agents</a> understand context, make decisions, and handle exceptions. They're perfect for complex, judgment-based tasks. See our <a href="/use-cases/">use cases</a> for examples.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h3 class="faq-question">Is my data secure with on-premise deployment?</h3>
+            <p class="faq-answer">Yes! All processing happens on your hardware, behind your firewall. No data leaves your premises. The Autonomy Suite includes enterprise-grade security features like SSO, SCIM, and full audit trails.</p>
+          </div>
+        </div>
+
+        <div class="cta-section">
+          <p class="cta-text">Ready to see the ROI for your organization?</p>
+          <a href="/roi/" class="cta-button">Calculate Your ROI</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+    <!-- Site Footer Mount Point -->
+    <div id="site-footer-mount"></div>
+
+    <script src="../app.js"></script>
+</body>
+</html>

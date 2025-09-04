@@ -14,7 +14,104 @@ if (window.supabase && typeof window.supabase.createClient === 'function') {
     supabase = null;
 }
 
+// Function to load header and footer partials
+async function loadPartials() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    // Load header
+    const headerMount = document.getElementById('site-header-mount');
+    if (headerMount) {
+        try {
+            const headerResponse = await fetch('/partials/header.html');
+            if (headerResponse.ok) {
+                const headerHTML = await headerResponse.text();
+                headerMount.innerHTML = headerHTML;
+                
+                // Initialize mobile menu toggle after header loads
+                initializeMobileMenu();
+                
+                // Add fade-in animation if motion is allowed
+                if (!prefersReducedMotion) {
+                    headerMount.style.opacity = '0';
+                    headerMount.style.transform = 'translateY(-20px)';
+                    setTimeout(() => {
+                        headerMount.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+                        headerMount.style.opacity = '1';
+                        headerMount.style.transform = 'translateY(0)';
+                    }, 100);
+                }
+            }
+        } catch (error) {
+            console.error('Error loading header:', error);
+        }
+    }
+    
+    // Load footer
+    const footerMount = document.getElementById('site-footer-mount');
+    if (footerMount) {
+        try {
+            const footerResponse = await fetch('/partials/footer.html');
+            if (footerResponse.ok) {
+                const footerHTML = await footerResponse.text();
+                footerMount.innerHTML = footerHTML;
+                
+                // Add fade-in animation if motion is allowed
+                if (!prefersReducedMotion) {
+                    footerMount.style.opacity = '0';
+                    footerMount.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        footerMount.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+                        footerMount.style.opacity = '1';
+                        footerMount.style.transform = 'translateY(0)';
+                    }, 200);
+                }
+            }
+        } catch (error) {
+            console.error('Error loading footer:', error);
+        }
+    }
+}
+
+// Initialize mobile menu functionality
+function initializeMobileMenu() {
+    const menuToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-links');
+    
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !isExpanded);
+            navMenu.classList.toggle('nav-links--open');
+            
+            // Animate menu toggle icon
+            this.classList.toggle('nav-toggle--active');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                menuToggle.setAttribute('aria-expanded', 'false');
+                navMenu.classList.remove('nav-links--open');
+                menuToggle.classList.remove('nav-toggle--active');
+            }
+        });
+        
+        // Close menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenu.classList.contains('nav-links--open')) {
+                menuToggle.setAttribute('aria-expanded', 'false');
+                navMenu.classList.remove('nav-links--open');
+                menuToggle.classList.remove('nav-toggle--active');
+                menuToggle.focus();
+            }
+        });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Load header and footer partials
+    loadPartials();
+    
     // Initialize premium animations and effects
     initializePremiumEffects();
     

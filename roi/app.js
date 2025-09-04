@@ -36,6 +36,69 @@ function captureAttributionHiddenFields(form) {
 	form.page_url.value = window.location.href;
 }
 
+// Save calculator state to localStorage
+function saveCalculatorState() {
+	const state = {
+		mode: document.getElementById('modeSimple')?.checked ? 'simple' : 'advanced',
+		simpleMonthlySpend: document.getElementById('simpleMonthlySpend')?.value || '',
+		spendRange: document.getElementById('spendRange')?.value || '',
+		tokensPerReq: document.getElementById('tokensPerReq')?.value || '',
+		requestsPerDay: document.getElementById('requestsPerDay')?.value || '',
+		apiCost: document.getElementById('apiCost')?.value || ''
+	};
+	localStorage.setItem('utlyzeROIState', JSON.stringify(state));
+}
+
+// Load calculator state from localStorage
+function loadCalculatorState() {
+	try {
+		const saved = localStorage.getItem('utlyzeROIState');
+		if (!saved) return;
+		
+		const state = JSON.parse(saved);
+		
+		// Restore mode
+		if (state.mode === 'advanced') {
+			const advancedEl = document.getElementById('modeAdvanced');
+			const simpleEl = document.getElementById('modeSimple');
+			if (advancedEl && simpleEl) {
+				advancedEl.checked = true;
+				simpleEl.checked = false;
+			}
+		}
+		
+		// Restore values
+		const setIfExists = (id, value) => {
+			const el = document.getElementById(id);
+			if (el && value) el.value = value;
+		};
+		
+		setIfExists('simpleMonthlySpend', state.simpleMonthlySpend);
+		setIfExists('spendRange', state.spendRange);
+		setIfExists('tokensPerReq', state.tokensPerReq);
+		setIfExists('requestsPerDay', state.requestsPerDay);
+		setIfExists('apiCost', state.apiCost);
+		
+		// Sync UI
+		const syncModeUI = () => {
+			const modeSimple = document.getElementById('modeSimple')?.checked;
+			const simpleFields = document.getElementById('simpleFields');
+			const advancedFields = document.getElementById('advancedFields');
+			if (modeSimple) {
+				simpleFields && (simpleFields.style.display = '');
+				advancedFields && (advancedFields.style.display = 'none');
+			} else {
+				simpleFields && (simpleFields.style.display = 'none');
+				advancedFields && (advancedFields.style.display = '');
+			}
+		};
+		syncModeUI();
+		
+	} catch (e) {
+		console.warn('Failed to load calculator state:', e);
+	}
+}
+
 function calcROI() {
 	const modeSimple = document.getElementById('modeSimple')?.checked;
 	let tokensPerReq = 0;
@@ -45,6 +108,9 @@ function calcROI() {
 	const hostingFee = document.getElementById('hostingFee') ? parseNumber(document.getElementById('hostingFee').value) : 0;
 	const trainingFee = document.getElementById('trainingFee') ? parseNumber(document.getElementById('trainingFee').value) : 0;
 	const amortizationMonths = document.getElementById('amortizationMonths') ? (parseInt(document.getElementById('amortizationMonths').value || '12', 10) || 12) : 12;
+	
+	// Save state on each calculation
+	saveCalculatorState();
 
 	// Methodology inputs (removed for essentialism)
 	// const offloadPercent = parseNumber(document.getElementById('offloadPercent')?.value || 80);
@@ -82,6 +148,12 @@ function calcROI() {
 	document.getElementById('paybackDays') && (document.getElementById('paybackDays').innerText = String(paybackDays));
 	document.getElementById('currentSpend').innerText = formatMoney(currentMonthly);
 	document.getElementById('roiResults').style.display = 'block';
+	
+	// Show assumptions explainer
+	const assumptionsEl = document.getElementById('assumptionsExplainer');
+	if (assumptionsEl) {
+		assumptionsEl.style.display = 'block';
+	}
 
 	// Animate bars (proportional widths)
 	const current = Math.max(1, Number(document.getElementById('currentSpend').textContent || '0'));
@@ -142,6 +214,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	const btnCalc = document.getElementById('btnCalc');
 	const leadForm = document.getElementById('calcForm');
 	const calcForm = document.getElementById('calcForm');
+	
+	// Load saved state first
+	loadCalculatorState();
 
 	// Hydrate from URL params
 	const params = new URLSearchParams(window.location.search);
@@ -339,6 +414,10 @@ window.addEventListener('DOMContentLoaded', () => {
 				lines.push(`Projected with Utlyze: $${get('utlyzeCost')}`);
 				lines.push(`Savings: $${get('savings')}`);
 				lines.push(`ROI: ${get('roi')}`);
+				const payback = document.getElementById('paybackDays')?.textContent;
+				if (payback) {
+					lines.push(`Payback period: ${payback} days`);
+				}
 				const emailInput = document.querySelector('#calcForm input[name="email"]');
 				const to = emailInput && emailInput.value ? emailInput.value : '';
 				const subject = 'Your Utlyze ROI estimate';

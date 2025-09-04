@@ -1,0 +1,41 @@
+{
+  "TierA": {
+    "name": "Team Assistant",
+    "users": 10,
+    "integrations": 3,
+    "workflows": 3,
+    "context": "~32k",
+    "concurrency": "low",
+    "security": ["RBAC"],
+    "models": ["Llama 3.1 8B", "Qwen 2.5 7B"],
+    "hardware": "Mac Studio M3 Max 24c",
+    "setup_usd": "3000-5000",
+    "monthly_usd": "1100"
+  },
+  "TierB": {
+    "name": "Workflow Operator",
+    "users": 100,
+    "integrations": 8,
+    "workflows": 10,
+    "context": "~64k",
+    "concurrency": "mid",
+    "security": ["RBAC", "Approvals"],
+    "models": ["Qwen 2.5 14B", "Mixtral 8x7B"],
+    "hardware": "Mac Studio M3 Ultra 60c",
+    "setup_usd": "8000-15000",
+    "monthly_usd": "2600"
+  },
+  "TierC": {
+    "name": "Autonomy Suite",
+    "users": "unlimited",
+    "integrations": 20,
+    "workflows": "unlimited",
+    "context": "128k+",
+    "concurrency": "high",
+    "security": ["RBAC", "SSO/SCIM", "Audit"],
+    "models": ["Gemma 2 27B", "Llama 3.1 70B"],
+    "hardware": "M3 Ultra 60c 512GB",
+    "setup_usd": "20000+",
+    "monthly_usd": "6000+"
+  }
+}
