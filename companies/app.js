@@ -476,6 +476,9 @@ function filterCompanies() {
     return matchesSearch && matchesIndustry && matchesStage;
   });
   
+  // Reset displayed count when filtering
+  displayedCount = Math.min(COMPANIES_PER_LOAD, filteredCompanies.length);
+  
   renderCompanies(filteredCompanies);
 }
 
@@ -546,6 +549,10 @@ async function loadExternalCompaniesIfAvailable() {
 // Initialize the application
 async function initializeApp() {
   await loadExternalCompaniesIfAvailable();
+  
+  // Set initial displayed count based on available companies
+  displayedCount = Math.min(COMPANIES_PER_LOAD, companies.length);
+  
   // Initial render
   renderCompanies();
 
