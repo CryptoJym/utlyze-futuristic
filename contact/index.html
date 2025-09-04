@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transform Your Business with AI - Contact Utlyze</title>
+  <meta name="description" content="Discover how Utlyze's AI agents can reduce costs by 10x and accelerate your enterprise. Get a personalized demo and ROI analysis.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    .contact-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .contact-hero {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .contact-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .contact-subtitle {
+      font-size: 1.25rem;
+      color: #64748b;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-form-section {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 3rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #e2e8f0;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 8px;
+      color: #e2e8f0;
+      font-size: 1rem;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-checkbox-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .form-checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      color: #e2e8f0;
+    }
+
+    .form-checkbox-label input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 0.875rem 2rem;
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .contact-info {
+      padding: 2rem 0;
+    }
+
+    .info-section {
+      margin-bottom: 3rem;
+    }
+
+    .info-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #e2e8f0;
+    }
+
+    .info-text {
+      color: #94a3b8;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .schedule-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.2s;
+      margin-bottom: 1rem;
+    }
+
+    .schedule-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: #94a3b8;
+      transition: all 0.2s;
+    }
+
+    .social-link:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: #3b82f6;
+      color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    .honeypot {
+      position: absolute;
+      left: -9999px;
+      height: 0;
+      width: 0;
+      overflow: hidden;
+    }
+
+    .form-message {
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      text-align: center;
+      display: none;
+    }
+
+    .form-success {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+    }
+
+    .form-error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+    }
+
+    .validation-error {
+      color: #ef4444;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .contact-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .contact-title {
+        font-size: 2rem;
+      }
+
+      .contact-form-section {
+        padding: 2rem;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-checkbox-group {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="contact-container">
+    <div class="contact-hero">
+      <h1 class="contact-title">Transform Your Business with AI</h1>
+      <p class="contact-subtitle">Join leading enterprises saving millions with our AI agent platform. Get a personalized ROI analysis and implementation roadmap.</p>
+    </div>
+
+    <div class="contact-content">
+      <section class="contact-form-section">
+        <form id="contact-form" class="contact-form">
+          <div class="form-message form-success" id="success-message">
+            Thank you for reaching out! We'll get back to you within 24 hours with your personalized ROI analysis.
+          </div>
+          <div class="form-message form-error" id="error-message">
+            Something went wrong. Please try again or email us directly at hello@utlyze.com
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="first_name" class="form-label">First Name *</label>
+              <input type="text" id="first_name" name="first_name" class="form-input" required>
+              <span class="validation-error" id="first_name-error">Please enter your first name</span>
+            </div>
+
+            <div class="form-group">
+              <label for="last_name" class="form-label">Last Name *</label>
+              <input type="text" id="last_name" name="last_name" class="form-input" required>
+              <span class="validation-error" id="last_name-error">Please enter your last name</span>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="email" class="form-label">Work Email *</label>
+              <input type="email" id="email" name="email" class="form-input" required placeholder="you@company.com">
+              <span class="validation-error" id="email-error">Please enter a valid work email</span>
+            </div>
+
+            <div class="form-group">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="tel" id="phone" name="phone" class="form-input" placeholder="+1 (555) 000-0000">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="company" class="form-label">Company *</label>
+              <input type="text" id="company" name="company" class="form-input" required>
+              <span class="validation-error" id="company-error">Please enter your company name</span>
+            </div>
+
+            <div class="form-group">
+              <label for="job_title" class="form-label">Job Title *</label>
+              <input type="text" id="job_title" name="job_title" class="form-input" required placeholder="e.g., CTO, VP Engineering">
+              <span class="validation-error" id="job_title-error">Please enter your job title</span>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="company_size" class="form-label">Company Size</label>
+              <select id="company_size" name="company_size" class="form-select">
+                <option value="">Select size</option>
+                <option value="1-10">1-10 employees</option>
+                <option value="11-50">11-50 employees</option>
+                <option value="51-200">51-200 employees</option>
+                <option value="201-500">201-500 employees</option>
+                <option value="501-1000">501-1,000 employees</option>
+                <option value="1001-5000">1,001-5,000 employees</option>
+                <option value="5001+">5,001+ employees</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="industry" class="form-label">Industry</label>
+              <select id="industry" name="industry" class="form-select">
+                <option value="">Select industry</option>
+                <option value="technology">Technology</option>
+                <option value="financial-services">Financial Services</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="retail-ecommerce">Retail & E-commerce</option>
+                <option value="manufacturing">Manufacturing</option>
+                <option value="education">Education</option>
+                <option value="media-entertainment">Media & Entertainment</option>
+                <option value="government">Government</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="current_ai_usage" class="form-label">Current AI Usage</label>
+            <select id="current_ai_usage" name="current_ai_usage" class="form-select">
+              <option value="">Select your current AI maturity</option>
+              <option value="exploring">Exploring AI possibilities</option>
+              <option value="piloting">Running pilot projects</option>
+              <option value="production">AI in production for specific use cases</option>
+              <option value="scaled">AI deployed at scale across the organization</option>
+              <option value="none">Not currently using AI</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Solutions of Interest (check all that apply)</label>
+            <div class="form-checkbox-group">
+              <label class="form-checkbox-label">
+                <input type="checkbox" name="interested_solutions" value="custom-agents">
+                <span>Custom AI Agents</span>
+              </label>
+              <label class="form-checkbox-label">
+                <input type="checkbox" name="interested_solutions" value="cost-optimization">
+                <span>Cost Optimization (10x savings)</span>
+              </label>
+              <label class="form-checkbox-label">
+                <input type="checkbox" name="interested_solutions" value="process-automation">
+                <span>Process Automation</span>
+              </label>
+              <label class="form-checkbox-label">
+                <input type="checkbox" name="interested_solutions" value="customer-service">
+                <span>Customer Service AI</span>
+              </label>
+              <label class="form-checkbox-label">
+                <input type="checkbox" name="interested_solutions" value="data-analysis">
+                <span>Data Analysis & Insights</span>
+              </label>
+              <label class="form-checkbox-label">
+                <input type="checkbox" name="interested_solutions" value="content-generation">
+                <span>Content Generation</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="timeline" class="form-label">Implementation Timeline</label>
+              <select id="timeline" name="timeline" class="form-select">
+                <option value="">Select timeline</option>
+                <option value="immediate">Immediate (< 1 month)</option>
+                <option value="q1">This quarter</option>
+                <option value="q2">Next quarter</option>
+                <option value="6months">6+ months</option>
+                <option value="exploring">Just exploring</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="budget_range" class="form-label">Annual AI Budget</label>
+              <select id="budget_range" name="budget_range" class="form-select">
+                <option value="">Select budget range</option>
+                <option value="under-50k">Under $50K</option>
+                <option value="50k-100k">$50K - $100K</option>
+                <option value="100k-500k">$100K - $500K</option>
+                <option value="500k-1m">$500K - $1M</option>
+                <option value="1m-5m">$1M - $5M</option>
+                <option value="5m+">$5M+</option>
+                <option value="not-set">Budget not set</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="pain_points" class="form-label">What are your biggest AI challenges? *</label>
+            <textarea id="pain_points" name="pain_points" class="form-textarea" required placeholder="e.g., High API costs, slow response times, complex integrations, lack of expertise..."></textarea>
+            <span class="validation-error" id="pain_points-error">Please describe your challenges</span>
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">Additional Details</label>
+            <textarea id="message" name="message" class="form-textarea" placeholder="Tell us more about your specific needs or questions..."></textarea>
+          </div>
+
+          <!-- Honeypot field for spam protection -->
+          <div class="honeypot">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button type="submit" class="form-submit" id="submit-button">
+            Get Your Personalized ROI Analysis
+          </button>
+        </form>
+      </section>
+
+      <section class="contact-info">
+        <div class="info-section">
+          <h2 class="info-title">Why Leading Enterprises Choose Utlyze</h2>
+          <p class="info-text">✓ <strong>10x Cost Reduction</strong> - Proven savings on AI infrastructure</p>
+          <p class="info-text">✓ <strong>3x Faster Deployment</strong> - Pre-built agents ready to deploy</p>
+          <p class="info-text">✓ <strong>Enterprise Security</strong> - SOC 2 compliant, data never leaves your control</p>
+          <p class="info-text">✓ <strong>24/7 Support</strong> - Dedicated success team for your implementation</p>
+        </div>
+
+        <div class="info-section">
+          <h2 class="info-title">Schedule a Live Demo</h2>
+          <p class="info-text">See our AI agents in action. Get a personalized demo tailored to your use cases.</p>
+          <a href="https://calendly.com/utlyze/demo" class="schedule-button" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+            </svg>
+            Schedule a Demo
+          </a>
+        </div>
+
+        <div class="info-section">
+          <h2 class="info-title">Calculate Your Savings</h2>
+          <p class="info-text">Use our ROI calculator to see how much you could save with Utlyze.</p>
+          <a href="/pricing/" class="schedule-button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+            ROI Calculator
+          </a>
+        </div>
+
+        <div class="info-section">
+          <h2 class="info-title">Connect With Us</h2>
+          <p class="info-text">Follow us for the latest in AI agent technology and best practices.</p>
+          <div class="social-links">
+            <a href="https://twitter.com/utlyze" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22.46 6c-.85.38-1.78.64-2.75.76 1-.6 1.76-1.55 2.12-2.68-.93.55-1.96.95-3.06 1.17-.88-.94-2.13-1.53-3.51-1.53-2.66 0-4.81 2.16-4.81 4.81 0 .38.04.75.13 1.1-4-.2-7.54-2.11-9.91-5.02-.41.71-.65 1.53-.65 2.4 0 1.67.85 3.14 2.14 4.01-.79-.03-1.53-.24-2.18-.6v.06c0 2.33 1.66 4.28 3.86 4.72-.4.11-.83.17-1.27.17-.31 0-.62-.03-.91-.08.62 1.91 2.39 3.3 4.49 3.34-1.65 1.29-3.73 2.06-5.99 2.06-.39 0-.77-.02-1.15-.07 2.13 1.36 4.66 2.16 7.38 2.16 8.85 0 13.68-7.33 13.68-13.68 0-.21 0-.42-.01-.62.94-.68 1.76-1.53 2.4-2.49z"/>
+              </svg>
+            </a>
+            <a href="https://linkedin.com/company/utlyze" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </a>
+            <a href="https://github.com/utlyze" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="../app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('contact-form');
+      const submitButton = document.getElementById('submit-button');
+      const successMessage = document.getElementById('success-message');
+      const errorMessage = document.getElementById('error-message');
+
+      // Get UTM parameters
+      function getUTMParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+          utm_source: params.get('utm_source') || null,
+          utm_medium: params.get('utm_medium') || null,
+          utm_campaign: params.get('utm_campaign') || null
+        };
+      }
+
+      // Form validation
+      function validateForm() {
+        let isValid = true;
+
+        // First Name validation
+        const firstName = document.getElementById('first_name');
+        const firstNameError = document.getElementById('first_name-error');
+        if (firstName.value.trim() === '') {
+          firstNameError.style.display = 'block';
+          isValid = false;
+        } else {
+          firstNameError.style.display = 'none';
+        }
+
+        // Last Name validation
+        const lastName = document.getElementById('last_name');
+        const lastNameError = document.getElementById('last_name-error');
+        if (lastName.value.trim() === '') {
+          lastNameError.style.display = 'block';
+          isValid = false;
+        } else {
+          lastNameError.style.display = 'none';
+        }
+
+        // Email validation
+        const email = document.getElementById('email');
+        const emailError = document.getElementById('email-error');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value)) {
+          emailError.style.display = 'block';
+          isValid = false;
+        } else {
+          emailError.style.display = 'none';
+        }
+
+        // Company validation
+        const company = document.getElementById('company');
+        const companyError = document.getElementById('company-error');
+        if (company.value.trim() === '') {
+          companyError.style.display = 'block';
+          isValid = false;
+        } else {
+          companyError.style.display = 'none';
+        }
+
+        // Job Title validation
+        const jobTitle = document.getElementById('job_title');
+        const jobTitleError = document.getElementById('job_title-error');
+        if (jobTitle.value.trim() === '') {
+          jobTitleError.style.display = 'block';
+          isValid = false;
+        } else {
+          jobTitleError.style.display = 'none';
+        }
+
+        // Pain Points validation
+        const painPoints = document.getElementById('pain_points');
+        const painPointsError = document.getElementById('pain_points-error');
+        if (painPoints.value.trim() === '') {
+          painPointsError.style.display = 'block';
+          isValid = false;
+        } else {
+          painPointsError.style.display = 'none';
+        }
+
+        return isValid;
+      }
+
+      // Real-time validation
+      ['first_name', 'last_name', 'company', 'job_title'].forEach(fieldId => {
+        document.getElementById(fieldId).addEventListener('blur', function() {
+          if (this.value.trim() === '') {
+            document.getElementById(fieldId + '-error').style.display = 'block';
+          } else {
+            document.getElementById(fieldId + '-error').style.display = 'none';
+          }
+        });
+      });
+
+      document.getElementById('email').addEventListener('blur', function() {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(this.value)) {
+          document.getElementById('email-error').style.display = 'block';
+        } else {
+          document.getElementById('email-error').style.display = 'none';
+        }
+      });
+
+      document.getElementById('pain_points').addEventListener('blur', function() {
+        if (this.value.trim() === '') {
+          document.getElementById('pain_points-error').style.display = 'block';
+        } else {
+          document.getElementById('pain_points-error').style.display = 'none';
+        }
+      });
+
+      // Form submission
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Hide any existing messages
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'none';
+
+        // Check honeypot
+        const honeypot = document.getElementById('website');
+        if (honeypot.value) {
+          // Spam detected, silently reject
+          return;
+        }
+
+        // Validate form
+        if (!validateForm()) {
+          return;
+        }
+
+        // Disable submit button
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+
+        try {
+          // Check if Supabase is loaded
+          if (typeof window.supabase === 'undefined' || !window.supabase) {
+            throw new Error('Supabase not initialized');
+          }
+
+          // Get selected solutions
+          const selectedSolutions = Array.from(document.querySelectorAll('input[name="interested_solutions"]:checked'))
+            .map(cb => cb.value);
+
+          // Get UTM parameters
+          const utmParams = getUTMParams();
+
+          // Prepare form data
+          const formData = {
+            first_name: document.getElementById('first_name').value.trim(),
+            last_name: document.getElementById('last_name').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            phone: document.getElementById('phone').value.trim() || null,
+            company: document.getElementById('company').value.trim(),
+            job_title: document.getElementById('job_title').value.trim(),
+            company_size: document.getElementById('company_size').value || null,
+            industry: document.getElementById('industry').value || null,
+            current_ai_usage: document.getElementById('current_ai_usage').value || null,
+            interested_solutions: selectedSolutions.length > 0 ? selectedSolutions : null,
+            timeline: document.getElementById('timeline').value || null,
+            budget_range: document.getElementById('budget_range').value || null,
+            pain_points: document.getElementById('pain_points').value.trim(),
+            message: document.getElementById('message').value.trim() || null,
+            ...utmParams,
+            referrer: document.referrer || null
+          };
+
+          // Submit to Supabase
+          const { data, error } = await window.supabase
+            .from('contact_submissions')
+            .insert([formData]);
+
+          if (error) throw error;
+
+          // Show success message
+          successMessage.style.display = 'block';
+          form.reset();
+
+          // Scroll to top of form
+          form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          errorMessage.style.display = 'block';
+        } finally {
+          // Re-enable submit button
+          submitButton.disabled = false;
+          submitButton.textContent = 'Get Your Personalized ROI Analysis';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

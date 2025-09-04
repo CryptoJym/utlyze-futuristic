@@ -17,6 +17,8 @@
    - You should see the following tables:
      - `submissions` (homepage idea form)
        - Columns: id, url, description, name, email, created_at
+     - `contact_submissions` (enterprise contact form)
+       - Columns: id, first_name, last_name, email, phone, company, job_title, company_size, industry, current_ai_usage, interested_solutions (array), timeline, budget_range, pain_points, message, utm_source, utm_medium, utm_campaign, referrer, created_at
      - `roi_leads` (ROI landing page)
        - Core columns: id, name, email, company, notes,
          tokens_per_request, requests_per_day, api_cost_per_k, hosting_fee, training_fee, amortization_months,
@@ -31,11 +33,12 @@
 
 4. **Test the Forms**
    - Homepage Idea Form: submit once and confirm a row appears in `submissions`
+   - Contact Form: visit `/contact/`, fill out the enterprise contact form, and confirm a row appears in `contact_submissions` with all qualification data
    - ROI Landing Page: visit `/roi/`, run a sample calculation, submit the lead form, and confirm a row appears in `roi_leads` (inputs/results + UTM/referrer). If you previously created the table before these docs were updated, re-run `supabase-setup.sql` to add the extended columns (the script uses `ADD COLUMN IF NOT EXISTS`).
 
 ## Security Notes
 
-- Both tables have Row Level Security (RLS) enabled
+- All tables have Row Level Security (RLS) enabled
 - Public users can INSERT (submit forms)
 - Only authenticated users can SELECT (view submissions)
 - This prevents public users from seeing other submissions
