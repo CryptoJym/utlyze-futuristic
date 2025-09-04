@@ -105,6 +105,40 @@ CREATE INDEX IF NOT EXISTS idx_roi_leads_created_at ON public.roi_leads(created_
 -- Documentation comment
 COMMENT ON TABLE public.roi_leads IS 'Leads from ROI calculator including inputs/results and UTM metadata';
 
+-- Contact Form Submissions
+-- Stores general contact inquiries from the /contact/ page
+CREATE TABLE IF NOT EXISTS public.contact_submissions (
+    id BIGSERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    company TEXT,
+    reason TEXT,
+    message TEXT NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable RLS for contact submissions
+ALTER TABLE public.contact_submissions ENABLE ROW LEVEL SECURITY;
+
+-- Allow public inserts (form submissions)
+CREATE POLICY "Allow public inserts (contact_submissions)"
+ON public.contact_submissions
+FOR INSERT
+WITH CHECK (true);
+
+-- Allow authenticated users to view contact submissions
+CREATE POLICY "Allow authenticated select (contact_submissions)"
+ON public.contact_submissions
+FOR SELECT
+USING (auth.role() = 'authenticated');
+
+-- Indexes for common queries
+CREATE INDEX IF NOT EXISTS idx_contact_submissions_email ON public.contact_submissions(email);
+CREATE INDEX IF NOT EXISTS idx_contact_submissions_created_at ON public.contact_submissions(created_at DESC);
+
+-- Documentation comment
+COMMENT ON TABLE public.contact_submissions IS 'General contact form submissions from /contact/ page';
+
 -- Ensure new columns exist when applying to an existing database
 ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS role TEXT;
 ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS pain_points TEXT[];
