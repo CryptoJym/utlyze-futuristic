@@ -774,7 +774,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Track premium CTA clicks
-    const ctaButtons = document.querySelectorAll('.btn--primary');
+    const ctaButtons = document.querySelectorAll('.btn--primary, .btn-primary');
     ctaButtons.forEach(button => {
         button.addEventListener('click', () => {
             trackClick(button, 'primary_cta_click');
@@ -784,10 +784,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Track secondary button clicks
-    const secondaryButtons = document.querySelectorAll('.btn--outline');
+    const secondaryButtons = document.querySelectorAll('.btn--outline, .btn-secondary');
     secondaryButtons.forEach(button => {
         button.addEventListener('click', () => {
             trackClick(button, 'secondary_cta_click');
+            createClickRipple(button);
+        });
+    });
+
+    // Track pricing/other CTA anchors
+    const pricingCtas = document.querySelectorAll('.tier-cta, .cta-button');
+    pricingCtas.forEach(button => {
+        button.addEventListener('click', () => {
+            trackClick(button, 'tertiary_cta_click');
             createClickRipple(button);
         });
     });
