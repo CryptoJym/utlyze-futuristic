@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcomat — Utlyze Portfolio</title>
-    <meta name="description" content="AI employee onboarding assistant">
+    <title>{COMPANY_NAME} — Utlyze Portfolio</title>
+    <meta name="description" content="{COMPANY_TAGLINE}">
     <link rel="stylesheet" href="../style.css">
     <style>
         /* Company-specific detail page styles */
@@ -159,22 +159,22 @@
     <section class="company-hero">
         <div class="container">
             <div class="company-hero__header">
-                <div class="company-hero__logo" style="background-color: #6366F1">
-                    W
+                <div class="company-hero__logo" style="background-color: {COMPANY_COLOR}">
+                    {COMPANY_LOGO}
                 </div>
                 <div class="company-hero__info">
-                    <h1>Welcomat</h1>
-                    <p class="company-hero__tagline">AI employee onboarding assistant</p>
+                    <h1>{COMPANY_NAME}</h1>
+                    <p class="company-hero__tagline">{COMPANY_TAGLINE}</p>
                     <div class="company-hero__meta">
-                        <span class="meta-badge">Pre-seed</span>
-                        <span class="meta-badge">HR Tech</span>
-                        <span class="meta-badge">Remote</span>
+                        <span class="meta-badge">{COMPANY_STAGE}</span>
+                        <span class="meta-badge">{COMPANY_INDUSTRY}</span>
+                        <span class="meta-badge">{COMPANY_LOCATION}</span>
                     </div>
                 </div>
             </div>
             <div class="company-hero__actions">
-                <a href="#" target="_blank" class="btn btn--primary">View Demo</a>
-                <a href="#" target="_blank" class="btn btn--outline">Visit Website</a>
+                <a href="{COMPANY_DEMO_URL}" target="_blank" class="btn btn--primary">View Demo</a>
+                <a href="{COMPANY_WEBSITE_URL}" target="_blank" class="btn btn--outline">Visit Website</a>
                 <a href="/companies/" class="btn btn--secondary">Back to Portfolio</a>
             </div>
         </div>
@@ -184,20 +184,20 @@
     <section class="content-section">
         <div class="container">
             <h2>Overview</h2>
-            <p class="hero__description">Automates paperwork, provisioning, training, and day‑1/90‑day journeys to improve retention and time‑to‑productivity.</p>
+            <p class="hero__description">{COMPANY_DESCRIPTION}</p>
             
             <div class="section-grid">
                 <div class="highlight-card">
                     <h3>Founded</h3>
-                    <p>2025</p>
+                    <p>{COMPANY_FOUNDED}</p>
                 </div>
                 <div class="highlight-card">
                     <h3>Team Size</h3>
-                    <p>Growing Team</p>
+                    <p>{COMPANY_TEAM_SIZE}</p>
                 </div>
                 <div class="highlight-card">
                     <h3>Funding</h3>
-                    <p>Pre-funding</p>
+                    <p>{COMPANY_FUNDING}</p>
                 </div>
             </div>
         </div>
@@ -208,25 +208,11 @@
         <div class="container">
             <h2>Key Highlights</h2>
             <div class="achievements-list">
-                <p>Building something amazing...</p>
+                {COMPANY_ACHIEVEMENTS}
             </div>
             
             <div class="metric-grid">
-                
-                <div class="metric-item">
-                    <div class="metric-label">Tech KPI</div>
-                    <div class="metric-value">HR time saved 14h/wk (target)</div>
-                </div>
-
-                <div class="metric-item">
-                    <div class="metric-label">Team</div>
-                    <div class="metric-value">People Ops + platform integration</div>
-                </div>
-
-                <div class="metric-item">
-                    <div class="metric-label">Target Customer</div>
-                    <div class="metric-value">People Ops & HR</div>
-                </div>
+                {COMPANY_METRICS}
             </div>
         </div>
     </section>
@@ -236,14 +222,7 @@
         <div class="container">
             <h2>Outcomes & Impact</h2>
             <div class="section-grid">
-                
-                <div class="highlight-card">
-                    <h3>Key Differentiators</h3>
-                    <ul>
-                        <li>Orchestrates HR/IT/LMS</li>
-                        <li>Always‑on new‑hire Q&A</li>
-                    </ul>
-                </div>
+                {COMPANY_OUTCOMES}
             </div>
         </div>
     </section>
@@ -278,7 +257,7 @@
                 <h2>Ready to Build the Future?</h2>
                 <p class="hero__description">Join our portfolio of innovative companies</p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
-                    <a href="#" target="_blank" class="btn btn--primary btn--lg">Try Welcomat</a>
+                    <a href="{COMPANY_DEMO_URL}" target="_blank" class="btn btn--primary btn--lg">Try {COMPANY_NAME}</a>
                     <a href="/contact/" class="btn btn--outline btn--lg">Get in Touch</a>
                 </div>
             </div>

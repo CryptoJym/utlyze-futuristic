@@ -131,13 +131,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Form handling
+    // Form handling for both home page and studio page
     const form = document.getElementById('ideaForm');
     const successMessage = document.getElementById('success-message');
+    const formMessage = document.getElementById('formMessage');
 
     if (form) {
+        // Check if it's the studio page form by looking for description field
+        const isStudioForm = document.getElementById('description') !== null;
+        
         // Ensure each form field is properly isolated
-        const formFields = form.querySelectorAll('.glass-input');
+        const formFields = form.querySelectorAll('.glass-input, input[type="text"], input[type="email"], input[type="url"], textarea');
         formFields.forEach(field => {
             // Clear any existing event listeners that might cause issues
             field.value = '';
@@ -154,9 +158,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // Add focus and blur handlers for premium effects
-            field.addEventListener('focus', handleFieldFocus);
-            field.addEventListener('blur', handleFieldBlur);
+            // Add focus and blur handlers for premium effects (skip for studio form)
+            if (!isStudioForm) {
+                field.addEventListener('focus', handleFieldFocus);
+                field.addEventListener('blur', handleFieldBlur);
+            }
         });
 
         form.addEventListener('submit', function(e) {
@@ -165,12 +171,16 @@ document.addEventListener('DOMContentLoaded', function() {
             // Clear previous errors
             clearAllErrors();
             
-            // Validate form
-            const isValid = validateForm();
+            // Validate form based on form type
+            const isValid = isStudioForm ? validateStudioForm() : validateForm();
             
             if (isValid) {
-                // Simulate form submission with premium animation
-                submitFormWithAnimation();
+                // Submit form based on type
+                if (isStudioForm) {
+                    submitStudioForm();
+                } else {
+                    submitFormWithAnimation();
+                }
             }
         });
     }
@@ -283,9 +293,133 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Validation for Studio form
+    function validateStudioForm() {
+        let isValid = true;
+        
+        // Name validation
+        const nameField = document.getElementById('name');
+        const nameValue = nameField ? nameField.value.trim() : '';
+        if (!nameValue) {
+            showStudioError('name', 'Name is required');
+            isValid = false;
+        } else if (nameValue.length < 2) {
+            showStudioError('name', 'Name must be at least 2 characters');
+            isValid = false;
+        }
+        
+        // Email validation
+        const emailField = document.getElementById('email');
+        const emailValue = emailField ? emailField.value.trim() : '';
+        if (!emailValue) {
+            showStudioError('email', 'Email is required');
+            isValid = false;
+        } else if (!isValidEmail(emailValue)) {
+            showStudioError('email', 'Please enter a valid email address');
+            isValid = false;
+        }
+        
+        // URL is optional in studio form
+        const urlField = document.getElementById('url');
+        const urlValue = urlField ? urlField.value.trim() : '';
+        if (urlValue && !isValidURL(urlValue)) {
+            showStudioError('url', 'Please enter a valid URL');
+            isValid = false;
+        }
+        
+        // Description validation
+        const descField = document.getElementById('description');
+        const descValue = descField ? descField.value.trim() : '';
+        if (!descValue) {
+            showStudioError('description', 'Please describe your idea');
+            isValid = false;
+        } else if (descValue.length < 20) {
+            showStudioError('description', 'Please provide more details (at least 20 characters)');
+            isValid = false;
+        }
+        
+        return isValid;
+    }
+
+    function showStudioError(fieldId, message) {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.style.borderColor = '#dc2626';
+            field.focus();
+            
+            // Show error message in formMessage div
+            const formMessage = document.getElementById('formMessage');
+            if (formMessage) {
+                formMessage.textContent = message;
+                formMessage.className = 'form-message error';
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    }
+
+    async function submitStudioForm() {
+        const submitButton = form.querySelector('.submit-btn');
+        const originalText = submitButton.textContent;
+        const formMessage = document.getElementById('formMessage');
+        
+        // Get form data
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            url: document.getElementById('url').value || null,
+            description: document.getElementById('description').value,
+            created_at: new Date().toISOString()
+        };
+        
+        // Show loading state
+        submitButton.textContent = 'Submitting...';
+        submitButton.disabled = true;
+        
+        try {
+            // Submit to Supabase if available
+            if (supabase) {
+                const { data, error } = await supabase
+                    .from('submissions')
+                    .insert([formData]);
+                
+                if (error) throw error;
+            }
+            
+            // Show success message
+            if (formMessage) {
+                formMessage.textContent = 'Thank you! Your idea has been submitted. We\'ll review it within 48 hours.';
+                formMessage.className = 'form-message success';
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            // Reset form
+            form.reset();
+            
+            // Reset button after delay
+            setTimeout(() => {
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }, 3000);
+            
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            
+            // Show error message
+            if (formMessage) {
+                formMessage.textContent = 'There was an error submitting your idea. Please try again.';
+                formMessage.className = 'form-message error';
+            }
+            
+            // Reset button
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+        }
+    }
+
     function clearAllErrors() {
         const errorElements = document.querySelectorAll('.form-error');
-        const formFields = document.querySelectorAll('.glass-input');
+        const formFields = document.querySelectorAll('.glass-input, input[type="text"], input[type="email"], input[type="url"], textarea');
+        const formMessage = document.getElementById('formMessage');
         
         errorElements.forEach(element => {
             element.textContent = '';
@@ -298,10 +432,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // Remove error styling from fields
         formFields.forEach(field => {
             field.classList.remove('error');
-            field.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+            field.style.borderColor = '';
             field.style.boxShadow = 'none';
             field.style.transform = 'scale(1)';
         });
+        
+        // Clear form message
+        if (formMessage) {
+            formMessage.textContent = '';
+            formMessage.className = 'form-message';
+        }
     }
 
     function handleFieldFocus(e) {
