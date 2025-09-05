@@ -128,14 +128,14 @@ What’s done
 - Analytics/SEO: JSON‑LD on home/agents/pricing, sitemap.xml, robots.txt; CTA tracking extended in `app.js` to cover primary/secondary/tier CTA buttons.
 - Contact form: now inserts into `public.contact_submissions` under RLS; docs updated via schema changes.
 - 404s removed: `/about/` and `/resources/` stub pages added; sitemap updated.
+- Agents CTA fixed: Demo button on `/agents/` now links to `/contact/`; bottom contact link updated.
+- ROI video: placeholder text shown; broken embed avoided.
+- Tracking: `app.js` includes `.schedule-button` clicks.
 
 Found issues to fix next
-- Agents CTA target: “Schedule Demo” currently links to `#schedule-demo` (no‑op). Change to `/contact/` or add an actual section.
-- ROI embed placeholder: Replace `VIDEO_ID` in the YouTube iframe or hide the block until ready.
-- Tier pricing mismatch: Align `assets/data/tiers.json` with UI (e.g., TierB $2,600 vs 2200; TierC $6,000+ vs 3300). Prefer rendering pricing from JSON to prevent drift.
-- CTA tracking coverage: Add `.schedule-button` and any remaining CTA classes in `app.js` to ensure logging from Contact and other pages.
-- Dead ROI report code: `roi/app.js` references variables/IDs not present; remove or wire properly behind a feature flag.
-- Canonicals: Consider absolute URLs for ROI/Pricing (`https://utlyze.com/...`).
+- Tier pricing render: Optionally render pricing from `assets/data/tiers.json` to prevent future drift (data now aligned: TierB 2600, TierC 6000+).
+- Canonicals: Home and other pages may add canonicals if desired (pricing/roi set to absolute).
+- Use‑case links: Consider changing label when routed to `/contact/` for clarity (current behavior avoids 404s).
 
 How to continue
 - Implement the five fixes above (small, surgical patches). Commit each with conventional messages, e.g.,
