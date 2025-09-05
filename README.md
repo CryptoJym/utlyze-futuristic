@@ -86,6 +86,39 @@ We are adding a new MCP integration for richer automation and review tooling.
   - Wire a minimal client in `/companies/app.js` (feature‑flagged)
   - Add a README subsection with usage once landed
 
+## QA & Launch Handoff
+
+Status Summary
+- All happy‑path flows pass on Desktop, Tablet, Mobile.
+- No console errors across: Home, ROI (/roi/), Contact (/contact/), Studio (/studio/).
+- Mobile hamburger overlay fixed: menu opens above content and locks background scroll.
+
+How To Run E2E
+- Install dependencies: `npm install`
+- Run tests: `npm run test:e2e`
+- Config: `e2e/playwright.config.ts` (serves site on `http://localhost:3010`)
+- Specs: `e2e/tests/`
+  - `happy-home.spec.js` (nav, ROI CTA)
+  - `happy-roi.spec.js` (calculator submit/results)
+  - `happy-contact.spec.js` (form submit success)
+  - `happy-studio.spec.js` (idea submit success)
+
+Manual QA Checklist (quick)
+- Mobile nav: toggle hamburger, tap Studio/Pricing/Contact; Esc closes menu.
+- ROI: enter spend, click "Get my estimate" → results visible.
+- Contact: submit with required fields → success message; verify honeypot hidden.
+- Studio: submit idea with valid inputs → success message.
+
+Launch Checklist
+- Redirects/canonicals: Verify key pages resolve and canonicals present where intended (pricing ↔ roi as needed).
+- Monitoring: Enable uptime + client error tracking (e.g., Sentry); Supabase logs for form inserts.
+- Rollback: Host is static; roll back via prior artifact or `git revert` and redeploy.
+
+Branch & Ownership
+- Branch: `feat/qa-cross-device-happypaths`
+- Artifacts: `e2e/` suite, nav overlay fix in `style.css` + `app.js`, ROI calc/client in `roi/`
+- Handoff: Agent L (QA & Launch) complete. Ready for owner sign‑off and deploy.
+
 ## Notes & limits
 - Gamma is beta and rate‑limited (e.g., 50 generations/month per user, subject to change)
 - We only generate assets when the sync workflow runs; assets are reused in subsequent deploys
