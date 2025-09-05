@@ -186,7 +186,7 @@
     pointer-events: auto;
   }
   
-  /* Mobile menu - full screen overlay */
+  /* Mobile menu - full screen overlay with better design */
   .nav-links {
     position: fixed !important;
     top: 0 !important; 
@@ -195,24 +195,33 @@
     bottom: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
+    height: 100dvh !important; /* Dynamic viewport height for mobile */
     max-height: none !important;
     display: flex !important;
     flex-direction: column;
-    justify-content: center; /* Center the menu items vertically */
-    align-items: center; /* Center the menu items horizontally */
-    gap: 30px;
-    padding: 40px;
-    background: rgb(255,255,255);
-    box-shadow: none;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 60px 20px 40px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 999998 !important;
     /* Hide off-screen by default to prevent flash */
     transform: translateX(100%);
-    opacity: 0;
-    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), 
-                opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-    will-change: transform;
+    transition: transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+  
+  /* Add logo/brand at top of mobile menu */
+  .nav-links::before {
+    content: "MENU";
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: rgba(0,0,0,0.4);
   }
   
   /* Show menu when open class is added */
