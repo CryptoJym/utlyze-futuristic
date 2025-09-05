@@ -123,3 +123,46 @@ ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS hosted_token_cost NUMERIC;
 ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS remaining_api_cost NUMERIC;
 ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS new_monthly_cost NUMERIC;
 ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS detailed_report TEXT;
+
+-- Contact submissions (enterprise contact form)
+CREATE TABLE IF NOT EXISTS public.contact_submissions (
+    id BIGSERIAL PRIMARY KEY,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT,
+    company TEXT NOT NULL,
+    job_title TEXT NOT NULL,
+    company_size TEXT,
+    industry TEXT,
+    current_ai_usage TEXT,
+    interested_solutions TEXT[],
+    timeline TEXT,
+    budget_range TEXT,
+    pain_points TEXT NOT NULL,
+    message TEXT,
+    utm_source TEXT,
+    utm_medium TEXT,
+    utm_campaign TEXT,
+    referrer TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable RLS for contact submissions
+ALTER TABLE public.contact_submissions ENABLE ROW LEVEL SECURITY;
+
+-- Allow public inserts (form submissions)
+CREATE POLICY IF NOT EXISTS "Allow public inserts (contact_submissions)"
+ON public.contact_submissions
+FOR INSERT
+WITH CHECK (true);
+
+-- Allow authenticated users to view contact submissions
+CREATE POLICY IF NOT EXISTS "Allow authenticated select (contact_submissions)"
+ON public.contact_submissions
+FOR SELECT
+USING (auth.role() = 'authenticated');
+
+-- Helpful indexes
+CREATE INDEX IF NOT EXISTS idx_contact_submissions_email ON public.contact_submissions(email);
+CREATE INDEX IF NOT EXISTS idx_contact_submissions_created_at ON public.contact_submissions(created_at DESC);

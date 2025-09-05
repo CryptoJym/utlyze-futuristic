@@ -2,5 +2,4 @@ User-agent: *
 Allow: /
 
 # Point crawlers to the sitemap
-Sitemap: /sitemap.xml
-
+Sitemap: https://utlyze.com/sitemap.xml

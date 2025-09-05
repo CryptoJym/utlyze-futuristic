@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Mobile Navigation - Fixed Version</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile-menu-fix.css">
+    <style>
+        /* Additional inline fixes for immediate application */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: flex !important;
+            }
+            /* Prevent iOS bounce and ensure proper touch handling */
+            body {
+                -webkit-overflow-scrolling: touch;
+            }
+            .nav-toggle {
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="site-header-mount"></div>
+    
+    <main style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+        <h1>Mobile Navigation Test - Fixed Version</h1>
+        <p>This version includes fixes for the mobile menu flash/disappear issue.</p>
+        
+        <h2>What's Fixed:</h2>
+        <ul>
+            <li>✅ Proper CSS transitions and visibility states</li>
+            <li>✅ Touch event handling for mobile devices</li>
+            <li>✅ Prevention of immediate menu closing</li>
+            <li>✅ Body scroll lock when menu is open</li>
+            <li>✅ Dark overlay behind menu</li>
+            <li>✅ Proper z-index stacking</li>
+        </ul>
+        
+        <h2>Test Instructions:</h2>
+        <ol>
+            <li>Tap the hamburger menu button (three lines)</li>
+            <li>Menu should slide in from left and stay open</li>
+            <li>Tap outside menu to close</li>
+            <li>Tap a navigation link to close and navigate</li>
+        </ol>
+        
+        <h2>Debug Console:</h2>
+        <pre id="debug-console" style="background: #f0f0f0; padding: 10px; min-height: 100px; font-family: monospace; font-size: 12px;"></pre>
+    </main>
+    
+    <div id="site-footer-mount"></div>
+    
+    <script>
+        // Debug console
+        const debugConsole = document.getElementById('debug-console');
+        const log = console.log;
+        console.log = function(...args) {
+            const timestamp = new Date().toLocaleTimeString();
+            debugConsole.textContent += `[${timestamp}] ${args.join(' ')}\n`;
+            log.apply(console, args);
+        };
+    </script>
+    
+    <!-- Load the main app.js first -->
+    <script src="app.js"></script>
+    
+    <!-- Then load our mobile menu fix -->
+    <script src="mobile-menu-fix.js"></script>
+    
+    <script>
+        // Additional mobile detection and reporting
+        window.addEventListener('load', () => {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            
+            console.log(`Device: ${isMobile ? 'Mobile' : 'Desktop'}`);
+            console.log(`Touch: ${isTouchDevice ? 'Yes' : 'No'}`);
+            console.log(`Screen: ${window.innerWidth}x${window.innerHeight}`);
+            console.log('Page loaded, menu should be ready');
+        });
+    </script>
+</body>
+</html>

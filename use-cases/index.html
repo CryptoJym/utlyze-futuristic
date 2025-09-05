@@ -127,6 +127,7 @@
     function createUseCaseCard(useCase, tiers) {
       const tier = tiers[useCase.recommendedTier];
       const tierName = tier ? tier.name : useCase.recommendedTier;
+      const href = useCase.link && useCase.link.startsWith('/resources/') ? '/contact/' : useCase.link;
       
       return `
         <article class="use-case-card" data-industry="${useCase.industry}">
@@ -139,7 +140,7 @@
             <span class="tier-badge tier-${useCase.recommendedTier.toLowerCase()}">
               Recommended: ${tierName}
             </span>
-            <a href="${useCase.link}" class="use-case-link">
+            <a href="${href}" class="use-case-link">
               Learn more
               <span aria-hidden="true">→</span>
             </a>
