@@ -94,7 +94,8 @@
           navToggle.addEventListener('click', () => {
             const expanded = navToggle.getAttribute('aria-expanded') === 'true';
             navToggle.setAttribute('aria-expanded', !expanded);
-            navLinks.classList.toggle('active');
+            navLinks.classList.toggle('nav-links--open');
+            navToggle.classList.toggle('nav-toggle--active');
           });
         }
 
