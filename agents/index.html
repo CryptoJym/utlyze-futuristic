@@ -432,42 +432,54 @@
 
     <script>
         // Load header and footer
-        async function loadPartials() {
-            const headerResp = await fetch('/partials/header.html');
-            const footerResp = await fetch('/partials/footer.html');
-            
-            if (headerResp.ok) {
-                document.getElementById('header-placeholder').innerHTML = await headerResp.text();
+        async function loadPagePartials() {
+            try {
+                const headerResp = await fetch('/partials/header.html');
+                const footerResp = await fetch('/partials/footer.html');
                 
-                // Initialize mobile nav toggle
-                const navToggle = document.querySelector('.nav-toggle');
-                const navLinks = document.querySelector('.nav-links');
-                
-                if (navToggle && navLinks) {
-                    navToggle.addEventListener('click', () => {
-                        const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-                        navToggle.setAttribute('aria-expanded', !expanded);
-                        navLinks.classList.toggle('active');
-                    });
-                }
-
-                // Set active nav link
-                const currentPath = window.location.pathname;
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    if (link.getAttribute('href') === currentPath || 
-                        (currentPath === '/agents/' && link.getAttribute('href') === '/agents/')) {
-                        link.classList.add('active');
+                if (headerResp.ok) {
+                    document.getElementById('header-placeholder').innerHTML = await headerResp.text();
+                    
+                    // Initialize mobile nav toggle
+                    const navToggle = document.querySelector('.nav-toggle');
+                    const navLinks = document.querySelector('.nav-links');
+                    
+                    if (navToggle && navLinks) {
+                        navToggle.addEventListener('click', () => {
+                            const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+                            navToggle.setAttribute('aria-expanded', !expanded);
+                            navLinks.classList.toggle('active');
+                        });
                     }
-                });
-            }
-            
-            if (footerResp.ok) {
-                document.getElementById('footer-placeholder').innerHTML = await footerResp.text();
+
+                    // Set active nav link
+                    const currentPath = window.location.pathname;
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        if (link.getAttribute('href') === currentPath || 
+                            (currentPath === '/agents/' && link.getAttribute('href') === '/agents/')) {
+                            link.classList.add('active');
+                        }
+                    });
+                } else {
+                    console.error('Failed to load header:', headerResp.status, headerResp.statusText);
+                }
+                
+                if (footerResp.ok) {
+                    document.getElementById('footer-placeholder').innerHTML = await footerResp.text();
+                } else {
+                    console.error('Failed to load footer:', footerResp.status, footerResp.statusText);
+                }
+            } catch (error) {
+                console.error('Error loading partials:', error);
             }
         }
 
-        // Initialize page
-        loadPartials();
+        // Initialize page when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadPagePartials);
+        } else {
+            loadPagePartials();
+        }
         
         // Load tier data dynamically
         fetch('../assets/data/tiers.json')
