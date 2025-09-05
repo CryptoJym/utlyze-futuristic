@@ -431,65 +431,28 @@
     <div id="site-footer-mount"></div>
 
     <script>
-        // Load header and footer
-        async function loadPagePartials() {
-            try {
-                const headerResp = await fetch('/partials/header.html');
-                const footerResp = await fetch('/partials/footer.html');
-                
-                if (headerResp.ok) {
-                    document.getElementById('site-header-mount').innerHTML = await headerResp.text();
-                    
-                    // Initialize mobile nav toggle
-                    const navToggle = document.querySelector('.nav-toggle');
-                    const navLinks = document.querySelector('.nav-links');
-                    
-                    if (navToggle && navLinks) {
-                        navToggle.addEventListener('click', () => {
-                            const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-                            navToggle.setAttribute('aria-expanded', !expanded);
-                            navLinks.classList.toggle('nav-links--open');
-                            navToggle.classList.toggle('nav-toggle--active');
-                        });
-                    }
-
-                    // Set active nav link
+        // Set active nav link after header loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait for header to be loaded by app.js
+            const observer = new MutationObserver(function(mutations, obs) {
+                const navLinks = document.querySelectorAll('.nav-link');
+                if (navLinks.length > 0) {
                     const currentPath = window.location.pathname;
-                    document.querySelectorAll('.nav-link').forEach(link => {
+                    navLinks.forEach(link => {
                         if (link.getAttribute('href') === currentPath || 
                             (currentPath === '/agents/' && link.getAttribute('href') === '/agents/')) {
                             link.classList.add('active');
                         }
                     });
-                } else {
-                    console.error('Failed to load header:', headerResp.status, headerResp.statusText);
+                    obs.disconnect();
                 }
-                
-                if (footerResp.ok) {
-                    document.getElementById('site-footer-mount').innerHTML = await footerResp.text();
-                } else {
-                    console.error('Failed to load footer:', footerResp.status, footerResp.statusText);
-                }
-            } catch (error) {
-                console.error('Error loading partials:', error);
+            });
+            
+            const headerMount = document.getElementById('site-header-mount');
+            if (headerMount) {
+                observer.observe(headerMount, { childList: true, subtree: true });
             }
-        }
-
-        // Initialize page when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', loadPagePartials);
-        } else {
-            loadPagePartials();
-        }
-        
-        // Load tier data dynamically
-        fetch('../assets/data/tiers.json')
-            .then(response => response.json())
-            .then(data => {
-                console.log('Tier data loaded:', data);
-                // Data is already integrated into the HTML structure
-            })
-            .catch(error => console.error('Error loading tier data:', error));
+        });
     </script>
     <script src="../app.js"></script>
 </body>
