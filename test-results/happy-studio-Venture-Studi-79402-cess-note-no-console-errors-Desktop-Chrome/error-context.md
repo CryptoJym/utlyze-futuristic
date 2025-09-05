@@ -1,0 +1,134 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - generic [ref=e7]: "47"
+        - generic [ref=e8]: Companies Launched
+      - generic [ref=e9]:
+        - generic [ref=e10]: $125M
+        - generic [ref=e11]: Total Raised
+      - generic [ref=e12]:
+        - generic [ref=e13]: 87%
+        - generic [ref=e14]: Success Rate
+    - generic [ref=e16]:
+      - heading "Utlyze Venture Studio" [level=1] [ref=e17]
+      - paragraph [ref=e18]: We partner with exceptional entrepreneurs to build the next generation of transformative companies. Our venture studio combines capital, expertise, and our powerful platform to accelerate your journey from idea to scale.
+    - generic [ref=e20]:
+      - heading "How It Works" [level=2] [ref=e21]
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - generic [ref=e24]: "1"
+          - heading "Submit Your Idea" [level=3] [ref=e25]
+          - paragraph [ref=e26]: Share your vision through our simple submission form. We review every idea and respond within 48 hours.
+        - generic [ref=e27]:
+          - generic [ref=e28]: "2"
+          - heading "Discovery & Validation" [level=3] [ref=e29]
+          - paragraph [ref=e30]: Selected ideas enter our rigorous validation process using the Utlyze platform's advanced analytics.
+        - generic [ref=e31]:
+          - generic [ref=e32]: "3"
+          - heading "Build & Launch" [level=3] [ref=e33]
+          - paragraph [ref=e34]: We provide capital, technical resources, and operational support to rapidly build and launch your venture.
+        - generic [ref=e35]:
+          - generic [ref=e36]: "4"
+          - heading "Scale & Succeed" [level=3] [ref=e37]
+          - paragraph [ref=e38]: Leverage our network, platform, and expertise to accelerate growth and achieve market leadership.
+    - generic [ref=e40]:
+      - heading "Success Stories" [level=2] [ref=e41]
+      - generic [ref=e42]:
+        - generic [ref=e43]:
+          - heading "DataSync Pro" [level=3] [ref=e44]
+          - paragraph [ref=e45]: $45M Series B
+          - paragraph [ref=e46]: Revolutionary data integration platform serving Fortune 500 companies. Built in 6 months, now valued at $280M.
+        - generic [ref=e47]:
+          - heading "CloudOptimize" [level=3] [ref=e48]
+          - paragraph [ref=e49]: Acquired by AWS
+          - paragraph [ref=e50]: AI-powered cloud cost optimization. From idea to acquisition in 18 months, delivering 40% cost savings to enterprises.
+        - generic [ref=e51]:
+          - heading "SecureFlow" [level=3] [ref=e52]
+          - paragraph [ref=e53]: 10,000+ Users
+          - paragraph [ref=e54]: Next-gen security orchestration platform. Achieved product-market fit in 4 months using Utlyze insights.
+    - generic [ref=e56]:
+      - heading "Platform Synergy" [level=2] [ref=e57]
+      - generic [ref=e58]:
+        - generic [ref=e59]:
+          - heading "Powered by Utlyze Platform" [level=3] [ref=e60]
+          - paragraph [ref=e61]: "Every venture in our studio gets exclusive access to the full Utlyze platform, providing unparalleled advantages:"
+          - list [ref=e62]:
+            - listitem [ref=e63]: → Real-time market intelligence and competitive analysis
+            - listitem [ref=e64]: → Advanced customer insights and behavior analytics
+            - listitem [ref=e65]: → Automated lead generation and qualification
+            - listitem [ref=e66]: → Performance benchmarking against industry leaders
+            - listitem [ref=e67]: → Predictive analytics for strategic decision-making
+        - generic [ref=e69]:
+          - generic [ref=e70]:
+            - generic [ref=e71]: 📊
+            - generic [ref=e72]: Analytics Dashboard
+          - generic [ref=e73]:
+            - generic [ref=e74]: 🎯
+            - generic [ref=e75]: Customer Intelligence
+          - generic [ref=e76]:
+            - generic [ref=e77]: 🚀
+            - generic [ref=e78]: Growth Tools
+          - generic [ref=e79]:
+            - generic [ref=e80]: 🔮
+            - generic [ref=e81]: Predictive Insights
+    - generic [ref=e83]:
+      - heading "Our Partners" [level=2] [ref=e84]
+      - paragraph [ref=e85]: We collaborate with leading investors, accelerators, and technology partners to provide comprehensive support for our portfolio companies.
+      - generic [ref=e86]:
+        - generic [ref=e87]: Sequoia Capital
+        - generic [ref=e88]: Y Combinator
+        - generic [ref=e89]: Andreessen Horowitz
+        - generic [ref=e90]: Google Cloud
+        - generic [ref=e91]: AWS Startups
+        - generic [ref=e92]: Microsoft for Startups
+    - generic [ref=e94]:
+      - heading "Submit Your Idea" [level=2] [ref=e95]
+      - paragraph [ref=e96]: Have a transformative idea? We'd love to hear from you. Submit your concept and let's build something extraordinary together.
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - generic [ref=e99]: Your Name *
+          - textbox "Your Name *" [ref=e100]
+        - generic [ref=e101]:
+          - generic [ref=e102]: Email Address *
+          - textbox "Email Address *" [ref=e103]
+        - generic [ref=e104]:
+          - generic [ref=e105]: Website/LinkedIn (Optional)
+          - textbox "Website/LinkedIn (Optional)" [ref=e106]
+        - generic [ref=e107]:
+          - generic [ref=e108]: Describe Your Idea *
+          - textbox "Describe Your Idea *" [ref=e109]
+        - button "Submitting..." [disabled] [ref=e110]
+        - generic [ref=e111]: Thank you! Your idea has been submitted. We'll review it within 48 hours.
+  - contentinfo [ref=e113]:
+    - generic [ref=e114]:
+      - generic [ref=e115]:
+        - generic [ref=e116]:
+          - heading "Our Mission" [level=3] [ref=e117]
+          - paragraph [ref=e118]: Empowering enterprises with AI agents that transform how work gets done.
+        - generic [ref=e119]:
+          - heading "Contact Us" [level=3] [ref=e120]
+          - paragraph [ref=e121]:
+            - text: "Get in touch:"
+            - link "hello@utlyze.com" [ref=e122] [cursor=pointer]:
+              - /url: mailto:hello@utlyze.com
+        - generic [ref=e123]:
+          - heading "Quick Links" [level=3] [ref=e124]
+          - list [ref=e125]:
+            - listitem [ref=e126]:
+              - link "AI Agents" [ref=e127] [cursor=pointer]:
+                - /url: /agents/
+            - listitem [ref=e128]:
+              - link "Pricing & ROI" [ref=e129] [cursor=pointer]:
+                - /url: /pricing/
+            - listitem [ref=e130]:
+              - link "Use Cases" [ref=e131] [cursor=pointer]:
+                - /url: /use-cases/
+            - listitem [ref=e132]:
+              - link "Venture Studio" [ref=e133] [cursor=pointer]:
+                - /url: /studio/
+      - paragraph [ref=e135]: © 2025 Utlyze. All rights reserved.
+```

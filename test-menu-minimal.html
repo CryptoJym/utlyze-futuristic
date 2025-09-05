@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Menu Test</title>
+    <style>
+        /* Minimal CSS to test menu behavior */
+        .nav-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: #333;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: #eee;
+            transition: right 0.3s ease;
+            z-index: 1000;
+            padding: 80px 20px 20px;
+        }
+        
+        .nav-links.open {
+            right: 0;
+        }
+        
+        .status {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #000;
+            color: #fff;
+            padding: 20px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <button class="nav-toggle">☰</button>
+    
+    <nav class="nav-links">
+        <h3>Menu Items</h3>
+        <p>Item 1</p>
+        <p>Item 2</p>
+        <p>Item 3</p>
+    </nav>
+    
+    <div class="status">
+        <h3>Status:</h3>
+        <div id="status-text">Menu closed</div>
+        <div id="click-count">Clicks: 0</div>
+    </div>
+    
+    <script>
+        let clickCount = 0;
+        const toggle = document.querySelector('.nav-toggle');
+        const menu = document.querySelector('.nav-links');
+        const status = document.getElementById('status-text');
+        const clickCountEl = document.getElementById('click-count');
+        
+        toggle.addEventListener('click', function(e) {
+            clickCount++;
+            clickCountEl.textContent = `Clicks: ${clickCount}`;
+            
+            console.log('Toggle clicked');
+            menu.classList.toggle('open');
+            
+            if (menu.classList.contains('open')) {
+                status.textContent = 'Menu open';
+                status.style.color = '#0f0';
+            } else {
+                status.textContent = 'Menu closed';
+                status.style.color = '#fff';
+            }
+        });
+        
+        // Test document click - this might be the issue
+        document.addEventListener('click', function(e) {
+            console.log('Document clicked, target:', e.target.className);
+            if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+                console.log('Closing menu from document click');
+                menu.classList.remove('open');
+                status.textContent = 'Menu closed (doc click)';
+                status.style.color = '#f00';
+            }
+        });
+    </script>
+</body>
+</html>

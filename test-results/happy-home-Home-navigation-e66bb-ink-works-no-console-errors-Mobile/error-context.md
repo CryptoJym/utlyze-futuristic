@@ -1,0 +1,243 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e3]:
+    - navigation "Main navigation" [ref=e4]:
+      - generic [ref=e5]:
+        - link "Utlyze Home" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7] [cursor=pointer]: Utlyze
+        - button "Toggle navigation menu" [ref=e8] [cursor=pointer]
+  - generic [ref=e16]:
+    - heading "Private AI Agents for Every Business" [level=1] [ref=e17]
+    - paragraph [ref=e18]: Deploy secure AI digital coworkers on-premises. No cloud dependencies, predictable costs, enterprise-grade performance.
+    - generic [ref=e19]:
+      - button "Get a Demo" [active] [ref=e20] [cursor=pointer]: Get a Demo
+      - link "Estimate Savings with ROI Calculator" [ref=e21] [cursor=pointer]:
+        - /url: /roi/
+        - text: Estimate Savings
+  - generic [ref=e25]:
+    - heading "Why Private AI Agents" [level=2] [ref=e26]
+    - generic [ref=e27]:
+      - generic [ref=e28]:
+        - img [ref=e30]
+        - heading "Private by Design" [level=3] [ref=e33]
+        - paragraph [ref=e34]: Your data never leaves your premises. Complete control over sensitive information and intellectual property.
+      - generic [ref=e35]:
+        - img [ref=e37]
+        - heading "Predictable Pricing" [level=3] [ref=e40]
+        - paragraph [ref=e41]: Fixed monthly costs with no usage surprises. Scale your AI workforce without unpredictable cloud bills.
+      - generic [ref=e42]:
+        - img [ref=e44]
+        - heading "Performance Parity" [level=3] [ref=e47]
+        - paragraph [ref=e48]: State-of-the-art open models match or exceed cloud AI performance for most business tasks.
+      - generic [ref=e49]:
+        - img [ref=e51]
+        - heading "Measured ROI" [level=3] [ref=e55]
+        - paragraph [ref=e56]: Clear metrics and savings calculation. Know exactly how your AI investment pays back.
+  - generic [ref=e59]:
+    - heading "The Edge of What's Possible" [level=2] [ref=e60]
+    - paragraph [ref=e61]:
+      - text: At Utlyze, we don't just use technology—we utlyze it. We're an AI-first firm that builds companies by predicting market opportunities and creating them ourselves. Our founders
+      - strong [ref=e62]: James Brady
+      - text: and
+      - strong [ref=e63]: Jason Thelin
+      - text: lead a team of multifaceted product managers who build symphonies of technological mastery.
+    - img [ref=e66]
+  - generic [ref=e72]:
+    - 'heading "Proof in Practice: Vuplicity" [level=2] [ref=e73]'
+    - paragraph [ref=e74]: Our pilot company Vuplicity revolutionizes background checks with AI-powered automation. What once took days now takes minutes—faster, cheaper, more reliable. This is just the beginning.
+    - generic [ref=e75]:
+      - generic [ref=e76]:
+        - heading "Traditional Process" [level=4] [ref=e77]
+        - generic [ref=e78]: 3-5 Days
+        - paragraph [ref=e79]: Manual verification, multiple touchpoints, human error prone
+      - generic [ref=e80]: →
+      - generic [ref=e81]:
+        - heading "Vuplicity Process" [level=4] [ref=e82]
+        - generic [ref=e83]: Minutes
+        - paragraph [ref=e84]: AI-powered automation, instant results, 99.9% accuracy
+  - generic [ref=e87]:
+    - heading "How It Works" [level=2] [ref=e88]
+    - generic [ref=e89]:
+      - generic [ref=e90]:
+        - generic [ref=e91]: "1"
+        - img [ref=e93]
+        - heading "Select Your Tier" [level=3] [ref=e96]
+        - paragraph [ref=e97]: Choose from Team Assistant, Workflow Operator, or Autonomy Suite based on your needs
+      - generic [ref=e98]:
+        - generic [ref=e99]: "2"
+        - img [ref=e101]
+        - heading "Local Deployment" [level=3] [ref=e104]
+        - paragraph [ref=e105]: We install and configure your AI agents on your hardware, ensuring complete data privacy
+      - generic [ref=e106]:
+        - generic [ref=e107]: "3"
+        - img [ref=e109]
+        - heading "Integrate & Train" [level=3] [ref=e112]
+        - paragraph [ref=e113]: Connect to your tools and workflows. Train agents on your specific processes and knowledge
+      - generic [ref=e114]:
+        - generic [ref=e115]: "4"
+        - img [ref=e117]
+        - heading "Scale & Optimize" [level=3] [ref=e120]
+        - paragraph [ref=e121]: Monitor performance, measure ROI, and expand your AI workforce as needed
+  - generic [ref=e124]:
+    - heading "Choose Your AI Agent Tier" [level=2] [ref=e125]
+    - paragraph [ref=e126]: Flexible options to match your business needs and scale
+    - generic [ref=e127]:
+      - generic [ref=e128]:
+        - heading "Team Assistant" [level=3] [ref=e129]
+        - paragraph [ref=e130]: Perfect for small teams getting started with AI
+        - generic [ref=e131]:
+          - generic [ref=e132]: "Setup: $3,000-5,000"
+          - generic [ref=e133]: $1,100/month
+        - list [ref=e134]:
+          - listitem [ref=e135]: ✓ Up to 10 users
+          - listitem [ref=e136]: ✓ 3 integrations
+          - listitem [ref=e137]: ✓ ~32k context window
+          - listitem [ref=e138]: ✓ Llama 3.1 8B, Qwen 2.5 7B
+        - link "View Details" [ref=e139] [cursor=pointer]:
+          - /url: /pricing/
+      - generic [ref=e140]:
+        - generic [ref=e141]: Most Popular
+        - heading "Workflow Operator" [level=3] [ref=e142]
+        - paragraph [ref=e143]: Ideal for growing teams automating workflows
+        - generic [ref=e144]:
+          - generic [ref=e145]: "Setup: $8,000-15,000"
+          - generic [ref=e146]: $2,600/month
+        - list [ref=e147]:
+          - listitem [ref=e148]: ✓ Up to 100 users
+          - listitem [ref=e149]: ✓ 8 integrations
+          - listitem [ref=e150]: ✓ ~64k context window
+          - listitem [ref=e151]: ✓ Qwen 2.5 14B, Mixtral 8x7B
+        - link "View Details" [ref=e152] [cursor=pointer]:
+          - /url: /pricing/
+      - generic [ref=e153]:
+        - heading "Autonomy Suite" [level=3] [ref=e154]
+        - paragraph [ref=e155]: Enterprise-scale autonomous AI operations
+        - generic [ref=e156]:
+          - generic [ref=e157]: "Setup: $20,000+"
+          - generic [ref=e158]: $6,000+/month
+        - list [ref=e159]:
+          - listitem [ref=e160]: ✓ Unlimited users
+          - listitem [ref=e161]: ✓ 20+ integrations
+          - listitem [ref=e162]: ✓ 128k+ context window
+          - listitem [ref=e163]: ✓ Gemma 2 27B, Llama 3.1 70B
+        - link "View Details" [ref=e164] [cursor=pointer]:
+          - /url: /pricing/
+    - generic [ref=e165]:
+      - heading "Quick Comparison" [level=4] [ref=e166]
+      - generic [ref=e167]:
+        - generic [ref=e168]:
+          - strong [ref=e169]: "Security:"
+          - text: All tiers include RBAC. Higher tiers add SSO/SCIM and audit logs.
+        - generic [ref=e170]:
+          - strong [ref=e171]: "Hardware:"
+          - text: Mac Studio M3 Max (Tier A) to M3 Ultra 512GB (Tier C).
+        - generic [ref=e172]:
+          - strong [ref=e173]: "Concurrency:"
+          - text: Scale from low to high parallel processing capability.
+  - heading "Our mission is to help everyone use AI to prosper. We identify opportunities, validate ideas, and build companies that rival multi-million dollar firms." [level=2] [ref=e178]
+  - generic [ref=e181]:
+    - heading "AI Agents in Action" [level=2] [ref=e182]
+    - paragraph [ref=e183]: See how businesses transform with private AI agents
+    - generic [ref=e184]:
+      - generic [ref=e185]:
+        - img [ref=e187]
+        - heading "Customer Support Automation" [level=3] [ref=e190]
+        - paragraph [ref=e191]: Handle 80% of support tickets automatically while maintaining personal touch
+        - link "Learn More →" [ref=e192] [cursor=pointer]:
+          - /url: /use-cases/
+      - generic [ref=e193]:
+        - img [ref=e195]
+        - heading "Sales Process Optimization" [level=3] [ref=e198]
+        - paragraph [ref=e199]: Qualify leads, schedule meetings, and prepare proposals at scale
+        - link "Learn More →" [ref=e200] [cursor=pointer]:
+          - /url: /use-cases/
+      - generic [ref=e201]:
+        - img [ref=e203]
+        - heading "Data Analysis & Reporting" [level=3] [ref=e206]
+        - paragraph [ref=e207]: Transform raw data into actionable insights with AI-powered analytics
+        - link "Learn More →" [ref=e208] [cursor=pointer]:
+          - /url: /use-cases/
+    - generic [ref=e210]:
+      - generic [ref=e211]: Case Study
+      - 'heading "Vuplicity: AI-Powered Background Checks" [level=3] [ref=e212]'
+      - paragraph [ref=e213]: Our pilot company revolutionized the screening industry with private AI agents, reducing processing time from days to minutes while maintaining 99.9% accuracy.
+      - generic [ref=e214]:
+        - generic [ref=e215]:
+          - generic [ref=e216]: 95%
+          - generic [ref=e217]: Time Reduction
+        - generic [ref=e218]:
+          - generic [ref=e219]: 60%
+          - generic [ref=e220]: Cost Savings
+        - generic [ref=e221]:
+          - generic [ref=e222]: 99.9%
+          - generic [ref=e223]: Accuracy
+      - link "Read Full Story" [ref=e224] [cursor=pointer]:
+        - /url: "#success"
+    - generic [ref=e225]:
+      - generic [ref=e226]:
+        - 'heading "Beyond AI Agents: Our Venture Studio" [level=3] [ref=e227]'
+        - paragraph [ref=e228]: We don't just build AI solutions—we build companies. With 47 portfolio companies and $125M+ in funding, we transform visionary ideas into market leaders.
+        - link "Explore Venture Studio" [ref=e229] [cursor=pointer]:
+          - /url: /studio/
+      - img [ref=e231]
+  - generic [ref=e238]:
+    - heading "Ready to Transform Your Business with AI?" [level=2] [ref=e239]
+    - paragraph [ref=e240]: Get a personalized demo and ROI analysis. See how private AI agents can save you millions while keeping your data secure.
+    - generic [ref=e242]:
+      - generic [ref=e243]:
+        - textbox "Full name *" [ref=e245]
+        - textbox "Company *" [ref=e247]
+      - generic [ref=e248]:
+        - textbox "Work email *" [ref=e250]
+        - textbox "Phone number" [ref=e252]
+      - generic [ref=e253]:
+        - combobox [ref=e255]:
+          - option "Company size" [selected]
+          - option "1-50 employees"
+          - option "51-200 employees"
+          - option "201-500 employees"
+          - option "501-1,000 employees"
+          - option "1,001-5,000 employees"
+          - option "5,001+ employees"
+        - combobox [ref=e257]:
+          - option "Primary interest *" [selected]
+          - option "AI cost reduction"
+          - option "Private AI deployment"
+          - option "Custom AI agents"
+          - option "Workflow automation"
+          - option "Venture Studio partnership"
+      - textbox "Tell us about your AI needs or challenges (optional)" [ref=e259]
+      - button "Get Your Personalized Demo" [ref=e260] [cursor=pointer]
+      - paragraph [ref=e261]: Free consultation • ROI analysis included • No commitment required
+  - contentinfo [ref=e263]:
+    - generic [ref=e264]:
+      - generic [ref=e265]:
+        - generic [ref=e266]:
+          - heading "Our Mission" [level=3] [ref=e267]
+          - paragraph [ref=e268]: Empowering enterprises with AI agents that transform how work gets done.
+        - generic [ref=e269]:
+          - heading "Contact Us" [level=3] [ref=e270]
+          - paragraph [ref=e271]:
+            - text: "Get in touch:"
+            - link "hello@utlyze.com" [ref=e272] [cursor=pointer]:
+              - /url: mailto:hello@utlyze.com
+        - generic [ref=e273]:
+          - heading "Quick Links" [level=3] [ref=e274]
+          - list [ref=e275]:
+            - listitem [ref=e276]:
+              - link "AI Agents" [ref=e277] [cursor=pointer]:
+                - /url: /agents/
+            - listitem [ref=e278]:
+              - link "Pricing & ROI" [ref=e279] [cursor=pointer]:
+                - /url: /pricing/
+            - listitem [ref=e280]:
+              - link "Use Cases" [ref=e281] [cursor=pointer]:
+                - /url: /use-cases/
+            - listitem [ref=e282]:
+              - link "Venture Studio" [ref=e283] [cursor=pointer]:
+                - /url: /studio/
+      - paragraph [ref=e285]: © 2025 Utlyze. All rights reserved.
+```

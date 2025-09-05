@@ -1,8 +1,8 @@
 // Utlyze Website JavaScript - Premium Edition (Fixed)
 
 // Initialize Supabase client
-const supabaseUrl = 'https://mvjzmhlwnbwkrtachiec.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12anptaGx3bmJ3a3J0YWNoaWVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwOTI1MDQsImV4cCI6MjA2OTY2ODUwNH0.KWWX-XFgBqCA4MUpUOIU_Dt0gLX7O6mWgMVJhJAuCXw';
+var supabaseUrl = 'https://mvjzmhlwnbwkrtachiec.supabase.co';
+var supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12anptaGx3bmJ3a3J0YWNoaWVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwOTI1MDQsImV4cCI6MjA2OTY2ODUwNH0.KWWX-XFgBqCA4MUpUOIU_Dt0gLX7O6mWgMVJhJAuCXw';
 
 // Initialise Supabase only if the library is available. Without this check,
 // an undefined 'window.supabase' throws and stops all other code from running.
@@ -14,60 +14,148 @@ if (window.supabase && typeof window.supabase.createClient === 'function') {
     supabase = null;
 }
 
-// Function to load header and footer partials
+// Fallback HTML for mobile when fetch fails
+const fallbackHeaderHTML = `<header class="site-header">
+  <nav class="main-navigation" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="/" class="logo-link" aria-label="Utlyze Home">
+        <span class="logo-text">Utlyze</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/agents/" class="nav-link">AI Agents</a></li>
+        <li><a href="/pricing/" class="nav-link">Pricing & ROI</a></li>
+        <li><a href="/use-cases/" class="nav-link">Use Cases</a></li>
+        <li><a href="/studio/" class="nav-link">Venture Studio</a></li>
+        <li><a href="/companies/" class="nav-link">Portfolio</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/resources/" class="nav-link">Resources</a></li>
+        <li><a href="/contact/" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="nav-toggle-line"></span>
+        <span class="nav-toggle-line"></span>
+        <span class="nav-toggle-line"></span>
+      </button>
+    </div>
+  </nav>
+</header>`;
+
+const fallbackFooterHTML = `<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-mission">
+        <h3 class="footer-heading">Our Mission</h3>
+        <p class="mission-tagline">Empowering enterprises with AI agents that transform how work gets done.</p>
+      </div>
+      <div class="footer-contact">
+        <h3 class="footer-heading">Contact Us</h3>
+        <p>Get in touch: <a href="mailto:hello@utlyze.com" class="contact-link">hello@utlyze.com</a></p>
+      </div>
+      <div class="footer-links">
+        <h3 class="footer-heading">Quick Links</h3>
+        <ul class="footer-nav">
+          <li><a href="/agents/" class="footer-link">AI Agents</a></li>
+          <li><a href="/pricing/" class="footer-link">Pricing & ROI</a></li>
+          <li><a href="/use-cases/" class="footer-link">Use Cases</a></li>
+          <li><a href="/studio/" class="footer-link">Venture Studio</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copyright">&copy; 2025 Utlyze. All rights reserved.</p>
+    </div>
+  </div>
+</footer>`;
+
+// Function to load header and footer partials with fallback
 async function loadPartials() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isLocalFile = window.location.protocol === 'file:';
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     
     // Load header
     const headerMount = document.getElementById('site-header-mount');
     if (headerMount) {
-        try {
-            const headerResponse = await fetch('/partials/header.html');
-            if (headerResponse.ok) {
-                const headerHTML = await headerResponse.text();
-                headerMount.innerHTML = headerHTML;
-                
-                // Initialize mobile menu toggle after header loads
-                initializeMobileMenu();
-                
-                // Add fade-in animation if motion is allowed
-                if (!prefersReducedMotion) {
-                    headerMount.style.opacity = '0';
-                    headerMount.style.transform = 'translateY(-20px)';
-                    setTimeout(() => {
-                        headerMount.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
-                        headerMount.style.opacity = '1';
-                        headerMount.style.transform = 'translateY(0)';
-                    }, 100);
+        let headerLoaded = false;
+        
+        // Try fetch first (unless it's mobile or local file)
+        if (!isMobile && !isLocalFile) {
+            try {
+                const pathPrefix = window.location.pathname.includes('/roi/') || 
+                                 window.location.pathname.includes('/pricing/') || 
+                                 window.location.pathname.includes('/companies/') ? '../' : '';
+                const headerResponse = await fetch(pathPrefix + 'partials/header.html');
+                if (headerResponse.ok) {
+                    const headerHTML = await headerResponse.text();
+                    headerMount.innerHTML = headerHTML;
+                    headerLoaded = true;
+                    console.log('Header loaded via fetch');
                 }
+            } catch (error) {
+                console.warn('Fetch failed for header, using fallback:', error.message);
             }
-        } catch (error) {
-            console.error('Error loading header:', error);
+        }
+        
+        // Use fallback if fetch failed or on mobile
+        if (!headerLoaded) {
+            headerMount.innerHTML = fallbackHeaderHTML;
+            console.log('Header loaded via fallback injection (mobile/local)');
+        }
+        
+        // Initialize mobile menu
+        setTimeout(initializeMobileMenu, 100);
+        
+        // Add fade-in animation if motion is allowed
+        if (!prefersReducedMotion) {
+            headerMount.style.opacity = '0';
+            headerMount.style.transform = 'translateY(-20px)';
+            setTimeout(() => {
+                headerMount.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+                headerMount.style.opacity = '1';
+                headerMount.style.transform = 'translateY(0)';
+            }, 100);
         }
     }
     
     // Load footer
     const footerMount = document.getElementById('site-footer-mount');
     if (footerMount) {
-        try {
-            const footerResponse = await fetch('/partials/footer.html');
-            if (footerResponse.ok) {
-                const footerHTML = await footerResponse.text();
-                footerMount.innerHTML = footerHTML;
-                
-                // Add fade-in animation if motion is allowed
-                if (!prefersReducedMotion) {
-                    footerMount.style.opacity = '0';
-                    footerMount.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        footerMount.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
-                        footerMount.style.opacity = '1';
-                        footerMount.style.transform = 'translateY(0)';
-                    }, 200);
+        let footerLoaded = false;
+        
+        // Try fetch first (unless it's mobile or local file)
+        if (!isMobile && !isLocalFile) {
+            try {
+                const pathPrefix = window.location.pathname.includes('/roi/') || 
+                                 window.location.pathname.includes('/pricing/') || 
+                                 window.location.pathname.includes('/companies/') ? '../' : '';
+                const footerResponse = await fetch(pathPrefix + 'partials/footer.html');
+                if (footerResponse.ok) {
+                    const footerHTML = await footerResponse.text();
+                    footerMount.innerHTML = footerHTML;
+                    footerLoaded = true;
+                    console.log('Footer loaded via fetch');
                 }
+            } catch (error) {
+                console.warn('Fetch failed for footer, using fallback:', error.message);
             }
-        } catch (error) {
-            console.error('Error loading footer:', error);
+        }
+        
+        // Use fallback if fetch failed or on mobile
+        if (!footerLoaded) {
+            footerMount.innerHTML = fallbackFooterHTML;
+            console.log('Footer loaded via fallback injection (mobile/local)');
+        }
+        
+        // Add fade-in animation if motion is allowed
+        if (!prefersReducedMotion) {
+            footerMount.style.opacity = '0';
+            footerMount.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                footerMount.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+                footerMount.style.opacity = '1';
+                footerMount.style.transform = 'translateY(0)';
+            }, 200);
         }
     }
 }
@@ -76,6 +164,14 @@ async function loadPartials() {
 function initializeMobileMenu() {
     const menuToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-links');
+
+    const setMenuState = (open) => {
+        if (!menuToggle || !navMenu) return;
+        menuToggle.setAttribute('aria-expanded', String(open));
+        navMenu.classList.toggle('nav-links--open', open);
+        menuToggle.classList.toggle('nav-toggle--active', open);
+        document.body.classList.toggle('menu-open', open);
+    };
     
     // Check if menu is already initialized
     if (menuToggle && navMenu && !menuToggle.hasAttribute('data-initialized')) {
@@ -84,11 +180,7 @@ function initializeMobileMenu() {
         menuToggle.addEventListener('click', function(e) {
             e.stopPropagation(); // Prevent the click from bubbling to document
             const isExpanded = this.getAttribute('aria-expanded') === 'true';
-            this.setAttribute('aria-expanded', !isExpanded);
-            navMenu.classList.toggle('nav-links--open');
-            
-            // Animate menu toggle icon
-            this.classList.toggle('nav-toggle--active');
+            setMenuState(!isExpanded);
         });
         
         // Close menu when clicking outside
@@ -97,9 +189,7 @@ function initializeMobileMenu() {
             // Check if menu is open before trying to close it
             if (navMenu.classList.contains('nav-links--open')) {
                 if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                    navMenu.classList.remove('nav-links--open');
-                    menuToggle.classList.remove('nav-toggle--active');
+                    setMenuState(false);
                 }
             }
         });
@@ -107,9 +197,7 @@ function initializeMobileMenu() {
         // Close menu on escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && navMenu.classList.contains('nav-links--open')) {
-                menuToggle.setAttribute('aria-expanded', 'false');
-                navMenu.classList.remove('nav-links--open');
-                menuToggle.classList.remove('nav-toggle--active');
+                setMenuState(false);
                 menuToggle.focus();
             }
         });
