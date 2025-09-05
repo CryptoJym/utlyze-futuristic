@@ -56,6 +56,27 @@ Optional:
 - Open `index.html` for the homepage or `companies/index.html` for the gallery in a static server (e.g., VS Code Live Server or `npx serve`)
 - Note: The gallery renders cards client‑side from `companies/data.json`
 
+## QA & Launch (Agent L)
+
+Happy‑path E2E tests are implemented with Playwright and run against a local static server.
+
+- Install: `npm install`
+- Run: `npm run test:e2e` (config at `e2e/playwright.config.ts`)
+- Coverage:
+  - Home navigation (header, ROI CTA)
+  - ROI calculator submit (`/roi/`) with client‑side calc and result view
+  - Contact form submit (`/contact/`) with success message
+  - Venture Studio submit (`/studio/`) with success confirmation
+- Devices: Desktop Chrome (1280x800), Tablet (820x1180), Mobile (Pixel 5)
+- Console: Tests assert zero console errors and no page exceptions
+
+Launch Checklist
+
+- Redirects/Canonicals: Verified key paths resolve (`/`, `/roi/`, `/contact/`, `/studio/`). Canonical tags: ROI self‑canonical; pricing page canonical to be verified when `/pricing/` is live.
+- Monitoring: Recommend enabling uptime checks (e.g., Pingdom/Healthchecks) and client‑side error capture (e.g., Sentry). Supabase logs present for form inserts.
+- Rollback: Static deploys are atomic. If issues arise, redeploy previous artifact or revert to the prior commit on the hosting provider.
+- QA Status: All happy‑paths green across mobile/tablet/desktop; no console errors observed during tests.
+
 ## MCP integration (planned)
 We are adding a new MCP integration for richer automation and review tooling.
 - Owner: @omnara

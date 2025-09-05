@@ -10,7 +10,7 @@
 </head>
 <body>
   <!-- Header will be injected here -->
-  <div id="header-placeholder"></div>
+  <div id="site-header-mount"></div>
 
   <main class="use-cases-main">
     <!-- Hero Section -->
@@ -75,41 +75,27 @@
   </main>
 
   <!-- Footer will be injected here -->
-  <div id="footer-placeholder"></div>
+  <div id="site-footer-mount"></div>
 
   <script>
-    // Load header and footer
-    async function loadPartials() {
-      const headerResp = await fetch('/partials/header.html');
-      const footerResp = await fetch('/partials/footer.html');
-      
-      if (headerResp.ok) {
-        document.getElementById('header-placeholder').innerHTML = await headerResp.text();
-        
-        // Initialize mobile nav toggle
-        const navToggle = document.querySelector('.nav-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        
-        if (navToggle && navLinks) {
-          navToggle.addEventListener('click', () => {
-            const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-            navToggle.setAttribute('aria-expanded', !expanded);
-            navLinks.classList.toggle('nav-links--open');
-            navToggle.classList.toggle('nav-toggle--active');
+    // Set active nav link after header loads
+    function setActiveNavLink() {
+      const observer = new MutationObserver(function(mutations, obs) {
+        const navLinks = document.querySelectorAll('.nav-link');
+        if (navLinks.length > 0) {
+          const currentPath = window.location.pathname;
+          navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+              link.classList.add('active');
+            }
           });
+          obs.disconnect();
         }
-
-        // Set active nav link
-        const currentPath = window.location.pathname;
-        document.querySelectorAll('.nav-link').forEach(link => {
-          if (link.getAttribute('href') === currentPath) {
-            link.classList.add('active');
-          }
-        });
-      }
+      });
       
-      if (footerResp.ok) {
-        document.getElementById('footer-placeholder').innerHTML = await footerResp.text();
+      const headerMount = document.getElementById('site-header-mount');
+      if (headerMount) {
+        observer.observe(headerMount, { childList: true, subtree: true });
       }
     }
 
@@ -195,8 +181,9 @@
     }
 
     // Initialize page
-    loadPartials();
+    setActiveNavLink();
     loadUseCases();
   </script>
+  <script src="/app.js"></script>
 </body>
 </html>

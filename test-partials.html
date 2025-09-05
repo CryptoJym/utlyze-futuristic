@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Partials Loading</title>
+</head>
+<body>
+    <h1>Testing Partial Loading</h1>
+    
+    <h2>Header:</h2>
+    <div id="header-test" style="border: 2px solid red; padding: 10px;">
+        Loading header...
+    </div>
+    
+    <h2>Footer:</h2>
+    <div id="footer-test" style="border: 2px solid blue; padding: 10px;">
+        Loading footer...
+    </div>
+    
+    <h2>Console Output:</h2>
+    <pre id="console-output" style="background: #f0f0f0; padding: 10px;"></pre>
+    
+    <script>
+        const output = document.getElementById('console-output');
+        
+        function log(message) {
+            output.textContent += message + '\n';
+            console.log(message);
+        }
+        
+        async function testPartials() {
+            log('Starting partial load test...');
+            
+            try {
+                // Test header
+                log('Fetching /partials/header.html...');
+                const headerResp = await fetch('/partials/header.html');
+                log(`Header response: ${headerResp.status} ${headerResp.statusText}`);
+                
+                if (headerResp.ok) {
+                    const headerText = await headerResp.text();
+                    log(`Header loaded, length: ${headerText.length} characters`);
+                    document.getElementById('header-test').innerHTML = headerText;
+                } else {
+                    log('Header failed to load!');
+                }
+                
+                // Test footer
+                log('\nFetching /partials/footer.html...');
+                const footerResp = await fetch('/partials/footer.html');
+                log(`Footer response: ${footerResp.status} ${footerResp.statusText}`);
+                
+                if (footerResp.ok) {
+                    const footerText = await footerResp.text();
+                    log(`Footer loaded, length: ${footerText.length} characters`);
+                    document.getElementById('footer-test').innerHTML = footerText;
+                } else {
+                    log('Footer failed to load!');
+                }
+                
+            } catch (error) {
+                log(`ERROR: ${error.message}`);
+                log(`Stack: ${error.stack}`);
+            }
+            
+            log('\nTest complete.');
+        }
+        
+        // Run test when page loads
+        testPartials();
+    </script>
+</body>
+</html>
