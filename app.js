@@ -893,7 +893,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Track pricing/other CTA anchors
-    const pricingCtas = document.querySelectorAll('.tier-cta, .cta-button');
+    const pricingCtas = document.querySelectorAll('.tier-cta, .cta-button, .schedule-button');
     pricingCtas.forEach(button => {
         button.addEventListener('click', () => {
             trackClick(button, 'tertiary_cta_click');

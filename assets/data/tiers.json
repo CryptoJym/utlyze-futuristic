@@ -23,7 +23,7 @@
     "models": ["Qwen 2.5 14B", "Mixtral 8x7B"],
     "hardware": "Mac Studio M3 Ultra 60c",
     "setup_usd": "10000",
-    "monthly_usd": "2200"
+    "monthly_usd": "2600"
   },
   "TierC": {
     "name": "Autonomy Suite",
@@ -36,6 +36,6 @@
     "models": ["Gemma 2 27B", "Llama 3.1 70B"],
     "hardware": "M3 Ultra 60c 512GB",
     "setup_usd": "25000+",
-    "monthly_usd": "3300"
+    "monthly_usd": "6000+"
   }
 }
