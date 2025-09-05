@@ -78,7 +78,8 @@ function initializeMobileMenu() {
     const navMenu = document.querySelector('.nav-links');
     
     if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', function() {
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent the click from bubbling to document
             const isExpanded = this.getAttribute('aria-expanded') === 'true';
             this.setAttribute('aria-expanded', !isExpanded);
             navMenu.classList.toggle('nav-links--open');
@@ -88,11 +89,15 @@ function initializeMobileMenu() {
         });
         
         // Close menu when clicking outside
+        // Use setTimeout to ensure this doesn't fire on the same click that opens the menu
         document.addEventListener('click', function(e) {
-            if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
-                menuToggle.setAttribute('aria-expanded', 'false');
-                navMenu.classList.remove('nav-links--open');
-                menuToggle.classList.remove('nav-toggle--active');
+            // Check if menu is open before trying to close it
+            if (navMenu.classList.contains('nav-links--open')) {
+                if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    navMenu.classList.remove('nav-links--open');
+                    menuToggle.classList.remove('nav-toggle--active');
+                }
             }
         });
         
