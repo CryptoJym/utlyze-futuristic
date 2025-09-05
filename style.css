@@ -186,57 +186,74 @@
     pointer-events: auto;
   }
   
-  /* Mobile menu - hidden by default using transform to prevent flash */
+  /* Mobile menu - full screen overlay */
   .nav-links {
-    position: fixed;
-    top: 0; 
-    left: 0; 
-    width: 100%;
-    height: 100%;
-    display: flex !important; /* Force display to ensure visibility */
+    position: fixed !important;
+    top: 0 !important; 
+    left: 0 !important; 
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-height: none !important;
+    display: flex !important;
     flex-direction: column;
-    gap: 20px;
-    padding: 80px 20px 20px;
-    background: rgb(255,255,255); /* Solid background to ensure visibility */
-    box-shadow: 0 0 50px rgba(0,0,0,0.3); /* Add shadow for depth */
+    justify-content: center; /* Center the menu items vertically */
+    align-items: center; /* Center the menu items horizontally */
+    gap: 30px;
+    padding: 40px;
+    background: rgb(255,255,255);
+    box-shadow: none;
     overflow-y: auto;
-    z-index: 999998 !important; /* Extremely high to ensure it's on top */
+    overflow-x: hidden;
+    z-index: 999998 !important;
     /* Hide off-screen by default to prevent flash */
-    transform: translateX(-100%);
+    transform: translateX(100%);
     opacity: 0;
-    visibility: hidden;
     transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), 
-                opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), 
-                visibility 0s linear 0.3s;
+                opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
     will-change: transform;
-    pointer-events: none; /* Prevent interaction when hidden */
   }
   
   /* Show menu when open class is added */
+  body.menu-open .nav-links,
   .nav-links.nav-links--open {
-    transform: translateX(0);
-    opacity: 1;
-    visibility: visible;
-    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), 
-                opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), 
-                visibility 0s linear 0s;
-    pointer-events: auto; /* Enable interaction when visible */
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
   
-  /* Style nav links for mobile */
+  /* Style nav links for mobile - large and touch-friendly */
   .nav-link {
-    font-size: 18px;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    color: #000 !important; /* Ensure text is visible */
+    font-size: 24px !important;
+    font-weight: 500;
+    padding: 16px 32px !important;
+    color: #000 !important;
     text-decoration: none;
     display: block;
-    width: 100%;
+    text-align: center;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    background: transparent;
+    border: 2px solid transparent;
+    min-width: 200px;
   }
   
-  .nav-link:hover {
-    background: rgba(0,0,0,0.05);
-    padding-left: 10px;
+  .nav-link:hover,
+  .nav-link:active {
+    background: rgba(0, 91, 255, 0.1);
+    border-color: rgba(0, 91, 255, 0.3);
+    transform: scale(1.05);
+  }
+  
+  /* Close button styling */
+  .nav-toggle--active {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    background: rgba(0,0,0,0.1) !important;
+    border-radius: 50% !important;
+    padding: 12px !important;
   }
 }
 
@@ -3457,3 +3474,265 @@ textarea.glass-input {
 /* Removed duplicate nav-toggle styles - using definition at line 1745 */
 
 /* Removed duplicate mobile menu rules - see line 148 for unified implementation */
+
+/* ====================
+   ACCESSIBILITY & PERFORMANCE IMPROVEMENTS
+   ==================== */
+
+/* Skip to main content link */
+.skip-to-main {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  padding: var(--space-12) var(--space-24);
+  border-radius: var(--radius-base);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+  z-index: 10000;
+  transition: top 0.2s ease-out;
+}
+
+.skip-to-main:focus {
+  top: var(--space-16);
+}
+
+/* Enhanced Focus States for Better Keyboard Navigation */
+*:focus-visible {
+  outline: 3px solid var(--color-primary) !important;
+  outline-offset: 3px !important;
+}
+
+/* Specific focus improvements for interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(var(--color-primary-rgb, 33, 128, 141), 0.2);
+  position: relative;
+  z-index: 10;
+}
+
+/* Remove outline on mouse focus for better UX */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+select:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Enhanced button focus states */
+.btn:focus-visible,
+.glass-btn:focus-visible {
+  outline: 3px solid var(--color-primary) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 6px rgba(var(--color-primary-rgb, 33, 128, 141), 0.2) !important;
+}
+
+/* Form control focus improvements */
+.form-control:focus-visible,
+.glass-input:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb, 33, 128, 141), 0.2);
+}
+
+/* Navigation link focus states */
+.nav-link:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  background: rgba(var(--color-primary-rgb, 33, 128, 141), 0.1);
+}
+
+/* Color Contrast Improvements */
+/* Ensure better contrast for secondary text in dark mode */
+[data-color-scheme="dark"] {
+  --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.85);
+}
+
+/* Performance: Image lazy loading styles */
+img[loading="lazy"],
+iframe[loading="lazy"] {
+  background: var(--color-secondary);
+  min-height: 100px;
+}
+
+/* Prevent layout shift for lazy-loaded images */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Aspect ratio boxes for preventing CLS */
+.aspect-ratio-16-9 {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+.aspect-ratio-16-9 > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Reduced motion: disable ALL animations and transitions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Remove parallax effects */
+  .hero-mesh-background,
+  .hero-particles,
+  .floating-orbs,
+  .orb,
+  .hero-glow {
+    animation: none !important;
+    transform: none !important;
+  }
+  
+  /* Disable smooth scrolling */
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  /* Increase border contrast */
+  * {
+    border-color: var(--color-text) !important;
+  }
+  
+  /* Stronger focus indicators */
+  *:focus-visible {
+    outline-width: 4px !important;
+    outline-offset: 4px !important;
+  }
+  
+  /* Higher contrast buttons */
+  .btn--primary {
+    background: var(--color-text) !important;
+    color: var(--color-background) !important;
+  }
+  
+  .btn--outline {
+    border-width: 3px !important;
+  }
+  
+  /* Ensure text has maximum contrast */
+  body {
+    color: var(--color-text) !important;
+    background: var(--color-background) !important;
+  }
+}
+
+/* Keyboard-only navigation indicator */
+.keyboard-nav-indicator {
+  position: fixed;
+  top: var(--space-16);
+  right: var(--space-16);
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-sm);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-out;
+  z-index: 9999;
+}
+
+body.keyboard-navigation .keyboard-nav-indicator {
+  opacity: 1;
+}
+
+/* Ensure interactive elements have minimum touch target size */
+button,
+a,
+input,
+textarea,
+select,
+[role="button"],
+[tabindex] {
+  min-height: 44px;
+  min-width: 44px;
+  position: relative;
+}
+
+/* Small buttons/links get invisible touch target extension */
+.btn--sm::before,
+.nav-link::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* Loading states for better perceived performance */
+.loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
