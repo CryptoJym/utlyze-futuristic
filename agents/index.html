@@ -28,7 +28,8 @@
     </script>
 </head>
 <body>
-    <div id="shared-header"></div>
+    <!-- Header will be injected here -->
+    <div id="header-placeholder"></div>
 
     <main>
         <!-- Hero Section -->
@@ -426,10 +427,48 @@
         </section>
     </main>
 
-    <div id="shared-footer"></div>
+    <!-- Footer will be injected here -->
+    <div id="footer-placeholder"></div>
 
-    <script src="../app.js"></script>
     <script>
+        // Load header and footer
+        async function loadPartials() {
+            const headerResp = await fetch('/partials/header.html');
+            const footerResp = await fetch('/partials/footer.html');
+            
+            if (headerResp.ok) {
+                document.getElementById('header-placeholder').innerHTML = await headerResp.text();
+                
+                // Initialize mobile nav toggle
+                const navToggle = document.querySelector('.nav-toggle');
+                const navLinks = document.querySelector('.nav-links');
+                
+                if (navToggle && navLinks) {
+                    navToggle.addEventListener('click', () => {
+                        const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+                        navToggle.setAttribute('aria-expanded', !expanded);
+                        navLinks.classList.toggle('active');
+                    });
+                }
+
+                // Set active nav link
+                const currentPath = window.location.pathname;
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    if (link.getAttribute('href') === currentPath || 
+                        (currentPath === '/agents/' && link.getAttribute('href') === '/agents/')) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            if (footerResp.ok) {
+                document.getElementById('footer-placeholder').innerHTML = await footerResp.text();
+            }
+        }
+
+        // Initialize page
+        loadPartials();
+        
         // Load tier data dynamically
         fetch('../assets/data/tiers.json')
             .then(response => response.json())
@@ -439,5 +478,6 @@
             })
             .catch(error => console.error('Error loading tier data:', error));
     </script>
+    <script src="../app.js"></script>
 </body>
 </html>
