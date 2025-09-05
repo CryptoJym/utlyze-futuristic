@@ -82,10 +82,7 @@ async function loadPartials() {
         // Try fetch first (unless it's mobile or local file)
         if (!isMobile && !isLocalFile) {
             try {
-                const pathPrefix = window.location.pathname.includes('/roi/') || 
-                                 window.location.pathname.includes('/pricing/') || 
-                                 window.location.pathname.includes('/companies/') ? '../' : '';
-                const headerResponse = await fetch(pathPrefix + 'partials/header.html');
+                const headerResponse = await fetch('/partials/header.html');
                 if (headerResponse.ok) {
                     const headerHTML = await headerResponse.text();
                     headerMount.innerHTML = headerHTML;
@@ -126,10 +123,7 @@ async function loadPartials() {
         // Try fetch first (unless it's mobile or local file)
         if (!isMobile && !isLocalFile) {
             try {
-                const pathPrefix = window.location.pathname.includes('/roi/') || 
-                                 window.location.pathname.includes('/pricing/') || 
-                                 window.location.pathname.includes('/companies/') ? '../' : '';
-                const footerResponse = await fetch(pathPrefix + 'partials/footer.html');
+                const footerResponse = await fetch('/partials/footer.html');
                 if (footerResponse.ok) {
                     const footerHTML = await footerResponse.text();
                     footerMount.innerHTML = footerHTML;
@@ -970,12 +964,56 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Premium page visibility handling
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            // Pause expensive animations when page is not visible
-            document.body.style.setProperty('--animation-play-state', 'paused');
-        } else {
-            document.body.style.setProperty('--animation-play-state', 'running');
-        }
-    });
+  document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+          // Pause expensive animations when page is not visible
+          document.body.style.setProperty('--animation-play-state', 'paused');
+      } else {
+          document.body.style.setProperty('--animation-play-state', 'running');
+      }
+  });
+
+  // Sync tier monthly pricing from assets/data/tiers.json (prevents drift)
+  (async function syncTierPricing() {
+      try {
+          const res = await fetch('/assets/data/tiers.json', { cache: 'no-store' });
+          if (!res.ok) return;
+          const tiers = await res.json();
+
+          // Home page cards
+          const homeCards = document.querySelectorAll('.tier-card[data-tier]');
+          homeCards.forEach(card => {
+              const key = card.getAttribute('data-tier');
+              const monthly = card.querySelector('.tier-monthly');
+              if (monthly && tiers[key]?.monthly_usd) {
+                  monthly.textContent = `$${tiers[key].monthly_usd}/month`;
+              }
+          });
+
+          // Pricing page cards
+          const setMonthly = (root, value) => {
+              if (!root || !value) return;
+              const period = root.querySelector('.period');
+              // Reset content to number and re-attach period span for styling
+              root.textContent = `$${value}`;
+              if (period) {
+                  root.appendChild(period);
+              } else {
+                  const span = document.createElement('span');
+                  span.className = 'period';
+                  span.textContent = '/month';
+                  root.appendChild(span);
+              }
+          };
+
+          const tierA = document.querySelector('.tier-card.tier-a .monthly-cost');
+          const tierB = document.querySelector('.tier-card.tier-b .monthly-cost');
+          const tierC = document.querySelector('.tier-card.tier-c .monthly-cost');
+          if (tiers.TierA?.monthly_usd) setMonthly(tierA, tiers.TierA.monthly_usd);
+          if (tiers.TierB?.monthly_usd) setMonthly(tierB, tiers.TierB.monthly_usd);
+          if (tiers.TierC?.monthly_usd) setMonthly(tierC, tiers.TierC.monthly_usd);
+      } catch (e) {
+          // Silent failure to avoid blocking page
+      }
+  })();
 });
