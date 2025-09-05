@@ -119,6 +119,38 @@ Branch & Ownership
 - Artifacts: `e2e/` suite, nav overlay fix in `style.css` + `app.js`, ROI calc/client in `roi/`
 - Handoff: Agent L (QA & Launch) complete. Ready for owner sign‑off and deploy.
 
+## Handoff — Status & Next Steps (2025‑09‑05)
+
+- Branch: `feat/bug-review-fixes`
+- Latest commit: aligns contact form with Supabase (SDK + client init), adds `contact_submissions` table + RLS to `supabase-setup.sql`, fixes canonicals (ROI/pricing), sets absolute sitemap in `robots.txt`, adds `/about/` and `/resources/` stubs, routes missing resource links to `/contact/` to avoid 404s.
+
+What’s done
+- Analytics/SEO: JSON‑LD on home/agents/pricing, sitemap.xml, robots.txt; CTA tracking extended in `app.js` to cover primary/secondary/tier CTA buttons.
+- Contact form: now inserts into `public.contact_submissions` under RLS; docs updated via schema changes.
+- 404s removed: `/about/` and `/resources/` stub pages added; sitemap updated.
+
+Found issues to fix next
+- Agents CTA target: “Schedule Demo” currently links to `#schedule-demo` (no‑op). Change to `/contact/` or add an actual section.
+- ROI embed placeholder: Replace `VIDEO_ID` in the YouTube iframe or hide the block until ready.
+- Tier pricing mismatch: Align `assets/data/tiers.json` with UI (e.g., TierB $2,600 vs 2200; TierC $6,000+ vs 3300). Prefer rendering pricing from JSON to prevent drift.
+- CTA tracking coverage: Add `.schedule-button` and any remaining CTA classes in `app.js` to ensure logging from Contact and other pages.
+- Dead ROI report code: `roi/app.js` references variables/IDs not present; remove or wire properly behind a feature flag.
+- Canonicals: Consider absolute URLs for ROI/Pricing (`https://utlyze.com/...`).
+
+How to continue
+- Implement the five fixes above (small, surgical patches). Commit each with conventional messages, e.g.,
+  - `fix(agents): point demo CTA to /contact/`
+  - `fix(roi): replace VIDEO_ID or hide video block`
+  - `chore(pricing): sync UI with tiers.json and render from data`
+  - `chore(analytics): extend trackClick to .schedule-button`
+  - `chore(roi): remove unused detailed report block`
+- Push `feat/bug-review-fixes` and open a PR; add the PR checklist: JSON‑LD valid, CTAs tracked, no 404s, sitemap includes new pages.
+
+Quick validation
+- Open `/agents/` and verify the Demo CTA navigates to `/contact/` (after fix).
+- Submit Contact and ROI forms once; check rows in Supabase `contact_submissions` and `roi_leads`.
+- Run E2E locally: `npm install && npm run test:e2e` (ensures no console errors).
+
 ## Notes & limits
 - Gamma is beta and rate‑limited (e.g., 50 generations/month per user, subject to change)
 - We only generate assets when the sync workflow runs; assets are reused in subsequent deploys
