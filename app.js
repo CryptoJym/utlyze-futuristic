@@ -77,7 +77,10 @@ function initializeMobileMenu() {
     const menuToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-links');
     
-    if (menuToggle && navMenu) {
+    // Check if menu is already initialized
+    if (menuToggle && navMenu && !menuToggle.hasAttribute('data-initialized')) {
+        menuToggle.setAttribute('data-initialized', 'true');
+        
         menuToggle.addEventListener('click', function(e) {
             e.stopPropagation(); // Prevent the click from bubbling to document
             const isExpanded = this.getAttribute('aria-expanded') === 'true';
