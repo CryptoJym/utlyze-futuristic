@@ -29,7 +29,7 @@
 </head>
 <body>
     <!-- Header will be injected here -->
-    <div id="header-placeholder"></div>
+    <div id="site-header-mount"></div>
 
     <main>
         <!-- Hero Section -->
@@ -428,7 +428,7 @@
     </main>
 
     <!-- Footer will be injected here -->
-    <div id="footer-placeholder"></div>
+    <div id="site-footer-mount"></div>
 
     <script>
         // Load header and footer
@@ -438,7 +438,7 @@
                 const footerResp = await fetch('/partials/footer.html');
                 
                 if (headerResp.ok) {
-                    document.getElementById('header-placeholder').innerHTML = await headerResp.text();
+                    document.getElementById('site-header-mount').innerHTML = await headerResp.text();
                     
                     // Initialize mobile nav toggle
                     const navToggle = document.querySelector('.nav-toggle');
@@ -466,7 +466,7 @@
                 }
                 
                 if (footerResp.ok) {
-                    document.getElementById('footer-placeholder').innerHTML = await footerResp.text();
+                    document.getElementById('site-footer-mount').innerHTML = await footerResp.text();
                 } else {
                     console.error('Failed to load footer:', footerResp.status, footerResp.statusText);
                 }
