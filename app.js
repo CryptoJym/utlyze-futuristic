@@ -178,20 +178,24 @@ function initializeMobileMenu() {
         menuToggle.setAttribute('data-initialized', 'true');
         
         menuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
             e.stopPropagation(); // Prevent the click from bubbling to document
             const isExpanded = this.getAttribute('aria-expanded') === 'true';
             setMenuState(!isExpanded);
         });
         
         // Close menu when clicking outside
-        // Use setTimeout to ensure this doesn't fire on the same click that opens the menu
+        // Add a small delay to prevent immediate closing
         document.addEventListener('click', function(e) {
-            // Check if menu is open before trying to close it
-            if (navMenu.classList.contains('nav-links--open')) {
-                if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
-                    setMenuState(false);
+            // Use setTimeout to ensure this doesn't fire on the same click event cycle
+            setTimeout(() => {
+                // Check if menu is open before trying to close it
+                if (navMenu && navMenu.classList.contains('nav-links--open')) {
+                    if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                        setMenuState(false);
+                    }
                 }
-            }
+            }, 10);
         });
         
         // Close menu on escape key
