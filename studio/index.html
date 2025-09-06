@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../venture-studio-styles.css">
+    <link rel="canonical" href="https://utlyze.com/studio/">
 </head>
 <body>
     <!-- Header will be injected here -->
@@ -202,36 +203,6 @@
     <!-- Footer will be injected here -->
     <div id="site-footer-mount"></div>
 
-    <script>
-        // Set active nav link after header loads
-        function setActiveNavLink() {
-            const observer = new MutationObserver(function(mutations, obs) {
-                const navLinks = document.querySelectorAll('.nav-link');
-                if (navLinks.length > 0) {
-                    const currentPath = window.location.pathname;
-                    navLinks.forEach(link => {
-                        if (link.getAttribute('href') === currentPath || 
-                            (currentPath === '/studio/' && link.getAttribute('href') === '/studio/')) {
-                            link.classList.add('active');
-                        }
-                    });
-                    obs.disconnect();
-                }
-            });
-            
-            const headerMount = document.getElementById('site-header-mount');
-            if (headerMount) {
-                observer.observe(headerMount, { childList: true, subtree: true });
-            }
-        }
-
-        // Initialize page when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', setActiveNavLink);
-        } else {
-            setActiveNavLink();
-        }
-    </script>
     <script src="../app.js"></script>
 </body>
 </html>

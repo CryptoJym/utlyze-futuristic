@@ -6,7 +6,7 @@ var supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIs
 
 // Initialise Supabase only if the library is available. Without this check,
 // an undefined 'window.supabase' throws and stops all other code from running.
-let supabase;
+var supabase;
 if (window.supabase && typeof window.supabase.createClient === 'function') {
     supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 } else {
@@ -103,6 +103,9 @@ async function loadPartials() {
         // Initialize mobile menu
         setTimeout(initializeMobileMenu, 100);
         
+        // Set active navigation state
+        setTimeout(setActiveNavLink, 150);
+        
         // Add fade-in animation if motion is allowed
         if (!prefersReducedMotion) {
             headerMount.style.opacity = '0';
@@ -152,6 +155,22 @@ async function loadPartials() {
             }, 200);
         }
     }
+}
+
+// Set active navigation state
+function setActiveNavLink() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const currentPath = window.location.pathname;
+    
+    navLinks.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        // Check exact match or if current path starts with link path (for nested pages)
+        if (linkPath === currentPath || (linkPath !== '/' && currentPath.startsWith(linkPath))) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
 }
 
 // Initialize mobile menu functionality
@@ -985,8 +1004,12 @@ document.addEventListener('DOMContentLoaded', function() {
           homeCards.forEach(card => {
               const key = card.getAttribute('data-tier');
               const monthly = card.querySelector('.tier-monthly');
+              const setup = card.querySelector('.tier-setup');
               if (monthly && tiers[key]?.monthly_usd) {
                   monthly.textContent = `$${tiers[key].monthly_usd}/month`;
+              }
+              if (setup && tiers[key]?.setup_usd) {
+                  setup.textContent = `Setup: $${tiers[key].setup_usd}`;
               }
           });
 
@@ -1012,6 +1035,18 @@ document.addEventListener('DOMContentLoaded', function() {
           if (tiers.TierA?.monthly_usd) setMonthly(tierA, tiers.TierA.monthly_usd);
           if (tiers.TierB?.monthly_usd) setMonthly(tierB, tiers.TierB.monthly_usd);
           if (tiers.TierC?.monthly_usd) setMonthly(tierC, tiers.TierC.monthly_usd);
+
+          // Pricing page setup costs
+          const setSetup = (root, value) => {
+              if (!root || !value) return;
+              root.textContent = `Setup: $${value}`;
+          };
+          const setupA = document.querySelector('.tier-card.tier-a .setup-cost');
+          const setupB = document.querySelector('.tier-card.tier-b .setup-cost');
+          const setupC = document.querySelector('.tier-card.tier-c .setup-cost');
+          if (tiers.TierA?.setup_usd) setSetup(setupA, tiers.TierA.setup_usd);
+          if (tiers.TierB?.setup_usd) setSetup(setupB, tiers.TierB.setup_usd);
+          if (tiers.TierC?.setup_usd) setSetup(setupC, tiers.TierC.setup_usd);
       } catch (e) {
           // Silent failure to avoid blocking page
       }
