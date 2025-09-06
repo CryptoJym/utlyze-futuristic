@@ -1,3 +1,42 @@
+// Header and Footer Mounting Logic
+function loadHeaderFooter() {
+    // Load header
+    const headerMount = document.getElementById('site-header-mount');
+    if (headerMount) {
+        fetch('../partials/header.html')
+            .then(response => response.text())
+            .then(html => {
+                headerMount.innerHTML = html;
+                // Initialize mobile menu after header loads
+                const toggle = document.querySelector('.nav-toggle');
+                const nav = document.querySelector('.nav-links');
+                if (toggle && nav) {
+                    toggle.addEventListener('click', () => {
+                        nav.classList.toggle('nav-links--open');
+                        toggle.setAttribute('aria-expanded', 
+                            nav.classList.contains('nav-links--open'));
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+            });
+    }
+
+    // Load footer
+    const footerMount = document.getElementById('site-footer-mount');
+    if (footerMount) {
+        fetch('../partials/footer.html')
+            .then(response => response.text())
+            .then(html => {
+                footerMount.innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+            });
+    }
+}
+
 // Company data (will be overridden by data.json if present)
 let companies = [
   {
@@ -548,6 +587,9 @@ async function loadExternalCompaniesIfAvailable() {
 
 // Initialize the application
 async function initializeApp() {
+  // Load header and footer first
+  loadHeaderFooter();
+  
   await loadExternalCompaniesIfAvailable();
   
   // Set initial displayed count based on available companies
