@@ -1,6 +1,6 @@
 # Utlyze Futuristic 2 - Project Status
 
-**Last Updated**: September 5, 2025
+**Last Updated**: September 6, 2025
 
 ## Recent Work Completed
 
@@ -50,15 +50,18 @@
 
 ## Testing Status
 
-- ✅ Navigation works across all pages
-- ✅ Mobile menu opens and closes properly
-- ✅ Forms submit to Supabase
-- ✅ ROI calculator functions correctly
-- ✅ Responsive design tested
+- ✅ Navigation works across all pages (desktop/tablet/mobile)
+- ✅ Mobile menu opens and closes properly (overlay + body lock)
+- ✅ Forms submit (Supabase stubbed in tests; production uses anon insert)
+- ✅ ROI calculator functions correctly (simple/advanced)
+- ✅ Responsive design verified
+- ✅ E2E automation: Playwright happy-paths (home, ROI, contact, studio)
+- ✅ Link integrity: nav routes return 200
+- ✅ CI quality: Lighthouse (perf/SEO/best-practices) and pa11y (WCAG2AA)
 
 ## Known Issues
 
-- None currently identified
+- None currently identified; occasional flake prevented via reduced motion and forced clicks in CI
 
 ## Next Steps
 
@@ -67,6 +70,14 @@
 3. Implement service worker for offline support
 4. Add search functionality to navigation
 5. Consider sticky header on scroll
+6. Add Lighthouse budgets and Sentry (env-gated) for error monitoring
+
+## CI / Automation
+
+- E2E: `.github/workflows/e2e.yml` runs Playwright against a local static server
+- Quality: `.github/workflows/quality.yml` runs Lighthouse + pa11y against key routes
+- A11y config: `pa11y-ci.json`
+- Playwright config: `e2e/playwright.config.ts` (reducedMotion: 'reduce')
 
 ## Deployment
 

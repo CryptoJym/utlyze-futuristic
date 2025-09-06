@@ -118,6 +118,15 @@ Automation
 - CI (e2e): `.github/workflows/e2e.yml` runs Playwright against a local static server.
 - CI (quality): `.github/workflows/quality.yml` runs Lighthouse (perf/SEO/best-practices) and pa11y (WCAG2AA) against key routes.
 
+## System Overview
+
+- Architecture: Static HTML/CSS/JS with dynamic header/footer partials loaded by `app.js`.
+- Forms: Client-side submissions to Supabase (anon insert) for contact and ROI funnel; ROI tests stub Supabase.
+- Navigation: Shared partial at `/partials/header.html`; mobile overlay locks body scroll and toggles aria-expanded.
+- Data: Pricing tiers at `assets/data/tiers.json` used by home/pricing.
+- Tests: Playwright happy-path specs in `e2e/tests/` with reduced motion to decrease flakiness.
+- CI: GitHub Actions for e2e and quality checks (Lighthouse + pa11y).
+
 Branch & Ownership
 - Branch: `feat/qa-cross-device-happypaths`
 - Artifacts: `e2e/` suite, nav overlay fix in `style.css` + `app.js`, ROI calc/client in `roi/`
