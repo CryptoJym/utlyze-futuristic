@@ -86,6 +86,71 @@ We are adding a new MCP integration for richer automation and review tooling.
   - Wire a minimal client in `/companies/app.js` (feature‑flagged)
   - Add a README subsection with usage once landed
 
+## QA & Launch Handoff
+
+Status Summary
+- All happy‑path flows pass on Desktop, Tablet, Mobile.
+- No console errors across: Home, ROI (/roi/), Contact (/contact/), Studio (/studio/).
+- Mobile hamburger overlay fixed: menu opens above content and locks background scroll.
+
+How To Run E2E
+- Install dependencies: `npm install`
+- Run tests: `npm run test:e2e`
+- Config: `e2e/playwright.config.ts` (serves site on `http://localhost:3010`)
+- Specs: `e2e/tests/`
+  - `happy-home.spec.js` (nav, ROI CTA)
+  - `happy-roi.spec.js` (calculator submit/results)
+  - `happy-contact.spec.js` (form submit success)
+  - `happy-studio.spec.js` (idea submit success)
+
+Manual QA Checklist (quick)
+- Mobile nav: toggle hamburger, tap Studio/Pricing/Contact; Esc closes menu.
+- ROI: enter spend, click "Get my estimate" → results visible.
+- Contact: submit with required fields → success message; verify honeypot hidden.
+- Studio: submit idea with valid inputs → success message.
+
+Launch Checklist
+- Redirects/canonicals: Verify key pages resolve and canonicals present where intended (pricing ↔ roi as needed).
+- Monitoring: Enable uptime + client error tracking (e.g., Sentry); Supabase logs for form inserts.
+- Rollback: Host is static; roll back via prior artifact or `git revert` and redeploy.
+
+Branch & Ownership
+- Branch: `feat/qa-cross-device-happypaths`
+- Artifacts: `e2e/` suite, nav overlay fix in `style.css` + `app.js`, ROI calc/client in `roi/`
+- Handoff: Agent L (QA & Launch) complete. Ready for owner sign‑off and deploy.
+
+## Handoff — Status & Next Steps (2025‑09‑05)
+
+- Branch: `feat/bug-review-fixes`
+- Latest commit: aligns contact form with Supabase (SDK + client init), adds `contact_submissions` table + RLS to `supabase-setup.sql`, fixes canonicals (ROI/pricing), sets absolute sitemap in `robots.txt`, adds `/about/` and `/resources/` stubs, routes missing resource links to `/contact/` to avoid 404s.
+
+What’s done
+- Analytics/SEO: JSON‑LD on home/agents/pricing, sitemap.xml, robots.txt; CTA tracking extended in `app.js` to cover primary/secondary/tier CTA buttons.
+- Contact form: now inserts into `public.contact_submissions` under RLS; docs updated via schema changes.
+- 404s removed: `/about/` and `/resources/` stub pages added; sitemap updated.
+- Agents CTA fixed: Demo button on `/agents/` now links to `/contact/`; bottom contact link updated.
+- ROI video: placeholder text shown; broken embed avoided.
+- Tracking: `app.js` includes `.schedule-button` clicks.
+
+Found issues to fix next
+- Tier pricing render: Optionally render pricing from `assets/data/tiers.json` to prevent future drift (data now aligned: TierB 2600, TierC 6000+).
+- Canonicals: Home and other pages may add canonicals if desired (pricing/roi set to absolute).
+- Use‑case links: Consider changing label when routed to `/contact/` for clarity (current behavior avoids 404s).
+
+How to continue
+- Implement the five fixes above (small, surgical patches). Commit each with conventional messages, e.g.,
+  - `fix(agents): point demo CTA to /contact/`
+  - `fix(roi): replace VIDEO_ID or hide video block`
+  - `chore(pricing): sync UI with tiers.json and render from data`
+  - `chore(analytics): extend trackClick to .schedule-button`
+  - `chore(roi): remove unused detailed report block`
+- Push `feat/bug-review-fixes` and open a PR; add the PR checklist: JSON‑LD valid, CTAs tracked, no 404s, sitemap includes new pages.
+
+Quick validation
+- Open `/agents/` and verify the Demo CTA navigates to `/contact/` (after fix).
+- Submit Contact and ROI forms once; check rows in Supabase `contact_submissions` and `roi_leads`.
+- Run E2E locally: `npm install && npm run test:e2e` (ensures no console errors).
+
 ## Notes & limits
 - Gamma is beta and rate‑limited (e.g., 50 generations/month per user, subject to change)
 - We only generate assets when the sync workflow runs; assets are reused in subsequent deploys

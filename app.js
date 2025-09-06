@@ -6,7 +6,7 @@ var supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIs
 
 // Initialise Supabase only if the library is available. Without this check,
 // an undefined 'window.supabase' throws and stops all other code from running.
-let supabase;
+var supabase;
 if (window.supabase && typeof window.supabase.createClient === 'function') {
     supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 } else {
@@ -82,10 +82,7 @@ async function loadPartials() {
         // Try fetch first (unless it's mobile or local file)
         if (!isMobile && !isLocalFile) {
             try {
-                const pathPrefix = window.location.pathname.includes('/roi/') || 
-                                 window.location.pathname.includes('/pricing/') || 
-                                 window.location.pathname.includes('/companies/') ? '../' : '';
-                const headerResponse = await fetch(pathPrefix + 'partials/header.html');
+                const headerResponse = await fetch('/partials/header.html');
                 if (headerResponse.ok) {
                     const headerHTML = await headerResponse.text();
                     headerMount.innerHTML = headerHTML;
@@ -105,6 +102,9 @@ async function loadPartials() {
         
         // Initialize mobile menu
         setTimeout(initializeMobileMenu, 100);
+        
+        // Set active navigation state
+        setTimeout(setActiveNavLink, 150);
         
         // Add fade-in animation if motion is allowed
         if (!prefersReducedMotion) {
@@ -126,10 +126,7 @@ async function loadPartials() {
         // Try fetch first (unless it's mobile or local file)
         if (!isMobile && !isLocalFile) {
             try {
-                const pathPrefix = window.location.pathname.includes('/roi/') || 
-                                 window.location.pathname.includes('/pricing/') || 
-                                 window.location.pathname.includes('/companies/') ? '../' : '';
-                const footerResponse = await fetch(pathPrefix + 'partials/footer.html');
+                const footerResponse = await fetch('/partials/footer.html');
                 if (footerResponse.ok) {
                     const footerHTML = await footerResponse.text();
                     footerMount.innerHTML = footerHTML;
@@ -160,6 +157,22 @@ async function loadPartials() {
     }
 }
 
+// Set active navigation state
+function setActiveNavLink() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const currentPath = window.location.pathname;
+    
+    navLinks.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        // Check exact match or if current path starts with link path (for nested pages)
+        if (linkPath === currentPath || (linkPath !== '/' && currentPath.startsWith(linkPath))) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+
 // Initialize mobile menu functionality
 function initializeMobileMenu() {
     const menuToggle = document.querySelector('.nav-toggle');
@@ -178,20 +191,24 @@ function initializeMobileMenu() {
         menuToggle.setAttribute('data-initialized', 'true');
         
         menuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
             e.stopPropagation(); // Prevent the click from bubbling to document
             const isExpanded = this.getAttribute('aria-expanded') === 'true';
             setMenuState(!isExpanded);
         });
         
         // Close menu when clicking outside
-        // Use setTimeout to ensure this doesn't fire on the same click that opens the menu
+        // Add a small delay to prevent immediate closing
         document.addEventListener('click', function(e) {
-            // Check if menu is open before trying to close it
-            if (navMenu.classList.contains('nav-links--open')) {
-                if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
-                    setMenuState(false);
+            // Use setTimeout to ensure this doesn't fire on the same click event cycle
+            setTimeout(() => {
+                // Check if menu is open before trying to close it
+                if (navMenu && navMenu.classList.contains('nav-links--open')) {
+                    if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                        setMenuState(false);
+                    }
                 }
-            }
+            }, 10);
         });
         
         // Close menu on escape key
@@ -889,7 +906,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Track pricing/other CTA anchors
-    const pricingCtas = document.querySelectorAll('.tier-cta, .cta-button');
+    const pricingCtas = document.querySelectorAll('.tier-cta, .cta-button, .schedule-button');
     pricingCtas.forEach(button => {
         button.addEventListener('click', () => {
             trackClick(button, 'tertiary_cta_click');
@@ -966,12 +983,72 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Premium page visibility handling
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            // Pause expensive animations when page is not visible
-            document.body.style.setProperty('--animation-play-state', 'paused');
-        } else {
-            document.body.style.setProperty('--animation-play-state', 'running');
-        }
-    });
+  document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+          // Pause expensive animations when page is not visible
+          document.body.style.setProperty('--animation-play-state', 'paused');
+      } else {
+          document.body.style.setProperty('--animation-play-state', 'running');
+      }
+  });
+
+  // Sync tier monthly pricing from assets/data/tiers.json (prevents drift)
+  (async function syncTierPricing() {
+      try {
+          const res = await fetch('/assets/data/tiers.json', { cache: 'no-store' });
+          if (!res.ok) return;
+          const tiers = await res.json();
+
+          // Home page cards
+          const homeCards = document.querySelectorAll('.tier-card[data-tier]');
+          homeCards.forEach(card => {
+              const key = card.getAttribute('data-tier');
+              const monthly = card.querySelector('.tier-monthly');
+              const setup = card.querySelector('.tier-setup');
+              if (monthly && tiers[key]?.monthly_usd) {
+                  monthly.textContent = `$${tiers[key].monthly_usd}/month`;
+              }
+              if (setup && tiers[key]?.setup_usd) {
+                  setup.textContent = `Setup: $${tiers[key].setup_usd}`;
+              }
+          });
+
+          // Pricing page cards
+          const setMonthly = (root, value) => {
+              if (!root || !value) return;
+              const period = root.querySelector('.period');
+              // Reset content to number and re-attach period span for styling
+              root.textContent = `$${value}`;
+              if (period) {
+                  root.appendChild(period);
+              } else {
+                  const span = document.createElement('span');
+                  span.className = 'period';
+                  span.textContent = '/month';
+                  root.appendChild(span);
+              }
+          };
+
+          const tierA = document.querySelector('.tier-card.tier-a .monthly-cost');
+          const tierB = document.querySelector('.tier-card.tier-b .monthly-cost');
+          const tierC = document.querySelector('.tier-card.tier-c .monthly-cost');
+          if (tiers.TierA?.monthly_usd) setMonthly(tierA, tiers.TierA.monthly_usd);
+          if (tiers.TierB?.monthly_usd) setMonthly(tierB, tiers.TierB.monthly_usd);
+          if (tiers.TierC?.monthly_usd) setMonthly(tierC, tiers.TierC.monthly_usd);
+
+          // Pricing page setup costs
+          const setSetup = (root, value) => {
+              if (!root || !value) return;
+              root.textContent = `Setup: $${value}`;
+          };
+          const setupA = document.querySelector('.tier-card.tier-a .setup-cost');
+          const setupB = document.querySelector('.tier-card.tier-b .setup-cost');
+          const setupC = document.querySelector('.tier-card.tier-c .setup-cost');
+          if (tiers.TierA?.setup_usd) setSetup(setupA, tiers.TierA.setup_usd);
+          if (tiers.TierB?.setup_usd) setSetup(setupB, tiers.TierB.setup_usd);
+          if (tiers.TierC?.setup_usd) setSetup(setupC, tiers.TierC.setup_usd);
+      } catch (e) {
+          // Silent failure to avoid blocking page
+      }
+  })();
 });

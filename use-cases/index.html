@@ -6,7 +6,7 @@
   <title>Use Cases - AI Agent Applications | Utlyze</title>
   <meta name="description" content="Explore how enterprises use Utlyze AI agents across industries. Filter by industry and discover the right tier for your needs.">
   <link rel="stylesheet" href="/style.css">
-  <link rel="canonical" href="/use-cases/">
+  <link rel="canonical" href="https://utlyze.com/use-cases/">
 </head>
 <body>
   <!-- Header will be injected here -->
@@ -127,6 +127,8 @@
     function createUseCaseCard(useCase, tiers) {
       const tier = tiers[useCase.recommendedTier];
       const tierName = tier ? tier.name : useCase.recommendedTier;
+      const href = useCase.link && useCase.link.startsWith('/resources/') ? '/contact/' : useCase.link;
+      const linkText = href === '/contact/' ? 'Contact us' : 'Learn more';
       
       return `
         <article class="use-case-card" data-industry="${useCase.industry}">
@@ -139,8 +141,8 @@
             <span class="tier-badge tier-${useCase.recommendedTier.toLowerCase()}">
               Recommended: ${tierName}
             </span>
-            <a href="${useCase.link}" class="use-case-link">
-              Learn more
+            <a href="${href}" class="use-case-link">
+              ${linkText}
               <span aria-hidden="true">→</span>
             </a>
           </div>

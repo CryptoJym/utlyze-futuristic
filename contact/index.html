@@ -7,6 +7,8 @@
   <meta name="description" content="Discover how Utlyze's AI agents can reduce costs by 10x and accelerate your enterprise. Get a personalized demo and ROI analysis.">
   <link rel="stylesheet" href="../style.css">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="canonical" href="https://utlyze.com/contact/">
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -518,6 +520,15 @@
   <script src="../app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Initialize Supabase client for contact form submissions
+      const supabaseUrl = 'https://mvjzmhlwnbwkrtachiec.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12anptaGx3bmJ3a3J0YWNoaWVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwOTI1MDQsImV4cCI6MjA2OTY2ODUwNH0.KWWX-XFgBqCA4MUpUOIU_Dt0gLX7O6mWgMVJhJAuCXw';
+      let supabaseClient = null;
+      if (window.supabase && typeof window.supabase.createClient === 'function') {
+        supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+      } else {
+        console.error('Supabase library not loaded; contact form will not submit to database');
+      }
       const form = document.getElementById('contact-form');
       const submitButton = document.getElementById('submit-button');
       const successMessage = document.getElementById('success-message');
@@ -654,8 +665,8 @@
         submitButton.textContent = 'Sending...';
 
         try {
-          // Check if Supabase is loaded
-          if (typeof window.supabase === 'undefined' || !window.supabase) {
+          // Ensure Supabase client is ready
+          if (!supabaseClient) {
             throw new Error('Supabase not initialized');
           }
 
@@ -687,7 +698,7 @@
           };
 
           // Submit to Supabase
-          const { data, error } = await window.supabase
+          const { data, error } = await supabaseClient
             .from('contact_submissions')
             .insert([formData]);
 

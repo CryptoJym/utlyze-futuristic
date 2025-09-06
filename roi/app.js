@@ -176,21 +176,7 @@ function calcROI() {
 	if (summarySavings) summarySavings.textContent = formatMoney(savings);
 	if (summaryRoi) summaryRoi.textContent = (roi * 100).toFixed(1) + '%';
 
-	// Populate detailed report
-	const showReport = document.getElementById('detailedReport');
-	if (showReport) {
-		document.getElementById('baselineTokens').textContent = Math.round(baselineMonthlyTokens).toLocaleString();
-		document.getElementById('offloadedTokens').textContent = Math.round(offloadedTokens).toLocaleString();
-		document.getElementById('hostedRateOut').textContent = hostedRate.toFixed(4);
-		document.getElementById('hostedTokenCost').textContent = formatMoney(hostedTokenCost);
-		document.getElementById('remainingApiCost').textContent = formatMoney(remainingApiCost);
-		document.getElementById('hostingFeeOut').textContent = formatMoney(hostingFee);
-		document.getElementById('trainingMonthlyOut').textContent = formatMoney(trainingMonthly);
-		document.getElementById('newMonthlyCostOut').textContent = formatMoney(newMonthlyCost);
-		document.getElementById('savingsOut').textContent = formatMoney(savings);
-		document.getElementById('paybackDaysOut').textContent = String(paybackDays);
-		showReport.style.display = 'block';
-	}
+    // Detailed report section removed (placeholder not in DOM)
 
 	// Sync hidden fields on lead form
 	const form = document.getElementById('calcForm');
