@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Use Cases - AI Agent Applications | Utlyze</title>
   <meta name="description" content="Explore how enterprises use Utlyze AI agents across industries. Filter by industry and discover the right tier for your needs.">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="../style.css">
   <link rel="canonical" href="https://utlyze.com/use-cases/">
 </head>
 <body>
@@ -102,10 +102,10 @@
     // Load and display use cases
     async function loadUseCases() {
       try {
-        const response = await fetch('/assets/data/use-cases.json');
+        const response = await fetch('../assets/data/use-cases.json');
         const useCases = await response.json();
         
-        const tiersResponse = await fetch('/assets/data/tiers.json');
+        const tiersResponse = await fetch('../assets/data/tiers.json');
         const tiers = await tiersResponse.json();
         
         displayUseCases(useCases, tiers);
@@ -127,8 +127,9 @@
     function createUseCaseCard(useCase, tiers) {
       const tier = tiers[useCase.recommendedTier];
       const tierName = tier ? tier.name : useCase.recommendedTier;
-      const href = useCase.link && useCase.link.startsWith('/resources/') ? '/contact/' : useCase.link;
-      const linkText = href === '/contact/' ? 'Contact us' : 'Learn more';
+      // Use the original link without redirecting resources to contact
+      const href = useCase.link || '/contact/';
+      const linkText = useCase.link ? 'Learn more' : 'Contact us';
       
       return `
         <article class="use-case-card" data-industry="${useCase.industry}">
@@ -186,6 +187,6 @@
     setActiveNavLink();
     loadUseCases();
   </script>
-  <script src="/app.js"></script>
+  <script src="../app.js"></script>
 </body>
 </html>

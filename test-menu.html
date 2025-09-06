@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Test</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Debug styles */
+        .nav-toggle {
+            background: red !important;
+            z-index: 10000 !important;
+        }
+        .debug-info {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: black;
+            color: white;
+            padding: 10px;
+            font-family: monospace;
+            z-index: 10001;
+        }
+    </style>
+</head>
+<body>
+    <div id="site-header-mount"></div>
+    
+    <div class="debug-info">
+        <div>Menu state: <span id="menu-state">closed</span></div>
+        <div>Toggle found: <span id="toggle-found">checking...</span></div>
+        <div>Nav found: <span id="nav-found">checking...</span></div>
+        <div>Initialized: <span id="initialized">checking...</span></div>
+    </div>
+
+    <main style="padding: 100px 20px;">
+        <h1>Testing Mobile Menu</h1>
+        <p>The hamburger menu button should be visible and clickable.</p>
+        <p>Click the red button in the top right to toggle the menu.</p>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+    
+    <script>
+        // Debug monitoring
+        setInterval(() => {
+            const toggle = document.querySelector('.nav-toggle');
+            const nav = document.querySelector('.nav-links');
+            
+            document.getElementById('toggle-found').textContent = toggle ? 'YES' : 'NO';
+            document.getElementById('nav-found').textContent = nav ? 'YES' : 'NO';
+            document.getElementById('initialized').textContent = toggle?.hasAttribute('data-initialized') ? 'YES' : 'NO';
+            document.getElementById('menu-state').textContent = nav?.classList.contains('nav-links--open') ? 'OPEN' : 'CLOSED';
+        }, 500);
+    </script>
+</body>
+</html>

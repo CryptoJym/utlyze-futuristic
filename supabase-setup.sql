@@ -30,6 +30,50 @@ CREATE INDEX idx_submissions_created_at ON public.submissions(created_at DESC);
 -- Add a comment on the table
 COMMENT ON TABLE public.submissions IS 'Stores lead capture form submissions from the Utlyze website';
 
+-- Contact Submissions (enterprise contact form)
+CREATE TABLE IF NOT EXISTS public.contact_submissions (
+    id BIGSERIAL PRIMARY KEY,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT,
+    company TEXT,
+    job_title TEXT,
+    company_size TEXT,
+    industry TEXT,
+    current_ai_usage TEXT,
+    interested_solutions TEXT[],
+    timeline TEXT,
+    budget_range TEXT,
+    pain_points TEXT NOT NULL,
+    message TEXT,
+    utm_source TEXT,
+    utm_medium TEXT,
+    utm_campaign TEXT,
+    referrer TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE public.contact_submissions ENABLE ROW LEVEL SECURITY;
+
+-- Allow public inserts (form submissions)
+CREATE POLICY IF NOT EXISTS "Allow public inserts (contact_submissions)"
+ON public.contact_submissions
+FOR INSERT
+WITH CHECK (true);
+
+-- Allow authenticated users to view submissions
+CREATE POLICY IF NOT EXISTS "Allow authenticated select (contact_submissions)"
+ON public.contact_submissions
+FOR SELECT
+USING (auth.role() = 'authenticated');
+
+-- Indexes for common queries
+CREATE INDEX IF NOT EXISTS idx_contact_submissions_email ON public.contact_submissions(email);
+CREATE INDEX IF NOT EXISTS idx_contact_submissions_created_at ON public.contact_submissions(created_at DESC);
+
+COMMENT ON TABLE public.contact_submissions IS 'Enterprise contact form submissions (validated + honeypot)';
+
 -- ROI Calculator Leads
 -- Stores leads captured from the ROI landing page, including calculator inputs,
 -- computed results, and UTM/referrer metadata for attribution.

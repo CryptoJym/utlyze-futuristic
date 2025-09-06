@@ -68,11 +68,26 @@ const fallbackFooterHTML = `<footer class="site-footer">
   </div>
 </footer>`;
 
+// Function to calculate the correct path prefix based on current page location
+function getPathPrefix() {
+    const pathname = window.location.pathname;
+    const depth = (pathname.match(/\//g) || []).length - 1;
+    
+    // If we're at root or index.html at root
+    if (depth === 0 || pathname === '/index.html' || pathname === '/') {
+        return '.';
+    }
+    
+    // Build relative path back to root
+    return Array(depth).fill('..').join('/');
+}
+
 // Function to load header and footer partials with fallback
 async function loadPartials() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isLocalFile = window.location.protocol === 'file:';
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const pathPrefix = getPathPrefix();
     
     // Load header
     const headerMount = document.getElementById('site-header-mount');
@@ -82,12 +97,12 @@ async function loadPartials() {
         // Try fetch first (unless it's mobile or local file)
         if (!isMobile && !isLocalFile) {
             try {
-                const headerResponse = await fetch('/partials/header.html');
+                const headerResponse = await fetch(`${pathPrefix}/partials/header.html`);
                 if (headerResponse.ok) {
                     const headerHTML = await headerResponse.text();
                     headerMount.innerHTML = headerHTML;
                     headerLoaded = true;
-                    console.log('Header loaded via fetch');
+                    console.log('Header loaded via fetch from:', `${pathPrefix}/partials/header.html`);
                 }
             } catch (error) {
                 console.warn('Fetch failed for header, using fallback:', error.message);
@@ -100,8 +115,10 @@ async function loadPartials() {
             console.log('Header loaded via fallback injection (mobile/local)');
         }
         
-        // Initialize mobile menu
-        setTimeout(initializeMobileMenu, 100);
+        // Initialize mobile menu with delay to ensure DOM is ready
+        setTimeout(() => {
+            initializeMobileMenu();
+        }, 200);
         
         // Set active navigation state
         setTimeout(setActiveNavLink, 150);
@@ -126,12 +143,12 @@ async function loadPartials() {
         // Try fetch first (unless it's mobile or local file)
         if (!isMobile && !isLocalFile) {
             try {
-                const footerResponse = await fetch('/partials/footer.html');
+                const footerResponse = await fetch(`${pathPrefix}/partials/footer.html`);
                 if (footerResponse.ok) {
                     const footerHTML = await footerResponse.text();
                     footerMount.innerHTML = footerHTML;
                     footerLoaded = true;
-                    console.log('Footer loaded via fetch');
+                    console.log('Footer loaded via fetch from:', `${pathPrefix}/partials/footer.html`);
                 }
             } catch (error) {
                 console.warn('Fetch failed for footer, using fallback:', error.message);
@@ -175,50 +192,86 @@ function setActiveNavLink() {
 
 // Initialize mobile menu functionality
 function initializeMobileMenu() {
-    const menuToggle = document.querySelector('.nav-toggle');
+    let menuToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-links');
+    
+    if (!menuToggle || !navMenu) {
+        // Elements not found yet, might still be loading
+        return;
+    }
 
     const setMenuState = (open) => {
-        if (!menuToggle || !navMenu) return;
-        menuToggle.setAttribute('aria-expanded', String(open));
-        navMenu.classList.toggle('nav-links--open', open);
-        menuToggle.classList.toggle('nav-toggle--active', open);
+        const currentToggle = document.querySelector('.nav-toggle');
+        const currentMenu = document.querySelector('.nav-links');
+        if (!currentToggle || !currentMenu) return;
+        currentToggle.setAttribute('aria-expanded', String(open));
+        currentMenu.classList.toggle('nav-links--open', open);
+        currentToggle.classList.toggle('nav-toggle--active', open);
         document.body.classList.toggle('menu-open', open);
     };
     
-    // Check if menu is already initialized
-    if (menuToggle && navMenu && !menuToggle.hasAttribute('data-initialized')) {
-        menuToggle.setAttribute('data-initialized', 'true');
-        
-        menuToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation(); // Prevent the click from bubbling to document
-            const isExpanded = this.getAttribute('aria-expanded') === 'true';
-            setMenuState(!isExpanded);
-        });
-        
-        // Close menu when clicking outside
-        // Add a small delay to prevent immediate closing
-        document.addEventListener('click', function(e) {
-            // Use setTimeout to ensure this doesn't fire on the same click event cycle
-            setTimeout(() => {
-                // Check if menu is open before trying to close it
-                if (navMenu && navMenu.classList.contains('nav-links--open')) {
-                    if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
-                        setMenuState(false);
-                    }
-                }
-            }, 10);
-        });
-        
-        // Close menu on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && navMenu.classList.contains('nav-links--open')) {
-                setMenuState(false);
-                menuToggle.focus();
-            }
-        });
+    // Remove old event listeners if re-initializing
+    if (menuToggle.hasAttribute('data-initialized')) {
+        // Clone node to remove all event listeners
+        const newToggle = menuToggle.cloneNode(true);
+        menuToggle.parentNode.replaceChild(newToggle, menuToggle);
+        // Update reference
+        menuToggle = newToggle;
     }
+    
+    menuToggle.setAttribute('data-initialized', 'true');
+    
+    // Handle menu toggle click
+    const handleToggle = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        setMenuState(!isExpanded);
+    };
+    
+    // Add event listeners for both click and touch
+    menuToggle.addEventListener('click', handleToggle);
+    
+    // Handle touch events separately to prevent double-firing
+    let touchHandled = false;
+    menuToggle.addEventListener('touchstart', function(e) {
+        touchHandled = true;
+        handleToggle.call(this, e);
+    }, { passive: false });
+    
+    menuToggle.addEventListener('mousedown', function(e) {
+        if (!touchHandled) {
+            e.preventDefault();
+        }
+        touchHandled = false;
+    });
+    
+    // Close menu when clicking outside
+    const handleOutsideClick = function(e) {
+        const currentMenu = document.querySelector('.nav-links');
+        const currentToggle = document.querySelector('.nav-toggle');
+        if (currentMenu && currentMenu.classList.contains('nav-links--open')) {
+            if (currentToggle && !currentToggle.contains(e.target) && !currentMenu.contains(e.target)) {
+                setMenuState(false);
+            }
+        }
+    };
+    
+    // Delay outside click handler to prevent immediate closing
+    setTimeout(() => {
+        document.addEventListener('click', handleOutsideClick, true);
+        document.addEventListener('touchstart', handleOutsideClick, { passive: true, capture: true });
+    }, 100);
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        const currentMenu = document.querySelector('.nav-links');
+        const currentToggle = document.querySelector('.nav-toggle');
+        if (e.key === 'Escape' && currentMenu && currentMenu.classList.contains('nav-links--open')) {
+            setMenuState(false);
+            if (currentToggle) currentToggle.focus();
+        }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -511,10 +564,31 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
             console.error('Error submitting form:', error);
             
-            // Show error message
+            // Show user-friendly error message
             if (formMessage) {
-                formMessage.textContent = 'There was an error submitting your idea. Please try again.';
+                let errorText = 'We encountered an issue submitting your idea. ';
+                
+                if (!navigator.onLine) {
+                    errorText += 'Please check your internet connection and try again.';
+                } else if (error.message && error.message.includes('duplicate')) {
+                    errorText += 'It looks like you\'ve already submitted this idea. We\'ll review it soon!';
+                } else if (error.code === '23505') {
+                    errorText += 'This submission has already been received. We\'ll review it within 48 hours!';
+                } else {
+                    errorText += 'Please try again in a moment, or email us directly at hello@utlyze.com';
+                }
+                
+                formMessage.textContent = errorText;
                 formMessage.className = 'form-message error';
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Auto-clear error after 10 seconds
+                setTimeout(() => {
+                    if (formMessage.className.includes('error')) {
+                        formMessage.textContent = '';
+                        formMessage.className = 'form-message';
+                    }
+                }, 10000);
             }
             
             // Reset button
@@ -655,8 +729,45 @@ document.addEventListener('DOMContentLoaded', function() {
             
         } catch (error) {
             console.error('Error submitting form:', error);
-            // Show error message
-            alert('Error submitting form. Please try again.');
+            
+            // Show user-friendly error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'form-error-message';
+            errorDiv.style.cssText = `
+                background: linear-gradient(135deg, #ff6b6b, #ff5252);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                margin: 20px 0;
+                font-size: 14px;
+                line-height: 1.5;
+                box-shadow: 0 4px 15px rgba(255, 82, 82, 0.3);
+                animation: slideIn 0.4s ease-out;
+            `;
+            
+            // Determine specific error message
+            let errorMessage = 'We encountered an issue submitting your form. ';
+            if (!navigator.onLine) {
+                errorMessage += 'Please check your internet connection and try again.';
+            } else if (error.message && error.message.includes('duplicate')) {
+                errorMessage += 'It looks like you\'ve already submitted this form. We\'ll be in touch soon!';
+            } else if (error.code === '23505') {
+                errorMessage += 'This email has already been registered. We\'ll be in touch soon!';
+            } else {
+                errorMessage += 'Please try again in a moment, or contact us directly at hello@utlyze.com';
+            }
+            
+            errorDiv.textContent = errorMessage;
+            
+            // Insert error message after the form
+            form.parentNode.insertBefore(errorDiv, form.nextSibling);
+            
+            // Auto-remove error after 8 seconds
+            setTimeout(() => {
+                errorDiv.style.opacity = '0';
+                errorDiv.style.transform = 'translateY(-10px)';
+                setTimeout(() => errorDiv.remove(), 400);
+            }, 8000);
             
             // Reset button state
             submitButton.innerHTML = originalText;
@@ -995,7 +1106,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // Sync tier monthly pricing from assets/data/tiers.json (prevents drift)
   (async function syncTierPricing() {
       try {
-          const res = await fetch('/assets/data/tiers.json', { cache: 'no-store' });
+          const pathPrefix = getPathPrefix();
+          const res = await fetch(`${pathPrefix}/assets/data/tiers.json`, { cache: 'no-store' });
           if (!res.ok) return;
           const tiers = await res.json();
 
