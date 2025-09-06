@@ -114,6 +114,10 @@ Launch Checklist
 - Monitoring: Enable uptime + client error tracking (e.g., Sentry); Supabase logs for form inserts.
 - Rollback: Host is static; roll back via prior artifact or `git revert` and redeploy.
 
+Automation
+- CI (e2e): `.github/workflows/e2e.yml` runs Playwright against a local static server.
+- CI (quality): `.github/workflows/quality.yml` runs Lighthouse (perf/SEO/best-practices) and pa11y (WCAG2AA) against key routes.
+
 Branch & Ownership
 - Branch: `feat/qa-cross-device-happypaths`
 - Artifacts: `e2e/` suite, nav overlay fix in `style.css` + `app.js`, ROI calc/client in `roi/`

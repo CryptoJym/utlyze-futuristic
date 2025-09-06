@@ -1,0 +1,53 @@
+name: quality
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: |
+            http://localhost:4010/
+            http://localhost:4010/roi/
+            http://localhost:4010/pricing/
+            http://localhost:4010/agents/
+            http://localhost:4010/studio/
+            http://localhost:4010/contact/
+          runs: 1
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          startServerCommand: python3 -m http.server 4010
+          startServerReadyPattern: "Serving HTTP on"
+
+  a11y:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Start static server
+        run: |
+          nohup python3 -m http.server 4020 >/dev/null 2>&1 &
+          sleep 1
+
+      - name: Run pa11y-ci
+        run: npx -y pa11y-ci --config ./pa11y-ci.json
