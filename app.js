@@ -86,7 +86,6 @@ function getPathPrefix() {
 async function loadPartials() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isLocalFile = window.location.protocol === 'file:';
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const pathPrefix = getPathPrefix();
     
     // Load header
@@ -94,8 +93,8 @@ async function loadPartials() {
     if (headerMount) {
         let headerLoaded = false;
         
-        // Try fetch first (unless it's mobile or local file)
-        if (!isMobile && !isLocalFile) {
+        // Always try to fetch partials unless running from local files
+        if (!isLocalFile) {
             try {
                 const headerResponse = await fetch(`${pathPrefix}/partials/header.html`);
                 if (headerResponse.ok) {
@@ -109,10 +108,10 @@ async function loadPartials() {
             }
         }
         
-        // Use fallback if fetch failed or on mobile
+        // Use fallback if fetch failed or running locally
         if (!headerLoaded) {
             headerMount.innerHTML = fallbackHeaderHTML;
-            console.log('Header loaded via fallback injection (mobile/local)');
+            console.log('Header loaded via fallback injection');
         }
         
         // Initialize mobile menu with delay to ensure DOM is ready
@@ -140,8 +139,8 @@ async function loadPartials() {
     if (footerMount) {
         let footerLoaded = false;
         
-        // Try fetch first (unless it's mobile or local file)
-        if (!isMobile && !isLocalFile) {
+        // Always try to fetch partials unless running from local files
+        if (!isLocalFile) {
             try {
                 const footerResponse = await fetch(`${pathPrefix}/partials/footer.html`);
                 if (footerResponse.ok) {
@@ -155,10 +154,10 @@ async function loadPartials() {
             }
         }
         
-        // Use fallback if fetch failed or on mobile
+        // Use fallback if fetch failed or running locally
         if (!footerLoaded) {
             footerMount.innerHTML = fallbackFooterHTML;
-            console.log('Footer loaded via fallback injection (mobile/local)');
+            console.log('Footer loaded via fallback injection');
         }
         
         // Add fade-in animation if motion is allowed
