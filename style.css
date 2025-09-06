@@ -212,17 +212,7 @@
     transition: transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
   }
   
-  /* Add logo/brand at top of mobile menu */
-  .nav-links::before {
-    content: "MENU";
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: rgba(0,0,0,0.4);
-  }
+  /* Removed MENU text that was causing display issues */
   
   /* Show menu when open class is added */
   body.menu-open .nav-links,
@@ -3457,22 +3447,7 @@ textarea.glass-input {
   justify-content: space-between;
 }
 
-.nav-links {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: inherit;
-  padding: 8px 10px;
-  border-radius: 8px;
-}
-
-.nav-link:hover {
-  background: rgba(0, 91, 255, 0.06);
-}
+/* Removed duplicate nav-links and nav-link styles - using comprehensive definitions at lines 1758-1775 */
 
 .nav-link:focus-visible,
 .nav-toggle:focus-visible {
@@ -3744,4 +3719,192 @@ select,
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* Active nav link styling */
+.nav-link.active {
+  background: rgba(0, 91, 255, 0.08);
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+/* =============================================================================
+   Agents Page Specific Styles
+============================================================================= */
+
+/* Tier Matrix Section */
+.tier-matrix {
+  background: var(--color-secondary);
+  padding: var(--space-80) 0;
+}
+
+.tier-table-wrapper {
+  overflow-x: auto;
+  margin: var(--space-40) 0;
+}
+
+.tier-comparison {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--color-background);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.tier-comparison thead th {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  padding: var(--space-20) var(--space-24);
+  text-align: left;
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+}
+
+.tier-comparison tbody td {
+  padding: var(--space-24);
+  border-top: 1px solid var(--color-border);
+  vertical-align: top;
+}
+
+.tier-comparison .row-label {
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-secondary);
+  min-width: 180px;
+}
+
+/* Pricing info styling */
+.pricing-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.pricing-info .setup {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.pricing-info .monthly {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* Tech spec styling */
+.tech-spec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.tech-spec p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.tech-spec strong {
+  color: var(--color-text);
+}
+
+/* Add-ons Section */
+.add-ons-section {
+  margin-top: var(--space-60);
+  padding: var(--space-40);
+  background: var(--color-background);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.add-ons-section h3 {
+  text-align: center;
+  margin-bottom: var(--space-8);
+  color: var(--color-text);
+}
+
+.add-ons-intro {
+  text-align: center;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-40);
+  font-size: var(--font-size-lg);
+}
+
+.add-ons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-24);
+}
+
+.add-on-card {
+  background: var(--color-secondary);
+  padding: var(--space-24);
+  border-radius: var(--radius-base);
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+.add-on-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-primary);
+}
+
+.add-on-card h4 {
+  margin-bottom: var(--space-8);
+  color: var(--color-text);
+  font-size: var(--font-size-lg);
+}
+
+.add-on-card p {
+  margin-bottom: var(--space-16);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+}
+
+.add-on-pricing {
+  font-size: var(--font-size-sm);
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+.add-on-pricing .tier-label {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.add-on-pricing small {
+  display: block;
+  margin-top: var(--space-8);
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* Responsive design for tier table */
+@media (max-width: 900px) {
+  .tier-comparison {
+    font-size: var(--font-size-sm);
+  }
+  
+  .tier-comparison thead th,
+  .tier-comparison tbody td {
+    padding: var(--space-16);
+  }
+  
+  .pricing-info .monthly {
+    font-size: var(--font-size-lg);
+  }
+}
+
+@media (max-width: 600px) {
+  .tier-table-wrapper {
+    margin: var(--space-24) -var(--space-16);
+    padding: 0 var(--space-16);
+  }
+  
+  .add-ons-grid {
+    grid-template-columns: 1fr;
+  }
 }
