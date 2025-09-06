@@ -18,6 +18,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Playwright artifacts
+test-results/
+Downloads/
+
 # Environment variables
 .env
 .env.local

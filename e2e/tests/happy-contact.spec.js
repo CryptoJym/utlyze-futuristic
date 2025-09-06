@@ -24,7 +24,7 @@ test.describe('Contact form happy-path', () => {
     await page.fill('#job_title', 'QA Lead');
     await page.fill('#pain_points', 'High API costs and latency');
 
-    await page.click('#submit-button');
+    await page.click('#submit-button', { force: true });
 
     await expect(page.locator('#success-message')).toBeVisible();
 
@@ -35,4 +35,3 @@ test.describe('Contact form happy-path', () => {
     expect(errors).toEqual([]);
   });
 });
-

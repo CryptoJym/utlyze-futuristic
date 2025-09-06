@@ -8,7 +8,8 @@ export default defineConfig({
   reporter: 'list',
   use: {
     baseURL: 'http://localhost:3010',
-    trace: 'off'
+    trace: 'off',
+    reducedMotion: 'reduce'
   },
   projects: [
     {
