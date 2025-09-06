@@ -176,12 +176,14 @@ async function loadPartials() {
 // Set active navigation state
 function setActiveNavLink() {
     const navLinks = document.querySelectorAll('.nav-link');
-    const currentPath = window.location.pathname;
+    // Normalize current path: remove trailing slash and query strings
+    const currentPath = window.location.pathname.replace(/\/$/, '').split('?')[0];
     
     navLinks.forEach(link => {
-        const linkPath = link.getAttribute('href');
+        // Normalize link path: remove trailing slash
+        const linkPath = link.getAttribute('href').replace(/\/$/, '');
         // Check exact match or if current path starts with link path (for nested pages)
-        if (linkPath === currentPath || (linkPath !== '/' && currentPath.startsWith(linkPath))) {
+        if (linkPath === currentPath || (linkPath !== '' && currentPath.startsWith(linkPath))) {
             link.classList.add('active');
         } else {
             link.classList.remove('active');
