@@ -27,7 +27,6 @@ const fallbackHeaderHTML = `<header class="site-header">
         <li><a href="/pricing/" class="nav-link">Pricing & ROI</a></li>
         <li><a href="/use-cases/" class="nav-link">Use Cases</a></li>
         <li><a href="/studio/" class="nav-link">Venture Studio</a></li>
-        <li><a href="/companies/" class="nav-link">Portfolio</a></li>
         <li><a href="/about/" class="nav-link">About</a></li>
         <li><a href="/resources/" class="nav-link">Resources</a></li>
         <li><a href="/contact/" class="nav-link">Contact</a></li>
@@ -404,6 +403,22 @@ document.addEventListener('DOMContentLoaded', function() {
     function isValidEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
+    }
+
+    // URL validator for optional URL fields on studio/contact forms
+    function isValidURL(string) {
+        try {
+            let urlString = String(string || '').trim();
+            if (!urlString) return false;
+            if (!/^https?:\/\//i.test(urlString)) {
+                urlString = 'https://' + urlString;
+            }
+            // Throws if invalid
+            new URL(urlString);
+            return true;
+        } catch (_) {
+            return false;
+        }
     }
 
     function showError(fieldId, message) {

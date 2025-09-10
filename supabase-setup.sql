@@ -168,6 +168,54 @@ ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS remaining_api_cost NUMERIC
 ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS new_monthly_cost NUMERIC;
 ALTER TABLE public.roi_leads ADD COLUMN IF NOT EXISTS detailed_report TEXT;
 
+-- Contact submissions (website contact form)
+-- Stores inquiries from / and /contact/ with optional marketing metadata
+CREATE TABLE IF NOT EXISTS public.contact_submissions (
+    id BIGSERIAL PRIMARY KEY,
+    -- Contact fields
+    first_name TEXT,
+    last_name TEXT,
+    email TEXT NOT NULL,
+    phone TEXT,
+    company TEXT,
+    job_title TEXT,
+    company_size TEXT,
+    industry TEXT,
+    current_ai_usage TEXT,
+    interested_solutions TEXT[],
+    timeline TEXT,
+    budget_range TEXT,
+    pain_points TEXT,
+    message TEXT,
+    -- Attribution
+    utm_source TEXT,
+    utm_medium TEXT,
+    utm_campaign TEXT,
+    utm_term TEXT,
+    utm_content TEXT,
+    referrer TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable RLS and policies
+ALTER TABLE public.contact_submissions ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY IF NOT EXISTS "Allow public inserts (contact_submissions)"
+ON public.contact_submissions
+FOR INSERT
+WITH CHECK (true);
+
+CREATE POLICY IF NOT EXISTS "Allow authenticated select (contact_submissions)"
+ON public.contact_submissions
+FOR SELECT
+USING (auth.role() = 'authenticated');
+
+-- Useful indexes
+CREATE INDEX IF NOT EXISTS idx_contact_submissions_email ON public.contact_submissions(email);
+CREATE INDEX IF NOT EXISTS idx_contact_submissions_created_at ON public.contact_submissions(created_at DESC);
+
+COMMENT ON TABLE public.contact_submissions IS 'Contact form submissions from website with optional UTM metadata';
+
 -- Contact submissions (enterprise contact form)
 CREATE TABLE IF NOT EXISTS public.contact_submissions (
     id BIGSERIAL PRIMARY KEY,

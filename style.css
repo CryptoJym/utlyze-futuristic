@@ -1755,6 +1755,7 @@ textarea.glass-input {
   transform: translateY(-1px);
 }
 
+@media (min-width: 901px) {
 /* Desktop navigation - explicit reset of mobile styles */
 .nav-links {
   position: static !important; /* Override mobile fixed positioning */
@@ -1833,6 +1834,8 @@ textarea.glass-input {
 .nav-toggle--active .nav-toggle-line:nth-child(3) {
   transform: rotate(-45deg) translate(6px, -6px);
 }
+
+} /* end desktop-only reset */
 
 /* Mobile Navigation - Additional styles for smaller screens */
 @media (max-width: 768px) {
