@@ -1,510 +1,415 @@
-// Portfolio companies data
-const companies = [
-  {
-    id: 1,
-    name: "DataSync Pro",
-    logo: "DS",
-    color: "#21808D",
-    tagline: "Revolutionary data integration platform",
-    description: "DataSync Pro revolutionizes data integration for Fortune 500 companies with intelligent automation and real-time synchronization. Built in 6 months, now valued at $280M.",
-    industry: "SaaS",
-    stage: "Series B",
-    founded: 2021,
-    teamSize: 45,
-    location: "San Francisco, CA",
-    achievements: ["$45M Series B", "$280M valuation", "Fortune 500 clients"],
-    fundingRaised: "$45M",
-    demoUrl: "https://demo.datasync.pro",
-    websiteUrl: "https://datasync.pro"
-  },
-  {
-    id: 2,
-    name: "CloudOptimize",
-    logo: "CO",
-    color: "#1D747E",
-    tagline: "AI-powered cloud cost optimization",
-    description: "CloudOptimize uses AI to optimize cloud costs for enterprises. From idea to acquisition by AWS in just 18 months, delivering 40% cost savings to enterprise customers.",
-    industry: "AI/ML",
-    stage: "Acquired",
-    founded: 2022,
-    teamSize: 38,
-    location: "Seattle, WA",
-    achievements: ["Acquired by AWS", "40% cost reduction", "18-month exit"],
-    fundingRaised: "Acquired",
-    demoUrl: "https://aws.amazon.com/cloudoptimize",
-    websiteUrl: "https://cloudoptimize.aws"
-  },
-  {
-    id: 3,
-    name: "SecureFlow",
-    logo: "SF",
-    color: "#1A687E",
-    tagline: "Next-gen security orchestration platform",
-    description: "SecureFlow provides next-generation security orchestration for modern enterprises. Achieved product-market fit in 4 months using Utlyze platform insights.",
-    industry: "Security",
-    stage: "Series A",
-    founded: 2023,
-    teamSize: 28,
-    location: "Austin, TX",
-    achievements: ["10,000+ users", "4-month PMF", "$15M Series A"],
-    fundingRaised: "$15M",
-    demoUrl: "https://demo.secureflow.io",
-    websiteUrl: "https://secureflow.io"
-  },
-  {
-    id: 4,
-    name: "FinFlow AI",
-    logo: "FF",
-    color: "#21808D",
-    tagline: "AI-powered financial analytics for SMBs",
-    description: "FinFlow AI revolutionizes financial management for small and medium businesses with intelligent automation and predictive analytics. Our platform helps businesses optimize cash flow and make data-driven decisions.",
-    industry: "FinTech",
-    stage: "Series A",
-    founded: 2022,
-    teamSize: 25,
-    location: "New York, NY",
-    achievements: ["$5M ARR", "10,000+ users", "SOC 2 certified"],
-    fundingRaised: "$12M",
-    demoUrl: "https://demo.finflow.ai",
-    websiteUrl: "https://finflow.ai"
-  },
-  {
-    id: 5,
-    name: "HealthBridge",
-    logo: "HB",
-    color: "#1D747E",
-    tagline: "Connecting patients with specialized care",
-    description: "HealthBridge seamlessly connects patients with specialized healthcare providers through AI-driven matching and virtual consultations, reducing wait times and improving outcomes.",
-    industry: "HealthTech",
-    stage: "Seed",
-    founded: 2023,
-    teamSize: 15,
-    location: "Boston, MA",
-    achievements: ["50,000 consultations", "4.8/5 rating", "HIPAA compliant"],
-    fundingRaised: "$4M",
-    demoUrl: "https://app.healthbridge.com/demo",
-    websiteUrl: "https://healthbridge.com"
-  },
-  {
-    id: 6,
-    name: "EduSpark",
-    logo: "ES",
-    color: "#1A687E",
-    tagline: "Personalized learning paths powered by AI",
-    description: "EduSpark creates adaptive learning experiences for K-12 students using advanced AI algorithms that adjust content difficulty in real-time to maximize engagement and outcomes.",
-    industry: "EdTech",
-    stage: "Pre-seed",
-    founded: 2024,
-    teamSize: 8,
-    location: "Chicago, IL",
-    achievements: ["100+ pilot schools", "95% improvement rate", "EdTech Award nominee"],
-    fundingRaised: "$1.5M",
-    demoUrl: "https://demo.eduspark.io",
-    websiteUrl: "https://eduspark.io"
-  },
-  {
-    id: 7,
-    name: "RetailMind",
-    logo: "RM",
-    color: "#21808D",
-    tagline: "Smart inventory management for retailers",
-    description: "RetailMind uses machine learning to optimize inventory levels and predict demand patterns, reducing stockouts by 40% and improving profit margins through intelligent purchasing.",
-    industry: "E-commerce",
-    stage: "Seed",
-    founded: 2022,
-    teamSize: 18,
-    location: "Los Angeles, CA",
-    achievements: ["500+ partners", "$50M GMV", "30% cost reduction"],
-    fundingRaised: "$6M",
-    demoUrl: "https://retailmind.com/demo",
-    websiteUrl: "https://retailmind.com"
-  },
-  {
-    id: 8,
-    name: "NeuralVision",
-    logo: "NV",
-    color: "#1D747E",
-    tagline: "Computer vision for quality control",
-    description: "NeuralVision provides AI-powered visual inspection systems for manufacturing, detecting defects 10x faster than human inspection with 99.9% accuracy.",
-    industry: "AI/ML",
-    stage: "Series A",
-    founded: 2021,
-    teamSize: 32,
-    location: "Detroit, MI",
-    achievements: ["50+ clients", "1M+ daily inspections", "ISO certified"],
-    fundingRaised: "$18M",
-    demoUrl: "https://neuralvision.ai/demo",
-    websiteUrl: "https://neuralvision.ai"
-  },
-  {
-    id: 9,
-    name: "PayLink",
-    logo: "PL",
-    color: "#1A687E",
-    tagline: "Instant cross-border payments",
-    description: "PayLink enables instant, low-cost international money transfers using blockchain technology, serving the $700B remittance market with fees 80% lower than traditional providers.",
-    industry: "FinTech",
-    stage: "Seed",
-    founded: 2023,
-    teamSize: 12,
-    location: "Miami, FL",
-    achievements: ["$100M processed", "50+ countries", "5 market approvals"],
-    fundingRaised: "$8M",
-    demoUrl: "https://paylink.global/demo",
-    websiteUrl: "https://paylink.global"
-  },
-  {
-    id: 10,
-    name: "LearnLoop",
-    logo: "LL",
-    color: "#21808D",
-    tagline: "Corporate training reimagined",
-    description: "LearnLoop transforms corporate training with microlearning and gamification, increasing completion rates by 3x while reducing training time by 50% through AI-powered optimization.",
-    industry: "EdTech",
-    stage: "Seed",
-    founded: 2022,
-    teamSize: 20,
-    location: "Denver, CO",
-    achievements: ["200+ enterprises", "2M+ learners", "95% completion"],
-    fundingRaised: "$10M",
-    demoUrl: "https://learnloop.com/demo",
-    websiteUrl: "https://learnloop.com"
-  },
-  {
-    id: 11,
-    name: "DataPulse",
-    logo: "DP",
-    color: "#1D747E",
-    tagline: "Real-time analytics for SaaS metrics",
-    description: "DataPulse provides real-time analytics dashboards specifically designed for SaaS companies, tracking MRR, churn, LTV, and other key metrics with predictive insights.",
-    industry: "SaaS",
-    stage: "Seed",
-    founded: 2023,
-    teamSize: 14,
-    location: "Portland, OR",
-    achievements: ["300+ clients", "$3M ARR", "Product Hunt #1"],
-    fundingRaised: "$7M",
-    demoUrl: "https://datapulse.io/demo",
-    websiteUrl: "https://datapulse.io"
-  },
-  {
-    id: 12,
-    name: "VoiceAI Pro",
-    logo: "VA",
-    color: "#1A687E",
-    tagline: "Natural language processing for customer service",
-    description: "VoiceAI Pro revolutionizes customer service with advanced voice AI that handles 80% of inquiries autonomously, reducing support costs by 60% while improving satisfaction.",
-    industry: "AI/ML",
-    stage: "Growth",
-    founded: 2020,
-    teamSize: 55,
-    location: "Atlanta, GA",
-    achievements: ["10M+ calls", "Fortune 500 clients", "$20M Series B"],
-    fundingRaised: "$35M",
-    demoUrl: "https://voiceai.pro/demo",
-    websiteUrl: "https://voiceai.pro"
-  }
-];
+// Portfolio functionality for Studio page
+document.addEventListener('DOMContentLoaded', function() {
+  // Company data - from original companies/data.json
+  const companies = [
+    {
+      id: 100,
+      name: "Vuplicity",
+      slug: "vuplicity",
+      tagline: "Same‑day background checks that transform your hiring.",
+      description: "Transform your background check process with AI‑powered efficiency. Get comprehensive results same day. Real‑time, compliant checks at better value.",
+      industry: "AI/ML",
+      stage: "Growth",
+      founded: 2025,
+      teamSize: 6,
+      location: "Remote",
+      teamSummary: "Experienced founders; 6-person team",
+      techKpi: "Same-day turnaround",
+      fundingRaised: "",
+      backers: [],
+      targetCustomer: "Hiring teams & HR",
+      differentiators: [
+        "Compliance-first",
+        "Proprietary workflows"
+      ],
+      achievements: [
+        "100+ docs automated/mo",
+        "Sub-10s draft generation",
+        "Brand-safe reusable prompts"
+      ],
+      demoUrl: "https://www.perplexity.ai/apps/09f89ad8-e3c8-4ec3-ad7d-aeb0941617d9",
+      websiteUrl: "https://vuplicity.com",
+      color: "#21808D",
+      logo: "V"
+    },
+    {
+      id: 101,
+      name: "Guardian",
+      slug: "guardian",
+      tagline: "AI KYC/AML compliance agent",
+      description: "Automates KYC onboarding, sanctions screening, and real‑time AML monitoring to cut false positives and reduce compliance cost.",
+      industry: "RegTech",
+      stage: "Pre-seed",
+      teamSize: "",
+      location: "Remote",
+      teamSummary: "Compliance + ML experience",
+      techKpi: "False positives ↓40% (target)",
+      fundingRaised: "",
+      backers: [],
+      targetCustomer: "Banks, fintechs, exchanges",
+      differentiators: [
+        "Always‑on diligence",
+        "Real‑time sanctions updates"
+      ],
+      achievements: [],
+      demoUrl: "#",
+      websiteUrl: "#",
+      color: "#1D747E",
+      logo: "G"
+    },
+    {
+      id: 102,
+      name: "Captura",
+      slug: "captura",
+      tagline: "AI invoice processing (AP automation)",
+      description: "Automates invoice capture, coding, 3‑way matching and approvals to cut cost per invoice and cycle time.",
+      industry: "SaaS",
+      stage: "Pre-seed",
+      teamSize: "",
+      location: "Remote",
+      teamSummary: "Finance systems + AI",
+      techKpi: "Cost/invoice <$2",
+      fundingRaised: "",
+      backers: [],
+      targetCustomer: "Mid‑market finance/AP",
+      differentiators: [
+        "3‑way matching",
+        "Duplicate/fraud detection"
+      ],
+      achievements: [],
+      demoUrl: "#",
+      websiteUrl: "#",
+      color: "#1A687E",
+      logo: "C"
+    },
+    {
+      id: 103,
+      name: "Collexa",
+      slug: "collexa",
+      tagline: "AI accounts receivable collections",
+      description: "Predicts late payers, automates dunning via email/SMS, and accelerates cash collection with embedded pay links.",
+      industry: "FinTech",
+      stage: "Pre-seed",
+      teamSize: "",
+      location: "Remote",
+      teamSummary: "FinOps + growth automation",
+      techKpi: "DSO ↓10–20% (target)",
+      fundingRaised: "",
+      backers: [],
+      targetCustomer: "B2B finance/AR",
+      differentiators: [
+        "Multi‑channel reminders",
+        "One‑click payment links"
+      ],
+      achievements: [],
+      demoUrl: "#",
+      websiteUrl: "#",
+      color: "#21808D",
+      logo: "X"
+    },
+    {
+      id: 104,
+      name: "Welcomat",
+      slug: "welcomat",
+      tagline: "AI employee onboarding assistant",
+      description: "Automates paperwork, provisioning, training, and day‑1/90‑day journeys to improve retention and time‑to‑productivity.",
+      industry: "HR Tech",
+      stage: "Pre-seed",
+      teamSize: "",
+      location: "Remote",
+      teamSummary: "People Ops + platform integration",
+      techKpi: "HR time saved 14h/wk (target)",
+      fundingRaised: "",
+      backers: [],
+      targetCustomer: "People Ops & HR",
+      differentiators: [
+        "Orchestrates HR/IT/LMS",
+        "Always‑on new‑hire Q&A"
+      ],
+      achievements: [],
+      demoUrl: "#",
+      websiteUrl: "#",
+      color: "#1D747E",
+      logo: "W"
+    }
+  ];
 
-// State management
-let filteredCompanies = [...companies];
-let currentSearch = '';
-let currentIndustryFilter = '';
-let currentStageFilter = '';
-let displayedCount = 6; // Show 6 companies initially
-const COMPANIES_PER_LOAD = 6; // Load 6 more companies each time
+  // State variables
+  let filteredCompanies = [...companies];
+  let displayedCount = 6;
+  const COMPANIES_PER_LOAD = 6;
 
-// Create company card HTML
-function createCompanyCard(company) {
-  return `
-    <div class="company-card" data-company-id="${company.id}">
-      <div class="company-card-header">
-        <div class="company-logo" style="background-color: ${company.color}">${company.logo}</div>
-        <div class="company-info">
-          <h3>${company.name}</h3>
-          <p class="company-tagline">${company.tagline}</p>
-        </div>
-      </div>
-      
-      <div class="company-meta">
-        <span class="meta-badge">${company.stage}</span>
-        <span class="meta-badge">${company.industry}</span>
-        ${company.fundingRaised && company.fundingRaised !== 'Acquired' ? 
-          `<span class="meta-badge">Raised ${company.fundingRaised}</span>` : ''}
-      </div>
-      
-      <div class="company-achievements">
-        ${company.achievements.slice(0, 3).map(achievement => 
-          `<span class="achievement-tag">${achievement}</span>`
-        ).join('')}
-      </div>
-      
-      <div class="company-card-footer">
-        <button class="btn-view-details" data-company-id="${company.id}">View Details</button>
-        <a href="${company.demoUrl}" target="_blank" class="btn-demo">View Demo</a>
-      </div>
-    </div>
-  `;
-}
-
-// Create modal content HTML
-function createModalContent(company) {
-  return `
-    <div class="modal-company-header">
-      <div class="modal-company-logo" style="background-color: ${company.color}">
-        ${company.logo}
-      </div>
-      <div class="modal-company-info">
-        <h2>${company.name}</h2>
-        <p class="modal-company-tagline">${company.tagline}</p>
-      </div>
-    </div>
-    
-    <div class="modal-details">
-      <div class="modal-detail">
-        <div class="modal-detail-label">Founded</div>
-        <div class="modal-detail-value">${company.founded}</div>
-      </div>
-      <div class="modal-detail">
-        <div class="modal-detail-label">Team Size</div>
-        <div class="modal-detail-value">${company.teamSize}</div>
-      </div>
-      <div class="modal-detail">
-        <div class="modal-detail-label">Location</div>
-        <div class="modal-detail-value">${company.location}</div>
-      </div>
-      <div class="modal-detail">
-        <div class="modal-detail-label">Stage</div>
-        <div class="modal-detail-value">${company.stage}</div>
-      </div>
-    </div>
-    
-    <p class="modal-description">${company.description}</p>
-    
-    <div class="modal-achievements">
-      <h4>Key Achievements</h4>
-      <div class="achievements-list">
-        ${company.achievements.map(achievement => 
-          `<span class="achievement">${achievement}</span>`
-        ).join('')}
-      </div>
-    </div>
-    
-    <div class="modal-actions">
-      <a href="${company.demoUrl}" target="_blank" class="btn btn-primary">
-        View Demo
-      </a>
-      <a href="${company.websiteUrl}" target="_blank" class="btn btn-secondary">
-        Visit Website
-      </a>
-    </div>
-  `;
-}
-
-// Render companies
-function renderCompanies(companiesToRender = filteredCompanies, append = false) {
+  // Get DOM elements
   const companyGrid = document.getElementById('companyGrid');
-  
-  if (!companyGrid) return;
-  
-  if (!append && companiesToRender.length === 0) {
-    companyGrid.innerHTML = `
-      <div class="empty-state">
-        <h3>No companies found</h3>
-        <p>Try adjusting your search or filter criteria.</p>
-      </div>
-    `;
-    // Remove load more button if it exists
-    const existingLoadMore = document.querySelector('.load-more-container');
-    if (existingLoadMore) existingLoadMore.remove();
+  const searchInput = document.getElementById('searchInput');
+  const industryFilter = document.getElementById('industryFilter');
+  const stageFilter = document.getElementById('stageFilter');
+  const modal = document.getElementById('companyModal');
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalClose = document.getElementById('modalClose');
+  const modalBody = document.getElementById('modalBody');
+
+  // Check if elements exist before continuing
+  if (!companyGrid) {
+    console.error('Company grid element not found');
     return;
   }
 
-  // Get companies to display based on displayedCount
-  const companiesToDisplay = append 
-    ? companiesToRender.slice(displayedCount - COMPANIES_PER_LOAD, displayedCount)
-    : companiesToRender.slice(0, displayedCount);
+  // Filter companies
+  function filterCompanies() {
+    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+    const selectedIndustry = industryFilter ? industryFilter.value : '';
+    const selectedStage = stageFilter ? stageFilter.value : '';
 
-  const html = companiesToDisplay.map(createCompanyCard).join('');
-  
-  if (append) {
-    // Add new companies to existing grid
-    companyGrid.insertAdjacentHTML('beforeend', html);
-  } else {
-    companyGrid.innerHTML = html;
-  }
+    filteredCompanies = companies.filter(company => {
+      const matchesSearch = !searchTerm || 
+        company.name.toLowerCase().includes(searchTerm) ||
+        company.tagline.toLowerCase().includes(searchTerm) ||
+        company.description.toLowerCase().includes(searchTerm);
 
-  // Add click handlers to view details buttons
-  document.querySelectorAll('.btn-view-details').forEach(button => {
-    button.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const companyId = parseInt(button.dataset.companyId);
-      const company = companies.find(c => c.id === companyId);
-      if (company) {
-        showModal(company);
-      }
+      const matchesIndustry = !selectedIndustry || company.industry === selectedIndustry;
+      const matchesStage = !selectedStage || company.stage === selectedStage;
+
+      return matchesSearch && matchesIndustry && matchesStage;
     });
-  });
-  
-  // Handle Load More button
-  updateLoadMoreButton(companiesToRender);
-}
 
-// Function to manage the Load More button
-function updateLoadMoreButton(companiesToRender) {
-  const existingLoadMore = document.querySelector('.load-more-container');
-  
-  // Remove existing button if it exists
-  if (existingLoadMore) {
-    existingLoadMore.remove();
+    displayedCount = COMPANIES_PER_LOAD;
+    renderCompanies();
   }
-  
-  // Add Load More button if there are more companies to show
-  if (displayedCount < companiesToRender.length) {
-    const companyGrid = document.getElementById('companyGrid');
-    const loadMoreHtml = `
-      <div class="load-more-container">
-        <button class="btn btn-primary load-more-btn" id="loadMoreBtn">
-          Load More Companies (${companiesToRender.length - displayedCount} remaining)
-        </button>
+
+  // Create company card HTML
+  function createCompanyCard(company) {
+    const hasWebsite = company.websiteUrl && company.websiteUrl !== '#';
+    const hasDemo = company.demoUrl && company.demoUrl !== '#';
+    
+    // Extract meaningful metrics
+    const metric1Label = company.techKpi ? 'Key Metric' : 'Team Size';
+    const metric1Value = company.techKpi || (company.teamSize || 'N/A');
+    
+    const metric2Label = company.targetCustomer ? 'Target' : 'Funding';
+    const metric2Value = company.targetCustomer || company.fundingRaised || 'Pre-seed';
+
+    return `
+      <div class="company-card" data-company-id="${company.id}">
+        <div class="company-card__stage">${company.stage}</div>
+        <div class="company-card__header">
+          <div class="company-card__logo" style="background-color: ${company.color};">
+            ${company.logo}
+          </div>
+          <h3 class="company-card__name">${company.name}</h3>
+          <span class="company-card__industry">${company.industry}</span>
+        </div>
+        <div class="company-card__body">
+          <p class="company-card__description">${company.tagline}</p>
+          <div class="company-card__metrics">
+            <div class="metric-item">
+              <div class="metric-value">${metric1Value}</div>
+              <div class="metric-label">${metric1Label}</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value">${metric2Value}</div>
+              <div class="metric-label">${metric2Label}</div>
+            </div>
+          </div>
+        </div>
       </div>
     `;
-    companyGrid.insertAdjacentHTML('afterend', loadMoreHtml);
+  }
+
+  // Create modal content
+  function createModalContent(company) {
+    const hasWebsite = company.websiteUrl && company.websiteUrl !== '#';
+    const hasDemo = company.demoUrl && company.demoUrl !== '#';
     
-    // Add click handler
-    const loadMoreBtn = document.getElementById('loadMoreBtn');
-    if (loadMoreBtn) {
-      loadMoreBtn.addEventListener('click', () => {
-        displayedCount += COMPANIES_PER_LOAD;
-        renderCompanies(companiesToRender, true);
+    // Build achievements or differentiators list
+    let highlightsList = '';
+    if (company.achievements && company.achievements.length > 0) {
+      highlightsList = company.achievements.map(item => `<li>${item}</li>`).join('');
+    } else if (company.differentiators && company.differentiators.length > 0) {
+      highlightsList = company.differentiators.map(item => `<li>${item}</li>`).join('');
+    }
+
+    // Build metrics
+    const metricsHTML = [];
+    if (company.techKpi) {
+      metricsHTML.push(`
+        <div class="modal-metric-card">
+          <div class="modal-metric-value">${company.techKpi}</div>
+          <div class="modal-metric-label">Key Metric</div>
+        </div>
+      `);
+    }
+    if (company.teamSize) {
+      metricsHTML.push(`
+        <div class="modal-metric-card">
+          <div class="modal-metric-value">${company.teamSize}</div>
+          <div class="modal-metric-label">Team Size</div>
+        </div>
+      `);
+    }
+    if (company.targetCustomer) {
+      metricsHTML.push(`
+        <div class="modal-metric-card">
+          <div class="modal-metric-value">${company.targetCustomer}</div>
+          <div class="modal-metric-label">Target Customer</div>
+        </div>
+      `);
+    }
+
+    return `
+      <div class="modal-company-header">
+        <div class="modal-company-info">
+          <div class="modal-company-logo" style="color: ${company.color};">
+            ${company.logo}
+          </div>
+          <div class="modal-company-details">
+            <h2>${company.name}</h2>
+            <div class="modal-company-meta">
+              <span class="modal-industry-tag">${company.industry}</span>
+              <span class="modal-stage-tag">${company.stage}</span>
+              ${hasWebsite ? `<a href="${company.websiteUrl}" target="_blank" class="modal-website">Visit Website →</a>` : ''}
+            </div>
+            ${hasDemo ? `<div class="modal-demo-link"><a href="${company.demoUrl}" target="_blank" class="demo-button">Try Demo →</a></div>` : ''}
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-content-section">
+        <h3>About</h3>
+        <p class="modal-description">${company.description}</p>
+        
+        ${metricsHTML.length > 0 ? `
+          <h3>Key Metrics</h3>
+          <div class="modal-metrics-grid">
+            ${metricsHTML.join('')}
+          </div>
+        ` : ''}
+        
+        ${highlightsList ? `
+          <h3>Key Highlights</h3>
+          <ul class="modal-highlights">
+            ${highlightsList}
+          </ul>
+        ` : ''}
+      </div>
+    `;
+  }
+
+  // Render companies
+  function renderCompanies(append = false) {
+    const companiesToRender = filteredCompanies.slice(0, displayedCount);
+    
+    if (companiesToRender.length === 0) {
+      companyGrid.innerHTML = `
+        <div class="no-results">
+          <h3>No companies found</h3>
+          <p>Try adjusting your filters or search terms</p>
+        </div>
+      `;
+      return;
+    }
+
+    const companiesToDisplay = append 
+      ? companiesToRender.slice(displayedCount - COMPANIES_PER_LOAD, displayedCount)
+      : companiesToRender;
+
+    const html = companiesToDisplay.map(createCompanyCard).join('');
+    
+    if (append) {
+      companyGrid.insertAdjacentHTML('beforeend', html);
+    } else {
+      companyGrid.innerHTML = html;
+    }
+
+    // Add click handlers
+    document.querySelectorAll('.company-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const companyId = parseInt(card.dataset.companyId);
+        const company = companies.find(c => c.id === companyId);
+        if (company) {
+          showModal(company);
+        }
       });
+    });
+    
+    // Handle Load More button
+    updateLoadMoreButton(companiesToRender);
+  }
+
+  // Update Load More button
+  function updateLoadMoreButton(companiesToRender) {
+    const existingLoadMore = document.querySelector('.load-more');
+    
+    if (existingLoadMore) {
+      existingLoadMore.remove();
+    }
+    
+    if (displayedCount < filteredCompanies.length) {
+      const loadMoreHTML = `
+        <div class="load-more">
+          <button class="load-more-btn" onclick="loadMoreCompanies()">
+            Load More Companies
+          </button>
+        </div>
+      `;
+      companyGrid.insertAdjacentHTML('afterend', loadMoreHTML);
     }
   }
-}
 
-// Filter companies
-function filterCompanies() {
-  filteredCompanies = companies.filter(company => {
-    const matchesSearch = currentSearch === '' || 
-      company.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
-      company.tagline.toLowerCase().includes(currentSearch.toLowerCase()) ||
-      company.description.toLowerCase().includes(currentSearch.toLowerCase());
-    
-    const matchesIndustry = currentIndustryFilter === '' || 
-      company.industry === currentIndustryFilter;
-    
-    const matchesStage = currentStageFilter === '' || 
-      company.stage === currentStageFilter;
-    
-    return matchesSearch && matchesIndustry && matchesStage;
-  });
-  
-  // Reset displayed count when filtering
-  displayedCount = Math.min(COMPANIES_PER_LOAD, filteredCompanies.length);
-  
-  renderCompanies(filteredCompanies);
-}
+  // Load more companies
+  window.loadMoreCompanies = function() {
+    displayedCount += COMPANIES_PER_LOAD;
+    renderCompanies(true);
+  };
 
-// Show modal
-function showModal(company) {
-  const modal = document.getElementById('companyModal');
-  const modalBody = document.getElementById('modalBody');
-  
-  if (modal && modalBody) {
-    modalBody.innerHTML = createModalContent(company);
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
+  // Show modal
+  function showModal(company) {
+    if (modal && modalBody) {
+      modalBody.innerHTML = createModalContent(company);
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
   }
-}
 
-// Hide modal
-function hideModal() {
-  const modal = document.getElementById('companyModal');
-  if (modal) {
-    modal.classList.add('hidden');
-    document.body.style.overflow = 'auto';
+  // Close modal
+  function closeModal() {
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
   }
-}
 
-// Initialize portfolio functionality
-function initializePortfolio() {
-  // Set initial displayed count based on available companies
-  displayedCount = Math.min(COMPANIES_PER_LOAD, companies.length);
-  
-  // Initial render
-  renderCompanies();
-
-  // Search input event listener
-  const searchInput = document.getElementById('searchInput');
+  // Event listeners
   if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-      currentSearch = e.target.value.trim();
-      filterCompanies();
-    });
-
-    // Allow clearing the search input
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        searchInput.value = '';
-        currentSearch = '';
-        filterCompanies();
-      }
-    });
+    searchInput.addEventListener('input', filterCompanies);
   }
-
-  // Industry filter event listener
-  const industryFilter = document.getElementById('industryFilter');
-  if (industryFilter) {
-    industryFilter.addEventListener('change', (e) => {
-      currentIndustryFilter = e.target.value;
-      filterCompanies();
-    });
-  }
-
-  // Stage filter event listener
-  const stageFilter = document.getElementById('stageFilter');
-  if (stageFilter) {
-    stageFilter.addEventListener('change', (e) => {
-      currentStageFilter = e.target.value;
-      filterCompanies();
-    });
-  }
-
-  // Modal close handlers
-  const modalClose = document.getElementById('modalClose');
-  const modalBackdrop = document.getElementById('modalBackdrop');
   
+  if (industryFilter) {
+    industryFilter.addEventListener('change', filterCompanies);
+  }
+  
+  if (stageFilter) {
+    stageFilter.addEventListener('change', filterCompanies);
+  }
+
   if (modalClose) {
-    modalClose.addEventListener('click', hideModal);
+    modalClose.addEventListener('click', closeModal);
   }
   
   if (modalBackdrop) {
-    modalBackdrop.addEventListener('click', hideModal);
+    modalBackdrop.addEventListener('click', closeModal);
   }
 
   // Escape key to close modal
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      const modal = document.getElementById('companyModal');
-      if (modal && !modal.classList.contains('hidden')) {
-        hideModal();
-      }
+      closeModal();
     }
   });
 
-  // Prevent modal close when clicking inside modal content
-  const modal = document.getElementById('companyModal');
-  const modalContent = modal?.querySelector('.modal-content');
-  if (modalContent) {
-    modalContent.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
-  }
-}
-
-// Wait for DOM to be fully loaded
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePortfolio);
-} else {
-  initializePortfolio();
-}
+  // Initial render
+  renderCompanies();
+  
+  // Initialize portfolio functionality
+  console.log('Portfolio functionality initialized with', companies.length, 'companies');
+});
