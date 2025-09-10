@@ -6,7 +6,7 @@ const NAV_HREFS = [
   '/pricing/',
   '/use-cases/',
   '/studio/',
-  '/companies/',
+  '/studio/',
   '/about/',
   '/resources/',
   '/contact/',
