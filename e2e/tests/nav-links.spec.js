@@ -22,10 +22,12 @@ test.describe('Header link integrity', () => {
     await page.goto('/');
 
     // Open mobile menu if present
-    const navLinks = page.locator('nav .nav-links');
+    // Menu can be moved to <body> when open; select globally
+    const navLinks = page.locator('.nav-links');
     const toggle = page.locator('.nav-toggle');
     if (await toggle.isVisible()) {
       await toggle.click();
+      // Wait for menu-open state or visible links
       await expect(navLinks).toBeVisible();
     }
 

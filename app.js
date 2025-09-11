@@ -14,6 +14,34 @@ if (window.supabase && typeof window.supabase.createClient === 'function') {
     supabase = null;
 }
 
+// Early delegated handler: ensure toggle works before init completes
+document.addEventListener('click', function(e) {
+    const btn = e.target.closest && e.target.closest('.nav-toggle');
+    if (!btn) return;
+    // If not initialized yet, apply a minimal toggle so tests and users don't race init
+    if (!btn.hasAttribute('data-initialized')) {
+        e.preventDefault();
+        e.stopPropagation();
+        const menu = document.querySelector('.nav-links');
+        if (!menu) return;
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        const next = !open;
+        btn.setAttribute('aria-expanded', String(next));
+        menu.classList.toggle('nav-links--open', next);
+        document.body.classList.toggle('menu-open', next);
+        // Ensure menu is visible when opened even before full init
+        if (next) {
+            menu.style.opacity = '1';
+            menu.style.visibility = 'visible';
+            menu.style.pointerEvents = 'auto';
+        } else {
+            menu.style.opacity = '';
+            menu.style.visibility = '';
+            menu.style.pointerEvents = '';
+        }
+    }
+}, true);
+
 // Fallback HTML for mobile when fetch fails
 const fallbackHeaderHTML = `<header class="site-header">
   <nav class="main-navigation" role="navigation" aria-label="Main navigation">
@@ -233,11 +261,36 @@ function initializeMobileMenu() {
         navMenu.removeAttribute('style');
     };
 
+    // Focus trap helpers
+    let removeFocusTrap = null;
+    const enableFocusTrap = (container) => {
+        const focusable = container.querySelectorAll(
+            'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable.length) return () => {};
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const onKeyDown = (e) => {
+            if (e.key !== 'Tab') return;
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        };
+        document.addEventListener('keydown', onKeyDown, true);
+        // return disposer
+        return () => document.removeEventListener('keydown', onKeyDown, true);
+    };
+
     const setMenuState = (open) => {
         const currentToggle = document.querySelector('.nav-toggle');
         const currentMenu = document.querySelector('.nav-links');
         if (!currentToggle || !currentMenu) return;
         currentToggle.setAttribute('aria-expanded', String(open));
+        currentMenu.setAttribute('aria-hidden', String(!open));
         currentMenu.classList.toggle('nav-links--open', open);
         currentToggle.classList.toggle('nav-toggle--active', open);
         document.body.classList.toggle('menu-open', open);
@@ -245,8 +298,19 @@ function initializeMobileMenu() {
         // Move menu to body when opening to avoid page content intercepting taps
         if (open) {
             moveMenuToBody();
+            // Enable focus trap and move focus to first item
+            if (removeFocusTrap) removeFocusTrap();
+            removeFocusTrap = enableFocusTrap(currentMenu);
+            const firstLink = currentMenu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+            if (firstLink) firstLink.focus();
         } else {
             restoreMenuToHeader();
+            if (removeFocusTrap) {
+                removeFocusTrap();
+                removeFocusTrap = null;
+            }
+            // Return focus to the toggle for better accessibility
+            currentToggle.focus();
         }
     };
     
