@@ -8,7 +8,8 @@ test.describe('Home navigation happy-path', () => {
 
     await page.goto('/');
 
-    const navLinks = page.locator('nav .nav-links');
+    // Menu may move to body when open
+    const navLinks = page.locator('.nav-links');
     const toggle = page.locator('.nav-toggle');
     if (await navLinks.isHidden()) {
       if (await toggle.isVisible()) {

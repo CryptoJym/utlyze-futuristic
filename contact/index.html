@@ -525,7 +525,12 @@
       const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12anptaGx3bmJ3a3J0YWNoaWVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwOTI1MDQsImV4cCI6MjA2OTY2ODUwNH0.KWWX-XFgBqCA4MUpUOIU_Dt0gLX7O6mWgMVJhJAuCXw';
       let supabaseClient = null;
       if (window.supabase && typeof window.supabase.createClient === 'function') {
+        // Normal production path
         supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+      } else if (window.supabase && typeof window.supabase.from === 'function') {
+        // Test/stub path: allow Playwright to inject a lightweight stub client
+        supabaseClient = window.supabase;
+        console.log('Supabase stub detected; using stub client for contact form');
       } else {
         console.error('Supabase library not loaded; contact form will not submit to database');
       }
