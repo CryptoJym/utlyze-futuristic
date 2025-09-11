@@ -200,6 +200,39 @@ function initializeMobileMenu() {
         return;
     }
 
+    // Remember original placement so we can restore it when closing
+    let navOriginalParent = navMenu.parentNode;
+    let navNextSibling = navMenu.nextSibling;
+
+    const moveMenuToBody = () => {
+        if (navMenu.parentNode !== document.body) {
+            document.body.appendChild(navMenu);
+        }
+        // Ensure the menu truly overlays everything on mobile
+        Object.assign(navMenu.style, {
+            position: 'fixed',
+            top: '0',
+            left: '0',
+            right: '0',
+            bottom: '0',
+            width: '100vw',
+            height: '100dvh',
+            zIndex: '2147483647'
+        });
+    };
+
+    const restoreMenuToHeader = () => {
+        if (navOriginalParent && navMenu.parentNode === document.body) {
+            if (navNextSibling) {
+                navOriginalParent.insertBefore(navMenu, navNextSibling);
+            } else {
+                navOriginalParent.appendChild(navMenu);
+            }
+        }
+        // Clean up inline styles so CSS controls layout again
+        navMenu.removeAttribute('style');
+    };
+
     const setMenuState = (open) => {
         const currentToggle = document.querySelector('.nav-toggle');
         const currentMenu = document.querySelector('.nav-links');
@@ -208,6 +241,13 @@ function initializeMobileMenu() {
         currentMenu.classList.toggle('nav-links--open', open);
         currentToggle.classList.toggle('nav-toggle--active', open);
         document.body.classList.toggle('menu-open', open);
+
+        // Move menu to body when opening to avoid page content intercepting taps
+        if (open) {
+            moveMenuToBody();
+        } else {
+            restoreMenuToHeader();
+        }
     };
     
     // Remove old event listeners if re-initializing
