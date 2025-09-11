@@ -183,7 +183,7 @@
   body.menu-open::before {
     opacity: 1;
     visibility: visible;
-    pointer-events: auto;
+    pointer-events: none; /* Let clicks reach the menu overlay */
   }
   
   /* Mobile menu - full screen overlay with better design */
