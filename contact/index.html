@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="../style.css">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Optional env override:
+       Provide NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY via
+       window.__ENV or <meta name="NEXT_PUBLIC_SUPABASE_URL" content="..."> -->
   <link rel="canonical" href="https://utlyze.com/contact/">
   
   <!-- Google Fonts -->
@@ -38,7 +41,7 @@
 
     .contact-subtitle {
       font-size: 1.25rem;
-      color: #64748b;
+      color: var(--text-secondary);
       max-width: 800px;
       margin: 0 auto;
     }
@@ -51,11 +54,10 @@
     }
 
     .contact-form-section {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #FFFFFF;
+      border: 1px solid var(--border-color); /* themed */
       border-radius: 16px;
       padding: 3rem;
-      backdrop-filter: blur(10px);
     }
 
     .form-group {
@@ -64,9 +66,9 @@
 
     .form-label {
       display: block;
-      font-weight: 500;
+      font-weight: 600;
       margin-bottom: 0.5rem;
-      color: #e2e8f0;
+      color: var(--utlyze-text-dark);
     }
 
     .form-input,
@@ -74,10 +76,10 @@
     .form-textarea {
       width: 100%;
       padding: 0.75rem 1rem;
-      background: rgba(15, 23, 42, 0.5);
-      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: #FFFFFF;
+      border: 1px solid var(--border-color); /* themed */
       border-radius: 8px;
-      color: #e2e8f0;
+      color: var(--utlyze-text-dark);
       font-size: 1rem;
       transition: all 0.2s;
       font-family: 'Inter', sans-serif;
@@ -87,8 +89,8 @@
     .form-select:focus,
     .form-textarea:focus {
       outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      border-color: var(--utlyze-blue);
+      box-shadow: 0 0 0 3px rgba(0, 91, 255, 0.12);
     }
 
     .form-textarea {
@@ -108,7 +110,7 @@
       align-items: center;
       gap: 0.5rem;
       cursor: pointer;
-      color: #e2e8f0;
+      color: var(--text-secondary);
     }
 
     .form-checkbox-label input[type="checkbox"] {
@@ -154,11 +156,11 @@
       font-size: 1.5rem;
       font-weight: 600;
       margin-bottom: 1rem;
-      color: #e2e8f0;
+      color: var(--utlyze-text-dark);
     }
 
     .info-text {
-      color: #94a3b8;
+      color: var(--color-text-secondary);
       margin-bottom: 1rem;
       line-height: 1.6;
     }
@@ -521,8 +523,17 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Initialize Supabase client for contact form submissions
-      const supabaseUrl = 'https://mvjzmhlwnbwkrtachiec.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12anptaGx3bmJ3a3J0YWNoaWVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwOTI1MDQsImV4cCI6MjA2OTY2ODUwNH0.KWWX-XFgBqCA4MUpUOIU_Dt0gLX7O6mWgMVJhJAuCXw';
+      function readEnv() {
+        const getMeta = (name) => document.querySelector(`meta[name="${name}"]`)?.getAttribute('content');
+        const env = (window.__ENV || {});
+        return {
+          NEXT_PUBLIC_SUPABASE_URL: env.NEXT_PUBLIC_SUPABASE_URL || getMeta('NEXT_PUBLIC_SUPABASE_URL') || null,
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: env.NEXT_PUBLIC_SUPABASE_ANON_KEY || getMeta('NEXT_PUBLIC_SUPABASE_ANON_KEY') || null
+        };
+      }
+      const env = readEnv();
+      const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL || 'https://mvjzmhlwnbwkrtachiec.supabase.co';
+      const supabaseKey = env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12anptaGx3bmJ3a3J0YWNoaWVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwOTI1MDQsImV4cCI6MjA2OTY2ODUwNH0.KWWX-XFgBqCA4MUpUOIU_Dt0gLX7O6mWgMVJhJAuCXw';
       let supabaseClient = null;
       if (window.supabase && typeof window.supabase.createClient === 'function') {
         // Normal production path
@@ -702,12 +713,28 @@
             referrer: document.referrer || null
           };
 
-          // Submit to Supabase
+          // Submit to Supabase (detailed table)
           const { data, error } = await supabaseClient
             .from('contact_submissions')
             .insert([formData]);
 
           if (error) throw error;
+
+          // Also insert a simplified record for contact_messages acceptance
+          try {
+            const fullName = `${formData.first_name} ${formData.last_name}`.trim();
+            const simple = {
+              name: fullName || formData.first_name || null,
+              email: formData.email,
+              company: formData.company || null,
+              phone: formData.phone || null,
+              message: formData.message || formData.pain_points || null,
+              created_at: new Date().toISOString()
+            };
+            await supabaseClient.from('contact_messages').insert([simple]);
+          } catch (e) {
+            console.warn('contact_messages insert skipped:', e?.message || e);
+          }
 
           // Show success message
           successMessage.style.display = 'block';

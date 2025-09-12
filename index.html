@@ -406,10 +406,12 @@
                     <form id="ideaForm" class="idea-form">
                         <div class="form-row">
                             <div class="form-group">
+                                <label class="sr-only" for="name">Full name</label>
                                 <input type="text" id="name" name="name" class="form-control glass-input" placeholder="Full name *" required>
                                 <div class="form-error" id="name-error"></div>
                             </div>
                             <div class="form-group">
+                                <label class="sr-only" for="company">Company</label>
                                 <input type="text" id="company" name="company" class="form-control glass-input" placeholder="Company *" required>
                                 <div class="form-error" id="company-error"></div>
                             </div>
@@ -417,16 +419,19 @@
                         
                         <div class="form-row">
                             <div class="form-group">
+                                <label class="sr-only" for="email">Work email</label>
                                 <input type="email" id="email" name="email" class="form-control glass-input" placeholder="Work email *" required>
                                 <div class="form-error" id="email-error"></div>
                             </div>
                             <div class="form-group">
+                                <label class="sr-only" for="phone">Phone number</label>
                                 <input type="tel" id="phone" name="phone" class="form-control glass-input" placeholder="Phone number">
                             </div>
                         </div>
                         
                         <div class="form-row">
                             <div class="form-group">
+                                <label class="sr-only" for="company_size">Company size</label>
                                 <select id="company_size" name="company_size" class="form-control glass-input">
                                     <option value="">Company size</option>
                                     <option value="1-50">1-50 employees</option>
@@ -438,6 +443,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label class="sr-only" for="interest">Primary interest</label>
                                 <select id="interest" name="interest" class="form-control glass-input" required>
                                     <option value="">Primary interest *</option>
                                     <option value="cost-reduction">AI cost reduction</option>
@@ -450,9 +456,10 @@
                             </div>
                         </div>
                         
-                        <div class="form-group">
-                            <textarea id="message" name="message" class="form-control glass-input" rows="3" placeholder="Tell us about your AI needs or challenges (optional)"></textarea>
-                        </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="message">Message</label>
+                                <textarea id="message" name="message" class="form-control glass-input" rows="3" placeholder="Tell us about your AI needs or challenges (optional)"></textarea>
+                            </div>
                         
                         <button type="submit" class="btn btn--primary btn--lg btn--full-width glass-button">Get Your Personalized Demo</button>
                         <p class="form-microcopy">Free consultation • ROI analysis included • No commitment required</p>

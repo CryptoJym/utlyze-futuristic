@@ -7,7 +7,7 @@
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--border-color); /* themed */
   z-index: 1000;
 }
 
@@ -63,12 +63,12 @@
 .nav-link:hover,
 .nav-link:focus {
   color: var(--utlyze-blue);
-  background: rgba(0, 91, 255, 0.06);
+  background: var(--blue-veil-06);
 }
 
 .nav-link.active {
   color: var(--utlyze-blue);
-  background: rgba(0, 91, 255, 0.1);
+  background: var(--blue-veil-10);
 }
 
 /* Hamburger Menu Button - Hidden on Desktop */
@@ -160,7 +160,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--overlay-strong);
     z-index: 998;
   }
 }

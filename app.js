@@ -1,8 +1,22 @@
 // Utlyze Website JavaScript - Premium Edition (Fixed)
 
-// Initialize Supabase client
-var supabaseUrl = 'https://mvjzmhlwnbwkrtachiec.supabase.co';
-var supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12anptaGx3bmJ3a3J0YWNoaWVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwOTI1MDQsImV4cCI6MjA2OTY2ODUwNH0.KWWX-XFgBqCA4MUpUOIU_Dt0gLX7O6mWgMVJhJAuCXw';
+// Initialize Supabase client (with environment shim)
+// Order of precedence:
+// 1) window.__ENV.NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY
+// 2) <meta name="NEXT_PUBLIC_SUPABASE_URL" content="..."> / <meta name="NEXT_PUBLIC_SUPABASE_ANON_KEY" content="...">
+// 3) localStorage overrides (SUPABASE_URL / SUPABASE_ANON_KEY)
+// 4) Hard-coded fallback (kept for local/offline demos)
+var supabaseUrl =
+  (window.__ENV && (window.__ENV.NEXT_PUBLIC_SUPABASE_URL || window.__ENV.SUPABASE_URL)) ||
+  (document.querySelector('meta[name="NEXT_PUBLIC_SUPABASE_URL"]')?.content) ||
+  (localStorage.getItem('SUPABASE_URL')) ||
+  'https://mvjzmhlwnbwkrtachiec.supabase.co';
+
+var supabaseKey =
+  (window.__ENV && (window.__ENV.NEXT_PUBLIC_SUPABASE_ANON_KEY || window.__ENV.SUPABASE_ANON_KEY)) ||
+  (document.querySelector('meta[name="NEXT_PUBLIC_SUPABASE_ANON_KEY"]')?.content) ||
+  (localStorage.getItem('SUPABASE_ANON_KEY')) ||
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12anptaGx3bmJ3a3J0YWNoaWVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwOTI1MDQsImV4cCI6MjA2OTY2ODUwNH0.KWWX-XFgBqCA4MUpUOIU_Dt0gLX7O6mWgMVJhJAuCXw';
 
 // Initialise Supabase only if the library is available. Without this check,
 // an undefined 'window.supabase' throws and stops all other code from running.
@@ -361,11 +375,9 @@ function initializeMobileMenu() {
         }
     };
     
-    // Delay outside click handler to prevent immediate closing
-    setTimeout(() => {
-        document.addEventListener('click', handleOutsideClick, true);
-        document.addEventListener('touchstart', handleOutsideClick, { passive: true, capture: true });
-    }, 100);
+    // Register outside click handler immediately so clicks outside close the menu reliably
+    document.addEventListener('click', handleOutsideClick, true);
+    document.addEventListener('touchstart', handleOutsideClick, { passive: true, capture: true });
     
     // Close menu on escape key
     document.addEventListener('keydown', function(e) {
@@ -539,8 +551,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add error styling to field with premium effect
         if (field) {
             field.classList.add('error');
-            field.style.borderColor = '#DC2626';
-            field.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.15)';
+            field.style.borderColor = 'var(--color-error)';
+            field.style.boxShadow = '0 0 0 3px var(--color-focus-ring)';
             
             // Brief scale animation for attention
             field.style.transform = 'scale(1.01)';
@@ -568,7 +580,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (field) {
             field.classList.remove('error');
-            field.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+            field.style.borderColor = 'var(--border-color)';
             field.style.boxShadow = 'none';
         }
     }
@@ -624,7 +636,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function showStudioError(fieldId, message) {
         const field = document.getElementById(fieldId);
         if (field) {
-            field.style.borderColor = '#dc2626';
+            field.style.borderColor = 'var(--color-error)';
             field.focus();
             
             // Show error message in formMessage div
@@ -748,8 +760,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleFieldFocus(e) {
         const field = e.target;
         if (!field.classList.contains('error')) {
-            field.style.borderColor = '#005BFF';
-            field.style.boxShadow = '0 0 0 3px rgba(0, 91, 255, 0.15)';
+            field.style.borderColor = 'var(--utlyze-blue)';
+            field.style.boxShadow = '0 0 0 3px var(--color-focus-ring)';
             field.style.transform = 'scale(1.01)';
             field.style.background = 'rgba(255, 255, 255, 0.2)';
         }
@@ -758,7 +770,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleFieldBlur(e) {
         const field = e.target;
         if (!field.classList.contains('error')) {
-            field.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+            field.style.borderColor = 'var(--border-color)';
             field.style.boxShadow = 'none';
             field.style.transform = 'scale(1)';
             field.style.background = 'rgba(255, 255, 255, 0.15)';
@@ -854,14 +866,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const errorDiv = document.createElement('div');
             errorDiv.className = 'form-error-message';
             errorDiv.style.cssText = `
-                background: linear-gradient(135deg, #ff6b6b, #ff5252);
+                background: linear-gradient(135deg, var(--color-error), var(--color-error));
                 color: white;
                 padding: 15px 20px;
                 border-radius: 8px;
                 margin: 20px 0;
                 font-size: 14px;
                 line-height: 1.5;
-                box-shadow: 0 4px 15px rgba(255, 82, 82, 0.3);
+                box-shadow: 0 4px 15px rgba(var(--color-error-rgb), 0.3);
                 animation: slideIn 0.4s ease-out;
             `;
             
@@ -908,7 +920,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 position: absolute;
                 width: 6px;
                 height: 6px;
-                background: linear-gradient(45deg, #FF7A00, #005BFF);
+                background: linear-gradient(45deg, var(--utlyze-orange), var(--utlyze-blue));
                 border-radius: 50%;
                 pointer-events: none;
                 z-index: 1000;

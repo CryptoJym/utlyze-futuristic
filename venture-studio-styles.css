@@ -28,8 +28,9 @@
 
 .metric-label {
   font-size: 1.125rem;
-  opacity: 0.9;
-  font-weight: 500;
+  font-weight: 600;
+  /* Improve contrast on gradient by avoiding opacity */
+  opacity: 1;
 }
 
 .studio-intro {
@@ -126,6 +127,12 @@
   justify-content: center;
 }
 
+/* Desktop emphasis for metrics */
+@media (min-width: 1024px) {
+  .metric-value { font-size: 4rem; }
+  .metric-label { font-size: 1.25rem; }
+}
+
 .filters-search {
   flex: 1;
   min-width: 300px;
@@ -135,7 +142,7 @@
 .search-input {
   width: 100%;
   padding: 0.875rem 1.25rem;
-  border: 1px solid rgba(33, 128, 141, 0.2);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -145,7 +152,7 @@
 .search-input:focus {
   outline: none;
   border-color: var(--utlyze-teal);
-  box-shadow: 0 0 0 3px rgba(33, 128, 141, 0.1);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
 }
 
 .filters-dropdowns {
@@ -156,7 +163,7 @@
 .filter-select {
   padding: 0.875rem 1.25rem;
   padding-right: 2.5rem;
-  border: 1px solid rgba(33, 128, 141, 0.2);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
   background: white;
@@ -172,7 +179,7 @@
 .filter-select:focus {
   outline: none;
   border-color: var(--utlyze-teal);
-  box-shadow: 0 0 0 3px rgba(33, 128, 141, 0.1);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
 }
 
 /* Company Grid */
@@ -202,8 +209,8 @@
 
 .company-card__header {
   padding: 2rem;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background: linear-gradient(135deg, var(--surface-100) 0%, var(--surface-200) 100%);
+  border-bottom: 1px solid var(--overlay-light);
 }
 
 .company-card__logo {
@@ -281,7 +288,7 @@
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.9);
   color: var(--utlyze-text-dark);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
 }
 
 /* Load More Button */
@@ -379,8 +386,8 @@
 
 .modal-company-header {
   padding: 3rem;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background: linear-gradient(135deg, var(--surface-100) 0%, var(--surface-200) 100%);
+  border-bottom: 1px solid var(--overlay-light);
 }
 
 .modal-company-info {
@@ -422,7 +429,7 @@
 }
 
 .modal-stage-tag {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--overlay-light);
   color: var(--utlyze-text-dark);
 }
 
@@ -497,7 +504,7 @@
   position: relative;
   color: var(--utlyze-text-dark);
   line-height: 1.6;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--overlay-light);
 }
 
 .modal-highlights li:last-child {
@@ -656,7 +663,7 @@
 }
 
 .partner-logo {
-  background: rgba(0, 91, 255, 0.05);
+  background: var(--blue-veil-05);
   padding: 2rem 1.5rem;
   border-radius: 12px;
   color: var(--color-text-secondary);
@@ -695,6 +702,7 @@
   padding: 3rem;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative; /* ensure local stacking context for buttons */
 }
 
 .idea-form .form-group {
@@ -754,6 +762,20 @@
   box-shadow: 0 8px 25px rgba(255, 122, 0, 0.3);
 }
 
+/* Ensure the idea submission button remains clickable above any overlapping elements on small screens */
+.idea-submission { position: relative; }
+.idea-submission .submit-btn { position: relative; z-index: 1001; }
+
+@media (max-width: 900px) {
+  .idea-submission .submit-btn {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 32px;
+    z-index: 2147483647;
+  }
+}
+
 .submit-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -769,16 +791,16 @@
 }
 
 .form-message.success {
-  background: rgba(34, 197, 94, 0.1);
-  color: #16a34a;
-  border: 1px solid rgba(34, 197, 94, 0.3);
+  background: rgba(var(--color-success-rgb), 0.1);
+  color: var(--success-color);
+  border: 1px solid rgba(var(--color-success-rgb), 0.3);
   display: block;
 }
 
 .form-message.error {
-  background: rgba(239, 68, 68, 0.1);
-  color: #dc2626;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(var(--color-error-rgb), 0.1);
+  color: var(--color-error);
+  border: 1px solid rgba(var(--color-error-rgb), 0.3);
   display: block;
 }
 
@@ -786,7 +808,7 @@
 .main-header {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 1000;

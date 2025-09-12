@@ -12,7 +12,7 @@
 		/* Minimal ROI-specific tweaks that harmonize with the main theme */
 		.roi-hero { text-align: center; padding: var(--space-48) 0; }
 		.roi-hero h1 { margin-bottom: var(--space-12); }
-		.roi-hero p { color: rgba(10,10,10,0.8); }
+		.roi-hero p { color: var(--text-secondary); }
 		.roi-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-24); max-width: 980px; margin: 0 auto; }
 		@media (min-width: 900px) { .roi-grid { grid-template-columns: 1fr; } }
 		.roi-card { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 16px; padding: var(--space-24); box-shadow: var(--utlyze-shadow-premium); }
@@ -23,7 +23,7 @@
 		/* Value grid */
 		.value-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 		@media (min-width: 900px) { .value-grid { grid-template-columns: 1fr 1fr; } }
-		.value-card { border: 1px solid rgba(0,0,0,0.06); border-radius: 14px; padding: 16px; background: rgba(255,255,255,0.85); display:flex; gap:10px; align-items:flex-start; }
+		.value-card { border: 1px solid var(--border-color); border-radius: 14px; padding: 16px; background: rgba(255,255,255,0.85); display:flex; gap:10px; align-items:flex-start; }
 		.value-card .emoji { font-size: 20px; line-height: 1; }
 		/* FAQ grid */
 		.faq-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
@@ -54,6 +54,26 @@
 		/* Mobile sticky CTA */
 		#mobileCtaBar { position: fixed; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.9); backdrop-filter: var(--utlyze-backdrop-blur); border-top: 1px solid rgba(0,0,0,0.08); padding: 10px 16px; display: flex; justify-content: center; gap: 12px; z-index: 10; }
 		@media (min-width: 900px) { #mobileCtaBar { display: none; } }
+
+		/* Ensure primary calculate button is always clickable on small screens */
+		.roi-card { position: relative; }
+		#simpleFields { position: relative; z-index: 1; }
+		#btnCalc { position: relative; z-index: 1001; }
+
+		/* On small screens, keep the primary action fixed and above other elements */
+		@media (max-width: 900px) {
+		  #btnCalc {
+		    position: fixed;
+		    left: 16px;
+		    right: 16px;
+		    bottom: 96px; /* leave room for mobile CTA bar */
+		    z-index: 2147483647; /* ensure on top */
+		  }
+		}
+
+		/* Prevent the mobile CTA bar from blocking underlying clicks except on its controls */
+		#mobileCtaBar { pointer-events: none; }
+		#mobileCtaBar a, #mobileCtaBar button { pointer-events: auto; }
 		/* Alignment refinements */
 		.roi-card h3 { font-size: 20px; line-height: 1.3; margin-bottom: 8px; }
 		.roi-form label { margin: 8px 0 6px; }
@@ -191,23 +211,23 @@
 						<div class="form-row">
 							<div class="form-group">
 								<label class="form-label">Name</label>
-								<input type="text" class="glass-input" name="name" placeholder="Your full name" required>
+								<input type="text" class="glass-input" name="name" aria-label="Full name" placeholder="Your full name" required>
 								<div class="small-muted" id="nameError" aria-live="polite" style="color:#B91C1C; display:none;"></div>
 							</div>
 							<div class="form-group">
 								<label class="form-label">Work email</label>
-								<input type="email" class="glass-input" name="email" placeholder="name@company.com" required>
+								<input type="email" class="glass-input" name="email" aria-label="Work email" placeholder="name@company.com" required>
 								<div class="small-muted" id="emailError" aria-live="polite" style="color:#B91C1C; display:none;"></div>
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="form-group">
 								<label class="form-label">Company</label>
-								<input type="text" class="glass-input" name="company" placeholder="Company name">
+								<input type="text" class="glass-input" name="company" aria-label="Company" placeholder="Company name">
 							</div>
 							<div class="form-group">
 								<label class="form-label">Position type</label>
-								<select name="role" class="form-control">
+								<select name="role" class="form-control" aria-label="Position type">
 									<option value="">Select</option>
 									<option value="ops_eng_leader">Ops/Engineering leader</option>
 									<option value="founder">Founder</option>
@@ -299,7 +319,10 @@
 		</div>
 	</section>
 
-	<!-- Mobile sticky CTA -->
+    <!-- Anchor target for scheduling link -->
+    <div id="schedule" class="sr-only" aria-hidden="true"></div>
+
+    <!-- Mobile sticky CTA -->
 	<div id="mobileCtaBar">
 		<a class="btn btn--primary" href="#calculator">See Your Savings</a>
 		<a class="btn btn--outline" href="#schedule">Book Now</a>
