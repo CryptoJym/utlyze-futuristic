@@ -5,7 +5,39 @@
     "summary": "AI agent handles tier-1 support inquiries, classifies tickets, and drafts responses for complex issues, reducing response time by 80%.",
     "industry": "SaaS",
     "recommendedTier": "TierA",
-    "link": "/resources/case-studies/saas-support-automation"
+    "link": "/use-cases/customer-support-automation"
+  },
+  {
+    "id": "uc-013",
+    "title": "Accounts Receivable Collections (Reduce DSO)",
+    "summary": "Automated, polite AR follow‑ups with risk‑weighted queues and dispute workflows to shorten DSO.",
+    "industry": "Finance",
+    "recommendedTier": "TierB",
+    "link": "/use-cases/accounts-receivable-collections"
+  },
+  {
+    "id": "uc-014",
+    "title": "Executive Outbound & SDR Co‑pilot",
+    "summary": "Researches, writes, and sequences multi‑inbox outreach with deliverability guardrails to book more meetings.",
+    "industry": "Sales",
+    "recommendedTier": "TierB",
+    "link": "/use-cases/executive-outbound-sdr"
+  },
+  {
+    "id": "uc-015",
+    "title": "RFP & Proposal Response Co‑pilot",
+    "summary": "Generates first drafts, runs compliance checks, and standardizes win‑ready responses to accelerate throughput.",
+    "industry": "Sales",
+    "recommendedTier": "TierB",
+    "link": "/use-cases/rfp-proposal-response"
+  },
+  {
+    "id": "uc-016",
+    "title": "IT Helpdesk & Employee Support",
+    "summary": "On‑prem AI service desk that resolves common IT requests automatically and routes the rest with full audit trails.",
+    "industry": "Human Resources",
+    "recommendedTier": "TierB",
+    "link": "/use-cases/it-helpdesk-employee-support"
   },
   {
     "id": "uc-002",
@@ -13,7 +45,7 @@
     "summary": "Private AI reviews contracts, NDAs, and agreements for key terms, risks, and compliance issues while maintaining complete confidentiality.",
     "industry": "Legal",
     "recommendedTier": "TierB",
-    "link": "/resources/case-studies/legal-doc-review"
+    "link": "/use-cases/legal-contract-review"
   },
   {
     "id": "uc-003",

@@ -216,6 +216,27 @@ CREATE INDEX IF NOT EXISTS idx_contact_submissions_created_at ON public.contact_
 
 COMMENT ON TABLE public.contact_submissions IS 'Contact form submissions from website with optional UTM metadata';
 
+-- Simple contact messages table for minimal insert path
+CREATE TABLE IF NOT EXISTS public.contact_messages (
+    id BIGSERIAL PRIMARY KEY,
+    name TEXT,
+    email TEXT NOT NULL,
+    company TEXT,
+    phone TEXT,
+    message TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY IF NOT EXISTS "Allow public inserts (contact_messages)"
+ON public.contact_messages
+FOR INSERT
+WITH CHECK (true);
+
+CREATE INDEX IF NOT EXISTS idx_contact_messages_email ON public.contact_messages(email);
+CREATE INDEX IF NOT EXISTS idx_contact_messages_created_at ON public.contact_messages(created_at DESC);
+
 -- Contact submissions (enterprise contact form)
 CREATE TABLE IF NOT EXISTS public.contact_submissions (
     id BIGSERIAL PRIMARY KEY,

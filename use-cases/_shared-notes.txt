@@ -1,0 +1,7 @@
+Note: This directory contains dedicated Use Case pages, styled to match the site.
+Each page:
+- Loads header/footer via app.js
+- Pulls dynamic tier pricing from assets/data/tiers.json
+- Includes JSON-LD FAQ for rich results
+- Reuses CTA classes for analytics tracking (.cta-button, .schedule-button)
+

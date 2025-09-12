@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/CryptoJym/utlyze-futuristic#readme",
   "devDependencies": {
-    "@playwright/test": "^1.55.0"
+    "@playwright/test": "^1.54.2",
+    "pa11y": "^9.0.0",
+    "pa11y-ci": "^4.0.1"
   }
 }

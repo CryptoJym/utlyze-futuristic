@@ -228,8 +228,10 @@
     transform: translateX(0) !important;
     opacity: 1 !important;
     visibility: visible !important;
-    pointer-events: auto !important;
+    /* Let clicks reach underlying content unless clicking a nav item */
+    pointer-events: none !important;
   }
+  .nav-links.nav-links--open .nav-link { pointer-events: auto; }
   
   /* Style nav links for mobile - large and touch-friendly */
   .nav-link {
@@ -885,7 +887,39 @@ select.form-control {
   --utlyze-bg-dark: #0A0A0A; /* Used by .site-footer background */
   --utlyze-primary: var(--utlyze-blue);
   --utlyze-secondary: var(--utlyze-orange);
+
+  /* Added missing tokens used across pages */
+  --utlyze-teal: #21808D;
+  --text-primary: var(--utlyze-text-dark);
+  --text-secondary: var(--color-text-secondary);
+  --border-color: rgba(33, 128, 141, 0.2);
+  --success-color: var(--utlyze-teal);
+  --gradient-dark: linear-gradient(135deg, #0A0A0A 0%, #1f2937 100%);
+  --bg-light: var(--utlyze-gray-light);
+  --header-height: 72px;
+  /* Overlays & brand tints for consistency */
+  --overlay-strong: rgba(0, 0, 0, 0.5);
+  --overlay-light: rgba(0, 0, 0, 0.06);
+  --blue-veil-06: rgba(0, 91, 255, 0.06);
+  --blue-veil-10: rgba(0, 91, 255, 0.10);
+  --blue-veil-05: rgba(0, 91, 255, 0.05);
+  --orange-veil-05: rgba(255, 122, 0, 0.05);
+  --overlay-faint: rgba(0, 0, 0, 0.04);
+  --surface-100: #f8f9fa;
+  --surface-200: #e9ecef;
 }
+
+/* Accessible Colors
+   - Text primary: var(--text-primary) on white or light surfaces
+   - Text secondary: var(--text-secondary) for muted copy
+   - Links: var(--utlyze-blue) with underline on hover; focus shows var(--focus-ring)
+   - Error: var(--color-error) with rgba(var(--color-error-rgb), 0.1/0.3) backgrounds/borders
+   - Success: var(--success-color) with rgba(var(--color-success-rgb), 0.1/0.3) backgrounds/borders
+   - Dividers: var(--border-color) for standard; var(--overlay-light)/--overlay-faint for subtle
+   - Surfaces: var(--surface-100/200) for light gradient tints
+   - Brand veils: var(--blue-veil-05/06/10), var(--orange-veil-05) for soft overlays
+   WCAG AA: use primary text on white/light surfaces; ensure contrast ≥ 4.5:1
+*/
 
 /* Global styles with premium system fonts */
 * {
@@ -908,6 +942,22 @@ body {
   overflow-x: hidden;
   font-weight: 400;
   letter-spacing: -0.01em;
+}
+
+/* Global link styles for consistency and a11y */
+a {
+  color: var(--utlyze-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm);
 }
 
 /* Premium Typography with tighter spacing */
@@ -1604,6 +1654,19 @@ textarea.glass-input {
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Respect reduced motion preferences to avoid flakey pointer stability during tests */
+@media (prefers-reduced-motion: reduce) {
+  html, body, * {
+    scroll-behavior: auto !important;
+  }
+  .fade-in,
+  .fade-in.visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 /* Utility classes */
@@ -2310,7 +2373,7 @@ textarea.glass-input {
 }
 
 .benefit-card p {
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
@@ -2398,7 +2461,7 @@ textarea.glass-input {
 }
 
 .tier-description {
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 1.5rem;
 }
 
@@ -2410,34 +2473,34 @@ textarea.glass-input {
 
 .tier-setup {
   font-size: 0.875rem;
-  color: #888;
+  color: var(--text-secondary);
 }
 
 .tier-monthly {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
+  color: var(--text-primary);
   margin-top: 0.25rem;
 }
 
-.tier-features {
+ul.tier-features {
   list-style: none;
   padding: 0;
   margin-bottom: 2rem;
 }
 
-.tier-features li {
+ul.tier-features li {
   padding: 0.5rem 0;
-  color: #555;
+  color: var(--text-primary);
   position: relative;
   padding-left: 1.5rem;
 }
 
-.tier-features li:before {
+ul.tier-features li:before {
   content: "✓";
   position: absolute;
   left: 0;
-  color: #4CAF50;
+  color: var(--success-color);
   font-weight: bold;
 }
 
@@ -2446,9 +2509,50 @@ textarea.glass-input {
   padding: 2rem;
 }
 
+/* Accessibility improvements: ensure strong text contrast in Agents matrix */
+.tier-matrix .tier-comparison {
+  background: var(--utlyze-pure-white);
+}
+.tier-matrix .tier-comparison th,
+.tier-matrix .tier-comparison td {
+  color: var(--text-primary);
+}
+.tier-matrix .tier-comparison td ul li {
+  color: var(--text-primary);
+}
+
+/* Pricing info text in Agents comparison (ensure sufficient contrast) */
+.tier-matrix .tier-comparison .pricing-info .monthly,
+.tier-matrix .tier-comparison .pricing-info .setup {
+  color: var(--text-primary) !important;
+}
+
+/* Improve link contrast in Agents CTA additional links */
+.cta-section .additional-links a {
+  color: var(--utlyze-blue);
+  font-weight: 600;
+}
+
+/* Ensure high contrast on glass variant used on Home */
+.tier-comparison.glass-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.tier-comparison.glass-card h4,
+.tier-comparison.glass-card .comparison-item,
+.tier-comparison.glass-card .comparison-item strong {
+  color: var(--utlyze-text-dark) !important;
+}
+
 .tier-comparison h4 {
   margin-bottom: 1.5rem;
-  color: #005BFF;
+  color: var(--utlyze-blue);
+}
+
+/* Ensure pricing text meets contrast requirements */
+.tier-comparison .monthly {
+  color: var(--text-primary);
+  font-weight: 700;
 }
 
 .comparison-row {
@@ -2461,7 +2565,7 @@ textarea.glass-input {
   flex: 1;
   min-width: 250px;
   padding: 1rem;
-  border-left: 3px solid #FF7A00;
+  border-left: 3px solid var(--utlyze-orange);
 }
 
 /* Use Cases Preview */
@@ -2488,42 +2592,43 @@ textarea.glass-input {
 
 .use-case-card h3 {
   margin-bottom: 1rem;
-  color: #005BFF;
+  color: var(--utlyze-blue);
 }
 
 .use-case-card p {
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
 
 .use-case-link {
-  color: #FF7A00;
+  color: var(--utlyze-orange);
   font-weight: 600;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .use-case-link:hover {
-  color: #005BFF;
+  color: var(--utlyze-blue);
 }
 
 /* Case Study Highlight */
 .case-study-highlight {
   margin: 3rem 0;
   padding: 3rem;
-  background: linear-gradient(135deg, rgba(0, 91, 255, 0.05), rgba(255, 122, 0, 0.05));
+  background: linear-gradient(135deg, var(--blue-veil-05), var(--orange-veil-05));
 }
 
 .case-study-badge {
   display: inline-block;
-  background: #FF7A00;
-  color: white;
+  background: rgba(255, 122, 0, 0.12);
+  color: var(--utlyze-orange);
   padding: 0.25rem 0.75rem;
   border-radius: 15px;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 1rem;
+  border: 1px solid rgba(255, 122, 0, 0.3);
 }
 
 .case-study-content h3 {
@@ -2552,7 +2657,7 @@ textarea.glass-input {
 .stat-label {
   display: block;
   font-size: 0.875rem;
-  color: #666;
+  color: var(--text-secondary);
   margin-top: 0.25rem;
 }
 
@@ -2576,7 +2681,7 @@ textarea.glass-input {
 }
 
 .studio-teaser-content p {
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 2rem;
   line-height: 1.6;
 }
@@ -2587,7 +2692,7 @@ textarea.glass-input {
 
 .section-subtext {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 2rem;
 }
 
@@ -3100,12 +3205,12 @@ textarea.glass-input {
   padding: var(--space-24);
   background: var(--utlyze-gray-light);
   border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--overlay-faint);
 }
 
 .arch-layer:last-child {
   margin-bottom: 0;
-  background: rgba(0, 91, 255, 0.05);
+  background: var(--blue-veil-05);
   border-color: rgba(0, 91, 255, 0.2);
 }
 
@@ -3341,7 +3446,7 @@ textarea.glass-input {
 
 .btn-secondary:hover,
 .btn.btn-secondary:hover {
-  background: rgba(0, 91, 255, 0.05);
+  background: var(--blue-veil-05);
   border-color: var(--utlyze-blue);
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 91, 255, 0.15);

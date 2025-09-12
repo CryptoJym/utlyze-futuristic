@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Helpdesk & Employee Support | Utlyze</title>
+  <meta name="description" content="On‑prem AI service desk that resolves common IT requests, routes the rest, and documents every action—lowering MTTR and ticket volume.">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="canonical" href="https://utlyze.com/use-cases/it-helpdesk-employee-support/">
+</head>
+<body>
+  <div id="site-header-mount"></div>
+  <main class="section">
+    <div class="container">
+      <section class="section-content glass-card">
+        <h1 class="section-headline">Fix employee issues faster—with an on‑prem AI service desk</h1>
+        <p class="section-text">Passwords, access, “how do I…?”—handled automatically with safe escalation to humans.</p>
+        <div class="cta-buttons" style="margin-top:1rem;">
+          <a class="cta-button primary schedule-button" href="/contact/">Schedule a demo</a>
+          <a class="cta-button secondary" href="/roi/">Calculate ROI</a>
+        </div>
+      </section>
+
+      <section class="section-content glass-card">
+        <h2>Who it’s for</h2>
+        <p>IT leaders who want lower MTTR and fewer repetitive tickets.</p>
+      </section>
+
+      <section class="section-content glass-card">
+        <h2>What it looks like in the field</h2>
+        <ul class="feature-list">
+          <li>AI resolves common requests, routes the rest, and documents every action.</li>
+          <li>“Agentic AI” is a 2025‑level priority trend; organizations are scaling agents beyond chat to workflow automation (Gartner).</li>
+        </ul>
+      </section>
+
+      <section class="section-content glass-card">
+        <h2>Capabilities</h2>
+        <ul class="feature-list">
+          <li>Account unlocks, SSO resets, software access requests</li>
+          <li>Policy answers, device triage, how‑to guidance</li>
+          <li>Ticket enrichment, classification, and summaries</li>
+        </ul>
+      </section>
+
+      <section class="section-content glass-card">
+      <h2>How it works</h2>
+      <ol class="steps-list">
+        <li>Connect IDP/SSO, ticketing, knowledge base.</li>
+        <li>Define safe automations (e.g., password resets).</li>
+        <li>Launch supervised; promote proven automations.</li>
+      </ol>
+      </section>
+
+      <section class="section-content glass-card">
+        <div class="grid two-cols">
+          <div>
+            <h3>Common integrations</h3>
+            <p>Okta/Azure AD, ServiceNow/Jira, MDM tools.</p>
+          </div>
+          <div>
+            <h3>KPIs</h3>
+            <p>MTTR, self‑serve %, ticket deflection, FCR, backlog.</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <h3>Security & compliance</h3>
+        <p>On‑prem processing; RBAC, audit logs, SSO/SCIM (higher tiers).</p>
+      </section>
+
+      <section class="section-content glass-card">
+        <h2>Rollout (2–4 weeks)</h2>
+        <p>Top 20 intents → automation guardrails → staged rollout.</p>
+      </section>
+
+      <section class="section-content glass-card">
+        <h2>Recommended Utlyze tier & pricing</h2>
+        <div class="grid two-cols compact-tiers">
+          <div class="mini-tier" data-tier-key="TierB">
+            <div class="tier-name h4">Workflow Operator</div>
+            <div class="tier-prices"><span class="tier-setup">Setup: —</span> <span class="tier-monthly">—/month</span></div>
+            <p class="muted">Most orgs</p>
+          </div>
+          <div class="mini-tier" data-tier-key="TierC">
+            <div class="tier-name h4">Autonomy Suite</div>
+            <div class="tier-prices"><span class="tier-setup">Setup: —</span> <span class="tier-monthly">—/month</span></div>
+            <p class="muted">Deep, cross‑system runbooks and audits</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-content glass-card">
+        <h2>FAQs</h2>
+        <details class="faq-item"><summary>How do we keep it safe?</summary><p>Least‑privilege accounts, human approvals for higher‑risk automations; aligns with analyst guidance on agent governance (PagerDuty).</p></details>
+      </section>
+
+      <section class="section-content glass-card">
+        <div class="cta-buttons">
+          <a href="/contact/" class="cta-button primary schedule-button">Talk to IT</a>
+          <a href="/pricing/" class="cta-button secondary">Explore pricing</a>
+        </div>
+        <p class="disclaimer muted" style="margin-top:1rem;">On‑prem processing; human‑in‑the‑loop for elevated actions. Results vary by scope and guardrails.</p>
+        <p><a class="btn btn--outline" href="/use-cases/">← Back to Use Cases</a></p>
+      </section>
+    </div>
+  </main>
+  <div id="site-footer-mount"></div>
+  <script>
+    (async function(){try{const r=await fetch('../../assets/data/tiers.json');if(!r.ok)return;const t=await r.json();document.querySelectorAll('[data-tier-key]').forEach(el=>{const k=el.getAttribute('data-tier-key');const d=t[k];if(!d)return;const n=el.querySelector('.tier-name');const s=el.querySelector('.tier-setup');const m=el.querySelector('.tier-monthly');if(n&&d.name)n.textContent=d.name;if(s&&d.setup_usd)s.textContent=`Setup: $${d.setup_usd}`;if(m&&d.monthly_usd)m.textContent=`$${d.monthly_usd}/month`;});}catch(e){}})();
+  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do we keep it safe?","acceptedAnswer":{"@type":"Answer","text":"Use least-privilege accounts and human approvals for higher-risk automations; full audit logs are available."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"IT Helpdesk & Employee Support","provider":{"@type":"Organization","name":"Utlyze"},"areaServed":"Global","serviceType":"AI IT Service Desk Automation"}</script>
+  <script src="../../app.js"></script>
+</body>
+</html>
