@@ -43,6 +43,22 @@ jobs:
         with:
           urls: |
             http://localhost:4010/use-cases/
+            http://localhost:4010/use-cases/customer-support-automation/
+            http://localhost:4010/use-cases/accounts-receivable-collections/
+            http://localhost:4010/use-cases/executive-outbound-sdr/
+            http://localhost:4010/use-cases/rfp-proposal-response/
+            http://localhost:4010/use-cases/it-helpdesk-employee-support/
+            http://localhost:4010/use-cases/legal-contract-review/
+            http://localhost:4010/use-cases/healthcare-prior-authorization/
+            http://localhost:4010/use-cases/financial-risk-assessment/
+            http://localhost:4010/use-cases/sales-lead-qualification/
+            http://localhost:4010/use-cases/hr-candidate-screening/
+            http://localhost:4010/use-cases/manufacturing-quality-control/
+            http://localhost:4010/use-cases/retail-inventory-optimization/
+            http://localhost:4010/use-cases/content-creation-pipeline/
+            http://localhost:4010/use-cases/insurance-claims-processing/
+            http://localhost:4010/use-cases/real-estate-property-analysis/
+            http://localhost:4010/use-cases/educational-content-personalization/
           runs: 1
           uploadArtifacts: true
           temporaryPublicStorage: true
