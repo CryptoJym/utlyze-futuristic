@@ -93,10 +93,10 @@
 			<div class="roi-hero hero">
 				<h1 class="section-headline">Cut AI spend 30–70% without sacrificing quality</h1>
 				<p class="section-subtext">Private models. Predictable pricing. Results you can measure.</p>
-				<div class="hero-buttons" style="margin-top: 12px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-					<a class="btn btn--primary" href="#calculator" id="seeSavingsCta">See Your Savings</a>
-					<a class="btn btn--outline" href="/pricing/">View Pricing Tiers</a>
-				</div>
+                    <div class="hero-buttons" style="margin-top: 12px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                        <a class="btn btn--primary" href="#calculator" id="seeSavingsCta" data-analytics-id="roi_hero_primary">See Your Savings</a>
+                        <a class="btn btn--outline" href="/contact?context=demo" data-analytics-id="roi_hero_secondary">Get a Demo</a>
+                    </div>
 			</div>
 
 			<!-- Credibility (minimal) -->
@@ -114,18 +114,18 @@
 				<div style="position:relative; padding-top:56.25%; border-radius:12px; overflow:hidden; background: rgba(0,0,0,0.05);">
 					<!-- Video placeholder - uncomment and replace VIDEO_ID when available -->
 					<!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Utlyze Success Story" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" loading="lazy" allowfullscreen></iframe> -->
-					<div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center; color:#666;">
-						<p>Video coming soon</p>
-					</div>
-				</div>
-				<div style="margin-top:12px;">
-					<div class="value-grid">
-						<div class="value-card"><div class="emoji">💰</div><div><strong>Predictable pricing</strong><div class="small-muted">Fixed monthly costs you can budget for.</div></div></div>
-						<div class="value-card"><div class="emoji">🔒</div><div><strong>Private by design</strong><div class="small-muted">Your data stays in your environment.</div></div></div>
-						<div class="value-card"><div class="emoji">⚡</div><div><strong>Performance parity</strong><div class="small-muted">Match or exceed GPT‑4 on your tasks.</div></div></div>
-						<div class="value-card"><div class="emoji">📈</div><div><strong>Measured ROI</strong><div class="small-muted">Track savings and payback with clarity.</div></div></div>
-					</div>
-				</div>
+                    <div style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+                        <img src="../assets/exported/case-placeholder.jpg" alt="Case snapshot: Vuplicity" style="max-width:100%; max-height:100%; object-fit:cover; opacity:0.9;">
+                    </div>
+                </div>
+                <div style="margin-top:12px;">
+                    <div class="value-grid">
+                        <div class="value-card"><div class="emoji">🏆</div><div><strong>Vuplicity case snapshot</strong><div class="small-muted">Reduced TAT from 3–5 days to minutes; 60% cost savings; 99.9% accuracy.</div></div></div>
+                        <div class="value-card"><div class="emoji">💰</div><div><strong>Predictable pricing</strong><div class="small-muted">Fixed monthly costs you can budget for.</div></div></div>
+                        <div class="value-card"><div class="emoji">🔒</div><div><strong>Private by design</strong><div class="small-muted">Your data stays in your environment.</div></div></div>
+                        <div class="value-card"><div class="emoji">⚡</div><div><strong>Performance parity</strong><div class="small-muted">Match or exceed GPT‑4 on your tasks.</div></div></div>
+                    </div>
+                </div>
 			</div>
 
 			<!-- How It Works -->
@@ -175,9 +175,10 @@
 
 						<!-- Simple inputs -->
 						<div id="simpleFields" class="regular-mode-fields">
-							<label class="form-label">Your current monthly AI spend ($)
-								<input type="number" class="glass-input" id="simpleMonthlySpend" value="3000" min="0" placeholder="e.g. 3000">
-							</label>
+                            <label class="form-label">Your current monthly AI spend ($)
+                                <input type="number" class="glass-input" id="simpleMonthlySpend" value="3000" min="0" placeholder="e.g. 6000" aria-describedby="simpleSpendHelp">
+                            </label>
+                            <p id="simpleSpendHelp" class="small-muted">Example: 6,000. Typical on‑prem saves 30–70%.</p>
 							<label class="form-label">Not sure? Pick a range
 								<select id="spendRange" class="form-control">
 									<option value="">Select a range (optional)</option>
@@ -247,8 +248,8 @@
 							</div>
 						</div>
 
-						<button type="submit" class="btn btn--primary btn--full-width" id="btnCalc">Get my estimate</button>
-						<p class="small-muted">We'll show your results instantly and email a copy. Confidential by default.</p>
+                        <button type="submit" class="btn btn--primary btn--full-width" id="btnCalc">Get my estimate</button>
+                        <p class="small-muted">We'll show your results instantly and email a copy. We don’t share your information.</p>
 						
 						<!-- Assumptions Explainer -->
 						<div id="assumptionsExplainer" style="margin-top: 16px; display: none;">
@@ -323,10 +324,10 @@
     <div id="schedule" class="sr-only" aria-hidden="true"></div>
 
     <!-- Mobile sticky CTA -->
-	<div id="mobileCtaBar">
-		<a class="btn btn--primary" href="#calculator">See Your Savings</a>
-		<a class="btn btn--outline" href="#schedule">Book Now</a>
-	</div>
+    <div id="mobileCtaBar">
+        <a class="btn btn--primary" href="#calculator" data-analytics-id="roi_mobile_primary">See Your Savings</a>
+        <a class="btn btn--outline" href="/contact?context=demo" data-analytics-id="roi_mobile_secondary">Get a Demo</a>
+    </div>
 
 	<!-- Site Footer Mount Point -->
 	<div id="site-footer-mount"></div>

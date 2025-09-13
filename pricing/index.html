@@ -86,105 +86,45 @@
       </div>
     </section>
 
+    <!-- Sticky Demo Bar (global CTA for Pricing) -->
+    <div id="stickyDemoBar" role="region" aria-label="Get a Demo" style="position:fixed; left:0; right:0; bottom:0; z-index:2147483000; background:rgba(255,255,255,0.95); backdrop-filter: var(--utlyze-backdrop-blur, blur(8px)); border-top:1px solid rgba(0,0,0,0.08);">
+      <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-weight:600; color:var(--utlyze-text-dark, #0a0a0a);">Ready to see it live?</span>
+          <span class="small-muted" style="color:rgba(10,10,10,0.7);">Book a 20‑minute demo.</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <a href="/contact?context=demo" class="btn btn-primary" data-analytics-id="pricing_sticky_demo">Get a Demo</a>
+          <button id="stickyDemoClose" aria-label="Close demo bar" style="border:none; background:transparent; font-size:18px; line-height:1; cursor:pointer; color:rgba(10,10,10,0.6);">×</button>
+        </div>
+      </div>
+    </div>
+
     <section class="pricing-matrix">
       <div class="container">
-        <div class="tier-grid">
-          <!-- Tier A: Team Assistant -->
-          <div class="tier-card tier-a">
-            <div class="tier-header">
-              <h2 class="tier-name">Team Assistant</h2>
-              <div class="tier-price">
-                <div class="setup-cost">One-time setup: $5,000</div>
-                <div class="monthly-cost">$1,100<span class="period">/month</span></div>
-              </div>
-            </div>
-            <div class="tier-features">
-              <ul class="feature-list">
-                <li><span class="feature-icon">✓</span> <strong>Perfect for small teams (up to 10 people)</strong></li>
-                <li><span class="feature-icon">✓</span> AI assistant answers questions from your docs</li>
-                <li><span class="feature-icon">✓</span> Automates repetitive email & chat responses</li>
-                <li><span class="feature-icon">✓</span> Summarizes meetings and creates action items</li>
-                <li><span class="feature-icon">✓</span> Works with your existing tools (Slack, email, CRM)</li>
-                <li><span class="feature-icon">✓</span> Simple to set up - no IT team needed</li>
-              </ul>
-              <div class="tier-models">
-                <h4>AI Capabilities:</h4>
-                <p>Fast response models optimized for common tasks</p>
-              </div>
-              <div class="tier-hardware">
-                <h4>What's Included:</h4>
-                <p>Compact AI server for your office - plugs into any outlet</p>
-              </div>
-            </div>
-            <a href="/roi/" class="tier-cta">Calculate ROI</a>
-          </div>
-
-          <!-- Tier B: Workflow Operator -->
-          <div class="tier-card tier-b featured">
-            <div class="tier-badge">Most Popular</div>
-            <div class="tier-header">
-              <h2 class="tier-name">Workflow Operator</h2>
-              <div class="tier-price">
-                <div class="setup-cost">One-time setup: $10,000</div>
-                <div class="monthly-cost">$2,200<span class="period">/month</span></div>
-              </div>
-            </div>
-            <div class="tier-features">
-              <ul class="feature-list">
-                <li><span class="feature-icon">✓</span> <strong>Built for growing companies (up to 100 people)</strong></li>
-                <li><span class="feature-icon">✓</span> AI drafts contracts, proposals, and reports</li>
-                <li><span class="feature-icon">✓</span> Reviews documents for compliance & errors</li>
-                <li><span class="feature-icon">✓</span> Automates customer support responses</li>
-                <li><span class="feature-icon">✓</span> Creates approval workflows for sensitive tasks</li>
-                <li><span class="feature-icon">✓</span> Integrates with your full tech stack</li>
-              </ul>
-              <div class="tier-models">
-                <h4>AI Capabilities:</h4>
-                <p>Advanced models for complex reasoning tasks</p>
-              </div>
-              <div class="tier-hardware">
-                <h4>What's Included:</h4>
-                <p>Powerful AI server - handles your whole department's needs</p>
-              </div>
-            </div>
-            <a href="/roi/" class="tier-cta">Calculate ROI</a>
-          </div>
-
-          <!-- Tier C: Autonomy Suite -->
-          <div class="tier-card tier-c">
-            <div class="tier-header">
-              <h2 class="tier-name">Autonomy Suite</h2>
-              <div class="tier-price">
-                <div class="setup-cost">One-time setup: $25,000+</div>
-                <div class="monthly-cost">$3,300<span class="period">/month</span></div>
-              </div>
-            </div>
-            <div class="tier-features">
-              <ul class="feature-list">
-                <li><span class="feature-icon">✓</span> <strong>Enterprise-scale (unlimited users)</strong></li>
-                <li><span class="feature-icon">✓</span> AI agents work autonomously 24/7</li>
-                <li><span class="feature-icon">✓</span> Handles complex multi-step processes</li>
-                <li><span class="feature-icon">✓</span> Makes decisions based on your policies</li>
-                <li><span class="feature-icon">✓</span> Full audit trails for compliance</li>
-                <li><span class="feature-icon">✓</span> Enterprise security & single sign-on</li>
-              </ul>
-              <div class="tier-models">
-                <h4>AI Capabilities:</h4>
-                <p>Largest models for maximum intelligence</p>
-              </div>
-              <div class="tier-hardware">
-                <h4>What's Included:</h4>
-                <p>Enterprise AI infrastructure - scales with your business</p>
-              </div>
-            </div>
-            <a href="/roi/" class="tier-cta">Calculate ROI</a>
-          </div>
+        <div class="tier-grid" id="pricing-tier-cards"></div>
+        <div style="text-align:center; margin-top:12px;">
+          <a class="tier-cta" href="/agents/#compare">View technical comparison</a>
         </div>
 
         <div class="pricing-notes">
           <p><sup>*</sup> All prices in USD. Setup costs include hardware, installation, and initial configuration.</p>
           <p><sup>†</sup> Monthly costs include support, updates, and maintenance.</p>
         </div>
+      </div>
+    </section>
+
+    <!-- Security & Compliance -->
+    <section class="section">
+      <div class="container">
+        <h2>Security & Compliance</h2>
+        <ul class="feature-list">
+          <li>On‑prem by default; data isolation</li>
+          <li>RBAC; audit logs (Workflow+)</li>
+          <li>SSO/SCIM (Autonomy)</li>
+          <li>DPA available; supports SOC 2 workflows</li>
+          <li>HIPAA support available for covered entities</li>
+        </ul>
       </div>
     </section>
 
@@ -261,5 +201,55 @@
     <div id="site-footer-mount"></div>
 
     <script src="../app.js"></script>
+    <script>
+      // Close behavior for sticky demo bar
+      (function(){
+        const bar = document.getElementById('stickyDemoBar');
+        const closeBtn = document.getElementById('stickyDemoClose');
+        if (bar && closeBtn) {
+          closeBtn.addEventListener('click', () => {
+            bar.style.display = 'none';
+          });
+        }
+      })();
+    </script>
+    <script>
+      async function loadPricing() {
+        try {
+          const res = await fetch('../assets/data/tiers.json');
+          const data = await res.json();
+          const tiers = (data.tiers || []).filter(t => ['team','workflow','autonomy'].includes(t.id));
+          const mount = document.getElementById('pricing-tier-cards');
+          if (!mount) return;
+          mount.innerHTML = tiers.map(t => `
+            <div class="tier-card">
+              <div class="tier-header">
+                <h2 class="tier-name">${t.name}</h2>
+                <div class="tier-price">
+                  <div class="setup-cost">Setup: $${Number(t.setup).toLocaleString()}</div>
+                  <div class="monthly-cost">$${Number(t.monthly).toLocaleString()}<span class="period">/month</span></div>
+                </div>
+              </div>
+              <div class="tier-features">
+                <ul class="feature-list">
+                  <li><span class="feature-icon">✓</span> ${t.users} users</li>
+                  <li><span class="feature-icon">✓</span> ${t.integrations} integrations</li>
+                  <li><span class="feature-icon">✓</span> ${t.workflows} workflows</li>
+                  <li><span class="feature-icon">✓</span> Context: ${t.context}</li>
+                  <li><span class="feature-icon">✓</span> Models: ${t.models.join(', ')}</li>
+                </ul>
+              </div>
+              <div class="tier-actions" style="display:flex; gap:8px; flex-wrap:wrap;">
+                <a href="/contact?context=demo" class="btn btn-primary" data-analytics-id="pricing_card_demo_${t.id}">Get a Demo</a>
+                <a href="/roi/" class="btn btn-secondary" data-analytics-id="pricing_card_roi_${t.id}">Calculate ROI</a>
+              </div>
+            </div>
+          `).join('');
+        } catch (e) {
+          console.error('Failed to load pricing tiers', e);
+        }
+      }
+      document.addEventListener('DOMContentLoaded', loadPricing);
+    </script>
 </body>
 </html>

@@ -55,13 +55,15 @@
                 <h1 class="hero-headline">Private AI Agents for Every Business</h1>
                 <p class="hero-subheadline">Deploy secure AI digital coworkers on-premises. No cloud dependencies, predictable costs, enterprise-grade performance.</p>
                 <div class="hero-buttons">
-                    <button class="btn btn--primary btn--lg" data-scroll-to="form">Get a Demo</button>
-                    <a class="btn btn--outline btn--lg" href="/roi/" aria-label="Estimate Savings with ROI Calculator">Estimate Savings</a>
+                    <a class="btn btn--primary btn--lg" href="/contact?context=demo" data-analytics-id="home_hero_primary">Get a Demo</a>
+                    <a class="btn btn--outline btn--lg" href="/roi/" aria-label="Calculate ROI with ROI Calculator" data-analytics-id="home_hero_secondary">Calculate ROI</a>
                 </div>
             </div>
         </div>
         <div class="hero-glow"></div>
     </section>
+
+    
 
     <!-- Benefits Section -->
     <section id="benefits" class="section">
@@ -433,7 +435,7 @@
                             <div class="form-group">
                                 <label class="sr-only" for="company_size">Company size</label>
                                 <select id="company_size" name="company_size" class="form-control glass-input">
-                                    <option value="">Company size</option>
+                                    <option value="" disabled selected>Choose one…</option>
                                     <option value="1-50">1-50 employees</option>
                                     <option value="51-200">51-200 employees</option>
                                     <option value="201-500">201-500 employees</option>
@@ -445,7 +447,7 @@
                             <div class="form-group">
                                 <label class="sr-only" for="interest">Primary interest</label>
                                 <select id="interest" name="interest" class="form-control glass-input" required>
-                                    <option value="">Primary interest *</option>
+                                    <option value="" disabled selected>Choose one…</option>
                                     <option value="cost-reduction">AI cost reduction</option>
                                     <option value="private-deployment">Private AI deployment</option>
                                     <option value="custom-agents">Custom AI agents</option>
@@ -461,7 +463,8 @@
                                 <textarea id="message" name="message" class="form-control glass-input" rows="3" placeholder="Tell us about your AI needs or challenges (optional)"></textarea>
                             </div>
                         
-                        <button type="submit" class="btn btn--primary btn--lg btn--full-width glass-button">Get Your Personalized Demo</button>
+                        <button type="submit" class="btn btn--primary btn--lg btn--full-width glass-button">Get a Demo</button>
+                        <p class="small-muted" style="margin-top:8px;">We don’t share your information.</p>
                         <p class="form-microcopy">Free consultation • ROI analysis included • No commitment required</p>
                     </form>
 

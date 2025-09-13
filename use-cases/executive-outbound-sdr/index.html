@@ -16,8 +16,8 @@
         <h1 class="section-headline">Book more meetings with compliant, high‑deliverability outreach</h1>
         <p class="section-text">Multi‑inbox, multi‑channel agent that researches, writes, and sequences—without tripping spam traps.</p>
         <div class="cta-buttons" style="margin-top:1rem;">
-          <a class="cta-button primary schedule-button" href="/contact/">Schedule a demo</a>
-          <a class="cta-button secondary" href="/roi/">Calculate ROI</a>
+          <a class="cta-button primary" href="/contact?context=demo" data-analytics-id="usecase_hero_primary">Get a Demo</a>
+          <a class="cta-button secondary" href="/roi/" data-analytics-id="usecase_hero_secondary">Calculate ROI</a>
         </div>
       </section>
 
@@ -98,8 +98,8 @@
 
       <section class="section-content glass-card">
         <div class="cta-buttons">
-          <a href="/contact/" class="cta-button primary schedule-button">Talk to sales</a>
-          <a href="/pricing/" class="cta-button secondary">Explore pricing</a>
+          <a href="/contact?context=demo" class="cta-button primary">Get a Demo</a>
+          <a href="/roi/" class="cta-button secondary">Calculate ROI</a>
         </div>
         <p class="disclaimer muted" style="margin-top:1rem;">On‑prem orchestration; human approval paths for sensitive outreach. Results vary by domain reputation and compliance settings.</p>
         <p><a class="btn btn--outline" href="/use-cases/">← Back to Use Cases</a></p>
@@ -108,7 +108,27 @@
   </main>
   <div id="site-footer-mount"></div>
   <script>
-    (async function(){try{const r=await fetch('../../assets/data/tiers.json');if(!r.ok)return;const t=await r.json();document.querySelectorAll('[data-tier-key]').forEach(el=>{const k=el.getAttribute('data-tier-key');const d=t[k];if(!d)return;const n=el.querySelector('.tier-name');const s=el.querySelector('.tier-setup');const m=el.querySelector('.tier-monthly');if(n&&d.name)n.textContent=d.name;if(s&&d.setup_usd)s.textContent=`Setup: $${d.setup_usd}`;if(m&&d.monthly_usd)m.textContent=`$${d.monthly_usd}/month`;});}catch(e){}})();
+    (async function(){
+      try{
+        const r=await fetch('../../assets/data/tiers.json');
+        if(!r.ok) return;
+        const json=await r.json();
+        const tiers = json.tiers || [];
+        const map = { 'TierA':'team','TierB':'workflow','TierC':'autonomy' };
+        document.querySelectorAll('[data-tier-key]').forEach(el=>{
+          const key = el.getAttribute('data-tier-key');
+          const id = map[key] || key;
+          const d = tiers.find(t=>t.id===id);
+          if(!d) return;
+          const n=el.querySelector('.tier-name');
+          const s=el.querySelector('.tier-setup');
+          const m=el.querySelector('.tier-monthly');
+          if(n&&d.name) n.textContent=d.name;
+          if(s&&d.setup!=null) s.textContent=`Setup: $${Number(d.setup).toLocaleString()}`;
+          if(m&&d.monthly!=null) m.textContent=`$${Number(d.monthly).toLocaleString()}/month`;
+        });
+      }catch(e){}
+    })();
   </script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do we avoid spam folders?","acceptedAnswer":{"@type":"Answer","text":"Respect send limits, warm gradually, and authenticate your domain (SPF, DKIM, DMARC)."}}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Executive Outbound & SDR Co-pilot","provider":{"@type":"Organization","name":"Utlyze"},"areaServed":"Global","serviceType":"AI Outbound Sales Orchestration"}</script>

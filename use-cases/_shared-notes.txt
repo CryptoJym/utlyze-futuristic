@@ -3,5 +3,5 @@ Each page:
 - Loads header/footer via app.js
 - Pulls dynamic tier pricing from assets/data/tiers.json
 - Includes JSON-LD FAQ for rich results
-- Reuses CTA classes for analytics tracking (.cta-button, .schedule-button)
-
+- Reuses CTA classes for analytics tracking (.cta-button)
+- Primary: "Get a Demo" → /contact?context=demo; Secondary: "Calculate ROI" → /roi

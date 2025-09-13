@@ -16,7 +16,7 @@
         <h1 class="section-headline">Slash prior‑authorization turnaround times with intelligent automation</h1>
         <p class="section-text">Agents that submit, monitor and appeal authorizations—reducing delays and freeing up clinicians.</p>
         <div class="cta-buttons" style="margin-top:1rem;">
-          <a href="/contact/" class="cta-button primary schedule-button">Talk to healthcare</a>
+          <a href="/contact?context=demo" class="cta-button primary">Get a Demo</a>
           <a href="/roi/" class="cta-button secondary">Calculate ROI</a>
         </div>
       </section>
@@ -73,7 +73,7 @@
       </section>
 
       <section class="section-content glass-card">
-        <div class="cta-buttons"><a href="/contact/" class="cta-button primary schedule-button">Discuss a pilot</a><a href="/pricing/" class="cta-button secondary">Explore pricing</a></div>
+        <div class="cta-buttons"><a href="/contact?context=demo" class="cta-button primary">Get a Demo</a><a href="/roi/" class="cta-button secondary">Calculate ROI</a></div>
         <p class="disclaimer muted" style="margin-top:1rem;">On‑prem processing, HIPAA alignment, human approvals for exceptions. Results vary by payer mix.</p>
         <p><a class="btn btn--outline" href="/use-cases/">← Back to Use Cases</a></p>
       </section>
@@ -81,11 +81,10 @@
   </main>
   <div id="site-footer-mount"></div>
   <script>
-    (async function(){try{const r=await fetch('../../assets/data/tiers.json');if(!r.ok)return;const t=await r.json();document.querySelectorAll('[data-tier-key]').forEach(el=>{const k=el.getAttribute('data-tier-key');const d=t[k];if(!d)return;const n=el.querySelector('.tier-name');const s=el.querySelector('.tier-setup');const m=el.querySelector('.tier-monthly');if(n&&d.name)n.textContent=d.name;if(s&&d.setup_usd)s.textContent=`Setup: $${d.setup_usd}`;if(m&&d.monthly_usd)m.textContent=`$${d.monthly_usd}/month`;});}catch(e){}})();
+    (async function(){try{const r=await fetch('../../assets/data/tiers.json');if(!r.ok)return;const j=await r.json();const arr=j.tiers||[];const map={'TierA':'team','TierB':'workflow','TierC':'autonomy'};document.querySelectorAll('[data-tier-key]').forEach(el=>{const k=el.getAttribute('data-tier-key');const id=map[k]||k;const d=arr.find(t=>t.id===id);if(!d)return;const n=el.querySelector('.tier-name');const s=el.querySelector('.tier-setup');const m=el.querySelector('.tier-monthly');if(n&&d.name)n.textContent=d.name;if(s&&d.setup!=null)s.textContent=`Setup: $${Number(d.setup).toLocaleString()}`;if(m&&d.monthly!=null)m.textContent=`$${Number(d.monthly).toLocaleString()}/month`;});}catch(e){}})();
   </script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does this reduce clinician workload?","acceptedAnswer":{"@type":"Answer","text":"Automation gathers documentation and communicates with payers; clinicians intervene only for complex cases."}},{"@type":"Question","name":"Will payers accept AI-generated requests?","acceptedAnswer":{"@type":"Answer","text":"We adhere to payer-specific formats and include required attachments with human oversight."}}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Healthcare Prior Authorization Automation","provider":{"@type":"Organization","name":"Utlyze"},"areaServed":"Global","serviceType":"AI Prior Authorization"}</script>
   <script src="../../app.js"></script>
 </body>
 </html>
-

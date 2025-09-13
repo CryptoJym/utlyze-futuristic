@@ -21,7 +21,8 @@
             <p><strong>Introduction</strong></p>
             <p>This resources hub is designed to help teams evaluate, implement and optimize private AI agents. It contains research‑driven guides and how‑tos on infrastructure choices, implementation best practices, security and compliance, ROI maximisation and model selection. The objective is to enable businesses to safely adopt on‑premise or private‑cloud deployments while achieving cost‑effective, high‑performance AI solutions.</p>
             <p class="muted">Have questions or need a walkthrough? <a href="/contact/">Contact us</a>.</p>
-            <nav aria-label="On‑page navigation" class="toc">
+            <button id="tocToggle" class="toc-toggle" aria-controls="resourceToc" aria-expanded="false" style="display:none; margin:8px 0;">Show table of contents</button>
+            <nav id="resourceToc" aria-label="On‑page navigation" class="toc">
               <ul>
                 <li><a href="#on-prem-vs-cloud">On‑prem vs Cloud AI Deployment</a></li>
                 <li><a href="#implementation-roadmap">AI Implementation Roadmap</a></li>
@@ -247,6 +248,70 @@
   </main>
   <div id="site-footer-mount"></div>
   <script src="../app.js"></script>
+  <script>
+    // Sticky TOC highlight
+    document.addEventListener('DOMContentLoaded', () => {
+      const toc = document.getElementById('resourceToc');
+      const toggle = document.getElementById('tocToggle');
+      if (toc) {
+        toc.style.position = 'sticky';
+        toc.style.top = '80px';
+      }
+      const links = document.querySelectorAll('#resourceToc a');
+      const targets = Array.from(links).map(a => {
+        const id = a.getAttribute('href')?.replace('#','');
+        return document.getElementById(id);
+      });
+      const onScroll = () => {
+        const y = window.scrollY + 100;
+        let activeIndex = -1;
+        targets.forEach((t, i) => {
+          if (t && t.offsetTop <= y) activeIndex = i;
+        });
+        links.forEach((a,i)=> a.classList.toggle('active', i===activeIndex));
+      };
+      document.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // Convert (source: domain) to links; annotate internal
+      const nodes = document.querySelectorAll('.section-text p, .section-text li');
+      nodes.forEach(node => {
+        const html = node.innerHTML;
+        node.innerHTML = html.replace(/\(source: ([^\)]+)\)/gi, (m, src) => {
+          const trimmed = src.trim();
+          if (trimmed.includes('utlyze.com')) {
+            return '(Utlyze internal analysis (2025))';
+          }
+          const url = trimmed.startsWith('http') ? trimmed : `https://${trimmed.replace(/\.$/,'')}`;
+          return `(source: <a href="${url}" target="_blank" rel="noopener noreferrer">${trimmed}</a>)`;
+        });
+      });
+
+      // Collapsible behavior on mobile
+      const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
+      const setCollapsed = (collapsed) => {
+        if (!toc || !toggle) return;
+        toc.classList.toggle('collapsed', collapsed);
+        toggle.setAttribute('aria-expanded', String(!collapsed));
+        toggle.textContent = collapsed ? 'Show table of contents' : 'Hide table of contents';
+      };
+      const applyInitial = () => {
+        if (!toggle || !toc) return;
+        if (isMobile()) {
+          toggle.style.display = 'inline-block';
+          setCollapsed(true);
+        } else {
+          toggle.style.display = 'none';
+          setCollapsed(false);
+        }
+      };
+      if (toggle && toc) {
+        toggle.addEventListener('click', () => setCollapsed(toc.classList.contains('collapsed') ? false : true));
+        window.addEventListener('resize', applyInitial, { passive: true });
+        applyInitial();
+      }
+    });
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -256,7 +321,11 @@
   }
   </script>
 </body>
-<style>
+  <style>
+  .toc { position: sticky; top: 80px; }
+  .toc.collapsed { display: none; }
+  .toc-toggle { border:1px solid rgba(0,0,0,0.15); background:#fff; color:#0a0a0a; padding:6px 10px; border-radius:999px; font-size:14px; }
+  .toc a.active { font-weight: 600; text-decoration: underline; }
   .section-text a { text-decoration: underline; }
   .section-content { padding: var(--space-24); }
   .toc ul { display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); padding-left: 1rem; }

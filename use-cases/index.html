@@ -67,8 +67,8 @@
           See how much you can save with AI automation tailored to your business needs.
         </p>
         <div class="cta-buttons">
-          <a href="/roi/" class="cta-button primary">Calculate ROI</a>
-          <a href="/contact/" class="cta-button secondary">Get a Demo</a>
+          <a href="/contact?context=demo" class="cta-button primary">Get a Demo</a>
+          <a href="/roi/" class="cta-button secondary">Calculate ROI</a>
         </div>
       </div>
     </section>
@@ -106,10 +106,16 @@
         const useCases = await response.json();
         
         const tiersResponse = await fetch('../assets/data/tiers.json');
-        const tiers = await tiersResponse.json();
-        
-        displayUseCases(useCases, tiers);
-        setupFilters(useCases, tiers);
+        const tiersData = await tiersResponse.json();
+        const tiersArr = tiersData.tiers || [];
+        const tierMap = {
+          'TierA': tiersArr.find(t => t.id === 'team'),
+          'TierB': tiersArr.find(t => t.id === 'workflow'),
+          'TierC': tiersArr.find(t => t.id === 'autonomy')
+        };
+
+        displayUseCases(useCases, tierMap);
+        setupFilters(useCases, tierMap);
       } catch (error) {
         console.error('Error loading use cases:', error);
         document.getElementById('use-cases-grid').innerHTML = 

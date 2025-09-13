@@ -295,25 +295,43 @@
             Something went wrong. Please try again or email us directly at hello@utlyze.com
           </div>
 
+          <div class="form-group">
+            <label for="primary_interest" class="form-label">Primary interest (required)</label>
+            <select id="primary_interest" name="primary_interest" class="form-select" required aria-describedby="primary_interest_help primary_interest_error">
+              <option value="" disabled selected>Choose one…</option>
+              <option value="demo">Get a demo</option>
+              <option value="roi">Calculate ROI</option>
+              <option value="private-deployment">Private on‑prem deployment</option>
+              <option value="workflow-automation">Workflow automation</option>
+              <option value="custom-agents">Custom AI agents</option>
+            </select>
+            <p id="primary_interest_help" class="help">Tell us what you’d like to start with.</p>
+            <p id="primary_interest_error" class="error" role="alert" style="display:none;">Please choose a primary interest</p>
+          </div>
+
+          <details class="optional-section"><summary style="cursor:pointer; font-weight:600; margin: 8px 0;">More details (optional)</summary>
           <div class="form-grid">
             <div class="form-group">
-              <label for="first_name" class="form-label">First Name *</label>
-              <input type="text" id="first_name" name="first_name" class="form-input" required>
-              <span class="validation-error" id="first_name-error">Please enter your first name</span>
+              <label for="first_name" class="form-label">First name (required)</label>
+              <input type="text" id="first_name" name="first_name" class="form-input" required aria-describedby="first_name_help first_name_error">
+              <p id="first_name_help" class="help">Enter your given name.</p>
+              <p id="first_name_error" class="error" role="alert" style="display:none;">Please enter your first name</p>
             </div>
 
             <div class="form-group">
-              <label for="last_name" class="form-label">Last Name *</label>
-              <input type="text" id="last_name" name="last_name" class="form-input" required>
-              <span class="validation-error" id="last_name-error">Please enter your last name</span>
+              <label for="last_name" class="form-label">Last name (required)</label>
+              <input type="text" id="last_name" name="last_name" class="form-input" required aria-describedby="last_name_help last_name_error">
+              <p id="last_name_help" class="help">Enter your family name.</p>
+              <p id="last_name_error" class="error" role="alert" style="display:none;">Please enter your last name</p>
             </div>
           </div>
 
           <div class="form-grid">
             <div class="form-group">
-              <label for="email" class="form-label">Work Email *</label>
-              <input type="email" id="email" name="email" class="form-input" required placeholder="you@company.com">
-              <span class="validation-error" id="email-error">Please enter a valid work email</span>
+              <label for="email" class="form-label">Work email (required)</label>
+              <input type="email" id="email" name="email" class="form-input" required aria-describedby="email_help email_error" placeholder="name@company.com">
+              <p id="email_help" class="help">Use your work email if possible.</p>
+              <p id="email_error" class="error" role="alert" style="display:none;">Please enter a valid work email</p>
             </div>
 
             <div class="form-group">
@@ -324,15 +342,16 @@
 
           <div class="form-grid">
             <div class="form-group">
-              <label for="company" class="form-label">Company *</label>
-              <input type="text" id="company" name="company" class="form-input" required>
-              <span class="validation-error" id="company-error">Please enter your company name</span>
+              <label for="company" class="form-label">Company (required)</label>
+              <input type="text" id="company" name="company" class="form-input" required aria-describedby="company_help company_error">
+              <p id="company_help" class="help">Your organization’s name.</p>
+              <p id="company_error" class="error" role="alert" style="display:none;">Please enter your company name</p>
             </div>
 
             <div class="form-group">
-              <label for="job_title" class="form-label">Job Title *</label>
-              <input type="text" id="job_title" name="job_title" class="form-input" required placeholder="e.g., CTO, VP Engineering">
-              <span class="validation-error" id="job_title-error">Please enter your job title</span>
+              <label for="job_title" class="form-label">Job Title</label>
+              <input type="text" id="job_title" name="job_title" class="form-input" placeholder="e.g., CTO, VP Engineering">
+              <span class="validation-error" id="job_title-error" style="display:none"></span>
             </div>
           </div>
 
@@ -340,7 +359,7 @@
             <div class="form-group">
               <label for="company_size" class="form-label">Company Size</label>
               <select id="company_size" name="company_size" class="form-select">
-                <option value="">Select size</option>
+                <option value="" disabled selected>Choose one…</option>
                 <option value="1-10">1-10 employees</option>
                 <option value="11-50">11-50 employees</option>
                 <option value="51-200">51-200 employees</option>
@@ -354,7 +373,7 @@
             <div class="form-group">
               <label for="industry" class="form-label">Industry</label>
               <select id="industry" name="industry" class="form-select">
-                <option value="">Select industry</option>
+                <option value="" disabled selected>Choose one…</option>
                 <option value="technology">Technology</option>
                 <option value="financial-services">Financial Services</option>
                 <option value="healthcare">Healthcare</option>
@@ -371,7 +390,7 @@
           <div class="form-group">
             <label for="current_ai_usage" class="form-label">Current AI Usage</label>
             <select id="current_ai_usage" name="current_ai_usage" class="form-select">
-              <option value="">Select your current AI maturity</option>
+              <option value="" disabled selected>Choose one…</option>
               <option value="exploring">Exploring AI possibilities</option>
               <option value="piloting">Running pilot projects</option>
               <option value="production">AI in production for specific use cases</option>
@@ -414,7 +433,7 @@
             <div class="form-group">
               <label for="timeline" class="form-label">Implementation Timeline</label>
               <select id="timeline" name="timeline" class="form-select">
-                <option value="">Select timeline</option>
+                <option value="" disabled selected>Choose one…</option>
                 <option value="immediate">Immediate (< 1 month)</option>
                 <option value="q1">This quarter</option>
                 <option value="q2">Next quarter</option>
@@ -426,7 +445,7 @@
             <div class="form-group">
               <label for="budget_range" class="form-label">Annual AI Budget</label>
               <select id="budget_range" name="budget_range" class="form-select">
-                <option value="">Select budget range</option>
+                <option value="" disabled selected>Choose one…</option>
                 <option value="under-50k">Under $50K</option>
                 <option value="50k-100k">$50K - $100K</option>
                 <option value="100k-500k">$100K - $500K</option>
@@ -437,16 +456,18 @@
               </select>
             </div>
           </div>
+          </details>
 
           <div class="form-group">
-            <label for="pain_points" class="form-label">What are your biggest AI challenges? *</label>
-            <textarea id="pain_points" name="pain_points" class="form-textarea" required placeholder="e.g., High API costs, slow response times, complex integrations, lack of expertise..."></textarea>
-            <span class="validation-error" id="pain_points-error">Please describe your challenges</span>
+            <label for="message" class="form-label">Message (required)</label>
+            <textarea id="message" name="message" class="form-textarea" required aria-describedby="message_help message_error" placeholder="Tell us briefly what you’d like to accomplish…"></textarea>
+            <p id="message_help" class="help">Example: Reduce API costs; deploy private support agent; automate contract review.</p>
+            <p id="message_error" class="error" role="alert" style="display:none;">Please enter a message</p>
           </div>
 
           <div class="form-group">
-            <label for="message" class="form-label">Additional Details</label>
-            <textarea id="message" name="message" class="form-textarea" placeholder="Tell us more about your specific needs or questions..."></textarea>
+            <label for="pain_points" class="form-label">Biggest challenges (optional)</label>
+            <textarea id="pain_points" name="pain_points" class="form-textarea" placeholder="e.g., High API costs, slow response times, complex integrations, lack of expertise..."></textarea>
           </div>
 
           <!-- Honeypot field for spam protection -->
@@ -455,9 +476,8 @@
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
           </div>
 
-          <button type="submit" class="form-submit" id="submit-button">
-            Get Your Personalized ROI Analysis
-          </button>
+          <button type="submit" class="form-submit" id="submit-button">Get a Demo</button>
+          <p class="small-muted" style="margin-top:8px;">We don’t share your information.</p>
         </form>
       </section>
 
@@ -472,19 +492,16 @@
 
         <div class="info-section">
           <h2 class="info-title">Schedule a Live Demo</h2>
-          <p class="info-text">See our AI agents in action. Get a personalized demo tailored to your use cases.</p>
-          <a href="https://calendly.com/utlyze/demo" class="schedule-button" target="_blank" rel="noopener noreferrer">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
-            </svg>
-            Schedule a Demo
-          </a>
+          <p class="info-text">Prefer to book now? Pick a time.</p>
+          <div style="background: #fff; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden;">
+            <iframe src="https://calendly.com/utlyze/demo" title="Book a demo" style="width:100%; height:520px; border:0;" loading="lazy"></iframe>
+          </div>
         </div>
 
         <div class="info-section">
           <h2 class="info-title">Calculate Your Savings</h2>
           <p class="info-text">Use our ROI calculator to see how much you could save with Utlyze.</p>
-          <a href="/pricing/" class="schedule-button">
+          <a href="/roi/" class="schedule-button">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
             </svg>
@@ -564,96 +581,54 @@
       function validateForm() {
         let isValid = true;
 
-        // First Name validation
+        const show = (id) => { const el = document.getElementById(id); if (el) el.style.display = 'block'; };
+        const hide = (id) => { const el = document.getElementById(id); if (el) el.style.display = 'none'; };
+
+        // First Name
         const firstName = document.getElementById('first_name');
-        const firstNameError = document.getElementById('first_name-error');
-        if (firstName.value.trim() === '') {
-          firstNameError.style.display = 'block';
-          isValid = false;
-        } else {
-          firstNameError.style.display = 'none';
-        }
+        if (!firstName.value.trim()) { show('first_name_error'); isValid = false; } else { hide('first_name_error'); }
 
-        // Last Name validation
+        // Last Name
         const lastName = document.getElementById('last_name');
-        const lastNameError = document.getElementById('last_name-error');
-        if (lastName.value.trim() === '') {
-          lastNameError.style.display = 'block';
-          isValid = false;
-        } else {
-          lastNameError.style.display = 'none';
-        }
+        if (!lastName.value.trim()) { show('last_name_error'); isValid = false; } else { hide('last_name_error'); }
 
-        // Email validation
+        // Email
         const email = document.getElementById('email');
-        const emailError = document.getElementById('email-error');
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email.value)) {
-          emailError.style.display = 'block';
-          isValid = false;
-        } else {
-          emailError.style.display = 'none';
-        }
+        if (!emailRegex.test(email.value)) { show('email_error'); isValid = false; } else { hide('email_error'); }
 
-        // Company validation
+        // Company
         const company = document.getElementById('company');
-        const companyError = document.getElementById('company-error');
-        if (company.value.trim() === '') {
-          companyError.style.display = 'block';
-          isValid = false;
-        } else {
-          companyError.style.display = 'none';
-        }
+        if (!company.value.trim()) { show('company_error'); isValid = false; } else { hide('company_error'); }
 
-        // Job Title validation
-        const jobTitle = document.getElementById('job_title');
-        const jobTitleError = document.getElementById('job_title-error');
-        if (jobTitle.value.trim() === '') {
-          jobTitleError.style.display = 'block';
-          isValid = false;
-        } else {
-          jobTitleError.style.display = 'none';
-        }
+        // Primary interest
+        const primaryInterest = document.getElementById('primary_interest');
+        if (!primaryInterest.value) { show('primary_interest_error'); isValid = false; } else { hide('primary_interest_error'); }
 
-        // Pain Points validation
-        const painPoints = document.getElementById('pain_points');
-        const painPointsError = document.getElementById('pain_points-error');
-        if (painPoints.value.trim() === '') {
-          painPointsError.style.display = 'block';
-          isValid = false;
-        } else {
-          painPointsError.style.display = 'none';
-        }
+        // Message
+        const message = document.getElementById('message');
+        if (!message.value.trim()) { show('message_error'); isValid = false; } else { hide('message_error'); }
 
         return isValid;
       }
 
       // Real-time validation
-      ['first_name', 'last_name', 'company', 'job_title'].forEach(fieldId => {
+      ['first_name', 'last_name', 'company', 'message'].forEach(fieldId => {
         document.getElementById(fieldId).addEventListener('blur', function() {
           if (this.value.trim() === '') {
-            document.getElementById(fieldId + '-error').style.display = 'block';
+            const errId = fieldId + '_error';
+            const el = document.getElementById(errId); if (el) el.style.display = 'block';
           } else {
-            document.getElementById(fieldId + '-error').style.display = 'none';
+            const errId = fieldId + '_error';
+            const el = document.getElementById(errId); if (el) el.style.display = 'none';
           }
         });
       });
 
       document.getElementById('email').addEventListener('blur', function() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(this.value)) {
-          document.getElementById('email-error').style.display = 'block';
-        } else {
-          document.getElementById('email-error').style.display = 'none';
-        }
-      });
-
-      document.getElementById('pain_points').addEventListener('blur', function() {
-        if (this.value.trim() === '') {
-          document.getElementById('pain_points-error').style.display = 'block';
-        } else {
-          document.getElementById('pain_points-error').style.display = 'none';
-        }
+        const el = document.getElementById('email_error');
+        if (el) el.style.display = emailRegex.test(this.value) ? 'none' : 'block';
       });
 
       // Form submission
@@ -700,15 +675,16 @@
             email: document.getElementById('email').value.trim(),
             phone: document.getElementById('phone').value.trim() || null,
             company: document.getElementById('company').value.trim(),
-            job_title: document.getElementById('job_title').value.trim(),
+            job_title: document.getElementById('job_title').value.trim() || null,
+            primary_interest: document.getElementById('primary_interest').value,
             company_size: document.getElementById('company_size').value || null,
             industry: document.getElementById('industry').value || null,
             current_ai_usage: document.getElementById('current_ai_usage').value || null,
             interested_solutions: selectedSolutions.length > 0 ? selectedSolutions : null,
             timeline: document.getElementById('timeline').value || null,
             budget_range: document.getElementById('budget_range').value || null,
-            pain_points: document.getElementById('pain_points').value.trim(),
-            message: document.getElementById('message').value.trim() || null,
+            pain_points: document.getElementById('pain_points').value.trim() || null,
+            message: document.getElementById('message').value.trim(),
             ...utmParams,
             referrer: document.referrer || null
           };
@@ -749,7 +725,7 @@
         } finally {
           // Re-enable submit button
           submitButton.disabled = false;
-          submitButton.textContent = 'Get Your Personalized ROI Analysis';
+          submitButton.textContent = 'Get a Demo';
         }
       });
     });

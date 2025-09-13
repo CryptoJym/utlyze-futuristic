@@ -1121,6 +1121,8 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(`User clicked: ${action}`, {
             element: element.tagName,
             text: element.textContent,
+            page: window.location.pathname,
+            analyticsId: element.getAttribute && element.getAttribute('data-analytics-id') || null,
             timestamp: new Date().toISOString(),
             position: {
                 x: element.getBoundingClientRect().left,
@@ -1156,6 +1158,26 @@ document.addEventListener('DOMContentLoaded', function() {
             createClickRipple(button);
         });
     });
+
+    // Canonical CTA analytics
+    const demoLinks = document.querySelectorAll('a[href*="/contact?context=demo"]');
+    demoLinks.forEach(link => {
+        link.addEventListener('click', () => trackClick(link, 'click_cta_demo'));
+    });
+    const roiLinks = document.querySelectorAll('a[href="/roi/"], a[href*="/roi#"], a[href*="/roi?"]');
+    roiLinks.forEach(link => {
+        link.addEventListener('click', () => trackClick(link, 'click_cta_roi'));
+    });
+
+    // Form submit analytics
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', () => trackClick(contactForm, 'form_submit_contact'));
+    }
+    const roiForm = document.getElementById('calcForm');
+    if (roiForm) {
+        roiForm.addEventListener('submit', () => trackClick(roiForm, 'form_submit_roi_calc'));
+    }
 
     // Premium click ripple effect
     function createClickRipple(element) {

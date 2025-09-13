@@ -1,41 +1,43 @@
 {
-  "TierA": {
-    "name": "Team Assistant",
-    "users": 10,
-    "integrations": 3,
-    "workflows": 3,
-    "context": "~32k",
-    "concurrency": "low",
-    "security": ["RBAC"],
-    "models": ["Llama 3.1 8B", "Qwen 2.5 7B"],
-    "hardware": "Mac Studio M3 Max 24c",
-    "setup_usd": "5000",
-    "monthly_usd": "1100"
-  },
-  "TierB": {
-    "name": "Workflow Operator",
-    "users": 100,
-    "integrations": 8,
-    "workflows": 10,
-    "context": "~64k",
-    "concurrency": "mid",
-    "security": ["RBAC", "Approvals"],
-    "models": ["Qwen 2.5 14B", "Mixtral 8x7B"],
-    "hardware": "Mac Studio M3 Ultra 60c",
-    "setup_usd": "10000",
-    "monthly_usd": "2200"
-  },
-  "TierC": {
-    "name": "Autonomy Suite",
-    "users": "unlimited",
-    "integrations": 20,
-    "workflows": "unlimited",
-    "context": "128k+",
-    "concurrency": "high",
-    "security": ["RBAC", "SSO/SCIM", "Audit"],
-    "models": ["Gemma 2 27B", "Llama 3.1 70B"],
-    "hardware": "M3 Ultra 60c 512GB",
-    "setup_usd": "25000+",
-    "monthly_usd": "3300"
+  "tiers": [
+    {
+      "id": "team",
+      "name": "Team Assistant",
+      "setup": 5000,
+      "monthly": 1100,
+      "users": "Up to 10",
+      "integrations": 3,
+      "workflows": 3,
+      "context": "≈32k",
+      "models": ["Llama 3.1 8B", "Qwen 2.5 7B"]
+    },
+    {
+      "id": "workflow",
+      "name": "Workflow Operator",
+      "setup": 10000,
+      "monthly": 2200,
+      "users": "Up to 100",
+      "integrations": 8,
+      "workflows": 10,
+      "context": "≈64k",
+      "models": ["Qwen 2.5 14B", "Mixtral 8x7B"]
+    },
+    {
+      "id": "autonomy",
+      "name": "Autonomy Suite",
+      "setup": 25000,
+      "monthly": 3300,
+      "users": "Unlimited",
+      "integrations": "20+",
+      "workflows": "Unlimited",
+      "context": "128k+",
+      "models": ["Gemma 2 27B", "Llama 3.1 70B"]
+    }
+  ],
+  "addons": {
+    "additional_user_per_month": 5,
+    "extra_integration": 300,
+    "priority_support": 200,
+    "dedicated_support": 500
   }
 }
