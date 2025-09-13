@@ -85,21 +85,27 @@ const fallbackHeaderHTML = `<header class="site-header">
 const fallbackFooterHTML = `<footer class="site-footer">
   <div class="footer-container">
     <div class="footer-content">
-      <div class="footer-mission">
-        <h3 class="footer-heading">Our Mission</h3>
-        <p class="mission-tagline">Empowering enterprises with AI agents that transform how work gets done.</p>
-      </div>
-      <div class="footer-contact">
-        <h3 class="footer-heading">Contact Us</h3>
-        <p>Get in touch: <a href="mailto:hello@utlyze.com" class="contact-link">hello@utlyze.com</a></p>
-      </div>
-      <div class="footer-links">
-        <h3 class="footer-heading">Quick Links</h3>
+      <div class="footer-column">
+        <h3 class="footer-heading">Product</h3>
         <ul class="footer-nav">
-          <li><a href="/agents/" class="footer-link">AI Agents</a></li>
-          <li><a href="/pricing/" class="footer-link">Pricing & ROI</a></li>
+          <li><a href="/agents/" class="footer-link">Agents</a></li>
+          <li><a href="/pricing/" class="footer-link">Pricing</a></li>
           <li><a href="/use-cases/" class="footer-link">Use Cases</a></li>
-          <li><a href="/studio/" class="footer-link">Venture Studio</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3 class="footer-heading">Company</h3>
+        <ul class="footer-nav">
+          <li><a href="/about/" class="footer-link">About</a></li>
+          <li><a href="/studio/" class="footer-link">Studio</a></li>
+          <li><a href="/contact/" class="footer-link">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3 class="footer-heading">Resources</h3>
+        <ul class="footer-nav">
+          <li><a href="/resources/" class="footer-link">Resources hub</a></li>
+          <li><a href="/roi/" class="footer-link">ROI Calculator</a></li>
         </ul>
       </div>
     </div>
@@ -1257,64 +1263,93 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   });
 
-  // Sync tier monthly pricing from assets/data/tiers.json (prevents drift)
+  // Sync tier pricing for Home and Pricing from canonical assets/data/tiers.json
   (async function syncTierPricing() {
-      try {
-          const pathPrefix = getPathPrefix();
-          const res = await fetch(`${pathPrefix}/assets/data/tiers.json`, { cache: 'no-store' });
-          if (!res.ok) return;
-          const tiers = await res.json();
+    try {
+      const pathPrefix = getPathPrefix();
+      const res = await fetch(`${pathPrefix}/assets/data/tiers.json`, { cache: 'no-store' });
+      if (!res.ok) return;
+      const data = await res.json();
+      const tiersArr = data.tiers || [];
 
-          // Home page cards
-          const homeCards = document.querySelectorAll('.tier-card[data-tier]');
-          homeCards.forEach(card => {
-              const key = card.getAttribute('data-tier');
-              const monthly = card.querySelector('.tier-monthly');
-              const setup = card.querySelector('.tier-setup');
-              if (monthly && tiers[key]?.monthly_usd) {
-                  monthly.textContent = `$${tiers[key].monthly_usd}/month`;
-              }
-              if (setup && tiers[key]?.setup_usd) {
-                  setup.textContent = `Setup: $${tiers[key].setup_usd}`;
-              }
-          });
+      // Build a lookup by id
+      const byId = Object.fromEntries(tiersArr.map(t => [t.id, t]));
+      // Map legacy keys used on Home to canonical ids
+      const legacyMap = { TierA: 'team', TierB: 'workflow', TierC: 'autonomy' };
 
-          // Pricing page cards
-          const setMonthly = (root, value) => {
-              if (!root || !value) return;
-              const period = root.querySelector('.period');
-              // Reset content to number and re-attach period span for styling
-              root.textContent = `$${value}`;
-              if (period) {
-                  root.appendChild(period);
-              } else {
-                  const span = document.createElement('span');
-                  span.className = 'period';
-                  span.textContent = '/month';
-                  root.appendChild(span);
-              }
-          };
+      // Home page cards (data-tier="TierA|TierB|TierC")
+      document.querySelectorAll('.tier-card[data-tier]').forEach(card => {
+        const legacy = card.getAttribute('data-tier');
+        const id = legacyMap[legacy] || legacy;
+        const t = byId[id];
+        if (!t) return;
+        const monthly = card.querySelector('.tier-monthly');
+        const setup = card.querySelector('.tier-setup');
+        if (monthly && t.monthly != null) {
+          monthly.textContent = `$${Number(t.monthly).toLocaleString()}/month`;
+        }
+        if (setup && t.setup != null) {
+          setup.textContent = `Setup: $${Number(t.setup).toLocaleString()}`;
+        }
+      });
 
-          const tierA = document.querySelector('.tier-card.tier-a .monthly-cost');
-          const tierB = document.querySelector('.tier-card.tier-b .monthly-cost');
-          const tierC = document.querySelector('.tier-card.tier-c .monthly-cost');
-          if (tiers.TierA?.monthly_usd) setMonthly(tierA, tiers.TierA.monthly_usd);
-          if (tiers.TierB?.monthly_usd) setMonthly(tierB, tiers.TierB.monthly_usd);
-          if (tiers.TierC?.monthly_usd) setMonthly(tierC, tiers.TierC.monthly_usd);
+      // Pricing page cards that render server-side markup (monthly-cost/setup-cost)
+      const setMonthly = (root, value) => {
+        if (!root || value == null) return;
+        const period = root.querySelector('.period');
+        root.textContent = `$${Number(value).toLocaleString()}`;
+        if (period) {
+          root.appendChild(period);
+        } else {
+          const span = document.createElement('span');
+          span.className = 'period';
+          span.textContent = '/month';
+          root.appendChild(span);
+        }
+      };
 
-          // Pricing page setup costs
-          const setSetup = (root, value) => {
-              if (!root || !value) return;
-              root.textContent = `Setup: $${value}`;
-          };
-          const setupA = document.querySelector('.tier-card.tier-a .setup-cost');
-          const setupB = document.querySelector('.tier-card.tier-b .setup-cost');
-          const setupC = document.querySelector('.tier-card.tier-c .setup-cost');
-          if (tiers.TierA?.setup_usd) setSetup(setupA, tiers.TierA.setup_usd);
-          if (tiers.TierB?.setup_usd) setSetup(setupB, tiers.TierB.setup_usd);
-          if (tiers.TierC?.setup_usd) setSetup(setupC, tiers.TierC.setup_usd);
-      } catch (e) {
-          // Silent failure to avoid blocking page
+      const setSetup = (root, value) => {
+        if (!root || value == null) return;
+        root.textContent = `Setup: $${Number(value).toLocaleString()}`;
+      };
+
+      const tA = byId['team'];
+      const tB = byId['workflow'];
+      const tC = byId['autonomy'];
+      setMonthly(document.querySelector('.tier-card.tier-a .monthly-cost'), tA?.monthly);
+      setMonthly(document.querySelector('.tier-card.tier-b .monthly-cost'), tB?.monthly);
+      setMonthly(document.querySelector('.tier-card.tier-c .monthly-cost'), tC?.monthly);
+      setSetup(document.querySelector('.tier-card.tier-a .setup-cost'), tA?.setup);
+      setSetup(document.querySelector('.tier-card.tier-b .setup-cost'), tB?.setup);
+      setSetup(document.querySelector('.tier-card.tier-c .setup-cost'), tC?.setup);
+    } catch (e) {
+      // Silent failure to avoid blocking page
+    }
+  })();
+
+  // Inject breadcrumb on Use Case detail pages (Use Cases > [Case])
+  (function injectUseCaseBreadcrumb() {
+    try {
+      const path = window.location.pathname.replace(/\/$/, '');
+      if (!path.startsWith('/use-cases/') || path === '/use-cases') return;
+      const segments = path.split('/').filter(Boolean);
+      if (segments.length < 2) return; // not a detail page
+      const container = document.querySelector('main .container');
+      if (!container) return;
+      const firstSection = container.querySelector('.section-content');
+      const nav = document.createElement('nav');
+      nav.className = 'breadcrumb';
+      nav.setAttribute('aria-label', 'Breadcrumb');
+      nav.innerHTML = `
+        <a href="/use-cases/" class="breadcrumb-link">Use Cases</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">${document.querySelector('h1')?.textContent || segments[1].replace(/-/g,' ')}</span>
+      `;
+      if (firstSection) {
+        firstSection.parentNode.insertBefore(nav, firstSection);
+      } else {
+        container.insertBefore(nav, container.firstChild);
       }
+    } catch {}
   })();
 });

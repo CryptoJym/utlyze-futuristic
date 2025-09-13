@@ -55,8 +55,8 @@
                 <h1 class="hero-headline">Private AI Agents for Every Business</h1>
                 <p class="hero-subheadline">Deploy secure AI digital coworkers on-premises. No cloud dependencies, predictable costs, enterprise-grade performance.</p>
                 <div class="hero-buttons">
-                    <a class="btn btn--primary btn--lg" href="/contact?context=demo" data-analytics-id="home_hero_primary">Get a Demo</a>
-                    <a class="btn btn--outline btn--lg" href="/roi/" aria-label="Calculate ROI with ROI Calculator" data-analytics-id="home_hero_secondary">Calculate ROI</a>
+                    <a class="btn btn--primary" href="/contact?context=demo" data-analytics-id="home_hero_primary">Get a Demo</a>
+                    <a class="btn btn--outline" href="/roi/" aria-label="Calculate ROI with ROI Calculator" data-analytics-id="home_hero_secondary">Calculate ROI</a>
                 </div>
             </div>
         </div>
@@ -159,6 +159,21 @@
                         <p>AI-powered automation, instant results, 99.9% accuracy</p>
                     </div>
                 </div>
+                <div class="stats-row" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:12px; margin-top:12px;">
+                    <div class="stat-item glass-card" style="padding:12px; text-align:center;">
+                        <div class="stat-label" style="font-size:12px; color:rgba(10,10,10,0.7);">Time reduction</div>
+                        <div class="stat-value" style="font-weight:700; font-size:18px;">95% faster</div>
+                    </div>
+                    <div class="stat-item glass-card" style="padding:12px; text-align:center;">
+                        <div class="stat-label" style="font-size:12px; color:rgba(10,10,10,0.7);">Cost savings</div>
+                        <div class="stat-value" style="font-weight:700; font-size:18px;">50–70%</div>
+                    </div>
+                    <div class="stat-item glass-card" style="padding:12px; text-align:center;">
+                        <div class="stat-label" style="font-size:12px; color:rgba(10,10,10,0.7);">Accuracy</div>
+                        <div class="stat-value" style="font-weight:700; font-size:18px;">99.9%</div>
+                    </div>
+                </div>
+                <p class="small-muted" style="margin-top:8px; text-align:right;"><a href="#" aria-disabled="true" style="pointer-events:none; opacity:0.6;">Read full case (coming soon)</a></p>
             </div>
         </div>
     </section>
@@ -233,7 +248,7 @@
                         <h3 class="tier-name">Team Assistant</h3>
                         <p class="tier-description">Perfect for small teams getting started with AI</p>
                         <div class="tier-price">
-                            <span class="tier-setup">Setup: $3,000-5,000</span>
+                            <span class="tier-setup">Setup: $5,000</span>
                             <span class="tier-monthly">$1,100/month</span>
                         </div>
                         <ul class="tier-features">
@@ -250,8 +265,8 @@
                         <h3 class="tier-name">Workflow Operator</h3>
                         <p class="tier-description">Ideal for growing teams automating workflows</p>
                         <div class="tier-price">
-                            <span class="tier-setup">Setup: $8,000-15,000</span>
-                            <span class="tier-monthly">$2,600/month</span>
+                            <span class="tier-setup">Setup: $10,000</span>
+                            <span class="tier-monthly">$2,200/month</span>
                         </div>
                         <ul class="tier-features">
                             <li>Up to 100 users</li>
@@ -266,8 +281,8 @@
                         <h3 class="tier-name">Autonomy Suite</h3>
                         <p class="tier-description">Enterprise-scale autonomous AI operations</p>
                         <div class="tier-price">
-                            <span class="tier-setup">Setup: $20,000+</span>
-                            <span class="tier-monthly">$6,000+/month</span>
+                            <span class="tier-setup">Setup: $25,000</span>
+                            <span class="tier-monthly">$3,300/month</span>
                         </div>
                         <ul class="tier-features">
                             <li>Unlimited users</li>
@@ -408,33 +423,36 @@
                     <form id="ideaForm" class="idea-form">
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="sr-only" for="name">Full name</label>
-                                <input type="text" id="name" name="name" class="form-control glass-input" placeholder="Full name *" required>
-                                <div class="form-error" id="name-error"></div>
+                                <label class="form-label" for="name">Full name <span aria-hidden="true">(required)</span></label>
+                                <input type="text" id="name" name="name" class="form-control glass-input" placeholder="e.g., Jane Doe" required aria-describedby="name-help name-error">
+                                <p id="name-help" class="help">Enter your first and last name.</p>
+                                <div class="form-error" id="name-error" role="alert"></div>
                             </div>
                             <div class="form-group">
-                                <label class="sr-only" for="company">Company</label>
-                                <input type="text" id="company" name="company" class="form-control glass-input" placeholder="Company *" required>
-                                <div class="form-error" id="company-error"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="sr-only" for="email">Work email</label>
-                                <input type="email" id="email" name="email" class="form-control glass-input" placeholder="Work email *" required>
-                                <div class="form-error" id="email-error"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="phone">Phone number</label>
-                                <input type="tel" id="phone" name="phone" class="form-control glass-input" placeholder="Phone number">
+                                <label class="form-label" for="company">Company <span aria-hidden="true">(required)</span></label>
+                                <input type="text" id="company" name="company" class="form-control glass-input" placeholder="e.g., Acme Corp" required aria-describedby="company-help company-error">
+                                <p id="company-help" class="help">Your organization’s name.</p>
+                                <div class="form-error" id="company-error" role="alert"></div>
                             </div>
                         </div>
                         
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="sr-only" for="company_size">Company size</label>
-                                <select id="company_size" name="company_size" class="form-control glass-input">
+                                <label class="form-label" for="email">Work email <span aria-hidden="true">(required)</span></label>
+                                <input type="email" id="email" name="email" class="form-control glass-input" placeholder="name@company.com" required aria-describedby="email-help email-error">
+                                <p id="email-help" class="help">We’ll send your demo confirmation here.</p>
+                                <div class="form-error" id="email-error" role="alert"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="phone">Phone number</label>
+                                <input type="tel" id="phone" name="phone" class="form-control glass-input" placeholder="+1 (555) 000-0000">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="company_size">Company size</label>
+                                <select id="company_size" name="company_size" class="form-control glass-input" aria-describedby="company-size-help">
                                     <option value="" disabled selected>Choose one…</option>
                                     <option value="1-50">1-50 employees</option>
                                     <option value="51-200">51-200 employees</option>
@@ -443,10 +461,11 @@
                                     <option value="1001-5000">1,001-5,000 employees</option>
                                     <option value="5001+">5,001+ employees</option>
                                 </select>
+                                <p id="company-size-help" class="help">Optional.</p>
                             </div>
                             <div class="form-group">
-                                <label class="sr-only" for="interest">Primary interest</label>
-                                <select id="interest" name="interest" class="form-control glass-input" required>
+                                <label class="form-label" for="interest">Primary interest <span aria-hidden="true">(required)</span></label>
+                                <select id="interest" name="interest" class="form-control glass-input" required aria-describedby="interest-help interest-error">
                                     <option value="" disabled selected>Choose one…</option>
                                     <option value="cost-reduction">AI cost reduction</option>
                                     <option value="private-deployment">Private AI deployment</option>
@@ -454,16 +473,17 @@
                                     <option value="workflow-automation">Workflow automation</option>
                                     <option value="venture-studio">Venture Studio partnership</option>
                                 </select>
-                                <div class="form-error" id="interest-error"></div>
+                                <p id="interest-help" class="help">Tell us what you’d like to start with.</p>
+                                <div class="form-error" id="interest-error" role="alert"></div>
                             </div>
                         </div>
                         
                             <div class="form-group">
-                                <label class="sr-only" for="message">Message</label>
+                                <label class="form-label" for="message">Message</label>
                                 <textarea id="message" name="message" class="form-control glass-input" rows="3" placeholder="Tell us about your AI needs or challenges (optional)"></textarea>
                             </div>
                         
-                        <button type="submit" class="btn btn--primary btn--lg btn--full-width glass-button">Get a Demo</button>
+                        <button type="submit" class="btn btn--primary btn--full-width glass-button">Get a Demo</button>
                         <p class="small-muted" style="margin-top:8px;">We don’t share your information.</p>
                         <p class="form-microcopy">Free consultation • ROI analysis included • No commitment required</p>
                     </form>

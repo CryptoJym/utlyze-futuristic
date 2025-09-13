@@ -28,20 +28,20 @@
       <div class="container">
         <div class="filter-container">
           <h2 class="filter-heading">Filter by Industry</h2>
-          <div class="filter-buttons">
-            <button class="filter-btn active" data-filter="all">All Industries</button>
-            <button class="filter-btn" data-filter="SaaS">SaaS</button>
-            <button class="filter-btn" data-filter="Healthcare">Healthcare</button>
-            <button class="filter-btn" data-filter="Finance">Finance</button>
-            <button class="filter-btn" data-filter="Legal">Legal</button>
-            <button class="filter-btn" data-filter="Manufacturing">Manufacturing</button>
-            <button class="filter-btn" data-filter="Retail">Retail</button>
-            <button class="filter-btn" data-filter="Human Resources">HR</button>
-            <button class="filter-btn" data-filter="Marketing">Marketing</button>
-            <button class="filter-btn" data-filter="Sales">Sales</button>
-            <button class="filter-btn" data-filter="Insurance">Insurance</button>
-            <button class="filter-btn" data-filter="Real Estate">Real Estate</button>
-            <button class="filter-btn" data-filter="Education">Education</button>
+          <div class="filter-buttons" role="group" aria-label="Filter use cases by industry">
+            <button class="filter-btn active" data-filter="all" aria-pressed="true">All Industries</button>
+            <button class="filter-btn" data-filter="SaaS" aria-pressed="false">SaaS</button>
+            <button class="filter-btn" data-filter="Healthcare" aria-pressed="false">Healthcare</button>
+            <button class="filter-btn" data-filter="Finance" aria-pressed="false">Finance</button>
+            <button class="filter-btn" data-filter="Legal" aria-pressed="false">Legal</button>
+            <button class="filter-btn" data-filter="Manufacturing" aria-pressed="false">Manufacturing</button>
+            <button class="filter-btn" data-filter="Retail" aria-pressed="false">Retail</button>
+            <button class="filter-btn" data-filter="Human Resources" aria-pressed="false">HR</button>
+            <button class="filter-btn" data-filter="Marketing" aria-pressed="false">Marketing</button>
+            <button class="filter-btn" data-filter="Sales" aria-pressed="false">Sales</button>
+            <button class="filter-btn" data-filter="Insurance" aria-pressed="false">Insurance</button>
+            <button class="filter-btn" data-filter="Real Estate" aria-pressed="false">Real Estate</button>
+            <button class="filter-btn" data-filter="Education" aria-pressed="false">Education</button>
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@
     <!-- Use Cases Grid -->
     <section class="use-cases-grid-section">
       <div class="container">
-        <div id="use-cases-grid" class="use-cases-grid">
+        <div id="use-cases-grid" class="use-cases-grid" aria-live="polite">
           <!-- Use case cards will be dynamically inserted here -->
         </div>
         <div id="no-results" class="no-results" style="display: none;">
@@ -67,8 +67,8 @@
           See how much you can save with AI automation tailored to your business needs.
         </p>
         <div class="cta-buttons">
-          <a href="/contact?context=demo" class="cta-button primary">Get a Demo</a>
-          <a href="/roi/" class="cta-button secondary">Calculate ROI</a>
+          <a href="/contact?context=demo" class="btn btn--primary">Get a Demo</a>
+          <a href="/roi/" class="btn btn--outline">Calculate ROI</a>
         </div>
       </div>
     </section>
@@ -166,8 +166,9 @@
       filterButtons.forEach(button => {
         button.addEventListener('click', () => {
           // Update active state
-          filterButtons.forEach(btn => btn.classList.remove('active'));
+          filterButtons.forEach(btn => { btn.classList.remove('active'); btn.setAttribute('aria-pressed', 'false'); });
           button.classList.add('active');
+          button.setAttribute('aria-pressed', 'true');
           
           const filter = button.getAttribute('data-filter');
           

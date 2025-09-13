@@ -93,7 +93,7 @@
 			<div class="roi-hero hero">
 				<h1 class="section-headline">Cut AI spend 30–70% without sacrificing quality</h1>
 				<p class="section-subtext">Private models. Predictable pricing. Results you can measure.</p>
-                    <div class="hero-buttons" style="margin-top: 12px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                    <div class="hero-buttons" style="margin-top: 12px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
                         <a class="btn btn--primary" href="#calculator" id="seeSavingsCta" data-analytics-id="roi_hero_primary">See Your Savings</a>
                         <a class="btn btn--outline" href="/contact?context=demo" data-analytics-id="roi_hero_secondary">Get a Demo</a>
                     </div>
@@ -180,13 +180,13 @@
                             </label>
                             <p id="simpleSpendHelp" class="small-muted">Example: 6,000. Typical on‑prem saves 30–70%.</p>
 							<label class="form-label">Not sure? Pick a range
-								<select id="spendRange" class="form-control">
-									<option value="">Select a range (optional)</option>
-									<option value="under_1k">Under $1k</option>
-									<option value="1k_5k">$1k–$5k</option>
-									<option value="5k_20k">$5k–$20k</option>
-									<option value="20k_plus">$20k+</option>
-								</select>
+                                <select id="spendRange" class="form-control">
+                                    <option value="" disabled selected>Select a range (optional)</option>
+                                    <option value="under_1k">Under $1k</option>
+                                    <option value="1k_5k">$1k–$5k</option>
+                                    <option value="5k_20k">$5k–$20k</option>
+                                    <option value="20k_plus">$20k+</option>
+                                </select>
 							</label>
 						</div>
 
@@ -208,19 +208,19 @@
 						<!-- removed for essentialism -->
 
 						<hr>
-						<h3>Tell us where to send your estimate</h3>
-						<div class="form-row">
-							<div class="form-group">
-								<label class="form-label">Name</label>
-								<input type="text" class="glass-input" name="name" aria-label="Full name" placeholder="Your full name" required>
-								<div class="small-muted" id="nameError" aria-live="polite" style="color:#B91C1C; display:none;"></div>
-							</div>
-							<div class="form-group">
-								<label class="form-label">Work email</label>
-								<input type="email" class="glass-input" name="email" aria-label="Work email" placeholder="name@company.com" required>
-								<div class="small-muted" id="emailError" aria-live="polite" style="color:#B91C1C; display:none;"></div>
-							</div>
-						</div>
+                        <h3>Tell us where to send your estimate</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="roiName">Name</label>
+                                <input type="text" id="roiName" class="glass-input" name="name" placeholder="Your full name" required aria-describedby="nameError">
+                                <div class="small-muted" id="nameError" aria-live="polite" style="color:#B91C1C; display:none;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="roiEmail">Work email</label>
+                                <input type="email" id="roiEmail" class="glass-input" name="email" placeholder="name@company.com" required aria-describedby="emailError">
+                                <div class="small-muted" id="emailError" aria-live="polite" style="color:#B91C1C; display:none;"></div>
+                            </div>
+                        </div>
 						<div class="form-row">
 							<div class="form-group">
 								<label class="form-label">Company</label>
@@ -249,6 +249,9 @@
 						</div>
 
                         <button type="submit" class="btn btn--primary btn--full-width" id="btnCalc">Get my estimate</button>
+                        <div style="margin-top: 12px; display:flex; justify-content:center;">
+                            <a href="/contact?context=demo" class="btn btn--outline">Get a Demo</a>
+                        </div>
                         <p class="small-muted">We'll show your results instantly and email a copy. We don’t share your information.</p>
 						
 						<!-- Assumptions Explainer -->

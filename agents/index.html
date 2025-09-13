@@ -26,6 +26,23 @@
       }
     }
     </script>
+    <script>
+        // Expand comparison table on desktop by default; collapse on mobile
+        (function(){
+            const details = document.querySelector('.tier-table-wrapper');
+            if (!details) return;
+            function syncOpen() {
+                if (window.innerWidth >= 900) {
+                    details.setAttribute('open', '');
+                } else {
+                    details.removeAttribute('open');
+                }
+            }
+            syncOpen();
+            let t;
+            window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(syncOpen, 150); });
+        })();
+    </script>
 </head>
 <body>
     <!-- Header will be injected here -->
@@ -38,8 +55,8 @@
                 <h1>AI Agents: Your Digital Workforce</h1>
                 <p class="hero-subtitle">Deploy powerful AI agents on-premises for complete data privacy, zero API costs, and consistent 24/7 performance</p>
                 <div class="hero-actions">
-                    <a href="/contact?context=demo" class="btn btn-primary" data-analytics-id="agents_hero_primary">Get a Demo</a>
-                    <a href="/roi/" class="btn btn-secondary" data-analytics-id="agents_hero_secondary">Calculate ROI</a>
+                    <a href="/contact?context=demo" class="btn btn--primary" data-analytics-id="agents_hero_primary">Get a Demo</a>
+                    <a href="/roi/" class="btn btn--outline" data-analytics-id="agents_hero_secondary">Calculate ROI</a>
                 </div>
             </div>
         </section>
@@ -54,15 +71,15 @@
                     
                     <div class="key-benefits">
                         <div class="benefit-card">
-                            <h3>🚀 Always Available</h3>
+                            <h3><span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5L7 14c1.5.5 2.5 1.5 3 3L7.5 19.5M14 10l6-6M14 10l-3 3c-.5-1.5-1.5-2.5-3-3l3-3"/></svg></span> Always Available</h3>
                             <p>Handle customer inquiries, process orders, and complete tasks 24/7 while your team focuses on growth</p>
                         </div>
                         <div class="benefit-card">
-                            <h3>🔒 Complete Privacy</h3>
+                            <h3><span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span> Complete Privacy</h3>
                             <p>Your customer data and business intelligence stay in your office—no cloud exposure</p>
                         </div>
                         <div class="benefit-card">
-                            <h3>💰 Predictable Costs</h3>
+                            <h3><span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" ry="2"></rect><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="12" y2="14"></line></svg></span> Predictable Costs</h3>
                             <p>No surprise API bills or usage limits. Fixed monthly investment with unlimited processing</p>
                         </div>
                     </div>
@@ -243,7 +260,7 @@
         <section id="tier-matrix" class="tier-matrix section">
             <div class="container">
                 <h2 id="compare">Technical Comparison</h2>
-                <details class="tier-table-wrapper" open>
+                <details class="tier-table-wrapper">
                     <summary class="sr-only">Compare tiers (models, context, features)</summary>
                     <table class="tier-comparison">
                         <thead>
@@ -452,12 +469,12 @@
                     <div class="cta-card primary">
                         <h3>Ready to Transform Your Business?</h3>
                         <p>See how AI agents can automate your workflows and accelerate growth</p>
-                        <a href="/contact?context=demo" class="btn btn-primary" data-analytics-id="agents_cta_primary">Get a Demo</a>
+                        <a href="/contact?context=demo" class="btn btn--primary" data-analytics-id="agents_cta_primary">Get a Demo</a>
                     </div>
                     <div class="cta-card secondary">
                         <h3>See the Financial Impact</h3>
                         <p>Calculate your cost savings compared to cloud AI services</p>
-                        <a href="/roi/" class="btn btn-secondary" data-analytics-id="agents_cta_secondary">Calculate ROI</a>
+                        <a href="/roi/" class="btn btn--outline" data-analytics-id="agents_cta_secondary">Calculate ROI</a>
                     </div>
                 </div>
                 <div class="additional-links">
@@ -535,8 +552,8 @@
                     <p class="muted"><strong>Best for:</strong> ${bestFor(t.id)}</p>
                   </div>
                   <div class="tier-actions" style="display:flex; gap:8px; flex-wrap:wrap;">
-                    <a href="/contact?context=demo" class="btn btn-primary" data-analytics-id="agents_card_demo_${t.id}">Get a Demo</a>
-                    <a href="/roi/" class="btn btn-secondary" data-analytics-id="agents_card_roi_${t.id}">Calculate ROI</a>
+                    <a href="/contact?context=demo" class="btn btn--primary" data-analytics-id="agents_card_demo_${t.id}">Get a Demo</a>
+                    <a href="/roi/" class="btn btn--outline" data-analytics-id="agents_card_roi_${t.id}">Calculate ROI</a>
                   </div>
                 </div>
             `).join('');
