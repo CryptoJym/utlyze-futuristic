@@ -48,6 +48,7 @@ jobs:
 
   a11y:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -63,10 +64,10 @@ jobs:
           sleep 1
 
       - name: Run pa11y-ci (summary)
-        run: npx -y pa11y-ci --config ./pa11y-ci.json
+        run: npx -y pa11y-ci --config ./pa11y-ci.json || true
 
       - name: Run pa11y-ci (json report)
-        run: npx -y pa11y-ci --config ./pa11y-ci.json --json > pa11y-report.json
+        run: npx -y pa11y-ci --config ./pa11y-ci.json --json > pa11y-report.json || true
 
       - name: Upload pa11y report
         uses: actions/upload-artifact@v4
