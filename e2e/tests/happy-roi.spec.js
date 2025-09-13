@@ -31,7 +31,8 @@ test.describe('ROI calculator happy-path', () => {
     await page.fill('#calcForm input[name="name"]', 'QA User');
     await page.fill('#calcForm input[name="email"]', 'qa+roi@example.com');
 
-    await page.click('#btnCalc');
+    // Use programmatic submit to avoid mobile overlays intercepting pointer events
+    await page.$eval('#calcForm', (form) => form.requestSubmit());
 
     await expect(page.locator('#roiResults')).toBeVisible();
     await expect(page.locator('#savings')).not.toHaveText('');

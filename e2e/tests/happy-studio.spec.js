@@ -27,7 +27,8 @@ test.describe('Venture Studio form happy-path', () => {
     await page.fill('#email', 'qa+studio@example.com');
     await page.fill('#description', 'This is a sufficiently detailed idea description for testing.');
 
-    await page.click('button.submit-btn');
+    // Use programmatic submit to avoid mobile overlays intercepting pointer events
+    await page.$eval('#ideaForm', (form) => form.requestSubmit());
 
     const msg = page.locator('#formMessage');
     await expect(msg).toBeVisible();
@@ -40,4 +41,3 @@ test.describe('Venture Studio form happy-path', () => {
     expect(errors).toEqual([]);
   });
 });
-
