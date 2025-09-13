@@ -764,6 +764,8 @@ select.form-control {
 .tier-header .tier-badge { position: absolute; top: -12px; right: 20px; }
 .tier-features { margin: 0 0 var(--space-16); }
 .tier-actions { margin-top: var(--space-8); }
+.tier-card { display: flex; flex-direction: column; }
+.tier-features { flex: 1; }
 
 /* Ensure card headers follow theme text color (fix contrast in dark mode) */
 .card__header, .card__header strong { color: var(--color-text); }
