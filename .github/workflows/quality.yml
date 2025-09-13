@@ -25,6 +25,8 @@ jobs:
             http://localhost:4010/
             http://localhost:4010/roi/
             http://localhost:4010/pricing/
+            http://localhost:4010/about/
+            http://localhost:4010/resources/
             http://localhost:4010/agents/
             http://localhost:4010/studio/
             http://localhost:4010/contact/
