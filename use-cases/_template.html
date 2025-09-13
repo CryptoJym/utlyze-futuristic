@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><!-- Use Case Title --> | Utlyze</title>
+  <meta name="description" content="<!-- One-line value prop -->">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="canonical" href="https://utlyze.com/use-cases/<!-- slug -->/">
+</head>
+<body>
+  <!-- Header mount -->
+  <div id="site-header-mount"></div>
+
+  <main class="section">
+    <div class="container">
+      <!-- Hero: Title + one-liner + CTAs -->
+      <section class="section-content glass-card">
+        <h1 class="section-headline"><!-- Title: concise and outcome-focused --></h1>
+        <p class="section-text"><!-- One-line value proposition --></p>
+        <div class="usecase-stats"><!-- Optional 3-stat row -->
+          <div class="usecase-stat"><div class="label">Metric A</div><div class="value">—</div></div>
+          <div class="usecase-stat"><div class="label">Metric B</div><div class="value">—</div></div>
+          <div class="usecase-stat"><div class="label">Metric C</div><div class="value">—</div></div>
+        </div>
+        <div class="cta-buttons" style="margin-top:1rem;">
+          <a href="/contact?context=demo" class="btn btn--primary">Get a Demo</a>
+          <a href="/roi/" class="btn btn--outline">Calculate ROI</a>
+        </div>
+      </section>
+
+      <!-- Who it’s for (3 bullets) -->
+      <section class="section-content glass-card">
+        <h2>Who it’s for</h2>
+        <ul class="feature-list">
+          <li><!-- Bullet 1 --></li>
+          <li><!-- Bullet 2 --></li>
+          <li><!-- Bullet 3 --></li>
+        </ul>
+      </section>
+
+      <!-- What it looks like in the field (3 bullets) -->
+      <section class="section-content glass-card">
+        <h2>What it looks like in the field</h2>
+        <ul class="feature-list">
+          <li><!-- Outcome 1 --></li>
+          <li><!-- Outcome 2 --></li>
+          <li><!-- Outcome 3 --></li>
+        </ul>
+      </section>
+
+      <!-- Capabilities (max 5 bullets) -->
+      <section class="section-content glass-card">
+        <h2>Capabilities</h2>
+        <ul class="feature-list">
+          <li><!-- Capability --></li>
+          <li><!-- Capability --></li>
+          <li><!-- Capability --></li>
+          <li><!-- Capability --></li>
+          <li><!-- Capability --></li>
+        </ul>
+      </section>
+
+      <!-- How it works (4 steps) -->
+      <section class="section-content glass-card">
+        <h2>How it works</h2>
+        <ol class="steps-list">
+          <li><!-- Step --></li>
+          <li><!-- Step --></li>
+          <li><!-- Step --></li>
+          <li><!-- Step --></li>
+        </ol>
+      </section>
+
+      <!-- Integrations / KPIs -->
+      <section class="section-content glass-card">
+        <div class="grid two-cols">
+          <div>
+            <h3>Common integrations</h3>
+            <p><!-- Systems --></p>
+          </div>
+          <div>
+            <h3>KPIs</h3>
+            <p><!-- 3–5 metrics --></p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <h3>Security & compliance</h3>
+        <p><!-- On‑prem, RBAC/audit logs, etc. --></p>
+      </section>
+
+      <!-- Rollout (2–4 weeks) -->
+      <section class="section-content glass-card">
+        <h2>Rollout (2–4 weeks)</h2>
+        <ol class="steps-list">
+          <li><!-- Week 1 --></li>
+          <li><!-- Week 2 --></li>
+          <li><!-- Week 3–4 --></li>
+        </ol>
+      </section>
+
+      <!-- Recommended tier & pricing (dynamic fill from tiers.json) -->
+      <section class="section-content glass-card">
+        <h2>Recommended Utlyze tier & pricing</h2>
+        <div class="grid two-cols compact-tiers">
+          <div class="mini-tier" data-tier-key="TierB">
+            <div class="tier-name h4">Workflow Operator</div>
+            <div class="tier-prices"><span class="tier-setup">Setup: —</span> <span class="tier-monthly">—/month</span></div>
+            <p class="muted"><!-- audience hint --></p>
+          </div>
+          <div class="mini-tier" data-tier-key="TierA">
+            <div class="tier-name h4">Team Assistant</div>
+            <div class="tier-prices"><span class="tier-setup">Setup: —</span> <span class="tier-monthly">—/month</span></div>
+            <p class="muted"><!-- audience hint --></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQs (max 3) -->
+      <section class="section-content glass-card">
+        <h2>FAQs</h2>
+        <details class="faq-item"><summary><!-- Q1 --></summary><p><!-- A1 --></p></details>
+        <details class="faq-item"><summary><!-- Q2 --></summary><p><!-- A2 --></p></details>
+        <details class="faq-item"><summary><!-- Q3 --></summary><p><!-- A3 --></p></details>
+      </section>
+
+      <!-- Bottom CTA band -->
+      <section class="section-content glass-card">
+        <div class="cta-buttons" style="display:flex; gap:16px;">
+          <a href="/contact?context=demo" class="btn btn--primary">Get a Demo</a>
+          <a href="/roi/" class="btn btn--outline">Calculate ROI</a>
+        </div>
+        <p class="disclaimer muted" style="margin-top:1rem;"><!-- One-line disclaimer --></p>
+        <p><a class="btn btn--outline" href="/use-cases/">← Back to Use Cases</a></p>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer-mount"></div>
+
+  <!-- Dynamic tier fill -->
+  <script>
+    (async function(){
+      try{
+        const r=await fetch('../../assets/data/tiers.json');
+        if(!r.ok)return; const j=await r.json(); const arr=j.tiers||[];
+        const map={'TierA':'team','TierB':'workflow','TierC':'autonomy'};
+        document.querySelectorAll('[data-tier-key]').forEach(el=>{
+          const k=el.getAttribute('data-tier-key'); const id=map[k]||k; const d=arr.find(t=>t.id===id);
+          if(!d)return; const n=el.querySelector('.tier-name'); const s=el.querySelector('.tier-setup'); const m=el.querySelector('.tier-monthly');
+          if(n&&d.name)n.textContent=d.name; if(s&&d.setup!=null)s.textContent=`Setup: $${Number(d.setup).toLocaleString()}`; if(m&&d.monthly!=null)m.textContent=`$${Number(d.monthly).toLocaleString()}/month`;
+        });
+      }catch(e){}
+    })();
+  </script>
+  <script src="../../app.js"></script>
+</body>
+</html>
+

@@ -56,6 +56,20 @@ Optional:
 - Open `index.html` for the homepage or `companies/index.html` for the gallery in a static server (e.g., VS Code Live Server or `npx serve`)
 - Note: The gallery renders cards client‑side from `companies/data.json`
 
+## Use Case detail template
+- New use cases should be created from `use-cases/_template.html` to ensure consistent sections, CTAs, and a11y.
+- Sections: Hero (title + one‑liner + optional stats) → Who it’s for → Field examples → Capabilities (≤5) → How it works (4 steps) → Integrations/KPIs → Rollout → Recommended tier (auto‑filled from `assets/data/tiers.json`) → FAQs (≤3) → CTA band.
+- CTAs: `.btn btn--primary` (Get a Demo) and `.btn btn--outline` (Calculate ROI) with a 16px gap.
+- Lists: Use `.feature-list` for single‑check bullets; avoid inline emoji.
+- Steps: Use `<ol class="steps-list">` for numbered steps (styled circles).
+
+## Accessibility checks
+Pa11y CI targets are configured in `pa11y-ci.json` (WCAG2AA) to run against `http://localhost:4020`.
+
+Quick run locally:
+1) `npx http-server -p 4020 .` (from repo root)
+2) In a second shell: `npx pa11y-ci`
+
 ## QA & Launch (Agent L)
 
 Happy‑path E2E tests are implemented with Playwright and run against a local static server.
