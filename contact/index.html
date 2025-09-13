@@ -309,7 +309,7 @@
             <p id="primary_interest_error" class="error" role="alert" style="display:none;">Please choose a primary interest</p>
           </div>
 
-          <details class="optional-section"><summary style="cursor:pointer; font-weight:600; margin: 8px 0;">More details (optional)</summary>
+          <!-- Simplified standard form: remove collapsible wrapper -->
           <div class="form-grid">
             <div class="form-group">
               <label for="first_name" class="form-label">First name (required)</label>
@@ -346,12 +346,6 @@
               <input type="text" id="company" name="company" class="form-input" required aria-describedby="company_help company_error">
               <p id="company_help" class="help">Your organization’s name.</p>
               <p id="company_error" class="error" role="alert" style="display:none;">Please enter your company name</p>
-            </div>
-
-            <div class="form-group">
-              <label for="job_title" class="form-label">Job Title</label>
-              <input type="text" id="job_title" name="job_title" class="form-input" placeholder="e.g., CTO, VP Engineering">
-              <span class="validation-error" id="job_title-error" style="display:none"></span>
             </div>
           </div>
 
@@ -399,35 +393,7 @@
             </select>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">Solutions of Interest (check all that apply)</label>
-            <div class="form-checkbox-group">
-              <label class="form-checkbox-label">
-                <input type="checkbox" name="interested_solutions" value="custom-agents">
-                <span>Custom AI Agents</span>
-              </label>
-              <label class="form-checkbox-label">
-                <input type="checkbox" name="interested_solutions" value="cost-optimization">
-                <span>Cost Optimization (10x savings)</span>
-              </label>
-              <label class="form-checkbox-label">
-                <input type="checkbox" name="interested_solutions" value="process-automation">
-                <span>Process Automation</span>
-              </label>
-              <label class="form-checkbox-label">
-                <input type="checkbox" name="interested_solutions" value="customer-service">
-                <span>Customer Service AI</span>
-              </label>
-              <label class="form-checkbox-label">
-                <input type="checkbox" name="interested_solutions" value="data-analysis">
-                <span>Data Analysis & Insights</span>
-              </label>
-              <label class="form-checkbox-label">
-                <input type="checkbox" name="interested_solutions" value="content-generation">
-                <span>Content Generation</span>
-              </label>
-            </div>
-          </div>
+          <!-- Removed solutions of interest for streamlined form -->
 
           <div class="form-grid">
             <div class="form-group">
@@ -666,8 +632,7 @@
           }
 
           // Get selected solutions
-          const selectedSolutions = Array.from(document.querySelectorAll('input[name="interested_solutions"]:checked'))
-            .map(cb => cb.value);
+          const selectedSolutions = [];
 
           // Get UTM parameters
           const utmParams = getUTMParams();
@@ -679,14 +644,8 @@
             email: document.getElementById('email').value.trim(),
             phone: document.getElementById('phone').value.trim() || null,
             company: document.getElementById('company').value.trim(),
-            job_title: document.getElementById('job_title').value.trim() || null,
             primary_interest: document.getElementById('primary_interest').value,
-            company_size: document.getElementById('company_size').value || null,
-            industry: document.getElementById('industry').value || null,
-            current_ai_usage: document.getElementById('current_ai_usage').value || null,
             interested_solutions: selectedSolutions.length > 0 ? selectedSolutions : null,
-            timeline: document.getElementById('timeline').value || null,
-            budget_range: document.getElementById('budget_range').value || null,
             pain_points: document.getElementById('pain_points').value.trim() || null,
             message: document.getElementById('message').value.trim(),
             ...utmParams,

@@ -2150,6 +2150,11 @@ textarea.glass-input {
   font-weight: 700;
   margin-bottom: var(--space-24);
 }
+.pricing-hero .pricing-title,
+.pricing-hero .pricing-subtitle {
+  color: var(--utlyze-pure-white) !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
 
 .pricing-subtitle {
   font-size: 1.25rem;
@@ -2851,6 +2856,11 @@ ul.tier-features li:before {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: var(--space-24);
+}
+.use-cases-hero .use-cases-title,
+.use-cases-hero .use-cases-subtitle {
+  color: var(--utlyze-pure-white) !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.35);
 }
 
 .use-cases-subtitle {
