@@ -24,7 +24,7 @@
 		.value-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 		@media (min-width: 900px) { .value-grid { grid-template-columns: 1fr 1fr; } }
 		.value-card { border: 1px solid var(--border-color); border-radius: 14px; padding: 16px; background: rgba(255,255,255,0.85); display:flex; gap:10px; align-items:flex-start; }
-		.value-card .emoji { font-size: 20px; line-height: 1; }
+        /* Removed emoji icon style to keep neutral visual language */
 		/* FAQ grid */
 		.faq-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
 		@media (min-width: 900px) { .faq-grid { grid-template-columns: 1fr 1fr; } }
@@ -120,10 +120,10 @@
                 </div>
                 <div style="margin-top:12px;">
                     <div class="value-grid">
-                        <div class="value-card"><div class="emoji">🏆</div><div><strong>Vuplicity case snapshot</strong><div class="small-muted">Reduced TAT from 3–5 days to minutes; 60% cost savings; 99.9% accuracy.</div></div></div>
-                        <div class="value-card"><div class="emoji">💰</div><div><strong>Predictable pricing</strong><div class="small-muted">Fixed monthly costs you can budget for.</div></div></div>
-                        <div class="value-card"><div class="emoji">🔒</div><div><strong>Private by design</strong><div class="small-muted">Your data stays in your environment.</div></div></div>
-                        <div class="value-card"><div class="emoji">⚡</div><div><strong>Performance parity</strong><div class="small-muted">Match or exceed GPT‑4 on your tasks.</div></div></div>
+                        <div class="value-card"><div><strong>Vuplicity case snapshot</strong><div class="small-muted">Reduced TAT from 3–5 days to minutes; 60% cost savings; 99.9% accuracy.</div></div></div>
+                        <div class="value-card"><div><strong>Predictable pricing</strong><div class="small-muted">Fixed monthly costs you can budget for.</div></div></div>
+                        <div class="value-card"><div><strong>Private by design</strong><div class="small-muted">Your data stays in your environment.</div></div></div>
+                        <div class="value-card"><div><strong>Performance parity</strong><div class="small-muted">Match or exceed GPT‑4 on your tasks.</div></div></div>
                     </div>
                 </div>
 			</div>
@@ -132,10 +132,10 @@
 			<div class="glass-card" style="margin: 16px 0;">
 				<h3 style="text-align:center;">How it works</h3>
 				<div class="value-grid">
-					<div class="value-card"><div class="emoji">📝</div><div><strong>1. Share your task</strong><div class="small-muted">Define your use case and data shape.</div></div></div>
-					<div class="value-card"><div class="emoji">🛠️</div><div><strong>2. We fine‑tune & host</strong><div class="small-muted">Private deployments with predictable costs.</div></div></div>
-					<div class="value-card"><div class="emoji">🔗</div><div><strong>3. Integrate quickly</strong><div class="small-muted">Simple APIs and SDKs for fast rollout.</div></div></div>
-					<div class="value-card"><div class="emoji">📊</div><div><strong>4. Measure impact</strong><div class="small-muted">Dashboards for savings and performance.</div></div></div>
+					<div class="value-card"><div><strong>1. Share your task</strong><div class="small-muted">Define your use case and data shape.</div></div></div>
+					<div class="value-card"><div><strong>2. We fine‑tune & host</strong><div class="small-muted">Private deployments with predictable costs.</div></div></div>
+					<div class="value-card"><div><strong>3. Integrate quickly</strong><div class="small-muted">Simple APIs and SDKs for fast rollout.</div></div></div>
+					<div class="value-card"><div><strong>4. Measure impact</strong><div class="small-muted">Dashboards for savings and performance.</div></div></div>
 				</div>
 			</div>
 
@@ -143,10 +143,10 @@
 			<div class="glass-card" style="margin: 16px 0;">
 				<h3 style="text-align:center;">FAQ</h3>
 				<div class="faq-grid">
-					<div class="value-card"><div class="emoji">🔐</div><div><strong>How is the model secured?</strong><div class="small-muted">VPC isolation, encryption in transit/at rest, RBAC, and audit logs. Private by default.</div></div></div>
-					<div class="value-card"><div class="emoji">🏁</div><div><strong>Will performance match GPT‑4?</strong><div class="small-muted">We validate on your eval set and ensure parity or fall back strategies where needed.</div></div></div>
-					<div class="value-card"><div class="emoji">📈</div><div><strong>What if my usage spikes?</strong><div class="small-muted">Autoscaling, batching, and caching patterns handle bursts without surprise costs.</div></div></div>
-					<div class="value-card"><div class="emoji">💬</div><div><strong>What if I’m not satisfied?</strong><div class="small-muted">Iterate with us; we measure impact continuously. Stop if targets aren’t met.</div></div></div>
+					<div class="value-card"><div><strong>How is the model secured?</strong><div class="small-muted">VPC isolation, encryption in transit/at rest, RBAC, and audit logs. Private by default.</div></div></div>
+					<div class="value-card"><div><strong>Will performance match GPT‑4?</strong><div class="small-muted">We validate on your eval set and ensure parity or fall back strategies where needed.</div></div></div>
+					<div class="value-card"><div><strong>What if my usage spikes?</strong><div class="small-muted">Autoscaling, batching, and caching patterns handle bursts without surprise costs.</div></div></div>
+					<div class="value-card"><div><strong>What if I’m not satisfied?</strong><div class="small-muted">Iterate with us; we measure impact continuously. Stop if targets aren’t met.</div></div></div>
 				</div>
 			</div>
 

@@ -378,7 +378,7 @@
             mount.innerHTML = items.map(t => `
                 <div class="tier-card">
                   <div class="tier-header">
-                    <h2 class="tier-name">${t.name}</h2>
+                    <h2 class="tier-name">${t.name}${t.id==='workflow' ? ' <span class=\"tier-badge\" style=\"margin-left:8px;\">Most Popular</span>' : ''}</h2>
                     <div class="tier-price">
                       <div class="setup-cost">Setup: $${Number(t.setup).toLocaleString()}</div>
                       <div class="monthly-cost">$${Number(t.monthly).toLocaleString()}<span class="period">/month</span></div>
@@ -386,11 +386,11 @@
                   </div>
                   <div class="tier-features">
                     <ul class="feature-list">
-                      <li><span class="feature-icon">✓</span> ${t.users} users</li>
-                      <li><span class="feature-icon">✓</span> ${t.integrations} integrations</li>
-                      <li><span class="feature-icon">✓</span> ${t.workflows} workflows</li>
-                      <li><span class="feature-icon">✓</span> Context: ${t.context}</li>
-                      <li><span class="feature-icon">✓</span> Models: ${t.models.join(', ')}</li>
+                      <li>${t.users} users</li>
+                      <li>${t.integrations} integrations</li>
+                      <li>${t.workflows} workflows</li>
+                      <li>Context: ${t.context}</li>
+                      <li>Models: ${t.models.join(', ')}</li>
                     </ul>
                     <p class="muted"><strong>Best for:</strong> ${bestFor(t.id)}</p>
                   </div>
@@ -409,22 +409,17 @@
             const items = ['team','workflow','autonomy']
                 .map(id => tiers.find(t => t.id === id))
                 .filter(Boolean);
-            const throughput = id => id==='team' ? 'Standard' : id==='workflow' ? 'Enhanced' : 'Maximum';
-            const hardware = id => id==='team' ? 'Mac Studio M3 Max' : id==='workflow' ? 'Mac Studio M3 Max/Ultra' : 'Mac Studio M3 Ultra 512GB';
             const security = id => id==='team' ? 'RBAC' : id==='workflow' ? 'RBAC, audit logs' : 'RBAC, SSO/SCIM, audit logs';
             const badge = id => id==='workflow' ? '<span class="tier-badge" style="margin-left:8px;">Most Popular</span>' : '';
             mount.innerHTML = items.map(t => `
               <div class="card">
                 <div class="card__header"><strong>${t.name}</strong>${badge(t.id)}</div>
                 <div class="card__body">
-                  <div class="compare-row"><div class="compare-label">Investment</div><div class="compare-value"><strong>Setup:</strong> $${Number(t.setup).toLocaleString()} · <strong>Monthly:</strong> $${Number(t.monthly).toLocaleString()}</div></div>
-                  <div class="compare-row"><div class="compare-label">Throughput</div><div class="compare-value">${throughput(t.id)}</div></div>
-                  <div class="compare-row"><div class="compare-label">Team size</div><div class="compare-value">${t.users}</div></div>
+                  <div class="compare-row"><div class="compare-label">Users</div><div class="compare-value">${t.users}</div></div>
                   <div class="compare-row"><div class="compare-label">Integrations</div><div class="compare-value">${t.integrations}</div></div>
                   <div class="compare-row"><div class="compare-label">Workflows</div><div class="compare-value">${t.workflows}</div></div>
                   <div class="compare-row"><div class="compare-label">Context</div><div class="compare-value">${t.context}</div></div>
                   <div class="compare-row"><div class="compare-label">Models</div><div class="compare-value">${t.models.slice(0,2).join(', ')}</div></div>
-                  <div class="compare-row"><div class="compare-label">Hardware</div><div class="compare-value">${hardware(t.id)}</div></div>
                   <div class="compare-row"><div class="compare-label">Security</div><div class="compare-value">${security(t.id)}</div></div>
                 </div>
               </div>

@@ -224,7 +224,7 @@
           mount.innerHTML = tiers.map(t => `
             <div class="tier-card">
               <div class="tier-header">
-                <h2 class="tier-name">${t.name}</h2>
+                <h2 class="tier-name">${t.name}${t.id==='workflow' ? ' <span class=\"tier-badge\" style=\"margin-left:8px;\">Most Popular</span>' : ''}</h2>
                 <div class="tier-price">
                   <div class="setup-cost">Setup: $${Number(t.setup).toLocaleString()}</div>
                   <div class="monthly-cost">$${Number(t.monthly).toLocaleString()}<span class="period">/month</span></div>
@@ -232,11 +232,11 @@
               </div>
               <div class="tier-features">
                 <ul class="feature-list">
-                  <li><span class="feature-icon">✓</span> ${t.users} users</li>
-                  <li><span class="feature-icon">✓</span> ${t.integrations} integrations</li>
-                  <li><span class="feature-icon">✓</span> ${t.workflows} workflows</li>
-                  <li><span class="feature-icon">✓</span> Context: ${t.context}</li>
-                  <li><span class="feature-icon">✓</span> Models: ${t.models.join(', ')}</li>
+                  <li>${t.users} users</li>
+                  <li>${t.integrations} integrations</li>
+                  <li>${t.workflows} workflows</li>
+                  <li>Context: ${t.context}</li>
+                  <li>Models: ${t.models.join(', ')}</li>
                 </ul>
               </div>
               <div class="tier-actions" style="display:flex; gap:8px; flex-wrap:wrap;">
