@@ -16,23 +16,29 @@
     <section class="section">
       <div class="container">
         <article class="section-content glass-card">
-          <h1 class="section-headline">Utlyze Private‑AI Resource Hub</h1>
-          <p class="muted" style="margin-top:4px;">Last updated: September 2025</p>
-          <div class="section-text">
-            <p><strong>Introduction</strong></p>
-            <p>This resources hub is designed to help teams evaluate, implement and optimize private AI agents. It contains research‑driven guides and how‑tos on infrastructure choices, implementation best practices, security and compliance, ROI maximisation and model selection. The objective is to enable businesses to safely adopt on‑premise or private‑cloud deployments while achieving cost‑effective, high‑performance AI solutions.</p>
-            <p class="muted">Have questions or need a walkthrough? <a href="/contact/">Contact us</a>.</p>
-            <button id="tocToggle" class="toc-toggle" aria-controls="resourceToc" aria-expanded="false" style="display:none; margin:8px 0;">Show table of contents</button>
-            <nav id="resourceToc" aria-label="On‑page navigation" class="toc">
-              <ul>
-                <li><a href="#on-prem-vs-cloud">On‑prem vs Cloud AI Deployment</a></li>
-                <li><a href="#implementation-roadmap">AI Implementation Roadmap</a></li>
-                <li><a href="#security-compliance">Security &amp; Compliance Best Practices</a></li>
-                <li><a href="#roi">Maximising ROI with Private AI Agents</a></li>
-                <li><a href="#model-selection">Model Selection &amp; Fine‑Tuning</a></li>
-                <li><a href="#conclusion">Conclusion</a></li>
-              </ul>
-            </nav>
+          <div class="resources-layout">
+            <aside class="resources-sidebar">
+              <button id="tocToggle" class="toc-toggle" aria-controls="resourceToc" aria-expanded="false" style="display:none; margin:8px 0;">Show table of contents</button>
+              <nav id="resourceToc" aria-label="On‑page navigation" class="toc">
+                <ul>
+                  <li><a href="#on-prem-vs-cloud">On‑prem vs Cloud AI Deployment</a></li>
+                  <li><a href="#implementation-roadmap">AI Implementation Roadmap</a></li>
+                  <li><a href="#security-compliance">Security &amp; Compliance Best Practices</a></li>
+                  <li><a href="#roi">Maximising ROI with Private AI Agents</a></li>
+                  <li><a href="#model-selection">Model Selection &amp; Fine‑Tuning</a></li>
+                  <li><a href="#conclusion">Conclusion</a></li>
+                </ul>
+              </nav>
+            </aside>
+            <div class="resources-content prose">
+              <h1 class="section-headline">Utlyze Private‑AI Resource Hub</h1>
+              <p class="muted" style="margin-top:4px;">Last updated: September 2025</p>
+              <div class="section-text">
+                <p><strong>Introduction</strong></p>
+                <p>This resources hub is designed to help teams evaluate, implement and optimize private AI agents. It contains research‑driven guides and how‑tos on infrastructure choices, implementation best practices, security and compliance, ROI maximisation and model selection. The objective is to enable businesses to safely adopt on‑premise or private‑cloud deployments while achieving cost‑effective, high‑performance AI solutions.</p>
+                <p class="muted">Have questions or need a walkthrough? <a href="/contact/">Contact us</a>.</p>
+              </div>
+            </div>
           </div>
         </article>
       </div>
@@ -45,6 +51,15 @@
           <h2 class="section-headline">On‑prem vs Cloud AI Deployment</h2>
           <div class="section-text">
             <p>Running large language models in the cloud is convenient but comes with latency, data‑sovereignty and cost trade‑offs. Deploying models on‑premises or in a private cloud can dramatically reduce operating costs and improve control over data. When evaluating deployment models, consider the following:</p>
+
+            <div class="callout callout--info">
+              <div class="callout-title">Key takeaways</div>
+              <ul>
+                <li>On‑prem improves data control and auditability; cloud favors elastic scaling.</li>
+                <li>Predictable costs: amortized hardware often beats per‑token pricing at steady load.</li>
+                <li>Latency and privacy: on‑prem reduces round‑trips and exposure risk.</li>
+              </ul>
+            </div>
 
             <h3>Data privacy and control</h3>
             <p><strong>Full control over sensitive data.</strong> On‑prem AI operates within your own infrastructure, minimizing exposure to third‑party breaches and giving your security team full oversight. On‑prem deployments offer greater visibility into system activity and leave traceable logs, enhancing auditability (source: ai21.com). Inputs and outputs remain internal, which is critical for finance, healthcare or government workloads (source: ai21.com). By aligning AI systems with existing data policies, organizations retain control over forensic investigations and can adapt security protocols as threats evolve (source: ai21.com).</p>
@@ -222,6 +237,15 @@
               <li><strong>Medium models (≈ 13B–34B):</strong> Balanced accuracy and efficiency; handle most enterprise workloads; easier to fine‑tune on private data.</li>
               <li><strong>Large models (70B+):</strong> Superior performance for complex reasoning, code generation and multimodal tasks (source: ankursnewsletter.com). Require powerful hardware and higher costs but can achieve parity with GPT‑4 when fine‑tuned (source: utlyze.com).</li>
             </ul>
+
+            <div class="callout callout--tip">
+              <div class="callout-title">When to choose on‑prem</div>
+              <ul>
+                <li>Strict data residency/compliance; sensitive workloads.</li>
+                <li>Steady, inference‑heavy traffic with predictable demand.</li>
+                <li>Need for low latency and offline/edge resilience.</li>
+              </ul>
+            </div>
 
             <h3>Fine‑tuning considerations</h3>
             <ul>
