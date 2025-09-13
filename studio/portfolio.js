@@ -189,12 +189,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const metric2Label = company.targetCustomer ? 'Target' : 'Funding';
     const metric2Value = company.targetCustomer || company.fundingRaised || 'Pre-seed';
 
+    const initial = (company.name || '').charAt(0).toUpperCase();
     return `
       <div class="company-card" data-company-id="${company.id}">
-        <div class="company-card__stage">${company.stage}</div>
+        <div class="company-card__stage" aria-label="Stage: ${company.stage}">${company.stage}</div>
         <div class="company-card__header">
-          <div class="company-card__logo" style="background-color: ${company.color};">
-            ${company.logo}
+          <div class="company-card__logo" style="background-color: ${company.color};" role="img" aria-label="Logo placeholder for ${company.name}">
+            ${initial}
           </div>
           <h3 class="company-card__name">${company.name}</h3>
           <span class="company-card__industry">${company.industry}</span>
