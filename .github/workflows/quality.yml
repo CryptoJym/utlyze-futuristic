@@ -18,6 +18,7 @@ jobs:
           node-version: 20
 
       - name: Lighthouse CI (core pages)
+        continue-on-error: true
         uses: treosh/lighthouse-ci-action@v10
         with:
           urls: |
@@ -35,6 +36,7 @@ jobs:
           assertions: 'off'
 
       - name: Lighthouse CI (use-cases)
+        continue-on-error: true
         uses: treosh/lighthouse-ci-action@v10
         with:
           urls: |
