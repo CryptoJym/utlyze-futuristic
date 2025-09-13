@@ -1,8 +1,8 @@
 {
   "defaults": {
     "standard": "WCAG2AA",
-    "wait": 800,
-    "timeout": 60000,
+    "wait": 2000,
+    "timeout": 90000,
     "hideElements": ".floating-orbs,.hero-particles"
   },
   "urls": [
@@ -10,7 +10,26 @@
     "http://localhost:4020/roi/",
     "http://localhost:4020/pricing/",
     "http://localhost:4020/agents/",
+    "http://localhost:4020/about/",
     "http://localhost:4020/studio/",
-    "http://localhost:4020/contact/"
+    "http://localhost:4020/contact/",
+    "http://localhost:4020/resources/",
+    "http://localhost:4020/use-cases/",
+    "http://localhost:4020/use-cases/customer-support-automation/",
+    "http://localhost:4020/use-cases/accounts-receivable-collections/",
+    "http://localhost:4020/use-cases/executive-outbound-sdr/",
+    "http://localhost:4020/use-cases/rfp-proposal-response/",
+    "http://localhost:4020/use-cases/it-helpdesk-employee-support/",
+    "http://localhost:4020/use-cases/legal-contract-review/",
+    "http://localhost:4020/use-cases/healthcare-prior-authorization/",
+    "http://localhost:4020/use-cases/financial-risk-assessment/",
+    "http://localhost:4020/use-cases/sales-lead-qualification/",
+    "http://localhost:4020/use-cases/hr-candidate-screening/",
+    "http://localhost:4020/use-cases/manufacturing-quality-control/",
+    "http://localhost:4020/use-cases/retail-inventory-optimization/",
+    "http://localhost:4020/use-cases/content-creation-pipeline/",
+    "http://localhost:4020/use-cases/insurance-claims-processing/",
+    "http://localhost:4020/use-cases/real-estate-property-analysis/",
+    "http://localhost:4020/use-cases/educational-content-personalization/"
   ]
 }
