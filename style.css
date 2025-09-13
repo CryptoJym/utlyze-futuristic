@@ -732,6 +732,9 @@ select.form-control {
   border-bottom: 1px solid var(--color-card-border-inner);
 }
 
+/* Ensure card headers follow theme text color (fix contrast in dark mode) */
+.card__header, .card__header strong { color: var(--color-text); }
+
 /* Compare cards (Agents) */
 .compare-grid {
   display: grid;
@@ -748,8 +751,16 @@ select.form-control {
 }
 .compare-row:first-child { border-top: 0; }
 .compare-label { color: var(--text-secondary); font-weight: 600; }
-.compare-value { color: var(--text-primary); }
+.compare-value { color: var(--color-text); }
 .card__body .compare-row:nth-child(even) { background: var(--surface-100, rgba(0,0,0,0.02)); }
+
+/* Harden compare card contrast across themes */
+.compare-grid .card { background: var(--utlyze-pure-white); }
+.compare-grid .card__header,
+.compare-grid .card__header strong,
+.compare-grid .compare-value { color: var(--utlyze-text-dark) !important; }
+.compare-grid .compare-label { color: rgba(10,10,10,0.6) !important; }
+.compare-grid .card__body .compare-row:nth-child(even) { background: transparent; }
 
 @media (max-width: 620px) {
   .compare-row { grid-template-columns: 1fr; }
