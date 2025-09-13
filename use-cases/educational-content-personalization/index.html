@@ -11,7 +11,7 @@
 <body>
   <div id="site-header-mount"></div>
   <main class="section"><div class="container">
-    <section class="section-content glass-card"><h1 class="section-headline">Make learning personal—boost engagement and test scores with adaptive AI</h1><p class="section-text">AI tutors customize lessons, monitor progress and provide instant feedback.</p><div class="cta-buttons" style="margin-top:1rem;"><a href="/contact?context=demo" class="cta-button primary">Get a Demo</a><a href="/roi/" class="cta-button secondary">Calculate ROI</a></div></section>
+    <section class="section-content glass-card"><h1 class="section-headline">Make learning personal—boost engagement and test scores with adaptive AI</h1><p class="section-text">AI tutors customize lessons, monitor progress and provide instant feedback.</p><div class="cta-buttons" style="margin-top:1rem;"><a href="/contact?context=demo" class="btn btn--primary">Get a Demo</a><a href="/roi/" class="btn btn--outline">Calculate ROI</a></div></section>
 
     <section class="section-content glass-card"><h2>Who it’s for</h2><p>Schools, universities, corporate training and edtech providers seeking higher engagement and improved outcomes.</p></section>
 
@@ -29,7 +29,7 @@
 
     <section class="section-content glass-card"><h2>FAQs</h2><details class="faq-item"><summary>Will teachers still be needed?</summary><p>Absolutely—AI handles personalization and repetition; educators focus on coaching and higher‑order instruction.</p></details><details class="faq-item"><summary>How is learner privacy protected?</summary><p>Data stays on your infrastructure; access is role‑based; identities can be anonymized.</p></details></section>
 
-    <section class="section-content glass-card"><div class="cta-buttons"><a href="/contact?context=demo" class="cta-button primary">Get a Demo</a><a href="/roi/" class="cta-button secondary">Calculate ROI</a></div><p class="disclaimer muted" style="margin-top:1rem;">On‑prem deployment; transparent models; results vary by cohort and curriculum.</p><p><a class="btn btn--outline" href="/use-cases/">← Back to Use Cases</a></p></section>
+    <section class="section-content glass-card"><div class="cta-buttons" style="display:flex; gap:16px;"><a href="/contact?context=demo" class="btn btn--primary">Get a Demo</a><a href="/roi/" class="btn btn--outline">Calculate ROI</a></div><p class="disclaimer muted" style="margin-top:1rem;">On‑prem deployment; transparent models; results vary by cohort and curriculum.</p><p><a class="btn btn--outline" href="/use-cases/">← Back to Use Cases</a></p></section>
   </div></main>
   <div id="site-footer-mount"></div>
   <script>(async function(){try{const r=await fetch('../../assets/data/tiers.json');if(!r.ok)return;const j=await r.json();const arr=j.tiers||[];const map={'TierA':'team','TierB':'workflow','TierC':'autonomy'};document.querySelectorAll('[data-tier-key]').forEach(el=>{const k=el.getAttribute('data-tier-key');const id=map[k]||k;const d=arr.find(t=>t.id===id);if(!d)return;const n=el.querySelector('.tier-name');const s=el.querySelector('.tier-setup');const m=el.querySelector('.tier-monthly');if(n&&d.name)n.textContent=d.name;if(s&&d.setup!=null)s.textContent=`Setup: $${Number(d.setup).toLocaleString()}`;if(m&&d.monthly!=null)m.textContent=`$${Number(d.monthly).toLocaleString()}/month`;});}catch(e){}})();</script>
