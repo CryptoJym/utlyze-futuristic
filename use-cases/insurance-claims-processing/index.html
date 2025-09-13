@@ -15,11 +15,24 @@
 
     <section class="section-content glass-card"><h2>Who it’s for</h2><p>P&C, health and life insurers seeking to reduce processing costs, detect fraud and deliver faster payouts.</p></section>
 
-    <section class="section-content glass-card"><h2>What it looks like in the field</h2><ul class="feature-list"><li>Processing time and cost reduced; accuracy and customer satisfaction improved; simple claims auto‑approved with transparent rationale.</li></ul></section>
+    <section class="section-content glass-card"><h2>What it looks like in the field</h2>
+      <ul class="feature-list">
+        <li>Auto‑approve simple claims with transparent rationale</li>
+        <li>Reduce cycle time and cost while increasing accuracy</li>
+        <li>Detect and flag potential fraud early in the process</li>
+      </ul>
+    </section>
 
     <section class="section-content glass-card"><h2>Capabilities</h2><ul class="feature-list"><li>OCR document ingestion</li><li>Automated triage and routing</li><li>Computer‑vision damage assessment</li><li>Fraud detection models</li><li>Real‑time customer updates</li></ul></section>
 
-    <section class="section-content glass-card"><h2>How it works</h2><ol class="steps-list"><li>Ingest incident reports, photos, policy details</li><li>Extract, classify, assign or auto‑approve</li><li>Estimate, detect fraud, decide</li><li>Settle & communicate</li></ol></section>
+    <section class="section-content glass-card"><h2>How it works</h2>
+      <ol class="steps-list">
+        <li>Ingest incident reports, photos, and policy data</li>
+        <li>Extract entities, classify claim, route or auto‑approve</li>
+        <li>Estimate damage, score fraud risk, decide</li>
+        <li>Settle payment and notify the customer</li>
+      </ol>
+    </section>
 
     <section class="section-content glass-card"><div class="grid two-cols"><div><h3>Common integrations</h3><p>Guidewire/Duck Creek, DMS, payment processors, customer portals.</p></div><div><h3>KPIs</h3><p>Cycle time, cost per claim, fraud‑detection rate, CSAT, % auto‑approved.</p></div></div><div class="divider"></div><h3>Security & compliance</h3><p>On‑prem deployment for sensitive data; audit logs; industry compliance.</p></section>
 
@@ -29,7 +42,7 @@
 
     <section class="section-content glass-card"><h2>FAQs</h2><details class="faq-item"><summary>Will customers accept AI decisions?</summary><p>Simple claims can auto‑approve with clear explanations; complex cases escalate to human adjusters.</p></details><details class="faq-item"><summary>How is fraud detected?</summary><p>Models analyze patterns and anomalies across datasets; flagged cases route to human review.</p></details></section>
 
-    <section class="section-content glass-card"><div class="cta-buttons" style="display:flex; gap:16px;"><a href="/contact?context=demo" class="btn btn--primary">Get a Demo</a><a href="/roi/" class="btn btn--outline">Calculate ROI</a></div><p class="disclaimer muted" style="margin-top:1rem;">On‑prem processing; human‑in‑the‑loop for complex claims; results vary by line.</p><p><a class="btn btn--outline" href="/use-cases/">← Back to Use Cases</a></p></section>
+    <section class="section-content glass-card"><div class="cta-buttons" style="display:flex; gap:16px;"><a href="/contact?context=demo" class="btn btn--primary">Get a Demo</a><a href="/roi/" class="btn btn--outline">Calculate ROI</a></div><p class="disclaimer muted" style="margin-top:1rem;">Outcomes depend on line of business, data quality, and guardrails. Typical ranges shown. On‑prem processing; human‑in‑the‑loop for complex claims.</p><p><a class="btn btn--outline" href="/use-cases/">← Back to Use Cases</a></p></section>
   </div></main>
   <div id="site-footer-mount"></div>
   <script>(async function(){try{const r=await fetch('../../assets/data/tiers.json');if(!r.ok)return;const j=await r.json();const arr=j.tiers||[];const map={'TierA':'team','TierB':'workflow','TierC':'autonomy'};document.querySelectorAll('[data-tier-key]').forEach(el=>{const k=el.getAttribute('data-tier-key');const id=map[k]||k;const d=arr.find(t=>t.id===id);if(!d)return;const n=el.querySelector('.tier-name');const s=el.querySelector('.tier-setup');const m=el.querySelector('.tier-monthly');if(n&&d.name)n.textContent=d.name;if(s&&d.setup!=null)s.textContent=`Setup: $${Number(d.setup).toLocaleString()}`;if(m&&d.monthly!=null)m.textContent=`$${Number(d.monthly).toLocaleString()}/month`;});}catch(e){}})();</script>
