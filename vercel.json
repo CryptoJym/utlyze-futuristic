@@ -1,0 +1,35 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/resources/case-studies/healthcare-prior-auth", "destination": "/use-cases/healthcare-prior-authorization", "permanent": true },
+    { "source": "/resources/case-studies/healthcare-prior-auth/", "destination": "/use-cases/healthcare-prior-authorization/", "permanent": true },
+
+    { "source": "/resources/case-studies/financial-risk-assessment", "destination": "/use-cases/financial-risk-assessment", "permanent": true },
+    { "source": "/resources/case-studies/financial-risk-assessment/", "destination": "/use-cases/financial-risk-assessment/", "permanent": true },
+
+    { "source": "/resources/case-studies/sales-lead-qualification", "destination": "/use-cases/sales-lead-qualification", "permanent": true },
+    { "source": "/resources/case-studies/sales-lead-qualification/", "destination": "/use-cases/sales-lead-qualification/", "permanent": true },
+
+    { "source": "/resources/case-studies/hr-candidate-screening", "destination": "/use-cases/hr-candidate-screening", "permanent": true },
+    { "source": "/resources/case-studies/hr-candidate-screening/", "destination": "/use-cases/hr-candidate-screening/", "permanent": true },
+
+    { "source": "/resources/case-studies/manufacturing-qc", "destination": "/use-cases/manufacturing-quality-control", "permanent": true },
+    { "source": "/resources/case-studies/manufacturing-qc/", "destination": "/use-cases/manufacturing-quality-control/", "permanent": true },
+
+    { "source": "/resources/case-studies/retail-inventory", "destination": "/use-cases/retail-inventory-optimization", "permanent": true },
+    { "source": "/resources/case-studies/retail-inventory/", "destination": "/use-cases/retail-inventory-optimization/", "permanent": true },
+
+    { "source": "/resources/case-studies/content-creation", "destination": "/use-cases/content-creation-pipeline", "permanent": true },
+    { "source": "/resources/case-studies/content-creation/", "destination": "/use-cases/content-creation-pipeline/", "permanent": true },
+
+    { "source": "/resources/case-studies/insurance-claims", "destination": "/use-cases/insurance-claims-processing", "permanent": true },
+    { "source": "/resources/case-studies/insurance-claims/", "destination": "/use-cases/insurance-claims-processing/", "permanent": true },
+
+    { "source": "/resources/case-studies/real-estate-analysis", "destination": "/use-cases/real-estate-property-analysis", "permanent": true },
+    { "source": "/resources/case-studies/real-estate-analysis/", "destination": "/use-cases/real-estate-property-analysis/", "permanent": true },
+
+    { "source": "/resources/case-studies/education-personalization", "destination": "/use-cases/educational-content-personalization", "permanent": true },
+    { "source": "/resources/case-studies/education-personalization/", "destination": "/use-cases/educational-content-personalization/", "permanent": true }
+  ]
+}
+

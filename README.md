@@ -118,6 +118,30 @@ Automation
 - CI (e2e): `.github/workflows/e2e.yml` runs Playwright against a local static server.
 - CI (quality): `.github/workflows/quality.yml` runs Lighthouse (perf/SEO/best-practices) and pa11y (WCAG2AA) against key routes.
 
+## CI & QA Overview (added)
+
+- Accessibility: `pa11y-ci` runs on core pages and all Use Case pages. See `pa11y-ci.json` and the “a11y” job in `.github/workflows/quality.yml`.
+  - PRs receive an automatic comment summarizing pass/fail for each URL.
+  - A JSON report is uploaded as a build artifact (`pa11y-report.json`).
+- Lighthouse: Two passes run in `quality.yml` using `treosh/lighthouse-ci-action`:
+  - Core pages: `/`, `/roi/`, `/pricing/`, `/agents/`, `/studio/`, `/contact/`.
+  - Use Cases: `/use-cases/` and all 16 `/use-cases/*` pages.
+- E2E: `npm run test:e2e` executes Playwright happy paths (desktop/tablet/mobile) via `.github/workflows/e2e.yml`.
+- Redirects: `vercel.json` defines 308 redirects from legacy `/resources/case-studies/*` to the new `/use-cases/*` pages.
+
+## PR Checklist (added)
+
+Before requesting review, confirm:
+
+- [ ] Accessibility: `pa11y-ci` passes for all URLs (see PR comment and artifact).
+- [ ] Lighthouse: No critical regressions on perf/SEO/best-practices (see artifacts in the “quality” workflow).
+- [ ] Redirects: Legacy `/resources/case-studies/*` paths 308 to the matching `/use-cases/*` (after deploy).
+- [ ] Sitemap: New pages are listed in `sitemap.xml` with correct canonical links in `<head>`.
+- [ ] JSON‑LD: Each Use Case includes FAQPage + Service schema.
+- [ ] Pricing: Tier names and amounts load dynamically from `assets/data/tiers.json` (no hardcoded amounts).
+- [ ] Tracking: `.schedule-button` / `.cta-button` present so click tracking in `app.js` continues to work.
+- [ ] E2E: `npm run test:e2e` passes locally for changed flows.
+
 ## System Overview
 
 - Architecture: Static HTML/CSS/JS with dynamic header/footer partials loaded by `app.js`.
