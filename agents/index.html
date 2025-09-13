@@ -256,168 +256,11 @@
             </div>
         </section>
 
-        <!-- Tier Details Matrix Section (moved to Compare accordion) -->
-        <section id="tier-matrix" class="tier-matrix section">
+        <!-- Compare (card-based, bound to tiers.json) -->
+        <section id="compare" class="section">
             <div class="container">
-                <h2 id="compare">Technical Comparison</h2>
-                <details class="tier-table-wrapper">
-                    <summary class="sr-only">Compare tiers (models, context, features)</summary>
-                    <table class="tier-comparison">
-                        <thead>
-                            <tr>
-                                <th>Profile</th>
-                                <th>Team Assistant</th>
-                                <th>Workflow Operator</th>
-                                <th>Autonomy Suite</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="row-label">Investment</td>
-                                <td>
-                                    <div class="pricing-info">
-                                        <span class="setup">Setup: $3,000-$5,000</span>
-                                        <span class="monthly">Monthly: $1,100</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="pricing-info">
-                                        <span class="setup">Setup: $8,000-$15,000</span>
-                                        <span class="monthly">Monthly: $2,200</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="pricing-info">
-                                        <span class="setup">Setup: $20,000+</span>
-                                        <span class="monthly">Monthly: $3,300</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="row-label">Business Scale</td>
-                                <td>
-                                    <ul>
-                                        <li>Teams up to 10 users</li>
-                                        <li>3 system integrations</li>
-                                        <li>3 automated workflows</li>
-                                        <li>Standard processing capacity</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Organizations up to 100 users</li>
-                                        <li>8 system integrations</li>
-                                        <li>10 automated workflows</li>
-                                        <li>Enhanced processing capacity</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Enterprise-wide deployment</li>
-                                        <li>Unlimited integrations</li>
-                                        <li>Unlimited workflows</li>
-                                        <li>Maximum processing power</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="row-label">Technical Foundation</td>
-                                <td>
-                                    <div class="tech-spec">
-                                        <p><strong>AI Capability:</strong> Fast response models optimized for efficiency</p>
-                                        <p><strong>Infrastructure:</strong> Entry-level AI workstation</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="tech-spec">
-                                        <p><strong>AI Capability:</strong> Advanced reasoning models for complex tasks</p>
-                                        <p><strong>Infrastructure:</strong> Professional AI workstation</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="tech-spec">
-                                        <p><strong>AI Capability:</strong> Enterprise models with maximum intelligence</p>
-                                        <p><strong>Infrastructure:</strong> High-performance AI system</p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="row-label">Key Business Functions</td>
-                                <td>
-                                    <ul>
-                                        <li>Automate routine tasks</li>
-                                        <li>Process documents quickly</li>
-                                        <li>Sort and categorize emails</li>
-                                        <li>Answer common questions</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Handle complex workflows</li>
-                                        <li>Make multi-step decisions</li>
-                                        <li>Generate reports and insights</li>
-                                        <li>Connect to your systems</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Make independent decisions</li>
-                                        <li>Provide strategic analytics</li>
-                                        <li>Learn your specific processes</li>
-                                        <li>Full system integration</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="row-label">Security & Compliance</td>
-                                <td>
-                                    <ul>
-                                        <li>User access controls</li>
-                                        <li>Activity tracking</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Advanced access controls</li>
-                                        <li>Complete audit trails</li>
-                                        <li>Data protection</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Enterprise authentication</li>
-                                        <li>Compliance documentation</li>
-                                        <li>Custom security rules</li>
-                                        <li>Full regulatory support</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="row-label">Growth Options</td>
-                                <td>
-                                    <ul>
-                                        <li>Add more users</li>
-                                        <li>Add integrations</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Add more users</li>
-                                        <li>Custom connections</li>
-                                        <li>Priority assistance</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Train on your data</li>
-                                        <li>Dedicated success team</li>
-                                        <li>Service guarantees</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </details>
+                <h2>Technical Comparison</h2>
+                <div id="compare-cards" class="compare-grid"></div>
                 <p class="small-muted" style="margin-top:8px;">Performance assumes typical concurrency and average context lengths for business workloads; actual results vary by configuration and use case.</p>
                 
                 <!-- Add-ons Section -->
@@ -515,8 +358,8 @@
                 const tiers = data.tiers || [];
                 // Render responsive cards
                 renderTierCards(tiers);
-                // Update comparison table investment + scale rows
-                updateTierComparison(tiers);
+                // Render card-based comparison
+                renderCompareCards(tiers);
                 
                 console.log('Tier data loaded successfully');
             } catch (error) {
@@ -559,71 +402,33 @@
             `).join('');
         }
 
-        // Update the tier comparison table with data from unified JSON
-        function updateTierComparison(tiers) {
-            const team = tiers.find(t => t.id === 'team');
-            const workflow = tiers.find(t => t.id === 'workflow');
-            const autonomy = tiers.find(t => t.id === 'autonomy');
-
-            // Update investment row
-            const investmentCells = document.querySelectorAll('.tier-comparison tbody tr:nth-child(1) td');
-            if (investmentCells[1] && team) {
-                investmentCells[1].innerHTML = `
-                    <div class="pricing-info">
-                        <span class="setup">Setup: $${Number(team.setup).toLocaleString()}</span>
-                        <span class="monthly">Monthly: $${Number(team.monthly).toLocaleString()}</span>
-                    </div>
-                `;
-            }
-            if (investmentCells[2] && workflow) {
-                investmentCells[2].innerHTML = `
-                    <div class="pricing-info">
-                        <span class="setup">Setup: $${Number(workflow.setup).toLocaleString()}</span>
-                        <span class="monthly">Monthly: $${Number(workflow.monthly).toLocaleString()}</span>
-                    </div>
-                `;
-            }
-            if (investmentCells[3] && autonomy) {
-                investmentCells[3].innerHTML = `
-                    <div class="pricing-info">
-                        <span class="setup">Setup: $${Number(autonomy.setup).toLocaleString()}</span>
-                        <span class="monthly">Monthly: $${Number(autonomy.monthly).toLocaleString()}</span>
-                    </div>
-                `;
-            }
-
-            // Update business scale row
-            const scaleCells = document.querySelectorAll('.tier-comparison tbody tr:nth-child(2) td');
-            if (scaleCells[1] && team) {
-                scaleCells[1].innerHTML = `
-                    <ul>
-                        <li>${team.users} users</li>
-                        <li>${team.integrations} system integrations</li>
-                        <li>${team.workflows} automated workflows</li>
-                        <li>Standard processing capacity</li>
-                    </ul>
-                `;
-            }
-            if (scaleCells[2] && workflow) {
-                scaleCells[2].innerHTML = `
-                    <ul>
-                        <li>${workflow.users} users</li>
-                        <li>${workflow.integrations} system integrations</li>
-                        <li>${workflow.workflows} automated workflows</li>
-                        <li>Enhanced processing capacity</li>
-                    </ul>
-                `;
-            }
-            if (scaleCells[3] && autonomy) {
-                scaleCells[3].innerHTML = `
-                    <ul>
-                        <li>Enterprise-wide deployment</li>
-                        <li>${autonomy.integrations} system integrations</li>
-                        <li>Unlimited workflows</li>
-                        <li>Maximum processing power</li>
-                    </ul>
-                `;
-            }
+        // Render Compare cards from unified JSON
+        function renderCompareCards(tiers) {
+            const mount = document.getElementById('compare-cards');
+            if (!mount) return;
+            const items = ['team','workflow','autonomy']
+                .map(id => tiers.find(t => t.id === id))
+                .filter(Boolean);
+            const throughput = id => id==='team' ? 'Standard' : id==='workflow' ? 'Enhanced' : 'Maximum';
+            const hardware = id => id==='team' ? 'Mac Studio M3 Max' : id==='workflow' ? 'Mac Studio M3 Max/Ultra' : 'Mac Studio M3 Ultra 512GB';
+            const security = id => id==='team' ? 'RBAC' : id==='workflow' ? 'RBAC, audit logs' : 'RBAC, SSO/SCIM, audit logs';
+            const badge = id => id==='workflow' ? '<span class="tier-badge" style="margin-left:8px;">Most Popular</span>' : '';
+            mount.innerHTML = items.map(t => `
+              <div class="card">
+                <div class="card__header"><strong>${t.name}</strong>${badge(t.id)}</div>
+                <div class="card__body">
+                  <div class="compare-row"><div class="compare-label">Investment</div><div class="compare-value"><strong>Setup:</strong> $${Number(t.setup).toLocaleString()} · <strong>Monthly:</strong> $${Number(t.monthly).toLocaleString()}</div></div>
+                  <div class="compare-row"><div class="compare-label">Throughput</div><div class="compare-value">${throughput(t.id)}</div></div>
+                  <div class="compare-row"><div class="compare-label">Team size</div><div class="compare-value">${t.users}</div></div>
+                  <div class="compare-row"><div class="compare-label">Integrations</div><div class="compare-value">${t.integrations}</div></div>
+                  <div class="compare-row"><div class="compare-label">Workflows</div><div class="compare-value">${t.workflows}</div></div>
+                  <div class="compare-row"><div class="compare-label">Context</div><div class="compare-value">${t.context}</div></div>
+                  <div class="compare-row"><div class="compare-label">Models</div><div class="compare-value">${t.models.slice(0,2).join(', ')}</div></div>
+                  <div class="compare-row"><div class="compare-label">Hardware</div><div class="compare-value">${hardware(t.id)}</div></div>
+                  <div class="compare-row"><div class="compare-label">Security</div><div class="compare-value">${security(t.id)}</div></div>
+                </div>
+              </div>
+            `).join('');
         }
 
         // Set active nav link after header loads
