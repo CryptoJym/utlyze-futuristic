@@ -631,6 +631,7 @@
 .preview-icon {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
+  pointer-events: none;
 }
 
 .preview-label {

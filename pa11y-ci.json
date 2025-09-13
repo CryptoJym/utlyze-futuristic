@@ -3,7 +3,10 @@
     "standard": "WCAG2AA",
     "wait": 2000,
     "timeout": 90000,
-    "hideElements": ".floating-orbs,.hero-particles"
+    "hideElements": ".floating-orbs,.hero-particles",
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+    }
   },
   "urls": [
     "http://localhost:4020/",
