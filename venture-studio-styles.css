@@ -610,6 +610,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+  /* Decorative only: do not intercept clicks over subsequent content */
+  pointer-events: none;
 }
 
 .preview-card {
