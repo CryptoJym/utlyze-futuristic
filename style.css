@@ -2695,6 +2695,30 @@ ul.tier-features li:before {
   border-left: 3px solid var(--utlyze-orange);
 }
 
+/* Home Quick Comparison list */
+.quick-compare {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-16);
+}
+.quick-compare li {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-16);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  background: #fff;
+}
+.quick-compare .label { color: var(--text-secondary); font-weight: 700; }
+.quick-compare .value { color: var(--text-primary); }
+@media (max-width: 680px) {
+  .quick-compare li { grid-template-columns: 1fr; }
+}
+
 /* Use Cases Preview */
 .use-cases-grid {
   display: grid;
