@@ -9,46 +9,70 @@
   <link rel="stylesheet" href="../style.css">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
-<body>
+<body class="resources-page">
   <div id="site-header-mount"></div>
   <main>
     <!-- Intro -->
     <section class="section">
       <div class="container">
         <article class="section-content glass-card">
-          <div class="resources-layout">
-            <aside class="resources-sidebar">
-              <button id="tocToggle" class="toc-toggle" aria-controls="resourceToc" aria-expanded="false" style="display:none; margin:8px 0;">Show table of contents</button>
-              <nav id="resourceToc" aria-label="On‑page navigation" class="toc">
+          <div class="resources-content prose">
+              <h1 class="section-headline" id="resources-hero-title">Utlyze Private‑AI Resource Hub</h1>
+              <p class="muted last-updated" style="margin-top:4px;">Last updated: September 2025</p>
+              <p class="hero-subtext">Practical playbooks, templates, and tools for private AI deployment.</p>
+              <div class="hero-actions" role="group" aria-label="Primary actions">
+                <a href="/contact/#starter-kit" class="btn btn--primary" id="btnDownloadKit">Download Starter Kit</a>
+                <a href="/roi/" class="btn btn--outline" id="btnOpenROI">Open ROI Calculator</a>
+              </div>
+              <nav class="resources-quicknav" aria-label="Section quick navigation">
                 <ul>
-                  <li><a href="#on-prem-vs-cloud">On‑prem vs Cloud AI Deployment</a></li>
-                  <li><a href="#implementation-roadmap">AI Implementation Roadmap</a></li>
-                  <li><a href="#security-compliance">Security &amp; Compliance Best Practices</a></li>
-                  <li><a href="#roi">Maximising ROI with Private AI Agents</a></li>
-                  <li><a href="#model-selection">Model Selection &amp; Fine‑Tuning</a></li>
+                  <li><a href="#on-prem-vs-cloud">On‑prem vs Cloud</a></li>
+                  <li><a href="#implementation-roadmap">Roadmap</a></li>
+                  <li><a href="#security-compliance">Security</a></li>
+                  <li><a href="#roi">ROI</a></li>
+                  <li><a href="#model-selection">Model Selection</a></li>
                   <li><a href="#conclusion">Conclusion</a></li>
                 </ul>
               </nav>
-            </aside>
-            <div class="resources-content prose">
-              <h1 class="section-headline">Utlyze Private‑AI Resource Hub</h1>
-              <p class="muted" style="margin-top:4px;">Last updated: September 2025</p>
               <div class="section-text">
                 <p><strong>Introduction</strong></p>
                 <p>This resources hub is designed to help teams evaluate, implement and optimize private AI agents. It contains research‑driven guides and how‑tos on infrastructure choices, implementation best practices, security and compliance, ROI maximisation and model selection. The objective is to enable businesses to safely adopt on‑premise or private‑cloud deployments while achieving cost‑effective, high‑performance AI solutions.</p>
                 <p class="muted">Have questions or need a walkthrough? <a href="/contact/">Contact us</a>.</p>
-              </div>
             </div>
           </div>
         </article>
       </div>
     </section>
 
+    <!-- Right utility rail (fixed on desktop, hidden on mobile) -->
+    <aside id="resourcesRail" class="resources-rail" aria-label="Resources utilities">
+      <div class="rail-box">
+        <div class="rail-section rail-actions">
+          <h3 class="rail-title">Quick actions</h3>
+          <a href="/contact/#starter-kit" class="btn btn--primary btn-sm" id="railDownloadKit">Download Kit</a>
+          <a href="/roi/" class="btn btn--outline btn-sm" id="railOpenRoi">ROI Calculator</a>
+          <a href="/contact/" class="btn btn--ghost btn-sm" id="railConsult">Book 30‑min consult</a>
+        </div>
+        <div class="rail-section rail-toc">
+          <h3 class="rail-title">On this page</h3>
+          <nav aria-label="In‑page table of contents">
+            <ul id="railTocList"></ul>
+          </nav>
+        </div>
+        <div class="rail-section rail-help">
+          <h3 class="rail-title">Need help?</h3>
+          <p class="small-muted">We’ll help you pick models, harden security, and estimate TCO.</p>
+          <a href="/contact/" class="btn btn--primary btn-sm">Talk to us</a>
+        </div>
+      </div>
+    </aside>
+
     <!-- On‑prem vs Cloud -->
     <section class="section" id="on-prem-vs-cloud">
       <div class="container">
         <article class="section-content glass-card">
           <h2 class="section-headline">On‑prem vs Cloud AI Deployment</h2>
+          <span id="reference-architecture" aria-hidden="true"></span>
           <div class="section-text">
             <p>Running large language models in the cloud is convenient but comes with latency, data‑sovereignty and cost trade‑offs. Deploying models on‑premises or in a private cloud can dramatically reduce operating costs and improve control over data. When evaluating deployment models, consider the following:</p>
 
@@ -78,33 +102,70 @@
             <p><strong>Cloud considerations.</strong> Cloud providers offer robust security, but data must be transferred off‑site and subject to external controls. Businesses must evaluate whether remote data storage aligns with their regulatory obligations (source: learn.microsoft.com).</p>
 
             <h3>Comparison snapshot</h3>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Deployment model</th>
-                    <th>Key advantages (phrases only)</th>
-                    <th>Considerations</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>On‑prem/private</td>
-                    <td>Full data sovereignty and auditability (ai21.com); predictable long‑term costs; low latency; regulatory compliance; performance parity with GPT‑4 via fine‑tuning (utlyze.com)</td>
-                    <td>High upfront CAPEX (infracloud.io); requires in‑house expertise and physical security (ai21.com); scaling demands hardware procurement (infracloud.io)</td>
-                  </tr>
-                  <tr>
-                    <td>Public cloud</td>
-                    <td>Pay‑as‑you‑go pricing (learn.microsoft.com); quick scalability; access to large proprietary models; easier collaboration across teams (learn.microsoft.com)</td>
-                    <td>Data must be transmitted off‑site (learn.microsoft.com); potential latency (learn.microsoft.com); long‑term costs accumulate; compliance complexity</td>
-                  </tr>
-                  <tr>
-                    <td>Hybrid</td>
-                    <td>Combine on‑prem inference with cloud training or testing (infracloud.io); flexible scaling during seasonal spikes (infracloud.io)</td>
-                    <td>Requires workload orchestration; must manage both environments</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="comparison-cards" role="list">
+              <article class="comparison-card" role="listitem">
+                <header class="comparison-card__header">On‑prem / Private</header>
+                <div class="comparison-card__cols">
+                  <div class="comparison-card__col">
+                    <h4>Pros</h4>
+                    <ul>
+                      <li>Full data sovereignty and auditability</li>
+                      <li>Predictable long‑term costs (amortized)</li>
+                      <li>Low latency; strong compliance alignment</li>
+                      <li>Fine‑tuned models can match GPT‑4</li>
+                    </ul>
+                  </div>
+                  <div class="comparison-card__col">
+                    <h4>Considerations</h4>
+                    <ul>
+                      <li>Higher upfront CAPEX</li>
+                      <li>Requires in‑house expertise & physical security</li>
+                      <li>Scaling tied to hardware procurement cycles</li>
+                    </ul>
+                  </div>
+                </div>
+              </article>
+              <article class="comparison-card" role="listitem">
+                <header class="comparison-card__header">Public Cloud</header>
+                <div class="comparison-card__cols">
+                  <div class="comparison-card__col">
+                    <h4>Pros</h4>
+                    <ul>
+                      <li>Pay‑as‑you‑go; quick scalability</li>
+                      <li>Access to large proprietary models</li>
+                      <li>Easy cross‑team collaboration</li>
+                    </ul>
+                  </div>
+                  <div class="comparison-card__col">
+                    <h4>Considerations</h4>
+                    <ul>
+                      <li>Data leaves your environment</li>
+                      <li>Potential latency</li>
+                      <li>Long‑term costs can accumulate</li>
+                      <li>Compliance can be more complex</li>
+                    </ul>
+                  </div>
+                </div>
+              </article>
+              <article class="comparison-card" role="listitem">
+                <header class="comparison-card__header">Hybrid</header>
+                <div class="comparison-card__cols">
+                  <div class="comparison-card__col">
+                    <h4>Pros</h4>
+                    <ul>
+                      <li>On‑prem inference + cloud training/testing</li>
+                      <li>Flexible scaling for seasonal spikes</li>
+                    </ul>
+                  </div>
+                  <div class="comparison-card__col">
+                    <h4>Considerations</h4>
+                    <ul>
+                      <li>Complex workload orchestration</li>
+                      <li>Manage two environments</li>
+                    </ul>
+                  </div>
+                </div>
+              </article>
             </div>
 
             <h3>When to choose on‑prem</h3>
@@ -114,11 +175,51 @@
       </div>
     </section>
 
+    <!-- Info band between sections -->
+    <section class="info-band" aria-label="Resources prompt">
+      <div class="container">
+        <div class="info-band__content">
+          <span class="info-band__text">Not sure where to start?</span>
+          <a class="btn btn--primary btn-sm" href="/contact/#starter-kit">Download the Starter Kit</a>
+        </div>
+      </div>
+    </section>
+
     <!-- Implementation Roadmap -->
     <section class="section" id="implementation-roadmap">
       <div class="container">
         <article class="section-content glass-card">
           <h2 class="section-headline">AI Implementation Roadmap</h2>
+          <div class="stepper" role="list" aria-label="Implementation Roadmap">
+            <div class="step" role="listitem">
+              <div class="step-number">1</div>
+              <div class="step-body">
+                <div class="step-title">Discover &amp; Scope</div>
+                <div class="step-desc">Select use cases, define KPIs and success criteria.</div>
+              </div>
+            </div>
+            <div class="step" role="listitem">
+              <div class="step-number">2</div>
+              <div class="step-body">
+                <div class="step-title">Fine‑tune &amp; Host</div>
+                <div class="step-desc">Right‑size models, prepare data, deploy privately.</div>
+              </div>
+            </div>
+            <div class="step" role="listitem">
+              <div class="step-number">3</div>
+              <div class="step-body">
+                <div class="step-title">Integrate &amp; Secure</div>
+                <div class="step-desc">Wire into tools, implement controls, monitor.</div>
+              </div>
+            </div>
+            <div class="step" role="listitem">
+              <div class="step-number">4</div>
+              <div class="step-body">
+                <div class="step-title">Measure ROI</div>
+                <div class="step-desc">Track savings, payback, and quality benchmarks.</div>
+              </div>
+            </div>
+          </div>
           <div class="section-text">
             <p>A structured roadmap ensures that a private AI agent delivers measurable value. Below is a high‑level playbook aligned with the Utlyze process (<em>share the task → fine‑tune &amp; host → integrate quickly → measure impact</em>), along with practical checklists.</p>
 
@@ -157,6 +258,7 @@
       <div class="container">
         <article class="section-content glass-card">
           <h2 class="section-headline">Security &amp; Compliance Best Practices</h2>
+          <span id="security-checklist" aria-hidden="true"></span>
           <div class="section-text">
             <p>Private AI systems must be secure by design. Utlyze’s deployments combine role‑based access control, encryption and comprehensive audit logging to ensure data integrity and regulatory compliance. The following practices should be adopted when building your own private AI agent:</p>
 
@@ -176,6 +278,16 @@
 
             <h3>Regulatory considerations</h3>
             <p>Storing and processing data within your own environment can simplify compliance with HIPAA, GDPR and other sector‑specific regulations (source: ai21.com). On‑prem deployments keep data residency under your control, allow custom retention policies and provide detailed logs needed for audits (source: ai21.com). Always consult legal counsel to ensure your deployment meets applicable laws.</p>
+          </div>
+          <div class="checklist" aria-label="Security controls checklist">
+            <div class="checklist-title">Controls checklist</div>
+            <ul class="checklist-list">
+              <li>PII classification and masking in prompts and logs</li>
+              <li>Encryption at rest and in transit</li>
+              <li>RBAC with least‑privilege access</li>
+              <li>Network segmentation / VPC isolation</li>
+              <li>Audit logging with anomaly alerts</li>
+            </ul>
           </div>
         </article>
       </div>
@@ -211,6 +323,7 @@
       <div class="container">
         <article class="section-content glass-card">
           <h2 class="section-headline">Model Selection &amp; Fine‑Tuning</h2>
+          <span id="model-decision-tree" aria-hidden="true"></span>
           <div class="section-text">
             <p>Choosing the right language model is critical for balancing accuracy, latency, cost and privacy. Below is an overview of open‑source models used in private deployments and guidance on when to use small or large models.</p>
 
@@ -271,72 +384,18 @@
       </div>
     </section>
   </main>
+  <!-- Sticky bottom action bar (mobile) -->
+  <div class="mobile-action-bar" role="region" aria-label="Quick actions">
+    <a href="/roi/" class="action-bar-btn" id="mabRoi">ROI Calculator</a>
+    <a href="/contact/#starter-kit" class="action-bar-btn" id="mabKit">Download Kit</a>
+    <a href="/contact/" class="action-bar-btn" id="mabContact">Contact</a>
+  </div>
+
+  <!-- Back to top button -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+
   <div id="site-footer-mount"></div>
   <script src="../app.js"></script>
-  <script>
-    // Sticky TOC highlight
-    document.addEventListener('DOMContentLoaded', () => {
-      const toc = document.getElementById('resourceToc');
-      const toggle = document.getElementById('tocToggle');
-      if (toc) {
-        toc.style.position = 'sticky';
-        toc.style.top = '80px';
-      }
-      const links = document.querySelectorAll('#resourceToc a');
-      const targets = Array.from(links).map(a => {
-        const id = a.getAttribute('href')?.replace('#','');
-        return document.getElementById(id);
-      });
-      const onScroll = () => {
-        const y = window.scrollY + 100;
-        let activeIndex = -1;
-        targets.forEach((t, i) => {
-          if (t && t.offsetTop <= y) activeIndex = i;
-        });
-        links.forEach((a,i)=> a.classList.toggle('active', i===activeIndex));
-      };
-      document.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-
-      // Convert (source: domain) to links; annotate internal
-      const nodes = document.querySelectorAll('.section-text p, .section-text li');
-      nodes.forEach(node => {
-        const html = node.innerHTML;
-        node.innerHTML = html.replace(/\(source: ([^\)]+)\)/gi, (m, src) => {
-          const trimmed = src.trim();
-          if (trimmed.includes('utlyze.com')) {
-            return '(Utlyze internal analysis (2025))';
-          }
-          const url = trimmed.startsWith('http') ? trimmed : `https://${trimmed.replace(/\.$/,'')}`;
-          return `(source: <a href="${url}" target="_blank" rel="noopener noreferrer">${trimmed}</a>)`;
-        });
-      });
-
-      // Collapsible behavior on mobile
-      const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
-      const setCollapsed = (collapsed) => {
-        if (!toc || !toggle) return;
-        toc.classList.toggle('collapsed', collapsed);
-        toggle.setAttribute('aria-expanded', String(!collapsed));
-        toggle.textContent = collapsed ? 'Show table of contents' : 'Hide table of contents';
-      };
-      const applyInitial = () => {
-        if (!toggle || !toc) return;
-        if (isMobile()) {
-          toggle.style.display = 'inline-block';
-          setCollapsed(true);
-        } else {
-          toggle.style.display = 'none';
-          setCollapsed(false);
-        }
-      };
-      if (toggle && toc) {
-        toggle.addEventListener('click', () => setCollapsed(toc.classList.contains('collapsed') ? false : true));
-        window.addEventListener('resize', applyInitial, { passive: true });
-        applyInitial();
-      }
-    });
-  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -346,18 +405,4 @@
   }
   </script>
 </body>
-  <style>
-  .toc { position: sticky; top: 80px; }
-  .toc.collapsed { display: none; }
-  .toc-toggle { border:1px solid rgba(0,0,0,0.15); background:#fff; color:#0a0a0a; padding:6px 10px; border-radius:999px; font-size:14px; }
-  .toc a.active { font-weight: 600; text-decoration: underline; }
-  .section-text a { text-decoration: underline; }
-  .section-content { padding: var(--space-24); }
-  .toc ul { display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); padding-left: 1rem; }
-  .toc a { text-decoration: none; }
-  .toc a:hover { text-decoration: underline; }
-  .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; }
-  th, td { text-align: left; border-bottom: 1px solid rgba(255,255,255,0.12); padding: .75rem; vertical-align: top; }
-</style>
 </html>

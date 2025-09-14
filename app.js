@@ -1352,4 +1352,186 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     } catch {}
   })();
+
+  // Resources page enhancements (scrollspy, anchors, rail, CTAs)
+  try {
+    if (document.body.classList.contains('resources-page')) initResourcesPage();
+  } catch (e) { console.warn('Resources init error', e); }
+  
+  function initResourcesPage() {
+    const quicknav = document.querySelector('.resources-quicknav');
+    const railTocList = document.getElementById('railTocList');
+    const backToTop = document.getElementById('backToTop');
+    const sectionIds = ['on-prem-vs-cloud','implementation-roadmap','security-compliance','roi','model-selection','conclusion'];
+    const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+    // Smooth scroll for internal anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href || href === '#') return;
+        const id = href.slice(1);
+        const target = document.getElementById(id);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', `#${id}`);
+        }
+      });
+    });
+
+    // Build right-rail TOC from H2s
+    if (railTocList) {
+      railTocList.innerHTML = '';
+      sections.forEach(sec => {
+        const h2 = sec.querySelector('h2');
+        if (!h2) return;
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `#${sec.id}`;
+        a.textContent = h2.textContent.replace(/\s+/g,' ').trim();
+        li.appendChild(a);
+        railTocList.appendChild(li);
+      });
+    }
+
+    // Scrollspy via IntersectionObserver
+    const quickLinks = quicknav ? Array.from(quicknav.querySelectorAll('a')) : [];
+    const railLinks = railTocList ? Array.from(railTocList.querySelectorAll('a')) : [];
+    const setActive = (id) => {
+      const update = links => links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+      update(quickLinks); update(railLinks);
+    };
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+    sections.forEach(sec => spy.observe(sec));
+
+    // Heading anchors + copy link on H2/H3
+    const addAnchors = () => {
+      const toSlug = (txt) => txt.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-');
+      document.querySelectorAll('section .section-content h2, section .section-content h3').forEach(h => {
+        if (!h.id) h.id = toSlug(h.textContent);
+        if (h.querySelector('.anchor-link')) return;
+        const a = document.createElement('a');
+        a.className = 'anchor-link';
+        a.href = `#${h.id}`;
+        a.setAttribute('aria-label', 'Copy link to this section');
+        a.textContent = '#';
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          const url = `${location.origin}${location.pathname}#${h.id}`;
+          navigator.clipboard && navigator.clipboard.writeText(url).catch(()=>{});
+          history.replaceState(null, '', `#${h.id}`);
+        });
+        h.appendChild(a);
+      });
+    };
+    addAnchors();
+
+    // Convert inline (source: domain) notes into links; annotate internal
+    try {
+      const nodes = document.querySelectorAll('.section-text p, .section-text li');
+      nodes.forEach(node => {
+        const html = node.innerHTML;
+        node.innerHTML = html.replace(/\(source: ([^\)]+)\)/gi, (m, src) => {
+          const trimmed = (src || '').trim();
+          if (!trimmed) return m;
+          if (trimmed.includes('utlyze.com')) {
+            return '(Utlyze internal analysis (2025))';
+          }
+          const url = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed.replace(/\.$/,'')}`;
+          return `(source: <a href="${url}" target="_blank" rel="noopener noreferrer">${trimmed}</a>)`;
+        });
+      });
+    } catch {}
+
+    // Collapsible H3 under Security on mobile with persisted state
+    const mql = window.matchMedia('(max-width: 900px)');
+    const security = document.getElementById('security-compliance');
+    const collKey = (id) => `resources-collapse-${id}`;
+    if (security) {
+      const h3s = Array.from(security.querySelectorAll('h3'));
+      const apply = () => {
+        const mobile = mql.matches;
+        h3s.forEach(h3 => {
+          let content = h3.nextElementSibling;
+          // group contiguous siblings until next heading
+          const group = [];
+          while (content && !(content.tagName && /^H[23]$/.test(content.tagName))) {
+            group.push(content);
+            content = content.nextElementSibling;
+          }
+          const id = h3.id || (h3.id = h3.textContent.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-'));
+          const collapsed = localStorage.getItem(collKey(id)) === '1';
+          h3.style.cursor = mobile ? 'pointer' : '';
+          if (mobile) {
+            h3.addEventListener('click', () => {
+              const now = !group[0] || group[0].style.display !== 'none' ? true : false;
+              group.forEach(el => el.style.display = now ? 'none' : '');
+              localStorage.setItem(collKey(id), now ? '1' : '0');
+            });
+            group.forEach(el => el.style.display = collapsed ? 'none' : '');
+          } else {
+            group.forEach(el => el.style.display = '');
+          }
+        });
+      };
+      apply();
+      mql.addEventListener('change', apply);
+    }
+
+    // Back to top
+    if (backToTop) {
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY || document.documentElement.scrollTop;
+        backToTop.classList.toggle('visible', y > 800);
+      }, { passive: true });
+      backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+
+    // Insert SectionIntro cards and Micro CTAs
+    const metaRead = (min) => `<span class="intro-meta">Estimated read: ${min}</span>`;
+    const intros = {
+      'on-prem-vs-cloud': { bullets: ['Latency, cost, compliance trade‑offs','Where on‑prem vs cloud excel','How to evaluate hybrid'], read: '3–5 min' },
+      'implementation-roadmap': { bullets: ['Phased rollout (30–60–90)','Success criteria & KPIs','Common blockers to avoid'], read: '3–5 min' },
+      'security-compliance': { bullets: ['Controls that matter most','PII/SPI handling patterns','Audit & monitoring checklist'], read: '3–4 min' },
+      'roi': { bullets: ['Drivers of AI ROI','Cost levers to optimize','Benchmarks and targets'], read: '2–3 min' },
+      'model-selection': { bullets: ['Right‑sizing models','Fine‑tuning vs RAG','Licensing considerations'], read: '3–4 min' }
+    };
+    const micro = {
+      'on-prem-vs-cloud': { label: 'Open TCO/Latency Estimator', href: '/contact/#tco' },
+      'implementation-roadmap': { label: 'Download 30–60–90 Plan', href: '/contact/#plan' },
+      'security-compliance': { label: 'Get Controls Checklist', href: '/contact/#security-checklist' },
+      'roi': { label: 'Open ROI Calculator', href: '/roi/' },
+      'model-selection': { label: 'Download Model Decision Tree', href: '/contact/#model-decision-tree' }
+    };
+    sections.forEach(sec => {
+      const art = sec.querySelector('.section-content');
+      const h2 = art && art.querySelector('h2');
+      if (art && h2) {
+        const id = sec.id;
+        const intro = intros[id];
+        if (intro) {
+          const wrap = document.createElement('div');
+          wrap.className = 'section-intro';
+          wrap.innerHTML = `
+            <div class="intro-title">What you’ll learn</div>
+            ${metaRead(intro.read)}
+            <ul>${intro.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
+          `;
+          h2.insertAdjacentElement('afterend', wrap);
+        }
+        const m = micro[id];
+        if (m) {
+          const cta = document.createElement('div');
+          cta.className = 'micro-cta';
+          cta.innerHTML = `<span class="label">Next step</span><a class="btn btn--outline btn-sm" href="${m.href}">${m.label}</a>`;
+          art.appendChild(cta);
+        }
+      }
+    });
+  }
 });
