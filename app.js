@@ -980,6 +980,22 @@ document.addEventListener('DOMContentLoaded', function() {
             
         } catch (error) {
             console.error('Error submitting form:', error);
+            // Best-effort Slack even on DB failure
+            try {
+                const utm = { utm_source: 'homepage', utm_medium: 'web', utm_campaign: 'main_form' };
+                if (window.utlyzeNotifySlack) {
+                    await window.utlyzeNotifySlack('homepage-error', {
+                        name: document.getElementById('name')?.value.trim() || '',
+                        email: document.getElementById('email')?.value.trim() || '',
+                        company: document.getElementById('company')?.value.trim() || '',
+                        interest: document.getElementById('interest')?.value || '',
+                        message: document.getElementById('message')?.value.trim() || '',
+                        ...utm,
+                        page_url: window.location.href,
+                        error: (error && (error.message || String(error))) || 'unknown'
+                    });
+                }
+            } catch (_) {}
             
             // Show user-friendly error message
             const errorDiv = document.createElement('div');

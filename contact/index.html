@@ -663,6 +663,23 @@
 
         } catch (error) {
           console.error('Error submitting form:', error);
+          // Best-effort Slack even on DB failure
+          try {
+            if (window.utlyzeNotifySlack) {
+              const utmParams = getUTMParams();
+              await window.utlyzeNotifySlack('contact-error', {
+                first_name: document.getElementById('first_name').value.trim(),
+                last_name: document.getElementById('last_name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                company: document.getElementById('company').value.trim(),
+                primary_interest: document.getElementById('primary_interest').value,
+                message: document.getElementById('message').value.trim(),
+                ...utmParams,
+                page_url: window.location.href,
+                error: (error && (error.message || String(error))) || 'unknown'
+              });
+            }
+          } catch (_) {}
           errorMessage.style.display = 'block';
         } finally {
           // Re-enable submit button

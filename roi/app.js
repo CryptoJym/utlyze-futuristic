@@ -510,6 +510,18 @@ window.addEventListener('DOMContentLoaded', () => {
 				alert('Thanks! Your personalized ROI summary is on its way.');
 			} catch (err) {
 				console.error('Error submitting ROI lead:', err);
+				// Best-effort Slack even on DB failure
+				try {
+					if (window.utlyzeNotifySlack) {
+						await window.utlyzeNotifySlack('roi-error', {
+							name: payload.name,
+							email: payload.email,
+							company: payload.company,
+							page_url: window.location.href,
+							error: (err && (err.message || String(err))) || 'unknown'
+						});
+					}
+				} catch (_) {}
 				alert('Sorry, something went wrong. Please try again.');
 			}
 		});
