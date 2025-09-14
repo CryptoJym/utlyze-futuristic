@@ -21,9 +21,11 @@ export default async function handler(req, res) {
     const { context, payload } = req.body || {};
     const ctx = typeof context === 'string' ? context : 'lead';
     const p = payload || {};
+    const env = process.env.VERCEL_ENV || process.env.NODE_ENV || 'production';
     const name = p.name || [p.first_name, p.last_name].filter(Boolean).join(' ') || '—';
     const lines = [
       `New ${ctx} submission`,
+      `• Env: ${env}`,
       `• Name: ${name}`,
       `• Company: ${p.company || '—'}`,
       `• Email: ${p.email || '—'}`,
@@ -52,4 +54,3 @@ export default async function handler(req, res) {
     return res.status(500).json({ ok: false, error: e?.message || 'Unknown error' });
   }
 }
-
