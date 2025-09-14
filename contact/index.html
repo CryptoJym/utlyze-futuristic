@@ -635,6 +635,25 @@
             console.warn('contact_messages insert skipped:', e?.message || e);
           }
 
+          // Best-effort Slack notification (non-blocking)
+          try {
+            if (window.utlyzeNotifySlack) {
+              await window.utlyzeNotifySlack('contact', {
+                first_name: formData.first_name,
+                last_name: formData.last_name,
+                email: formData.email,
+                company: formData.company,
+                primary_interest: formData.primary_interest,
+                message: formData.message,
+                utm_source: formData.utm_source,
+                utm_medium: formData.utm_medium,
+                utm_campaign: formData.utm_campaign,
+                referrer: formData.referrer,
+                page_url: window.location.href
+              });
+            }
+          } catch (e) { console.warn('Slack notify skipped:', e?.message || e); }
+
           // Show success message
           successMessage.style.display = 'block';
           form.reset();

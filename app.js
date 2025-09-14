@@ -28,6 +28,45 @@ if (window.supabase && typeof window.supabase.createClient === 'function') {
     supabase = null;
 }
 
+// Slack webhook (optional) for lead notifications
+var slackWebhook =
+  (window.__ENV && (window.__ENV.SLACK_WEBHOOK_URL || window.__ENV.NEXT_PUBLIC_SLACK_WEBHOOK_URL)) ||
+  (document.querySelector('meta[name="SLACK_WEBHOOK_URL"]')?.content) ||
+  (document.querySelector('meta[name="NEXT_PUBLIC_SLACK_WEBHOOK_URL"]')?.content) ||
+  (localStorage.getItem('SLACK_WEBHOOK_URL')) ||
+  null;
+
+async function utlyzeNotifySlack(context, payload) {
+  try {
+    if (!slackWebhook) return;
+    const site = window.location.origin || '';
+    const title = `New ${context} lead`;
+    const text = [
+      `• Name: ${payload.name || [payload.first_name, payload.last_name].filter(Boolean).join(' ') || '—'}`,
+      `• Company: ${payload.company || '—'}`,
+      `• Email: ${payload.email || '—'}`,
+      payload.interest ? `• Interest: ${payload.interest}` : (payload.primary_interest ? `• Interest: ${payload.primary_interest}` : ''),
+      payload.message ? `• Message: ${payload.message}` : '',
+      payload.utlyze_effective_monthly != null ? `• Est. Utlyze monthly: $${payload.utlyze_effective_monthly}` : '',
+      payload.savings != null ? `• Est. savings: $${payload.savings}` : '',
+      payload.roi_percentage != null ? `• ROI: ${payload.roi_percentage}%` : '',
+      `• Page: ${payload.page_url || (site + window.location.pathname)}`,
+      `• UTM: ${['source','medium','campaign','term','content'].map(k=>`${k}=${payload[`utm_${k}`]||''}`).join(' ')}`
+    ].filter(Boolean).join('\n');
+    await fetch(slackWebhook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text: `${title}\n${text}`
+      })
+    });
+  } catch (e) {
+    console.warn('Slack notify failed:', e?.message || e);
+  }
+}
+// Expose for other pages inline scripts
+window.utlyzeNotifySlack = utlyzeNotifySlack;
+
 // Early delegated handler: ensure toggle works before init completes
 document.addEventListener('click', function(e) {
     const btn = e.target.closest && e.target.closest('.nav-toggle');
@@ -884,6 +923,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (error) throw error;
                 }
             }
+            // Non-blocking Slack notification (best-effort)
+            utlyzeNotifySlack('homepage', {
+              first_name: formData.first_name,
+              last_name: formData.last_name,
+              email: formData.email,
+              company: formData.company,
+              interest: (formData.interested_solutions && formData.interested_solutions[0]) || null,
+              message: formData.message || null,
+              utm_source: formData.utm_source,
+              utm_medium: formData.utm_medium,
+              utm_campaign: formData.utm_campaign,
+              referrer: formData.referrer,
+              page_url: window.location.href
+            });
             
             // Success - proceed with animations
             // Hide form with smooth animation
@@ -1466,7 +1519,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const addAnchors = () => {
       const toSlug = (txt) => txt.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-');
       document.querySelectorAll('section .section-content h2, section .section-content h3').forEach(h => {
-        if (!h.id) h.id = toSlug(h.textContent);
+        if (!h.id) {
+          const proposed = toSlug(h.textContent);
+          const sec = h.closest('section[id]');
+          // Avoid duplicate ids when section already uses the same id
+          h.id = (sec && sec.id === proposed) ? `${proposed}-title` : proposed;
+        }
         if (h.querySelector('.anchor-link')) return;
         const a = document.createElement('a');
         a.className = 'anchor-link';

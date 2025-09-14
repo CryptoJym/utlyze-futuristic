@@ -487,8 +487,24 @@ window.addEventListener('DOMContentLoaded', () => {
 					if (error) throw error;
 				}
 
-				// Optional: also forward to external CRM webhook here
-				// await fetch('https://your-gohighlevel-webhook-url', { method: 'POST', body: formData });
+				// Best-effort Slack notification if configured
+				try {
+					if (window.utlyzeNotifySlack) {
+						await window.utlyzeNotifySlack('roi', {
+							name: payload.name,
+							email: payload.email,
+							company: payload.company,
+							utlyze_effective_monthly: Number(document.getElementById('utlyzeCost')?.textContent || '0') || null,
+							savings: Number(document.getElementById('savings')?.textContent?.replace(/[^0-9.]/g,'') || '0') || null,
+							roi_percentage: Number(document.getElementById('roi')?.textContent?.replace(/[^0-9.]/g,'') || '0') || null,
+							utm_source: payload.utm_source,
+							utm_medium: payload.utm_medium,
+							utm_campaign: payload.utm_campaign,
+							referrer: payload.referrer,
+							page_url: window.location.href
+						});
+					}
+				} catch (e) { console.warn('Slack notify skipped:', e?.message || e); }
 
 				leadForm.reset();
 				alert('Thanks! Your personalized ROI summary is on its way.');
