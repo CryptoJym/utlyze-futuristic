@@ -38,28 +38,35 @@ var slackWebhook =
 
 async function utlyzeNotifySlack(context, payload) {
   try {
-    if (!slackWebhook) return;
-    const site = window.location.origin || '';
-    const title = `New ${context} lead`;
-    const text = [
-      `• Name: ${payload.name || [payload.first_name, payload.last_name].filter(Boolean).join(' ') || '—'}`,
-      `• Company: ${payload.company || '—'}`,
-      `• Email: ${payload.email || '—'}`,
-      payload.interest ? `• Interest: ${payload.interest}` : (payload.primary_interest ? `• Interest: ${payload.primary_interest}` : ''),
-      payload.message ? `• Message: ${payload.message}` : '',
-      payload.utlyze_effective_monthly != null ? `• Est. Utlyze monthly: $${payload.utlyze_effective_monthly}` : '',
-      payload.savings != null ? `• Est. savings: $${payload.savings}` : '',
-      payload.roi_percentage != null ? `• ROI: ${payload.roi_percentage}%` : '',
-      `• Page: ${payload.page_url || (site + window.location.pathname)}`,
-      `• UTM: ${['source','medium','campaign','term','content'].map(k=>`${k}=${payload[`utm_${k}`]||''}`).join(' ')}`
-    ].filter(Boolean).join('\n');
-    await fetch(slackWebhook, {
+    // Prefer serverless proxy if available (protects secrets)
+    const resp = await fetch('/api/notify-lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        text: `${title}\n${text}`
-      })
+      body: JSON.stringify({ context, payload })
     });
+    if (!resp.ok) {
+      // Fallback to direct webhook only if provided client-side (dev/local only)
+      if (!slackWebhook) return;
+      const site = window.location.origin || '';
+      const title = `New ${context} lead`;
+      const text = [
+        `• Name: ${payload.name || [payload.first_name, payload.last_name].filter(Boolean).join(' ') || '—'}`,
+        `• Company: ${payload.company || '—'}`,
+        `• Email: ${payload.email || '—'}`,
+        payload.interest ? `• Interest: ${payload.interest}` : (payload.primary_interest ? `• Interest: ${payload.primary_interest}` : ''),
+        payload.message ? `• Message: ${payload.message}` : '',
+        payload.utlyze_effective_monthly != null ? `• Est. Utlyze monthly: $${payload.utlyze_effective_monthly}` : '',
+        payload.savings != null ? `• Est. savings: $${payload.savings}` : '',
+        payload.roi_percentage != null ? `• ROI: ${payload.roi_percentage}%` : '',
+        `• Page: ${payload.page_url || (site + window.location.pathname)}`,
+        `• UTM: ${['source','medium','campaign','term','content'].map(k=>`${k}=${payload[`utm_${k}`]||''}`).join(' ')}`
+      ].filter(Boolean).join('\n');
+      await fetch(slackWebhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: `${title}\n${text}` })
+      });
+    }
   } catch (e) {
     console.warn('Slack notify failed:', e?.message || e);
   }
