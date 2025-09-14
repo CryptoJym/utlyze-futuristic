@@ -206,3 +206,10 @@ Quick validation
 - Gamma is beta and rate‑limited (e.g., 50 generations/month per user, subject to change)
 - We only generate assets when the sync workflow runs; assets are reused in subsequent deploys
 - If you prefer fully static, you can skip Gamma and just maintain `companies/data.json`
+
+## Leads Integration
+- Uses Supabase public.lead_forms via Edge Function.
+- Required env vars: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY.
+- Honeypots: hidden inputs named hpt and hp2 are included.
+- Slack notifications: set SLACK_WEBHOOK_URL secret on the function.
+- Analytics views available in DB: leads_daily, leads_by_campaign, leads_7d, leads_today_by_source.
