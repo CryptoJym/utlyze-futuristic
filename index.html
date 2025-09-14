@@ -425,6 +425,9 @@
                 
                 <div class="form-container glass-form">
                     <form id="ideaForm" class="idea-form">
+                        <!-- Honeypot fields to trap bots (hidden) -->
+                        <input type="text" name="hpt" value="" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute; left:-10000px; opacity:0;" />
+                        <input type="text" name="hp2" value="" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute; left:-10000px; opacity:0;" />
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label" for="name">Full name <span aria-hidden="true">(required)</span></label>

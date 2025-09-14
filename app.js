@@ -788,7 +788,51 @@ document.addEventListener('DOMContentLoaded', function() {
         const originalText = submitButton.textContent;
         const formContainer = form.parentElement;
         
-        // Get form data - map to contact_submissions table structure
+        // Build lead row for Edge Function (public.lead_forms)
+        function parseUtm() {
+            try {
+                const u = new URL(window.location.href);
+                const ks = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','ref'];
+                const o = {};
+                ks.forEach(k=>{ const v=u.searchParams.get(k); if(v) o[k]=v; });
+                return o;
+            } catch { return {}; }
+        }
+
+        const fullName = document.getElementById('name').value.trim();
+        const companyName = document.getElementById('company').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = (document.getElementById('phone')?.value || '').trim();
+        const interestVal = document.getElementById('interest').value;
+        const messageVal = (document.getElementById('message')?.value || '').trim();
+        const companySize = (document.getElementById('company_size')?.value || '').trim();
+
+        const additional_info = JSON.stringify({
+            contact_email: email,
+            meta: {
+                source_site: window.location.host,
+                path: window.location.pathname,
+                utm: parseUtm(),
+                form: 'homepage'
+            }
+        });
+
+        const row = {
+            full_name: fullName,
+            company_name: companyName,
+            industry: null,
+            title: null,
+            value_message: messageVal || null,
+            ideal_lead: '',
+            lead_capacity: companySize || '',
+            spend_range: '',
+            success_rate: '',
+            pain_points: interestVal || '',
+            phone: phone || null,
+            company_url: null,
+            additional_info
+        };
+
         const formData = {
             // Split name into first and last name
             first_name: document.getElementById('name').value.trim().split(' ')[0] || '',
@@ -821,15 +865,24 @@ document.addEventListener('DOMContentLoaded', function() {
         formContainer.style.animation = 'pulse-submit 1.5s ease-in-out';
         
         try {
-            // Submit to Supabase if available
-            if (supabase) {
-                const { data, error } = await supabase
-                    .from('contact_submissions')
-                    .insert([formData]);
-                
-                if (error) throw error;
-            } else {
-                console.warn('Supabase not available, skipping form submission to database');
+            // Try Edge Function first (server-side insert to lead_forms)
+            try {
+                const resp = await fetch('https://kfdfbkchglfygyukstip.functions.supabase.co/lead-intake', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ row })
+                });
+                const j = await resp.json().catch(()=>({}));
+                if (!resp.ok || j.ok === false) {
+                    throw new Error(j.error || `Edge function error: ${resp.status}`);
+                }
+            } catch (edgeErr) {
+                console.warn('Edge Function insert failed, attempting client insert', edgeErr);
+                // Fallback to existing client insert path if supabase-js present
+                if (supabase) {
+                    const { error } = await supabase.from('lead_forms').insert([row]);
+                    if (error) throw error;
+                }
             }
             
             // Success - proceed with animations
