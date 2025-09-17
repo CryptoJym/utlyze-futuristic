@@ -9,16 +9,17 @@
   <link rel="stylesheet" href="../style.css">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
-<body>
+<body class="about-page">
   <div id="site-header-mount"></div>
   <main>
     <!-- Hero -->
     <section class="section">
       <div class="container">
-        <div class="section-content glass-card">
-          <h1 class="section-headline">About Utlyze</h1>
-          <p class="muted" style="margin-top:4px;">Last updated: September 2025</p>
-          <p class="section-text">From craftsmanship to AI: Utlyze is an AI‑first venture studio building companies with private, on‑prem AI agents that deliver predictable pricing, strong privacy, and performance parity with cloud AI.</p>
+        <div class="section-content glass-card about-hero">
+          <span class="about-eyebrow">Who we are</span>
+          <h1 class="section-headline">Crafting the future of private AI</h1>
+          <p class="muted">Last updated · September 2025</p>
+          <p class="section-text">Utlyze is an AI‑first venture studio born from nearly three decades of shipping software for regulated industries. We combine that hard‑won delivery discipline with private, on‑premise AI agents so organisations can modernise without surrendering control.</p>
         </div>
       </div>
     </section>
@@ -26,9 +27,23 @@
     <!-- Mission -->
     <section class="section section--highlight">
       <div class="container">
-        <div class="section-content glass-card">
-          <h2 class="section-headline">Our Mission</h2>
-          <p class="section-text">To help everyone use AI to prosper. We identify opportunities, validate ideas, and build companies that let people work with capable, private AI agents—amplifying human agency, not replacing it.</p>
+        <div class="section-content glass-card about-mission">
+          <h2 class="section-headline">Our mission</h2>
+          <p class="section-text">Help every organisation use AI to prosper without sacrificing privacy, craftsmanship, or accountability.</p>
+          <div class="about-pillars">
+            <article class="about-pillar">
+              <h3>Private by default</h3>
+              <p>We deploy agents on infrastructure you control so compliance isn’t an afterthought.</p>
+            </article>
+            <article class="about-pillar">
+              <h3>Human amplified</h3>
+              <p>AI should extend teams, not replace them. We design for people in the loop, not people out of work.</p>
+            </article>
+            <article class="about-pillar">
+              <h3>Measured outcomes</h3>
+              <p>Every build has a business case. We benchmark, ship, and iterate until the ROI is clear.</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -37,10 +52,55 @@
     <section class="section">
       <div class="container">
         <div class="section-content glass-card">
-          <h2 class="section-headline">From SolutionStream to Kahoa: 30 Years of Building Software</h2>
-          <div class="section-text">
-            <p><strong>SolutionStream</strong> was founded in 1996 by Jason Thelin and partners as a technical solutions provider focused on web software development. Starting with just three employees, the firm expanded to full software consulting services by 1998 and grew into a respected organization with over 120 technology professionals. The company has “been in the development game for almost 30 years.”</p>
-            <p>In early 2022, SolutionStream rebranded as <strong>Kahoa</strong> — a Hawaiian word symbolizing friendship and partnership. The rebrand came with an internal restructure that eliminated middle management and organized staff into small, cross‑disciplinary squads. Kahoa continues to offer product discovery, design, architecture, development and quality management services, and positions itself as a hands‑on AI‑training partner, leveraging “28+ years of experience” and practitioner‑led programs that embed real AI skills into workflows.</p>
+          <h2 class="section-headline">Three decades of building before launching Utlyze</h2>
+          <div class="about-history-grid">
+            <article class="about-history-card">
+              <h3>1996 · SolutionStream</h3>
+              <p>Jason Thelin and partners launched SolutionStream to build bespoke web apps when “full stack” meant wireframes to deployment.</p>
+              <ul>
+                <li>Scaled from three founders to more than 120 product strategists, designers, and engineers.</li>
+                <li>Delivered enterprise systems for finance, healthcare, and public sector clients with zero outsourced work.</li>
+              </ul>
+            </article>
+            <article class="about-history-card">
+              <h3>2022 · Kahoa</h3>
+              <p>The team rebranded to Kahoa—Hawaiian for partnership—and restructured around multidisciplinary squads able to prototype and launch quickly.</p>
+              <ul>
+                <li>Eliminated middle management to let product, design, and engineering collaborate directly with clients.</li>
+                <li>Built practitioner-led AI enablement programs used by Fortune 100 teams.</li>
+              </ul>
+            </article>
+            <article class="about-history-card">
+              <h3>Today · Utlyze</h3>
+              <p>Kahoa’s venture arm spun out as Utlyze, focused on predicting market gaps and building the private AI agents that fill them.</p>
+              <ul>
+                <li>Combines our studio playbooks with on-prem models, observability, and compliance tooling.</li>
+                <li>First venture, <strong>Vuplicity</strong>, compresses background checks from days to minutes while maintaining 99.9% accuracy.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Principles -->
+    <section class="section">
+      <div class="container">
+        <div class="section-content glass-card about-principles">
+          <h2 class="section-headline">How we build with partners</h2>
+          <div class="about-principles-grid">
+            <article class="about-principle">
+              <h3>Work in the open</h3>
+              <p>We share architecture decisions, model evaluations, and trade-offs in real time so stakeholders are never guessing.</p>
+            </article>
+            <article class="about-principle">
+              <h3>Ship responsible defaults</h3>
+              <p>Security reviews, red-team prompts, and bias testing are part of the first release—not the backlog.</p>
+            </article>
+            <article class="about-principle">
+              <h3>Invest in enablement</h3>
+              <p>Every engagement includes training and playbooks so internal teams can extend and operate their agents.</p>
+            </article>
           </div>
         </div>
       </div>
@@ -49,18 +109,24 @@
     <!-- Team -->
     <section class="section" id="team">
       <div class="container">
-        <div class="section-content glass-card">
-          <h2 class="section-headline">Team</h2>
-          <div class="use-cases-grid">
-            <article class="use-case-card">
-              <div class="avatar" aria-hidden="true" style="width:64px;height:64px;border-radius:50%;background:#1e40af;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;">JT</div>
-              <h3>Jason Thelin — Seasoned builder and AI ethicist</h3>
-              <p class="section-text">Jason built SolutionStream (now Kahoa), led teams to Inc. 500, and champions responsible AI adoption.</p>
+        <div class="section-content glass-card about-team">
+          <h2 class="section-headline">Leadership</h2>
+          <div class="about-team-grid">
+            <article class="about-team-card">
+              <div class="about-avatar" aria-hidden="true">JT</div>
+              <div>
+                <h3>Jason Thelin</h3>
+                <p class="about-role">Founder &amp; CEO</p>
+                <p>Seasoned builder and AI ethicist. Jason led SolutionStream/Kahoa to Inc. 500 recognition and now steers Utlyze’s venture roadmap.</p>
+              </div>
             </article>
-            <article class="use-case-card">
-              <div class="avatar" aria-hidden="true" style="width:64px;height:64px;border-radius:50%;background:#1e40af;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;">JB</div>
-              <h3>James Brady — Scientist and co‑founder</h3>
-              <p class="section-text">James leads research and product for private AI agents, focused on amplifying human agency.</p>
+            <article class="about-team-card">
+              <div class="about-avatar" aria-hidden="true">JB</div>
+              <div>
+                <h3>James Brady</h3>
+                <p class="about-role">Co-founder &amp; Chief Scientist</p>
+                <p>Leads research, product, and evaluation frameworks for private AI agents with a focus on measurable impact and safety.</p>
+              </div>
             </article>
           </div>
         </div>
@@ -78,11 +144,21 @@
 
     <section class="section">
       <div class="container">
-        <div class="section-content glass-card">
-          <h2 class="section-headline">The Birth of Utlyze: An AI‑First Venture Studio</h2>
-          <div class="section-text">
-            <p>Drawing on this heritage, Utlyze was launched as a new kind of venture studio. We describe ourselves as an “AI‑first firm that builds companies by predicting market opportunities and creating them ourselves.” Our approach emphasizes private AI agents that run on‑premises — promising data privacy, predictable pricing and “performance parity” with cloud AI services.</p>
-            <p>Our mission is “to help everyone use AI to prosper,” identifying opportunities, validating ideas and building companies that can rival multimillion‑dollar firms. Our first venture, <strong>Vuplicity</strong>, reimagines background checks — reducing a traditional 3‑to‑5‑day process to minutes through AI automation. This blend of old‑school craftsmanship and new‑world AI exemplifies Utlyze’s goal: leverage three decades of software craftsmanship while pioneering the future.</p>
+        <div class="section-content glass-card about-summary">
+          <h2 class="section-headline">Where we focus next</h2>
+          <div class="about-summary-grid">
+            <article>
+              <h3>New venture opportunities</h3>
+              <p>We’re validating agent roadmaps in insurance, manufacturing, and logistics—verticals where on-prem requirements have slowed traditional AI adoption.</p>
+            </article>
+            <article>
+              <h3>Scalable enablement</h3>
+              <p>Every launch now includes Utlyze Academy modules so client teams can iterate on prompts, guardrails, and evaluation suites themselves.</p>
+            </article>
+            <article>
+              <h3>Open standards advocacy</h3>
+              <p>We contribute to emerging context protocol and evaluation frameworks to keep the private AI ecosystem interoperable.</p>
+            </article>
           </div>
         </div>
       </div>
@@ -92,9 +168,13 @@
     <!-- Closing -->
     <section class="section">
       <div class="container">
-        <div class="section-content glass-card">
-          <h2 class="section-headline">A New Chapter</h2>
-          <p class="section-text">The story of Utlyze is one of evolution: from the craftsmanship of SolutionStream to Kahoa’s AI education and now to an AI‑first venture studio building the next generation of companies. Jason Thelin’s seasoned leadership and commitment to ethical technology, combined with James Brady’s research‑driven approach to AI alignment and product building, create a foundation for a firm that honors its roots and boldly charts the future.</p>
+        <div class="section-content glass-card about-closing">
+          <h2 class="section-headline">Build the next venture with us</h2>
+          <p class="section-text">Utlyze blends proven software delivery with responsible AI operations. If you’re exploring private agents—or need a partner to commercialise an idea—let’s map the path together.</p>
+          <div class="about-cta-group">
+            <a href="/contact?context=about" class="btn btn--primary">Schedule a working session</a>
+            <a href="/companies/" class="btn btn--outline">Explore recent ventures</a>
+          </div>
         </div>
       </div>
     </section>
@@ -110,9 +190,4 @@
   }
   </script>
 </body>
-<style>
-  .section-text a { text-decoration: underline; }
-  .section-content { padding: var(--space-24); }
-  .section-headline { margin-bottom: var(--space-16); }
-</style>
 </html>
