@@ -8,426 +8,167 @@
   <link rel="stylesheet" href="../style.css">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- Optional env override:
-       Provide NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY via
-       window.__ENV or <meta name="NEXT_PUBLIC_SUPABASE_URL" content="..."> -->
   <link rel="canonical" href="https://utlyze.com/contact/">
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    .contact-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-    }
-
-    .contact-hero {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .contact-title {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, var(--utlyze-blue) 0%, var(--utlyze-orange) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .contact-subtitle {
-      font-size: 1.25rem;
-      color: var(--color-text-secondary);
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .contact-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-
-    .contact-form-section {
-      background: #ffffff;
-      border: 1px solid var(--color-card-border);
-      border-radius: 16px;
-      padding: 3rem;
-    }
-
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .form-label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--utlyze-text-dark);
-    }
-
-    .form-input,
-    .form-select,
-    .form-textarea {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      background: #ffffff;
-      border: 1px solid var(--color-card-border);
-      border-radius: 8px;
-      color: var(--utlyze-text-dark);
-      font-size: 1rem;
-      transition: all 0.2s;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .form-input:focus,
-    .form-select:focus,
-    .form-textarea:focus {
-      outline: none;
-      border-color: var(--utlyze-blue);
-      box-shadow: 0 0 0 3px rgba(0, 91, 255, 0.12);
-    }
-
-    .form-textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    .form-checkbox-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-
-    .form-checkbox-label {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      color: var(--color-text-secondary);
-    }
-
-    .form-checkbox-label input[type="checkbox"] {
-      width: auto;
-      margin: 0;
-    }
-
-    .contact-info {
-      padding: 2rem 0;
-    }
-
-    .info-section {
-      margin-bottom: 3rem;
-    }
-
-    .info-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: var(--utlyze-text-dark);
-    }
-
-    .info-text {
-      color: var(--color-text-secondary);
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-
-    .schedule-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .schedule-button .icon {
-      font-size: 1.1rem;
-    }
-
-    .social-links {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .social-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      color: #94a3b8;
-      transition: all 0.2s;
-    }
-
-    .social-link:hover {
-      background: rgba(59, 130, 246, 0.1);
-      border-color: #3b82f6;
-      color: #3b82f6;
-      transform: translateY(-2px);
-    }
-
-    .honeypot {
-      position: absolute;
-      left: -9999px;
-      height: 0;
-      width: 0;
-      overflow: hidden;
-    }
-
-    .form-message {
-      padding: 1rem;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      font-weight: 500;
-      text-align: center;
-      display: none;
-    }
-
-    .form-success {
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      color: #22c55e;
-    }
-
-    .form-error {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #ef4444;
-    }
-
-    .validation-error {
-      color: #ef4444;
-      font-size: 0.875rem;
-      margin-top: 0.25rem;
-      display: none;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    @media (max-width: 768px) {
-      .contact-content {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-
-      .contact-title {
-        font-size: 2rem;
-      }
-
-      .contact-form-section {
-        padding: 2rem;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-checkbox-group {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
 </head>
-<body>
+<body class="contact-page">
   <div id="site-header-mount"></div>
 
-  <main class="contact-container">
-    <div class="contact-hero">
-      <h1 class="contact-title">Transform Your Business with AI</h1>
-      <p class="contact-subtitle">Join leading enterprises saving millions with our AI agent platform. Get a personalized ROI analysis and implementation roadmap.</p>
-    </div>
-
-    <div class="contact-content">
-      <section class="contact-form-section">
-        <form id="contact-form" class="contact-form">
-          <div class="form-message form-success" id="success-message">
-            Thank you for reaching out! We'll get back to you within 24 hours with your personalized ROI analysis.
-          </div>
-          <div class="form-message form-error" id="error-message">
-            Something went wrong. Please try again or email us directly at hello@utlyze.com
-          </div>
-
-          <div class="form-group">
-            <label for="primary_interest" class="form-label">Primary interest (required)</label>
-            <select id="primary_interest" name="primary_interest" class="form-select" required aria-describedby="primary_interest_help primary_interest_error">
-              <option value="" disabled selected>Choose one…</option>
-              <option value="demo">Get a demo</option>
-              <option value="roi">Calculate ROI</option>
-              <option value="private-deployment">Private on‑prem deployment</option>
-              <option value="workflow-automation">Workflow automation</option>
-              <option value="custom-agents">Custom AI agents</option>
-            </select>
-            <p id="primary_interest_help" class="help">Tell us what you’d like to start with.</p>
-            <p id="primary_interest_error" class="error" role="alert" style="display:none;">Please choose a primary interest</p>
-          </div>
-
-          <!-- Simplified standard form: remove collapsible wrapper -->
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="first_name" class="form-label">First name (required)</label>
-              <input type="text" id="first_name" name="first_name" class="form-input" required aria-describedby="first_name_help first_name_error">
-              <p id="first_name_help" class="help">Enter your given name.</p>
-              <p id="first_name_error" class="error" role="alert" style="display:none;">Please enter your first name</p>
-            </div>
-
-            <div class="form-group">
-              <label for="last_name" class="form-label">Last name (required)</label>
-              <input type="text" id="last_name" name="last_name" class="form-input" required aria-describedby="last_name_help last_name_error">
-              <p id="last_name_help" class="help">Enter your family name.</p>
-              <p id="last_name_error" class="error" role="alert" style="display:none;">Please enter your last name</p>
-            </div>
-          </div>
-
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="email" class="form-label">Work email (required)</label>
-              <input type="email" id="email" name="email" class="form-input" required aria-describedby="email_help email_error" placeholder="name@company.com">
-              <p id="email_help" class="help">Use your work email if possible.</p>
-              <p id="email_error" class="error" role="alert" style="display:none;">Please enter a valid work email</p>
-            </div>
-
-            <div class="form-group">
-              <label for="phone" class="form-label">Phone Number</label>
-              <input type="tel" id="phone" name="phone" class="form-input" placeholder="+1 (555) 000-0000">
-            </div>
-          </div>
-
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="company" class="form-label">Company (required)</label>
-              <input type="text" id="company" name="company" class="form-input" required aria-describedby="company_help company_error">
-              <p id="company_help" class="help">Your organization’s name.</p>
-              <p id="company_error" class="error" role="alert" style="display:none;">Please enter your company name</p>
-            </div>
-          </div>
-
-          <!-- Removed company size and industry fields for standard form -->
-
-          <!-- Removed current AI usage selector for standard form -->
-
-          <!-- Removed solutions of interest for streamlined form -->
-
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="timeline" class="form-label">Implementation Timeline</label>
-              <select id="timeline" name="timeline" class="form-select">
-                <option value="" disabled selected>Choose one…</option>
-                <option value="immediate">Immediate (< 1 month)</option>
-                <option value="q1">This quarter</option>
-                <option value="q2">Next quarter</option>
-                <option value="6months">6+ months</option>
-                <option value="exploring">Just exploring</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="budget_range" class="form-label">Annual AI Budget</label>
-              <select id="budget_range" name="budget_range" class="form-select">
-                <option value="" disabled selected>Choose one…</option>
-                <option value="under-50k">Under $50K</option>
-                <option value="50k-100k">$50K - $100K</option>
-                <option value="100k-500k">$100K - $500K</option>
-                <option value="500k-1m">$500K - $1M</option>
-                <option value="1m-5m">$1M - $5M</option>
-                <option value="5m+">$5M+</option>
-                <option value="not-set">Budget not set</option>
-              </select>
-            </div>
-          </div>
-          </details>
-
-          <div class="form-group">
-            <label for="message" class="form-label">Message (required)</label>
-            <textarea id="message" name="message" class="form-textarea" required aria-describedby="message_help message_error" placeholder="Tell us briefly what you’d like to accomplish…"></textarea>
-            <p id="message_help" class="help">Example: Reduce API costs; deploy private support agent; automate contract review.</p>
-            <p id="message_error" class="error" role="alert" style="display:none;">Please enter a message</p>
-          </div>
-
-          <div class="form-group">
-            <label for="pain_points" class="form-label">Biggest challenges (optional)</label>
-            <textarea id="pain_points" name="pain_points" class="form-textarea" placeholder="e.g., High API costs, slow response times, complex integrations, lack of expertise..."></textarea>
-          </div>
-
-          <!-- Honeypot field for spam protection -->
-          <div class="honeypot">
-            <label for="website">Website</label>
-            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-          </div>
-
-          <button type="submit" class="btn btn--primary btn--full-width" id="submit-button">Get a Demo</button>
-          <p class="small-muted" style="margin-top:8px;">We don’t share your information.</p>
-          <p class="small-muted" style="margin-top:8px;">Prefer to schedule now? <a href="https://calendly.com/utlyze/demo" target="_blank" rel="noopener noreferrer">Talk to Sales</a>.</p>
-        </form>
-      </section>
-
-      <section class="contact-info">
-        <div class="info-section">
-          <h2 class="info-title">Why Leading Enterprises Choose Utlyze</h2>
-          <p class="info-text">✓ <strong>10x Cost Reduction</strong> - Proven savings on AI infrastructure</p>
-          <p class="info-text">✓ <strong>3x Faster Deployment</strong> - Pre-built agents ready to deploy</p>
-          <p class="info-text">✓ <strong>Enterprise Security</strong> - SOC 2 compliant, data never leaves your control</p>
-          <p class="info-text">✓ <strong>24/7 Support</strong> - Dedicated success team for your implementation</p>
-        </div>
-
-        <div class="info-section">
-          <h2 class="info-title">Schedule a Live Demo</h2>
-          <p class="info-text">Prefer to book now? Pick a time in Calendly.</p>
-          <a href="https://calendly.com/utlyze/demo" target="_blank" rel="noopener noreferrer" class="btn btn--outline schedule-button">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M19 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-            </svg>
-            Talk to Sales
-          </a>
-        </div>
-
-        <div class="info-section">
-          <h2 class="info-title">Calculate Your Savings</h2>
-          <p class="info-text">Use our ROI calculator to see how much you could save with Utlyze.</p>
-          <a href="/roi/" class="btn btn--outline schedule-button">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-            </svg>
-            ROI Calculator
-          </a>
-        </div>
-
-        <div class="info-section">
-          <h2 class="info-title">Connect With Us</h2>
-          <p class="info-text">Follow us for the latest in AI agent technology and best practices.</p>
-          <div class="social-links">
-            <a href="https://twitter.com/utlyze" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M22.46 6c-.85.38-1.78.64-2.75.76 1-.6 1.76-1.55 2.12-2.68-.93.55-1.96.95-3.06 1.17-.88-.94-2.13-1.53-3.51-1.53-2.66 0-4.81 2.16-4.81 4.81 0 .38.04.75.13 1.1-4-.2-7.54-2.11-9.91-5.02-.41.71-.65 1.53-.65 2.4 0 1.67.85 3.14 2.14 4.01-.79-.03-1.53-.24-2.18-.6v.06c0 2.33 1.66 4.28 3.86 4.72-.4.11-.83.17-1.27.17-.31 0-.62-.03-.91-.08.62 1.91 2.39 3.3 4.49 3.34-1.65 1.29-3.73 2.06-5.99 2.06-.39 0-.77-.02-1.15-.07 2.13 1.36 4.66 2.16 7.38 2.16 8.85 0 13.68-7.33 13.68-13.68 0-.21 0-.42-.01-.62.94-.68 1.76-1.53 2.4-2.49z"/>
-              </svg>
-            </a>
-            <a href="https://linkedin.com/company/utlyze" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-              </svg>
-            </a>
-            <a href="https://github.com/utlyze" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </a>
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="glass-card contact-hero">
+          <span class="contact-eyebrow">Talk to the Utlyze team</span>
+          <h1 class="section-headline">Plan your private AI rollout</h1>
+          <p class="section-text">Share your goals and we’ll deliver a tailored ROI snapshot, deployment guidance, and next steps within one business day.</p>
+          <ul class="contact-highlights">
+            <li><strong>47</strong> venture launches across regulated industries.</li>
+            <li><strong>30 years</strong> of enterprise build expertise behind every rollout.</li>
+            <li><strong>On-prem by default</strong> so data never leaves your walls.</li>
+          </ul>
+          <div class="contact-hero-actions">
+            <a class="btn btn--primary" href="#contact-form">Request a working session</a>
+            <a class="btn btn--outline" href="/pricing/">Preview pricing</a>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="glass-card contact-form-card">
+            <h2 class="contact-section-title">Tell us how we can help</h2>
+            <p class="contact-section-subtitle">Complete the form and we’ll assemble a personalised agenda, ROI estimate, and implementation map.</p>
+            <form id="contact-form" class="contact-form">
+              <div class="form-message form-success" id="success-message">
+                Thank you for reaching out! We'll get back to you within 24 hours with your personalized ROI analysis.
+              </div>
+              <div class="form-message form-error" id="error-message">
+                Something went wrong. Please try again or email us directly at hello@utlyze.com
+              </div>
+
+              <div class="form-group">
+                <label for="primary_interest" class="form-label">Primary interest <span aria-hidden="true">*</span></label>
+                <select id="primary_interest" name="primary_interest" class="form-select" required aria-describedby="primary_interest_help primary_interest_error">
+                  <option value="" disabled selected>Choose one…</option>
+                  <option value="demo">Get a demo</option>
+                  <option value="roi">Calculate ROI</option>
+                  <option value="private-deployment">Private on‑prem deployment</option>
+                  <option value="workflow-automation">Workflow automation</option>
+                  <option value="custom-agents">Custom AI agents</option>
+                </select>
+                <p id="primary_interest_help" class="help">Tell us where you’d like to start.</p>
+                <p id="primary_interest_error" class="error" role="alert" style="display:none;">Please choose a primary interest</p>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="first_name" class="form-label">First name <span aria-hidden="true">*</span></label>
+                  <input type="text" id="first_name" name="first_name" class="form-input" required aria-describedby="first_name_error">
+                  <p id="first_name_error" class="error" role="alert" style="display:none;">Please enter your first name</p>
+                </div>
+                <div class="form-group">
+                  <label for="last_name" class="form-label">Last name <span aria-hidden="true">*</span></label>
+                  <input type="text" id="last_name" name="last_name" class="form-input" required aria-describedby="last_name_error">
+                  <p id="last_name_error" class="error" role="alert" style="display:none;">Please enter your last name</p>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="email" class="form-label">Work email <span aria-hidden="true">*</span></label>
+                  <input type="email" id="email" name="email" class="form-input" required aria-describedby="email_help email_error" placeholder="name@company.com">
+                  <p id="email_help" class="help">Use your work email if possible.</p>
+                  <p id="email_error" class="error" role="alert" style="display:none;">Please enter a valid work email</p>
+                </div>
+                <div class="form-group">
+                  <label for="phone" class="form-label">Phone number</label>
+                  <input type="tel" id="phone" name="phone" class="form-input" placeholder="+1 (555) 000-0000">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="company" class="form-label">Company <span aria-hidden="true">*</span></label>
+                <input type="text" id="company" name="company" class="form-input" required aria-describedby="company_error">
+                <p id="company_error" class="error" role="alert" style="display:none;">Please enter your company name</p>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="timeline" class="form-label">Implementation timeline</label>
+                  <select id="timeline" name="timeline" class="form-select">
+                    <option value="" disabled selected>Choose one…</option>
+                    <option value="immediate">Immediate (&lt; 1 month)</option>
+                    <option value="q1">This quarter</option>
+                    <option value="q2">Next quarter</option>
+                    <option value="6months">6+ months</option>
+                    <option value="exploring">Just exploring</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="budget_range" class="form-label">Annual AI budget</label>
+                  <select id="budget_range" name="budget_range" class="form-select">
+                    <option value="" disabled selected>Choose one…</option>
+                    <option value="under-50k">Under $50K</option>
+                    <option value="50k-100k">$50K - $100K</option>
+                    <option value="100k-500k">$100K - $500K</option>
+                    <option value="500k-1m">$500K - $1M</option>
+                    <option value="1m-5m">$1M - $5M</option>
+                    <option value="5m+">$5M+</option>
+                    <option value="not-set">Budget not set</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="message" class="form-label">What would success look like? <span aria-hidden="true">*</span></label>
+                <textarea id="message" name="message" class="form-textarea" required aria-describedby="message_error" placeholder="Example: deploy a private support agent to reduce backlog by 50%"></textarea>
+                <p id="message_error" class="error" role="alert" style="display:none;">Please enter a message</p>
+              </div>
+
+              <div class="form-group">
+                <label for="pain_points" class="form-label">Current challenges (optional)</label>
+                <textarea id="pain_points" name="pain_points" class="form-textarea" placeholder="e.g., API costs, latency, compliance reviews, knowledge capture"></textarea>
+              </div>
+
+              <div class="honeypot">
+                <label for="website">Website</label>
+                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+              </div>
+
+              <button type="submit" class="btn btn--primary btn--full-width" id="submit-button">Get a demo</button>
+              <p class="form-footnote">Prefer to schedule now? <a href="https://calendly.com/utlyze/demo" target="_blank" rel="noopener noreferrer">Book time with sales</a>.</p>
+            </form>
+          </div>
+
+          <aside class="contact-aside">
+            <div class="glass-card contact-info-card">
+              <h3>Why teams choose Utlyze</h3>
+              <ul class="contact-benefits">
+                <li><strong>10x cost reduction</strong> on AI infrastructure.</li>
+                <li><strong>3x faster deployments</strong> with prebuilt agent playbooks.</li>
+                <li><strong>SOC 2 aligned</strong> workflows and on-prem controls.</li>
+                <li><strong>24/7 support</strong> from the engineers who build the agents.</li>
+              </ul>
+            </div>
+            <div class="glass-card contact-info-card">
+              <h3>Need immediate time with our team?</h3>
+              <a href="https://calendly.com/utlyze/demo" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--full-width">Schedule a live demo</a>
+              <a href="/roi/" class="btn btn--outline btn--full-width">Calculate ROI</a>
+            </div>
+            <div class="glass-card contact-info-card">
+              <h3>Stay in the loop</h3>
+              <p class="contact-info-text">Follow us for product updates, playbooks, and private AI best practices.</p>
+              <div class="contact-social-links">
+                <a href="https://linkedin.com/company/utlyze" class="contact-social" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+                <a href="https://twitter.com/utlyze" class="contact-social" target="_blank" rel="noopener noreferrer" aria-label="X">Twitter</a>
+                <a href="https://github.com/utlyze" class="contact-social" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
   </main>
 
   <div id="site-footer-mount"></div>
@@ -464,196 +205,4 @@
       const errorMessage = document.getElementById('error-message');
 
       // Get UTM parameters
-      function getUTMParams() {
-        const params = new URLSearchParams(window.location.search);
-        return {
-          utm_source: params.get('utm_source') || null,
-          utm_medium: params.get('utm_medium') || null,
-          utm_campaign: params.get('utm_campaign') || null
-        };
-      }
-
-      // Form validation
-      function validateForm() {
-        let isValid = true;
-
-        const show = (id) => { const el = document.getElementById(id); if (el) el.style.display = 'block'; };
-        const hide = (id) => { const el = document.getElementById(id); if (el) el.style.display = 'none'; };
-
-        // First Name
-        const firstName = document.getElementById('first_name');
-        if (!firstName.value.trim()) { show('first_name_error'); isValid = false; } else { hide('first_name_error'); }
-
-        // Last Name
-        const lastName = document.getElementById('last_name');
-        if (!lastName.value.trim()) { show('last_name_error'); isValid = false; } else { hide('last_name_error'); }
-
-        // Email
-        const email = document.getElementById('email');
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email.value)) { show('email_error'); isValid = false; } else { hide('email_error'); }
-
-        // Company
-        const company = document.getElementById('company');
-        if (!company.value.trim()) { show('company_error'); isValid = false; } else { hide('company_error'); }
-
-        // Primary interest
-        const primaryInterest = document.getElementById('primary_interest');
-        if (!primaryInterest.value) { show('primary_interest_error'); isValid = false; } else { hide('primary_interest_error'); }
-
-        // Message
-        const message = document.getElementById('message');
-        if (!message.value.trim()) { show('message_error'); isValid = false; } else { hide('message_error'); }
-
-        return isValid;
-      }
-
-      // Real-time validation
-      ['first_name', 'last_name', 'company', 'message'].forEach(fieldId => {
-        document.getElementById(fieldId).addEventListener('blur', function() {
-          if (this.value.trim() === '') {
-            const errId = fieldId + '_error';
-            const el = document.getElementById(errId); if (el) el.style.display = 'block';
-          } else {
-            const errId = fieldId + '_error';
-            const el = document.getElementById(errId); if (el) el.style.display = 'none';
-          }
-        });
-      });
-
-      document.getElementById('email').addEventListener('blur', function() {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const el = document.getElementById('email_error');
-        if (el) el.style.display = emailRegex.test(this.value) ? 'none' : 'block';
-      });
-
-      // Form submission
-      form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        // Hide any existing messages
-        successMessage.style.display = 'none';
-        errorMessage.style.display = 'none';
-
-        // Check honeypot
-        const honeypot = document.getElementById('website');
-        if (honeypot.value) {
-          // Spam detected, silently reject
-          return;
-        }
-
-        // Validate form
-        if (!validateForm()) {
-          return;
-        }
-
-        // Disable submit button
-        submitButton.disabled = true;
-        submitButton.textContent = 'Sending...';
-
-        try {
-          // Ensure Supabase client is ready
-          if (!supabaseClient) {
-            throw new Error('Supabase not initialized');
-          }
-
-          // Get selected solutions
-          const selectedSolutions = [];
-
-          // Get UTM parameters
-          const utmParams = getUTMParams();
-
-          // Prepare form data
-          const formData = {
-            first_name: document.getElementById('first_name').value.trim(),
-            last_name: document.getElementById('last_name').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            phone: document.getElementById('phone').value.trim() || null,
-            company: document.getElementById('company').value.trim(),
-            primary_interest: document.getElementById('primary_interest').value,
-            interested_solutions: selectedSolutions.length > 0 ? selectedSolutions : null,
-            pain_points: document.getElementById('pain_points').value.trim() || null,
-            message: document.getElementById('message').value.trim(),
-            ...utmParams,
-            referrer: document.referrer || null
-          };
-
-          // Submit to Supabase (detailed table)
-          const { data, error } = await supabaseClient
-            .from('contact_submissions')
-            .insert([formData]);
-
-          if (error) throw error;
-
-          // Also insert a simplified record for contact_messages acceptance
-          try {
-            const fullName = `${formData.first_name} ${formData.last_name}`.trim();
-            const simple = {
-              name: fullName || formData.first_name || null,
-              email: formData.email,
-              company: formData.company || null,
-              phone: formData.phone || null,
-              message: formData.message || formData.pain_points || null,
-              created_at: new Date().toISOString()
-            };
-            await supabaseClient.from('contact_messages').insert([simple]);
-          } catch (e) {
-            console.warn('contact_messages insert skipped:', e?.message || e);
-          }
-
-          // Best-effort Slack notification (non-blocking)
-          try {
-            if (window.utlyzeNotifySlack) {
-              await window.utlyzeNotifySlack('contact', {
-                first_name: formData.first_name,
-                last_name: formData.last_name,
-                email: formData.email,
-                company: formData.company,
-                primary_interest: formData.primary_interest,
-                message: formData.message,
-                utm_source: formData.utm_source,
-                utm_medium: formData.utm_medium,
-                utm_campaign: formData.utm_campaign,
-                referrer: formData.referrer,
-                page_url: window.location.href
-              });
-            }
-          } catch (e) { console.warn('Slack notify skipped:', e?.message || e); }
-
-          // Show success message
-          successMessage.style.display = 'block';
-          form.reset();
-
-          // Scroll to top of form
-          form.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-        } catch (error) {
-          console.error('Error submitting form:', error);
-          // Best-effort Slack even on DB failure
-          try {
-            if (window.utlyzeNotifySlack) {
-              const utmParams = getUTMParams();
-              await window.utlyzeNotifySlack('contact-error', {
-                first_name: document.getElementById('first_name').value.trim(),
-                last_name: document.getElementById('last_name').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                company: document.getElementById('company').value.trim(),
-                primary_interest: document.getElementById('primary_interest').value,
-                message: document.getElementById('message').value.trim(),
-                ...utmParams,
-                page_url: window.location.href,
-                error: (error && (error.message || String(error))) || 'unknown'
-              });
-            }
-          } catch (_) {}
-          errorMessage.style.display = 'block';
-        } finally {
-          // Re-enable submit button
-          submitButton.disabled = false;
-          submitButton.textContent = 'Get a Demo';
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+      function getUTMParams()
