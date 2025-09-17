@@ -151,8 +151,8 @@
 
 .search-input:focus {
   outline: none;
-  border-color: var(--utlyze-teal);
-  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  border-color: var(--utlyze-blue);
+  box-shadow: 0 0 0 3px rgba(0, 91, 255, 0.18);
 }
 
 .filters-dropdowns {
@@ -163,14 +163,14 @@
 .filter-select {
   padding: 0.875rem 1.25rem;
   padding-right: 2.5rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border: 1px solid rgba(0, 91, 255, 0.18);
+  border-radius: 10px;
   font-size: 1rem;
-  background: white;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2321808D' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-  background-position: right 0.5rem center;
+  background: #ffffff;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23005BFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
   background-repeat: no-repeat;
-  background-size: 1.5rem 1.5rem;
+  background-size: 1.25rem 1.25rem;
   appearance: none;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -178,8 +178,8 @@
 
 .filter-select:focus {
   outline: none;
-  border-color: var(--utlyze-teal);
-  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  border-color: var(--utlyze-blue);
+  box-shadow: 0 0 0 3px rgba(0, 91, 255, 0.18);
 }
 
 /* Company Grid */
@@ -191,20 +191,20 @@
 }
 
 .company-card {
-  background: white;
-  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0, 91, 255, 0.06), rgba(255, 122, 0, 0.08));
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
   transition: all 0.3s ease;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 91, 255, 0.14);
   cursor: pointer;
   position: relative;
 }
 
 .company-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-  border-color: rgba(33, 128, 141, 0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.16);
+  border-color: rgba(0, 91, 255, 0.32);
 }
 
 .company-card__header {
@@ -232,12 +232,14 @@
 
 .company-card__industry {
   display: inline-block;
-  font-size: 0.875rem;
-  color: var(--utlyze-teal);
+  font-size: 0.85rem;
+  color: var(--utlyze-blue);
   font-weight: 600;
   padding: 0.25rem 0.75rem;
-  background: rgba(33, 128, 141, 0.1);
-  border-radius: 20px;
+  background: rgba(0, 91, 255, 0.12);
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .company-card__body {
@@ -299,19 +301,20 @@
 
 .load-more-btn {
   padding: 1rem 3rem;
-  background: linear-gradient(135deg, var(--utlyze-teal) 0%, #1A687E 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--utlyze-blue) 0%, var(--utlyze-orange) 100%);
+  color: #ffffff;
   border: none;
-  border-radius: 8px;
-  font-size: 1.125rem;
+  border-radius: 999px;
+  font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 12px 30px rgba(0, 91, 255, 0.2);
 }
 
 .load-more-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(33, 128, 141, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 44px rgba(0, 91, 255, 0.28);
 }
 
 /* Modal Styles */
@@ -424,27 +427,27 @@
 }
 
 .modal-industry-tag {
-  background: rgba(33, 128, 141, 0.1);
-  color: var(--utlyze-teal);
+  background: rgba(0, 91, 255, 0.12);
+  color: var(--utlyze-blue);
 }
 
 .modal-stage-tag {
-  background: var(--overlay-light);
-  color: var(--utlyze-text-dark);
+  background: rgba(255, 122, 0, 0.12);
+  color: var(--utlyze-orange);
 }
 
 .modal-website {
-  color: var(--utlyze-teal);
+  color: var(--utlyze-blue);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  transition: opacity 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .modal-website:hover {
-  opacity: 0.8;
+  color: var(--utlyze-orange);
 }
 
 .modal-content-section {
@@ -515,7 +518,7 @@
   content: "→";
   position: absolute;
   left: 0;
-  color: var(--utlyze-teal);
+  color: var(--utlyze-blue);
   font-weight: 700;
   font-size: 1.25rem;
 }
