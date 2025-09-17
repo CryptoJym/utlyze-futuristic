@@ -1,1 +1,53 @@
-[]
+[
+  {
+    "id": "vuplicity",
+    "name": "Vuplicity",
+    "industry": "Employment screening",
+    "summary": "On-premise background-check platform that collapsed turnaround time from days to minutes while guaranteeing audit trails for regulated partners.",
+    "launchYear": 2024,
+    "solutions": [
+      "Background-check copilot orchestrating vendor lookups, adverse-action workflows, and customer notifications",
+      "Agentic QA layer that reconciles court record discrepancies before reports are released",
+      "Compliance workbench with complete audit history for legal review"
+    ],
+    "outcomes": [
+      "95% reduction in screening turnaround time",
+      "60% reduction in operating costs compared to BPO vendors",
+      "99.9% report accuracy across 1.2M checkpoints"
+    ]
+  },
+  {
+    "id": "meridian-trust",
+    "name": "Meridian Trust Private Bank",
+    "industry": "Financial services",
+    "summary": "Hybrid AI team that automates KYC refresh, high-touch concierge onboarding, and quarterly portfolio reviews for a private bank.",
+    "launchYear": 2025,
+    "solutions": [
+      "Secure document-understanding agent deployed inside the bank's isolated VPC",
+      "Advisor assistant that drafts portfolio commentary and compliance summaries for each relationship",
+      "Voice-of-client monitor that flags churn risk based on ticket tone and call transcripts"
+    ],
+    "outcomes": [
+      "70% reduction in manual KYC effort",
+      "+18 point improvement in NPS across top-tier clients",
+      "$4.2M annual savings from avoided SaaS seat expansion"
+    ]
+  },
+  {
+    "id": "atlas-logistics",
+    "name": "Atlas Logistics",
+    "industry": "Supply chain",
+    "summary": "Dispatch intelligence that routes exceptions, closes claims, and coordinates carriers for a multi-region freight network.",
+    "launchYear": 2023,
+    "solutions": [
+      "Control-tower agent that triages exceptions across TMS, WMS, and IoT telemetry",
+      "Autonomous paperwork automation for proofs-of-delivery and accessorial billing",
+      "Scenario simulator that forecasts lane performance and SLA exposure"
+    ],
+    "outcomes": [
+      "35% faster exception resolution",
+      "$6.8M recovered in preventable claims",
+      "12% uplift in on-time delivery across critical lanes"
+    ]
+  }
+]

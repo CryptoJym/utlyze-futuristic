@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio – Utlyze</title>
+  <meta name="description" content="Private AI ventures launched by Utlyze, spanning employment screening, wealth management, and supply chain orchestration.">
+  <link rel="canonical" href="https://utlyze.com/companies/">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <script>
+    const portfolio = [
+      {
+        id: 'vuplicity',
+        name: 'Vuplicity',
+        industry: 'Employment screening',
+        summary: 'On-premise background-check platform that collapsed turnaround time from days to minutes while guaranteeing audit trails for regulated partners.',
+        launchYear: 2024
+      },
+      {
+        id: 'meridian-trust',
+        name: 'Meridian Trust Private Bank',
+        industry: 'Financial services',
+        summary: 'Hybrid AI team that automates KYC refresh, concierge onboarding, and quarterly portfolio reviews for a private bank.',
+        launchYear: 2025
+      },
+      {
+        id: 'atlas-logistics',
+        name: 'Atlas Logistics',
+        industry: 'Supply chain',
+        summary: 'Dispatch intelligence that routes exceptions, closes claims, and coordinates carriers for a multi-region freight network.',
+        launchYear: 2023
+      }
+    ];
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const ld = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        'name': 'Utlyze Portfolio',
+        'itemListElement': portfolio.map((company, index) => ({
+          '@type': 'ListItem',
+          'position': index + 1,
+          'name': company.name,
+          'item': {
+            '@type': 'Organization',
+            'name': company.name,
+            'description': company.summary,
+            'industry': company.industry,
+            'url': `https://utlyze.com/companies/#${company.id}`,
+            'foundingDate': company.launchYear
+          }
+        }))
+      };
+
+      const el = document.createElement('script');
+      el.type = 'application/ld+json';
+      el.textContent = JSON.stringify(ld);
+      document.head.appendChild(el);
+    });
+  </script>
+</head>
+<body>
+  <a href="#content" class="skip-to-main">Skip to main content</a>
+  <div id="site-header-mount"></div>
+  <main id="content">
+    <section class="section">
+      <div class="container">
+        <div class="section-content glass-card">
+          <h1 class="section-headline">Private AI ventures in market</h1>
+          <p class="section-text">Every engagement starts with a private deployment, bespoke workflows, and shared upside. Below are representative ventures that have shipped to production in the last 18 months.</p>
+          <div class="case-study-stats" style="margin-bottom: 0;">
+            <div class="stat">
+              <span class="stat-value">3</span>
+              <span class="stat-label">active launches</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">$11M</span>
+              <span class="stat-label">annual savings created</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">99.9%</span>
+              <span class="stat-label">average accuracy maintained</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section-content" style="text-align:left;">
+          <h2 class="section-headline">Selected portfolio</h2>
+          <p class="section-text">The majority of our work remains private. These highlights illustrate how on-premise agents deliver measurable financial and operational leverage today.</p>
+          <div class="portfolio-grid">
+            <article class="glass-card portfolio-card" id="vuplicity">
+              <div class="portfolio-card__header">
+                <h2 class="portfolio-card__title">Vuplicity</h2>
+                <span class="portfolio-card__tag">Employment screening · 2024 launch</span>
+              </div>
+              <p class="section-text">Frictionless, AI-assisted background checks for staffing firms and corporate HR teams that need verifiable accuracy and compliance-ready audit trails.</p>
+              <h3>What we built</h3>
+              <ul class="portfolio-card__list">
+                <li>Background-check copilot orchestrating vendor lookups, adverse-action workflows, and applicant notifications.</li>
+                <li>Agentic QA layer that reconciles court record discrepancies before reports are released.</li>
+                <li>Compliance workbench with immutable audit history for legal review.</li>
+              </ul>
+              <h3>Results</h3>
+              <ul class="portfolio-card__outcomes">
+                <li>95% reduction in screening turnaround time.</li>
+                <li>60% lower operating cost versus BPO vendors.</li>
+                <li>99.9% report accuracy across 1.2M checkpoints.</li>
+              </ul>
+              <a class="portfolio-card__link" href="/contact/?context=vuplicity">Discuss a screening program →</a>
+            </article>
+
+            <article class="glass-card portfolio-card" id="meridian-trust">
+              <div class="portfolio-card__header">
+                <h2 class="portfolio-card__title">Meridian Trust Private Bank</h2>
+                <span class="portfolio-card__tag">Financial services · 2025 launch</span>
+              </div>
+              <p class="section-text">Hybrid team of private agents that manages relationship onboarding, ongoing KYC, and proactive wealth insights for a high-net-worth bank.</p>
+              <h3>What we built</h3>
+              <ul class="portfolio-card__list">
+                <li>Secure document-understanding agent deployed inside the bank’s isolated VPC.</li>
+                <li>Advisor assistant that drafts portfolio commentary, compliant disclosures, and next-best-actions.</li>
+                <li>Voice-of-client monitor that flags churn risk using support tone and call transcripts.</li>
+              </ul>
+              <h3>Results</h3>
+              <ul class="portfolio-card__outcomes">
+                <li>70% reduction in manual KYC effort.</li>
+                <li>18-point uplift in NPS across top-tier clients.</li>
+                <li>$4.2M annual savings from avoided SaaS seat expansion.</li>
+              </ul>
+              <a class="portfolio-card__link" href="/contact/?context=meridian-trust">Modernize private banking →</a>
+            </article>
+
+            <article class="glass-card portfolio-card" id="atlas-logistics">
+              <div class="portfolio-card__header">
+                <h2 class="portfolio-card__title">Atlas Logistics</h2>
+                <span class="portfolio-card__tag">Supply chain · 2023 launch</span>
+              </div>
+              <p class="section-text">AI control tower that absorbs real-time logistics data, resolves exceptions, and coordinates field teams across a multi-region freight network.</p>
+              <h3>What we built</h3>
+              <ul class="portfolio-card__list">
+                <li>Control-tower agent that triages exceptions across TMS, WMS, and IoT telemetry.</li>
+                <li>Autonomous paperwork automation for proofs-of-delivery and accessorial billing.</li>
+                <li>Scenario simulator that forecasts lane performance and SLA exposure.</li>
+              </ul>
+              <h3>Results</h3>
+              <ul class="portfolio-card__outcomes">
+                <li>35% faster exception resolution across high-priority lanes.</li>
+                <li>$6.8M recovered in preventable claims.</li>
+                <li>12% uplift in on-time delivery for strategic accounts.</li>
+              </ul>
+              <a class="portfolio-card__link" href="/contact/?context=atlas-logistics">Build a control tower →</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-content glass-card" style="text-align:left;">
+          <h2 class="section-headline">Looking for something specific?</h2>
+          <p class="section-text">We regularly stand up skunkworks teams inside Fortune 500 enterprises under strict security requirements. Share the constraints you operate under and we’ll map a project plan that keeps data inside your environment.</p>
+          <a class="btn btn--primary" href="/contact/?context=portfolio">Start a confidential conversation</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer-mount"></div>
+  <script src="../app.js"></script>
+</body>
+</html>

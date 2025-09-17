@@ -34,14 +34,14 @@
       font-size: 3rem;
       font-weight: 700;
       margin-bottom: 1rem;
-      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      background: linear-gradient(135deg, var(--utlyze-blue) 0%, var(--utlyze-orange) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .contact-subtitle {
       font-size: 1.25rem;
-      color: var(--text-secondary);
+      color: var(--color-text-secondary);
       max-width: 800px;
       margin: 0 auto;
     }
@@ -54,8 +54,8 @@
     }
 
     .contact-form-section {
-      background: #FFFFFF;
-      border: 1px solid var(--border-color); /* themed */
+      background: #ffffff;
+      border: 1px solid var(--color-card-border);
       border-radius: 16px;
       padding: 3rem;
     }
@@ -76,8 +76,8 @@
     .form-textarea {
       width: 100%;
       padding: 0.75rem 1rem;
-      background: #FFFFFF;
-      border: 1px solid var(--border-color); /* themed */
+      background: #ffffff;
+      border: 1px solid var(--color-card-border);
       border-radius: 8px;
       color: var(--utlyze-text-dark);
       font-size: 1rem;
@@ -110,38 +110,12 @@
       align-items: center;
       gap: 0.5rem;
       cursor: pointer;
-      color: var(--text-secondary);
+      color: var(--color-text-secondary);
     }
 
     .form-checkbox-label input[type="checkbox"] {
       width: auto;
       margin: 0;
-    }
-
-    .form-submit {
-      width: 100%;
-      padding: 0.875rem 2rem;
-      background: linear-gradient(135deg, #1e40af, #3b82f6);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .form-submit:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
-    }
-
-    .form-submit:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
     }
 
     .contact-info {
@@ -169,19 +143,11 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.875rem 2rem;
-      background: linear-gradient(135deg, #1e40af, #3b82f6);
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: all 0.2s;
       margin-bottom: 1rem;
     }
 
-    .schedule-button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    .schedule-button .icon {
+      font-size: 1.1rem;
     }
 
     .social-links {
@@ -402,7 +368,7 @@
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
           </div>
 
-          <button type="submit" class="form-submit" id="submit-button">Get a Demo</button>
+          <button type="submit" class="btn btn--primary btn--full-width" id="submit-button">Get a Demo</button>
           <p class="small-muted" style="margin-top:8px;">We don’t share your information.</p>
           <p class="small-muted" style="margin-top:8px;">Prefer to schedule now? <a href="https://calendly.com/utlyze/demo" target="_blank" rel="noopener noreferrer">Talk to Sales</a>.</p>
         </form>
@@ -420,7 +386,7 @@
         <div class="info-section">
           <h2 class="info-title">Schedule a Live Demo</h2>
           <p class="info-text">Prefer to book now? Pick a time in Calendly.</p>
-          <a href="https://calendly.com/utlyze/demo" target="_blank" rel="noopener noreferrer" class="schedule-button">
+          <a href="https://calendly.com/utlyze/demo" target="_blank" rel="noopener noreferrer" class="btn btn--outline schedule-button">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M19 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
             </svg>
@@ -431,7 +397,7 @@
         <div class="info-section">
           <h2 class="info-title">Calculate Your Savings</h2>
           <p class="info-text">Use our ROI calculator to see how much you could save with Utlyze.</p>
-          <a href="/roi/" class="schedule-button">
+          <a href="/roi/" class="btn btn--outline schedule-button">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
             </svg>

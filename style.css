@@ -44,28 +44,28 @@
   --color-bg-8: rgba(6, 182, 212, 0.08); /* Light cyan */
 
   /* Semantic Color Tokens (Light Mode) */
-  --color-background: var(--color-cream-50);
-  --color-surface: var(--color-cream-100);
-  --color-text: var(--color-slate-900);
-  --color-text-secondary: var(--color-slate-500);
-  --color-primary: var(--color-teal-500);
-  --color-primary-hover: var(--color-teal-600);
-  --color-primary-active: var(--color-teal-700);
-  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
-  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
-  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
-  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
-  --color-btn-primary-text: var(--color-cream-50);
-  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
-  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-background: #f5f7ff;
+  --color-surface: #ffffff;
+  --color-text: #0a0a0a;
+  --color-text-secondary: rgba(10, 10, 10, 0.65);
+  --color-primary: #005bff;
+  --color-primary-hover: #1e6bff;
+  --color-primary-active: #0040c1;
+  --color-secondary: rgba(255, 122, 0, 0.12);
+  --color-secondary-hover: rgba(255, 122, 0, 0.2);
+  --color-secondary-active: rgba(255, 122, 0, 0.25);
+  --color-border: rgba(0, 91, 255, 0.16);
+  --color-btn-primary-text: #ffffff;
+  --color-card-border: rgba(0, 91, 255, 0.12);
+  --color-card-border-inner: rgba(0, 91, 255, 0.12);
   --color-error: var(--color-red-500);
-  --color-success: var(--color-teal-500);
+  --color-success: #21808d;
   --color-warning: var(--color-orange-500);
-  --color-info: var(--color-slate-500);
-  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
-  --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+  --color-info: rgba(0, 91, 255, 0.75);
+  --color-focus-ring: rgba(0, 91, 255, 0.35);
+  --color-select-caret: rgba(0, 91, 255, 0.9);
   /* Accent used in Resources components */
-  --color-accent: var(--color-teal-600);
+  --color-accent: #ff7a00;
 
   /* Common style patterns */
   --focus-ring: 0 0 0 3px var(--color-focus-ring);
@@ -413,12 +413,12 @@
     --color-surface: var(--color-charcoal-800);
     --color-text: var(--color-gray-200);
     --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
-    --color-primary: var(--color-teal-300);
-    --color-primary-hover: var(--color-teal-400);
-    --color-primary-active: var(--color-teal-800);
-    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
-    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
-    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-primary: #3b82ff;
+    --color-primary-hover: #5c95ff;
+    --color-primary-active: #1e4dcc;
+    --color-secondary: rgba(255, 158, 64, 0.16);
+    --color-secondary-hover: rgba(255, 158, 64, 0.24);
+    --color-secondary-active: rgba(255, 158, 64, 0.32);
     --color-border: rgba(var(--color-gray-400-rgb), 0.3);
     --color-error: var(--color-red-400);
     --color-success: var(--color-teal-300);
@@ -1468,7 +1468,7 @@ h3 {
 
 /* Section styles */
 .section {
-  padding: 8rem 0;
+  padding: clamp(4rem, 8vw, 6rem) 0;
   position: relative;
 }
 
@@ -2885,6 +2885,97 @@ ul.tier-features li:before {
 }
 
 .use-case-link:hover {
+  color: var(--utlyze-blue);
+}
+
+/* Portfolio Grid */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-24);
+  margin-top: var(--space-32);
+}
+
+.portfolio-card {
+  text-align: left;
+  padding: var(--space-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.portfolio-card h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+}
+
+.portfolio-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-12);
+}
+
+.portfolio-card__tag {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.portfolio-card__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--utlyze-blue);
+}
+
+.portfolio-card__list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: var(--space-8);
+}
+
+.portfolio-card__list li {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.portfolio-card__outcomes {
+  display: grid;
+  gap: var(--space-8);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.portfolio-card__outcomes li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-weight: 600;
+  color: #005bff;
+}
+
+.portfolio-card__outcomes li::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--utlyze-orange) 0%, var(--utlyze-orange-light) 100%);
+  box-shadow: 0 0 0 2px rgba(255, 122, 0, 0.15);
+}
+
+.portfolio-card__link {
+  align-self: flex-start;
+  font-weight: 600;
+  color: var(--utlyze-orange);
+  text-decoration: none;
+}
+
+.portfolio-card__link:hover {
   color: var(--utlyze-blue);
 }
 
