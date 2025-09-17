@@ -176,33 +176,113 @@
   <script src="../app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize Supabase client for contact form submissions
-      function readEnv() {
-        const getMeta = (name) => document.querySelector(`meta[name="${name}"]`)?.getAttribute('content');
-        const env = (window.__ENV || {});
-        return {
-          NEXT_PUBLIC_SUPABASE_URL: env.NEXT_PUBLIC_SUPABASE_URL || getMeta('NEXT_PUBLIC_SUPABASE_URL') || null,
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: env.NEXT_PUBLIC_SUPABASE_ANON_KEY || getMeta('NEXT_PUBLIC_SUPABASE_ANON_KEY') || null
-        };
-      }
-      const env = readEnv();
-      const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL || 'https://mvjzmhlwnbwkrtachiec.supabase.co';
-      const supabaseKey = env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12anptaGx3bmJ3a3J0YWNoaWVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwOTI1MDQsImV4cCI6MjA2OTY2ODUwNH0.KWWX-XFgBqCA4MUpUOIU_Dt0gLX7O6mWgMVJhJAuCXw';
-      let supabaseClient = null;
-      if (window.supabase && typeof window.supabase.createClient === 'function') {
-        // Normal production path
-        supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-      } else if (window.supabase && typeof window.supabase.from === 'function') {
-        // Test/stub path: allow Playwright to inject a lightweight stub client
-        supabaseClient = window.supabase;
-        console.log('Supabase stub detected; using stub client for contact form');
-      } else {
-        console.error('Supabase library not loaded; contact form will not submit to database');
-      }
       const form = document.getElementById('contact-form');
+      if (!form || !window.utlyzeSubmitLead) return;
+
       const submitButton = document.getElementById('submit-button');
       const successMessage = document.getElementById('success-message');
       const errorMessage = document.getElementById('error-message');
 
-      // Get UTM parameters
-      function getUTMParams()
+      if (successMessage) successMessage.style.display = 'none';
+      if (errorMessage) errorMessage.style.display = 'none';
+
+      function getUTMParams() {
+        try {
+          const url = new URL(window.location.href);
+          const params = {};
+          ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','ref'].forEach((key) => {
+            const value = url.searchParams.get(key);
+            if (value) params[key] = value;
+          });
+          return params;
+        } catch (_e) {
+          return {};
+        }
+      }
+
+      function toggleState(isSubmitting) {
+        if (!submitButton) return;
+        submitButton.disabled = isSubmitting;
+        submitButton.textContent = isSubmitting ? 'Submitting…' : 'Get a demo';
+      }
+
+      function showResult(type) {
+        if (type === 'success') {
+          if (successMessage) {
+            successMessage.style.display = 'block';
+            successMessage.focus?.();
+          }
+          if (errorMessage) errorMessage.style.display = 'none';
+        } else {
+          if (errorMessage) {
+            errorMessage.style.display = 'block';
+            errorMessage.focus?.();
+          }
+          if (successMessage) successMessage.style.display = 'none';
+        }
+      }
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formEntries = new FormData(form);
+        const raw = Object.fromEntries(formEntries.entries());
+        if (raw.website) {
+          form.reset();
+          showResult('success');
+          return;
+        }
+        delete raw.website;
+
+        const fullName = `${raw.first_name || ''} ${raw.last_name || ''}`.trim();
+        const utm = getUTMParams();
+
+        const leadRow = {
+          full_name: fullName || null,
+          company_name: raw.company || null,
+          email: raw.email || null,
+          phone: raw.phone || null,
+          value_message: raw.message || null,
+          pain_points: raw.pain_points || null,
+          additional_info: {
+            contact_email: raw.email || null,
+            budget_range: raw.budget_range || null,
+            timeline: raw.timeline || null,
+            primary_interest: raw.primary_interest || null,
+            meta: {
+              source_site: window.location.host,
+              path: window.location.pathname,
+              utm,
+              form: 'contact'
+            }
+          }
+        };
+
+        toggleState(true);
+        if (errorMessage) errorMessage.style.display = 'none';
+
+        try {
+          const payload = {
+            form: 'contact',
+            fields: raw,
+            utm,
+            page_url: window.location.href,
+            submitted_at: new Date().toISOString()
+          };
+
+          const inserted = await window.utlyzeSubmitLead('contact', leadRow, payload);
+          if (!inserted) {
+            throw new Error('Lead intake service unavailable');
+          }
+
+          form.reset();
+          toggleState(false);
+          showResult('success');
+        } catch (err) {
+          console.error('Contact form submission failed', err);
+          toggleState(false);
+          showResult('error');
+        }
+      });
+    });
+  </script>

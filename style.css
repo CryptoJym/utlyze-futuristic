@@ -2232,11 +2232,68 @@ textarea.glass-input {
   padding: 0 var(--space-16);
 }
 
-.footer-content {
+.footer-top {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--space-48);
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 64px);
   margin-bottom: var(--space-48);
+  align-items: start;
+}
+
+.footer-brand {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.footer-logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-summary {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+}
+
+.footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+}
+
+.footer-actions .btn {
+  min-width: 200px;
+}
+
+.footer-social {
+  display: flex;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+
+.footer-social a {
+  color: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  padding: 8px 14px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.footer-social a:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-2px);
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-32);
 }
 
 .footer-heading {
@@ -2244,12 +2301,6 @@ textarea.glass-input {
   font-weight: 700;
   margin-bottom: var(--space-16);
   color: rgba(255, 255, 255, 1);
-}
-
-.mission-tagline {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
 }
 
 .contact-link,
@@ -2288,14 +2339,25 @@ textarea.glass-input {
 }
 
 @media (max-width: 768px) {
-  .footer-content {
+  .footer-top {
     grid-template-columns: 1fr;
-    gap: var(--space-32);
+  }
+
+  .footer-actions {
+    flex-direction: column;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr;
     text-align: center;
   }
-  
+
   .footer-nav {
     align-items: center;
+  }
+
+  .footer-social {
+    justify-content: center;
   }
 }
 
@@ -2863,27 +2925,55 @@ ul.tier-features li:before {
 }
 
 /* Home Quick Comparison list */
-.quick-compare {
-  list-style: none;
-  padding: 0;
+.comparison-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-16);
+  margin-bottom: var(--space-16);
+}
+
+.comparison-header h3 {
   margin: 0;
+  font-size: 1.4rem;
+}
+
+.comparison-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--space-16);
 }
-.quick-compare li {
+
+.comparison-card {
+  background: rgba(0, 91, 255, 0.05);
+  border: 1px solid rgba(0, 91, 255, 0.12);
+  border-radius: var(--radius-lg);
+  padding: var(--space-16);
+  box-shadow: var(--shadow-sm);
   display: grid;
-  grid-template-columns: 110px 1fr;
-  gap: var(--space-12);
-  padding: var(--space-12) var(--space-16);
-  border: 1px solid var(--color-card-border);
-  border-radius: var(--radius-md);
-  background: #fff;
+  gap: var(--space-10);
 }
-.quick-compare .label { color: var(--text-secondary); font-weight: 700; }
-.quick-compare .value { color: var(--text-primary); }
+
+.comparison-card h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--utlyze-blue);
+}
+
+.comparison-card p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
 @media (max-width: 680px) {
-  .quick-compare li { grid-template-columns: 1fr; }
+  .comparison-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .comparison-header .btn {
+    width: 100%;
+  }
 }
 
 /* Use Cases Preview */
@@ -2897,6 +2987,11 @@ ul.tier-features li:before {
 .use-case-card {
   padding: 2rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  text-align: left;
+  height: 100%;
 }
 
 .use-case-card:hover {
@@ -2905,17 +3000,17 @@ ul.tier-features li:before {
 }
 
 .use-case-icon {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
 }
 
 .use-case-card h3 {
-  margin-bottom: 1rem;
+  margin: 0;
   color: var(--utlyze-blue);
 }
 
 .use-case-card p {
   color: var(--text-secondary);
-  margin-bottom: 1.5rem;
+  margin: 0;
   line-height: 1.6;
 }
 
@@ -2924,6 +3019,7 @@ ul.tier-features li:before {
   font-weight: 600;
   text-decoration: none;
   transition: color 0.3s ease;
+  margin-top: auto;
 }
 
 .use-case-link:hover {
