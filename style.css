@@ -4962,6 +4962,20 @@ select,
   padding: clamp(24px, 4vw, 40px) !important;
 }
 
+.usecase-back {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--utlyze-blue);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.usecase-back:hover {
+  text-decoration: underline;
+}
+
 .usecase-eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.14em;
