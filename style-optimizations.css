@@ -8,14 +8,17 @@
 /* Improved responsive scaling for hero headline */
 h1 {
   font-size: clamp(2rem, 8vw, 5rem) !important;
+  line-height: 1.25 !important;
+  padding-bottom: 4px !important;
 }
 
 .hero-headline {
   font-size: clamp(2rem, 8vw, 5rem) !important;
-  line-height: 1.1 !important;
+  line-height: 1.25 !important;
   word-wrap: break-word !important;
   overflow-wrap: break-word !important;
   hyphens: auto !important;
+  padding-bottom: 4px !important;
 }
 
 /* Ensure hero content has proper padding on small screens */
@@ -139,8 +142,9 @@ h1 {
 h1 {
   font-size: clamp(2rem, 8vw, 5rem) !important;
   font-weight: 800 !important;
-  line-height: 1.1 !important;
+  line-height: 1.25 !important;
   margin-bottom: 1.5rem !important;
+  padding-bottom: 4px !important;
 }
 
 h2 {
