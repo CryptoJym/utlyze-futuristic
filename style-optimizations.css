@@ -1,0 +1,429 @@
+/* Utlyze Website Optimizations - September 2025 */
+/* Fixes for banner cutoffs, improved spacing, and better visual balance */
+
+/* ========================================
+   CRITICAL FIX: Hero Headline Mobile Cutoff
+   ======================================== */
+
+/* Improved responsive scaling for hero headline */
+h1 {
+  font-size: clamp(2rem, 8vw, 5rem) !important;
+}
+
+.hero-headline {
+  font-size: clamp(2rem, 8vw, 5rem) !important;
+  line-height: 1.1 !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto !important;
+}
+
+/* Ensure hero content has proper padding on small screens */
+.hero-content {
+  padding: 0 1rem !important;
+}
+
+@media (max-width: 320px) {
+  .hero-headline {
+    font-size: 1.75rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  .hero-subheadline {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+}
+
+/* ========================================
+   IMPROVED VERTICAL SPACING
+   ======================================== */
+
+/* Better section spacing */
+.section {
+  padding: 4rem 0 !important;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 6rem 0 !important;
+  }
+}
+
+/* Improved spacing between content blocks */
+.section-content > * + * {
+  margin-top: 2rem;
+}
+
+.section-headline + .section-subtext {
+  margin-top: 1rem !important;
+}
+
+.section-headline + p {
+  margin-top: 1.5rem !important;
+}
+
+/* ========================================
+   ENHANCED CARD LAYOUTS
+   ======================================== */
+
+/* Better pricing card spacing */
+.tier-card, .pricing-card {
+  padding: 2rem 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.tier-card .tier-price {
+  margin: 1.5rem 0 !important;
+}
+
+.tier-card .tier-features {
+  margin: 1.5rem 0 !important;
+  padding-left: 0 !important;
+}
+
+.tier-card .tier-features li {
+  padding: 0.5rem 0 !important;
+  margin: 0.5rem 0 !important;
+}
+
+/* Use case cards improvements */
+.use-case-card, .benefit-card {
+  padding: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.use-case-card h3, .benefit-card h3 {
+  margin-bottom: 1rem !important;
+}
+
+.use-case-card p, .benefit-card p {
+  line-height: 1.6 !important;
+  margin-bottom: 1rem !important;
+}
+
+/* ========================================
+   IMPROVED BUTTON SPACING
+   ======================================== */
+
+/* Better button group spacing */
+.btn-group, .hero-buttons {
+  gap: 1rem !important;
+  margin-top: 2rem !important;
+}
+
+@media (max-width: 768px) {
+  .btn-group, .hero-buttons {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  .btn-group .btn, .hero-buttons .btn {
+    width: 100% !important;
+    max-width: 280px !important;
+  }
+}
+
+/* Improved button touch targets for mobile */
+.btn {
+  min-height: 44px !important;
+  padding: 0.75rem 1.5rem !important;
+  font-size: 1rem !important;
+}
+
+/* ========================================
+   ENHANCED TYPOGRAPHY HIERARCHY
+   ======================================== */
+
+/* Better heading size differentiation */
+h1 {
+  font-size: clamp(2rem, 8vw, 5rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 5vw, 3rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 1.25rem !important;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3vw, 2rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin-bottom: 1rem !important;
+}
+
+h4 {
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+/* Improved paragraph spacing and readability */
+p {
+  line-height: 1.6 !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.section-text p {
+  max-width: 65ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* ========================================
+   BETTER GRID LAYOUTS
+   ======================================== */
+
+/* Improved pricing grid */
+.tiers-grid {
+  gap: 2rem !important;
+  margin-top: 3rem !important;
+}
+
+@media (max-width: 768px) {
+  .tiers-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+}
+
+/* Better benefits grid */
+.benefits-grid {
+  gap: 2rem !important;
+  margin-top: 2.5rem !important;
+}
+
+@media (max-width: 768px) {
+  .benefits-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+}
+
+/* Use cases grid improvements */
+.use-cases-grid {
+  gap: 1.5rem !important;
+  margin-top: 2rem !important;
+}
+
+/* ========================================
+   ENHANCED FORM LAYOUTS
+   ======================================== */
+
+/* Better form spacing */
+.form-group {
+  margin-bottom: 1.5rem !important;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem !important;
+  display: block !important;
+  font-weight: 500 !important;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100% !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  border-radius: 0.5rem !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  min-height: 44px !important;
+}
+
+.form-group textarea {
+  min-height: 120px !important;
+  resize: vertical !important;
+}
+
+/* ========================================
+   IMPROVED MOBILE NAVIGATION
+   ======================================== */
+
+/* Better mobile menu touch targets */
+@media (max-width: 900px) {
+  .nav-link {
+    font-size: 1.25rem !important;
+    padding: 1rem 2rem !important;
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .nav-toggle {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+}
+
+/* ========================================
+   ENHANCED FOCUS STATES
+   ======================================== */
+
+/* Better focus indicators for accessibility */
+.btn:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.nav-link:focus-visible {
+  outline: 2px solid var(--color-primary) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px rgba(0, 91, 255, 0.2) !important;
+}
+
+/* ========================================
+   IMPROVED ANIMATIONS AND TRANSITIONS
+   ======================================== */
+
+/* Smoother transitions */
+.btn,
+.card,
+.nav-link {
+  transition: all 0.2s ease-in-out !important;
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========================================
+   CONTAINER AND LAYOUT IMPROVEMENTS
+   ======================================== */
+
+/* Better container max-widths */
+.container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 1rem !important;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 3rem !important;
+  }
+}
+
+/* ========================================
+   SPECIFIC PAGE IMPROVEMENTS
+   ======================================== */
+
+/* About page timeline improvements */
+.timeline-item {
+  margin-bottom: 3rem !important;
+  padding-left: 2rem !important;
+}
+
+.timeline-item h3 {
+  margin-bottom: 0.5rem !important;
+}
+
+.timeline-item p {
+  margin-bottom: 1rem !important;
+}
+
+/* Pricing page FAQ improvements */
+.faq-item {
+  margin-bottom: 2rem !important;
+  padding: 1.5rem !important;
+  border-radius: 0.75rem !important;
+}
+
+.faq-item h3 {
+  margin-bottom: 1rem !important;
+}
+
+.faq-item p {
+  line-height: 1.6 !important;
+}
+
+/* Use cases filter improvements */
+.filter-buttons {
+  gap: 0.75rem !important;
+  margin-bottom: 2rem !important;
+  flex-wrap: wrap !important;
+}
+
+.filter-button {
+  padding: 0.5rem 1rem !important;
+  min-height: 40px !important;
+  border-radius: 2rem !important;
+}
+
+/* ========================================
+   UTILITY CLASSES FOR CONSISTENT SPACING
+   ======================================== */
+
+.mt-1 { margin-top: 0.5rem !important; }
+.mt-2 { margin-top: 1rem !important; }
+.mt-3 { margin-top: 1.5rem !important; }
+.mt-4 { margin-top: 2rem !important; }
+.mt-5 { margin-top: 3rem !important; }
+
+.mb-1 { margin-bottom: 0.5rem !important; }
+.mb-2 { margin-bottom: 1rem !important; }
+.mb-3 { margin-bottom: 1.5rem !important; }
+.mb-4 { margin-bottom: 2rem !important; }
+.mb-5 { margin-bottom: 3rem !important; }
+
+.p-1 { padding: 0.5rem !important; }
+.p-2 { padding: 1rem !important; }
+.p-3 { padding: 1.5rem !important; }
+.p-4 { padding: 2rem !important; }
+.p-5 { padding: 3rem !important; }
+
+/* ========================================
+   FINAL RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+/* Extra small screens (320px and below) */
+@media (max-width: 320px) {
+  .container {
+    padding: 0 0.75rem !important;
+  }
+  
+  .section {
+    padding: 2rem 0 !important;
+  }
+  
+  .btn {
+    font-size: 0.9rem !important;
+    padding: 0.625rem 1.25rem !important;
+  }
+  
+  .tier-card, .pricing-card {
+    padding: 1.5rem 1rem !important;
+  }
+}
+
+/* Large screens optimization */
+@media (min-width: 1400px) {
+  .section {
+    padding: 8rem 0 !important;
+  }
+  
+  .container {
+    max-width: 1400px !important;
+  }
+}
