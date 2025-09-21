@@ -676,3 +676,306 @@ select:focus-visible,
 .certification-badge:nth-child(2) { animation-delay: 0.1s; }
 .certification-badge:nth-child(3) { animation-delay: 0.2s; }
 .certification-badge:nth-child(4) { animation-delay: 0.3s; }
+
+
+/* ========================================
+   PROFESSIONAL AUTHORITY DESIGN PATTERNS
+   ======================================== */
+
+/* Professional SVG icon styling */
+.trust-icon svg,
+.cert-icon svg {
+  color: var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.trust-signal:hover .trust-icon svg,
+.certification-badge:hover .cert-icon svg {
+  color: var(--color-accent);
+  transform: scale(1.1);
+}
+
+/* About page enterprise authority section */
+.authority-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.authority-metric {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 91, 255, 0.12);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.authority-metric:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 91, 255, 0.15);
+  border-color: rgba(0, 91, 255, 0.2);
+}
+
+.authority-value {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.authority-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.authority-desc {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Certifications grid for about page */
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.cert-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(0, 91, 255, 0.08), rgba(255, 122, 0, 0.08));
+  border: 1px solid rgba(0, 91, 255, 0.15);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.cert-badge:hover {
+  background: linear-gradient(135deg, rgba(0, 91, 255, 0.12), rgba(255, 122, 0, 0.12));
+  border-color: rgba(0, 91, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.cert-badge svg {
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+/* Studio page professional icon styling */
+.preview-icon svg {
+  color: var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.preview-card:hover .preview-icon svg {
+  color: var(--color-accent);
+  transform: scale(1.1);
+}
+
+/* Enhanced professional typography hierarchy */
+.section-headline {
+  position: relative;
+}
+
+.section-headline::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  border-radius: 2px;
+  opacity: 0.8;
+}
+
+/* Professional button enhancements */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+/* Authority visual indicators */
+.glass-card {
+  position: relative;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glass-card:hover::before {
+  opacity: 0.6;
+}
+
+/* Professional spacing and rhythm */
+.section {
+  position: relative;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 91, 255, 0.3), transparent);
+}
+
+/* Enhanced focus states for accessibility and professionalism */
+.btn:focus-visible,
+.trust-signal:focus-visible,
+.certification-badge:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Professional loading states */
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Mobile responsiveness for authority elements */
+@media (max-width: 768px) {
+  .authority-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .authority-metric {
+    padding: 1.5rem 1rem;
+  }
+  
+  .authority-value {
+    font-size: 2.25rem;
+  }
+  
+  .authority-label {
+    font-size: 0.875rem;
+  }
+  
+  .certifications-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cert-badge {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .authority-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .authority-value {
+    font-size: 2rem;
+  }
+  
+  .section-headline::after {
+    width: 40px;
+    height: 2px;
+  }
+}
+
+/* Print styles for professional documentation */
+@media print {
+  .trust-signal,
+  .certification-badge,
+  .authority-metric {
+    break-inside: avoid;
+  }
+  
+  .authority-grid,
+  .certifications-grid {
+    display: block;
+  }
+  
+  .authority-metric,
+  .cert-badge {
+    margin-bottom: 1rem;
+    page-break-inside: avoid;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .trust-signal,
+  .certification-badge,
+  .authority-metric {
+    border-width: 2px;
+    border-color: currentColor;
+  }
+  
+  .authority-value {
+    color: currentColor;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .trust-signal,
+  .certification-badge,
+  .authority-metric,
+  .cert-badge,
+  .btn {
+    transition: none;
+  }
+  
+  .trust-signal:hover,
+  .certification-badge:hover,
+  .authority-metric:hover {
+    transform: none;
+  }
+  
+  .btn::before {
+    display: none;
+  }
+}
