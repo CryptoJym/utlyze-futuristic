@@ -431,3 +431,248 @@ select:focus-visible,
     max-width: 1400px !important;
   }
 }
+
+
+/* ========================================
+   ENTERPRISE MSP ENHANCEMENTS
+   ======================================== */
+
+/* Hero trust signals styling */
+.hero-trust-signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0, 91, 255, 0.12);
+}
+
+.trust-signal {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 91, 255, 0.12);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.trust-signal:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 91, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.trust-icon {
+  font-size: 1.2rem;
+}
+
+.trust-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* Enterprise trust metrics section */
+.section--compact {
+  padding: 3rem 0 !important;
+}
+
+.trust-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.trust-metric {
+  text-align: center;
+  padding: 1.5rem 1rem !important;
+  transition: all 0.3s ease;
+}
+
+.trust-metric:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 91, 255, 0.15);
+}
+
+.metric-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.metric-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Certification badges */
+.certifications-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.certification-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, rgba(0, 91, 255, 0.08), rgba(255, 122, 0, 0.08));
+  border: 1px solid rgba(0, 91, 255, 0.15);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.certification-badge:hover {
+  background: linear-gradient(135deg, rgba(0, 91, 255, 0.12), rgba(255, 122, 0, 0.12));
+  border-color: rgba(0, 91, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.cert-icon {
+  font-size: 1.1rem;
+}
+
+.cert-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Enhanced tier cards for MSP positioning */
+.tier-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.tier-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tier-card:hover::before {
+  opacity: 1;
+}
+
+.tier-card--featured::before {
+  opacity: 1;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
+}
+
+/* Enhanced comparison cards */
+.comparison-card {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.comparison-card:hover {
+  transform: translateY(-2px);
+}
+
+.comparison-card h4 {
+  color: var(--color-primary) !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+/* Mobile responsiveness for trust signals */
+@media (max-width: 768px) {
+  .hero-trust-signals {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .trust-signal {
+    justify-content: center;
+    min-width: 200px;
+  }
+  
+  .trust-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .metric-value {
+    font-size: 2rem;
+  }
+  
+  .certifications-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .certification-badge {
+    justify-content: center;
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .trust-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .metric-value {
+    font-size: 1.75rem;
+  }
+}
+
+/* Enhanced button hover states for enterprise feel */
+.btn--primary:hover {
+  background: var(--color-primary-hover) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 20px rgba(0, 91, 255, 0.3) !important;
+}
+
+.btn--outline:hover {
+  background: rgba(0, 91, 255, 0.08) !important;
+  border-color: var(--color-primary) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Subtle animations for enterprise credibility */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.trust-metric,
+.certification-badge,
+.comparison-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.trust-metric:nth-child(2) { animation-delay: 0.1s; }
+.trust-metric:nth-child(3) { animation-delay: 0.2s; }
+.trust-metric:nth-child(4) { animation-delay: 0.3s; }
+
+.certification-badge:nth-child(2) { animation-delay: 0.1s; }
+.certification-badge:nth-child(3) { animation-delay: 0.2s; }
+.certification-badge:nth-child(4) { animation-delay: 0.3s; }
