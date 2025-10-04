@@ -39,7 +39,7 @@
 		.roi-bar { height: 8px; border-radius: 6px; background: rgba(0,0,0,0.06); overflow: hidden; }
 		.roi-bar > span { display: block; height: 100%; background: linear-gradient(90deg, #005BFF, #FF7A00); width: 0%; transition: width 0.4s ease; }
 		/* Subnav */
-		.roi-subnav { position: sticky; top: 80px; z-index: 3; backdrop-filter: var(--utlyze-backdrop-blur); background: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; padding: 8px 12px; display: inline-flex; gap: 8px; }
+		.roi-subnav { position: sticky; top: 80px; z-index: var(--z-base); backdrop-filter: var(--utlyze-backdrop-blur); background: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; padding: 8px 12px; display: inline-flex; gap: 8px; }
 		.roi-subnav a { text-decoration: none; padding: 8px 12px; border-radius: 999px; border: 1px solid transparent; color: var(--utlyze-text-dark); }
 		.roi-subnav a:hover { border-color: rgba(0, 91, 255, 0.25); }
 		/* Chips */
@@ -52,13 +52,13 @@
 		.roi-summary-row { display: flex; align-items: center; justify-content: space-between; margin: 6px 0; }
 		.roi-summary-row strong { font-weight: 700; }
 		/* Mobile sticky CTA */
-		#mobileCtaBar { position: fixed; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.9); backdrop-filter: var(--utlyze-backdrop-blur); border-top: 1px solid rgba(0,0,0,0.08); padding: 10px 16px; display: flex; justify-content: center; gap: 12px; z-index: 10; }
+		#mobileCtaBar { position: fixed; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.9); backdrop-filter: var(--utlyze-backdrop-blur); border-top: 1px solid rgba(0,0,0,0.08); padding: 10px 16px; display: flex; justify-content: center; gap: 12px; z-index: var(--z-fixed); }
 		@media (min-width: 900px) { #mobileCtaBar { display: none; } }
 
 		/* Ensure primary calculate button is always clickable on small screens */
 		.roi-card { position: relative; }
-		#simpleFields { position: relative; z-index: 1; }
-		#btnCalc { position: relative; z-index: 1001; }
+		#simpleFields { position: relative; z-index: var(--z-base); }
+		#btnCalc { position: relative; z-index: var(--z-dropdown); }
 
 		/* On small screens, keep the primary action fixed and above other elements */
 		@media (max-width: 900px) {
@@ -67,7 +67,7 @@
 		    left: 16px;
 		    right: 16px;
 		    bottom: 96px; /* leave room for mobile CTA bar */
-		    z-index: 2147483647; /* ensure on top */
+		    z-index: var(--z-toast); /* ensure on top */
 		  }
 		}
 
@@ -91,7 +91,7 @@
 	<section class="section">
 		<div class="container">
 			<div class="roi-hero hero">
-				<h1 class="section-headline">Cut AI spend 30–70% without sacrificing quality</h1>
+				<h1 class="section-headline" style="background: linear-gradient(135deg, var(--utlyze-text-dark) 0%, var(--utlyze-blue) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Cut AI spend 30–70% without sacrificing quality</h1>
 				<p class="section-subtext">Private models. Predictable pricing. Results you can measure.</p>
                     <div class="hero-buttons" style="margin-top: 12px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
                         <a class="btn btn--primary" href="#calculator" id="seeSavingsCta" data-analytics-id="roi_hero_primary">See Your Savings</a>
@@ -110,7 +110,7 @@
 
 			<!-- Success Story -->
 			<div class="glass-card" style="margin: 16px 0;">
-				<h3 style="text-align:center;">Success Story</h3>
+				<h2 style="text-align:center;">Success Story</h2>
 				<div style="position:relative; padding-top:56.25%; border-radius:12px; overflow:hidden; background: rgba(0,0,0,0.05);">
 					<!-- Video placeholder - uncomment and replace VIDEO_ID when available -->
 					<!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Utlyze Success Story" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" loading="lazy" allowfullscreen></iframe> -->
@@ -130,7 +130,7 @@
 
 			<!-- How It Works -->
 			<div class="glass-card" style="margin: 16px 0;">
-				<h3 style="text-align:center;">How it works</h3>
+				<h2 style="text-align:center;">How it works</h2>
 				<div class="value-grid">
 					<div class="value-card"><div><strong>1. Share your task</strong><div class="small-muted">Define your use case and data shape.</div></div></div>
 					<div class="value-card"><div><strong>2. We fine‑tune & host</strong><div class="small-muted">Private deployments with predictable costs.</div></div></div>
@@ -141,7 +141,7 @@
 
 			<!-- FAQ (improved) -->
 			<div class="glass-card" style="margin: 16px 0;">
-				<h3 style="text-align:center;">FAQ</h3>
+				<h2 style="text-align:center;">FAQ</h2>
 				<div class="faq-grid">
 					<div class="value-card"><div><strong>How is the model secured?</strong><div class="small-muted">VPC isolation, encryption in transit/at rest, RBAC, and audit logs. Private by default.</div></div></div>
 					<div class="value-card"><div><strong>Will performance match GPT‑4?</strong><div class="small-muted">We validate on your eval set and ensure parity or fall back strategies where needed.</div></div></div>
@@ -155,7 +155,7 @@
 			<div class="roi-grid" id="overview">
 				<!-- Left: Calculator first -->
 				<div class="roi-card roi-calculator" id="calculator">
-					<h3>Estimate Your Savings</h3>
+					<h2>Estimate Your Savings</h2>
 					<form id="calcForm" class="roi-form">
 						<!-- Mode toggle -->
 					<fieldset role="radiogroup" aria-label="Calculator mode" style="border:0; padding:0; margin:0;">
@@ -208,7 +208,7 @@
 						<!-- removed for essentialism -->
 
 						<hr>
-                        <h3>Tell us where to send your estimate</h3>
+                        <h2>Tell us where to send your estimate</h2>
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label" for="roiName">Name</label>
@@ -296,7 +296,7 @@
 					</form>
 
 					<div id="roiResults" class="roi-results" style="display:none; margin-top: 12px;" aria-live="polite">
-						<h3 id="resultsHeading" style="margin:0 0 8px 0;">Your estimate</h3>
+						<h2 id="resultsHeading" style="margin:0 0 8px 0;">Your estimate</h2>
 						<p><strong>Current monthly API spend:</strong> $<span id="currentSpend"></span></p>
 						<p><strong>Projected monthly with Utlyze:</strong> $<span id="utlyzeCost"></span></p>
 						<p><strong>Monthly savings:</strong> $<span id="savings"></span></p>
@@ -335,6 +335,8 @@
 	<!-- Site Footer Mount Point -->
 	<div id="site-footer-mount"></div>
 
+	<!-- Error Tracking -->
+	<script src="../utils/errorTracking.js"></script>
 	<script src="../app.js"></script>
 	<script src="./app.js"></script>
 </body>
