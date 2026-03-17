@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Utlyze — Automation Preview</title>
+    <meta name="description" content="Personalized automation concept preview" />
+    <style>
+      :root {
+        --bg: #030712;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #c9a227;
+        --card: rgba(255, 255, 255, 0.04);
+        --border: rgba(255, 255, 255, 0.08);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      .wrap { max-width: 1040px; margin: 0 auto; padding: 56px 20px 72px; }
+      .eyebrow { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .28em; }
+      h1 { font-size: clamp(28px, 4.2vw, 52px); line-height: 1.12; margin: 18px 0 12px; }
+      .company { color: var(--accent); }
+      .sub { color: var(--muted); max-width: 760px; line-height: 1.6; margin-bottom: 28px; }
+      .video { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #000; }
+      .video video { width: 100%; display: block; }
+      .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+      .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+      .card h3 { margin: 0 0 10px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+      .card p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
+      .cta { text-align: center; margin-top: 44px; }
+      .cta h2 { margin: 0 0 10px; font-size: clamp(24px, 3vw, 34px); }
+      .cta p { margin: 0 auto 22px; max-width: 640px; color: var(--muted); }
+      .btn {
+        display: inline-block;
+        text-decoration: none;
+        color: #111;
+        background: linear-gradient(135deg, var(--accent), #a08520);
+        padding: 14px 28px;
+        border-radius: 12px;
+        font-weight: 700;
+      }
+      @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <div class="eyebrow">UTLYZE</div>
+      <h1>Automation concept for <span id="company" class="company">your company</span></h1>
+      <p id="subtitle" class="sub">A quick visual of the workflow we’d build for your team.</p>
+
+      <section class="video">
+        <video id="previewVideo" controls preload="metadata"></video>
+      </section>
+
+      <section class="grid">
+        <article class="card"><h3>Problem</h3><p id="need"></p></article>
+        <article class="card"><h3>Approach</h3><p id="angle"></p></article>
+        <article class="card"><h3>Outcome</h3><p id="roi"></p></article>
+      </section>
+
+      <section class="cta">
+        <h2>Want this live in your stack?</h2>
+        <p>We’ll map this to your exact tools and process in 20 minutes.</p>
+        <a id="bookBtn" class="btn" href="/contact">Book with James</a>
+      </section>
+    </main>
+
+    <script>
+      const VIDEO_HOST = 'https://utlyze-preview.vercel.app/videos';
+      const DEFAULT_VIDEO = 'RevenueLeakRecoveryTemplate.mp4';
+      const templateMap = {
+        missedcallrecoverytemplate: 'MissedCallRecoveryTemplate.mp4',
+        emergencydispatchtemplate: 'EmergencyDispatchTemplate.mp4',
+        stormestimateflowtemplate: 'StormEstimateFlowTemplate.mp4',
+        bidpipelinetemplate: 'BidPipelineTemplate.mp4',
+        revenueleakrecoverytemplate: 'RevenueLeakRecoveryTemplate.mp4',
+        seasonalsurgetemplate: 'SeasonalSurgeTemplate.mp4',
+        quotetojobtemplate: 'QuoteToJobTemplate.mp4'
+      };
+
+      const q = new URLSearchParams(window.location.search);
+      const company = q.get('company') || 'your company';
+      const template = q.get('template') || '';
+      const need = q.get('need') || 'Leads are slipping through follow-up gaps between first contact and close.';
+      const angle = q.get('angle') || 'We automate response, routing, and follow-up so your team closes more work with less manual effort.';
+      const roi = q.get('roi') || 'Higher conversion from existing lead volume and faster response times.';
+      const offering = q.get('offering') || '';
+      const accent = q.get('accent');
+
+      if (accent && /^#?[0-9a-fA-F]{6}$/.test(accent)) {
+        const val = accent.startsWith('#') ? accent : `#${accent}`;
+        document.documentElement.style.setProperty('--accent', val);
+      }
+
+      function normalize(value) {
+        return String(value || '').toLowerCase().replace(/\.mp4$/i, '').replace(/[^a-z0-9]+/g, '');
+      }
+
+      function resolveVideo() {
+        if (/^https?:\/\//i.test(template)) return template;
+        if (/\.mp4$/i.test(template)) return `${VIDEO_HOST}/${template.replace(/^\/?videos\//i, '').replace(/^\//, '')}`;
+        const key = normalize(template || offering);
+        const file = templateMap[key] || DEFAULT_VIDEO;
+        return `${VIDEO_HOST}/${file}`;
+      }
+
+      document.title = `Utlyze — ${company} Automation Preview`;
+      document.getElementById('company').textContent = company;
+      document.getElementById('subtitle').textContent = `A quick visual of the workflow we'd build for ${company}.`;
+      document.getElementById('need').textContent = need;
+      document.getElementById('angle').textContent = angle;
+      document.getElementById('roi').textContent = roi;
+      document.getElementById('previewVideo').src = resolveVideo();
+
+      const book = document.getElementById('bookBtn');
+      const bookUrl = new URL('/contact', window.location.origin);
+      bookUrl.searchParams.set('company', company);
+      if (template) bookUrl.searchParams.set('template', template);
+      if (offering) bookUrl.searchParams.set('offering', offering);
+      book.href = bookUrl.toString();
+    </script>
+  </body>
+</html>
